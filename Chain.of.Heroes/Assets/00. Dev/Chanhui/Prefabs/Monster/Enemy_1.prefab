@@ -42,10 +42,10 @@ GameObject:
   - component: {fileID: 2613088952420678997}
   - component: {fileID: 4487955735849804943}
   - component: {fileID: 1373308299882667326}
+  - component: {fileID: 1761151134555682685}
   - component: {fileID: 1212361113084644278}
   - component: {fileID: 9054943789650772714}
   - component: {fileID: 340533880665808918}
-  - component: {fileID: 6030806032592465833}
   m_Layer: 16
   m_Name: Enemy_1
   m_TagString: Untagged
@@ -95,11 +95,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4a417cd945847f4cbac5553b3a2861f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnemy: 1
-  newEnemyActionPoints: 2
-  SoloEnemyActionPoints: 0
-  enemyType: 0
-  inRange: 0
+  isEnemy: 0
+--- !u!114 &1761151134555682685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3695012023952319668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb4358b1641368643924ef3efb5a242d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxMoveDistance: 3
 --- !u!114 &1212361113084644278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,9 +121,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23a8e64c32fff9740b3609ee3cb34945, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstaclesLayerMask:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!114 &9054943789650772714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,20 +148,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 708664b9b5742fb4a99bb43a113ab902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
---- !u!114 &6030806032592465833
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3695012023952319668}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 929d06271f7cc2e4fbf2d2b7ef58bdd2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxMoveDistance: 2
 --- !u!1 &7420146111581597954
 GameObject:
   m_ObjectHideFlags: 0
@@ -252,7 +244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 641d511f3a2dbb7459d3b377ec00c4ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unit: {fileID: 0}
+  character: {fileID: 1373308299882667326}
 --- !u!1001 &9167491704397341037
 PrefabInstance:
   m_ObjectHideFlags: 0
