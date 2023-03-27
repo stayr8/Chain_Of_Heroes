@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActionBusyUI : MonoBehaviour
+public class NextTurnUI : MonoBehaviour
 {
-
     private void Start()
     {
         BindingManager.Bind(TurnSystem.Property, "IsPlayerTurn", (object value) =>
@@ -13,7 +12,7 @@ public class ActionBusyUI : MonoBehaviour
             {
                 Show();
             }
-            
+
         });
 
         Hide();
@@ -28,5 +27,4 @@ public class ActionBusyUI : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
-
 }

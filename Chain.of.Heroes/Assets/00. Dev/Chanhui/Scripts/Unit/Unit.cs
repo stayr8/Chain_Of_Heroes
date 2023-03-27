@@ -29,8 +29,6 @@ public class Unit : MonoBehaviour
 
     [SerializeField] private EnemyType enemyType;
 
-    [SerializeField] private bool inRange;
-
     private void Awake()
     {
         healthSystem = GetComponent<HealthSystem>();
@@ -58,7 +56,6 @@ public class Unit : MonoBehaviour
 
 
         SoloEnemyActionPoints = newEnemyActionPoints;
-        inRange = false;
 
         gridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
         LevelGrid.Instance.AddUnitAtGridPosition(gridPosition, this);
@@ -180,16 +177,6 @@ public class Unit : MonoBehaviour
     public bool IsEnemy()
     {
         return isEnemy;
-    }
-
-    public bool GetInRange()
-    {
-        return inRange;
-    }
-
-    public void InRange(bool inRange)
-    {
-        this.inRange = inRange;
     }
 
     public int GetEnemyActionPoint()

@@ -6,7 +6,8 @@ using UnityEngine.UI;
 using TMPro;
 
 
-public class TurnSystem : MonoBehaviour
+
+public partial class TurnSystem : MonoBehaviour
 {
     public class TurnProperty : ViewModel
     {
@@ -98,6 +99,8 @@ public class TurnSystem : MonoBehaviour
 
     private void Start()
     {
+        Initialize();
+
         BindingManager.Bind(TurnSystem.Property, "IsPlayerTurn", (object value) =>
         {
             NextTurn();

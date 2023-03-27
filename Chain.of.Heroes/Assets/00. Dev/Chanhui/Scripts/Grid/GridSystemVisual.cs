@@ -46,14 +46,7 @@ public class GridSystemVisual : MonoBehaviour
 
     private void Start()
     {
-        BindingManager.Bind(TurnSystem.Property, "IsPlayerTurn", (object value) =>
-        {
-            if (!TurnSystem.Property.IsPlayerTurn)
-            {
-                HideAllGridPosition();
-            }
-        });
-
+        
         gridSystemVisualSingleArray = new GridSystemVisualSingle[
             LevelGrid.Instance.GetWidth(),
             LevelGrid.Instance.GetHeight()
@@ -313,7 +306,6 @@ public class GridSystemVisual : MonoBehaviour
                 break;
         }
 
-
         ShowGridPositionList(selectedAction.GetValidActionGridPositionList(), gridVisualType);
     }
 
@@ -332,11 +324,6 @@ public class GridSystemVisual : MonoBehaviour
         UpdateGridVisual();
     }
 
-    /*
-    public void TurnSystem_OffPlayerGrid(object sender, EventArgs e)
-    {
-        HideAllGridPosition();
-    }*/
 
     private Material GetGridVisualTypeMaterial(GridVisualType gridVisualType)
     {

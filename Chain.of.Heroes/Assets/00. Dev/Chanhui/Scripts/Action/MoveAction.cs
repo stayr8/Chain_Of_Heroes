@@ -135,8 +135,9 @@ public class MoveAction : BaseAction
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
     {
-        int targetCountAtGridPosition = 0;
+        //int targetCountAtGridPosition = 0;
         
+        /*
         if (unit.GetEnemyVisualType() == Unit.EnemyType.Archer)
         {
             targetCountAtGridPosition = unit.GetAction<ReadyAction>().GetTargetCountAtPosition(gridPosition);
@@ -144,12 +145,12 @@ public class MoveAction : BaseAction
         else if (unit.GetEnemyVisualType() == Unit.EnemyType.Sword) 
         {
             targetCountAtGridPosition = unit.GetAction<KingAction>().GetTargetCountAtPosition(gridPosition);
-        }
+        }*/
 
         return new EnemyAIAction
         {
             gridPosition = gridPosition,
-            actionValue = targetCountAtGridPosition * 10,
+            actionValue = 0,
         };
     }
 }

@@ -170,7 +170,7 @@ public class QueenAction : BaseAction
                     
                     continue;
                 }
-                targetUnit.InRange(true);
+                
                 if (targetUnit.IsEnemy() == unit.IsEnemy())
                 {
                     // Both Units on same 'team'
