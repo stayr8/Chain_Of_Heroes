@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ActionBusyUI : MonoBehaviour
 {
-
     private void Start()
     {
         BindingManager.Bind(TurnSystem.Property, "IsPlayerTurn", (object value) =>

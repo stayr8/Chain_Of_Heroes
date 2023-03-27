@@ -4,27 +4,47 @@ using UnityEngine;
 
 public class NextTurnUI : MonoBehaviour
 {
+    [SerializeField] private GameObject PlayerTurn;
+    [SerializeField] private GameObject EnemyTurn;
+
     private void Start()
     {
         BindingManager.Bind(TurnSystem.Property, "IsPlayerTurn", (object value) =>
         {
-            if (TurnSystem.Property._isPlayerTurn)
+            if (TurnSystem.Property.IsPlayerTurn)
             {
-                Show();
+                PlayerShow();
+                EnemyHide();
+            }
+            else
+            {
+                EnemyShow();
+                PlayerHide();
             }
 
         });
 
-        Hide();
+        PlayerHide();
+        EnemyHide();
     }
 
-    private void Show()
+    private void PlayerShow()
     {
-        gameObject.SetActive(true);
+        PlayerTurn.SetActive(true);
     }
 
-    private void Hide()
+    private void PlayerHide()
     {
-        gameObject.SetActive(false);
+        PlayerTurn.SetActive(false);
+    }
+
+    private void EnemyShow()
+    {
+        EnemyTurn.SetActive(true);
+    }
+
+    private void EnemyHide()
+    {
+        EnemyTurn.SetActive(false);
     }
 }

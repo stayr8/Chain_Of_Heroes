@@ -116,13 +116,13 @@ public partial class TurnSystem : MonoBehaviour
             {
                 OnVictorySystemUI();
                 OnVictoryPlayerVisual();
-                turnNumberText.text = "TURN : " + TurnSystem.Property.TurnNumber;
+                turnNumberText.text = "" + TurnSystem.Property.TurnNumber;
             }
             else if (UnitManager.Instance.VictoryEnemy())
             {
                 OnVictorySystemUI();
                 OnVictoryEnemyVisual();
-                turnNumberText.text = "TURN : " + TurnSystem.Property.TurnNumber;
+                turnNumberText.text = "" + TurnSystem.Property.TurnNumber;
             }
 
         });
