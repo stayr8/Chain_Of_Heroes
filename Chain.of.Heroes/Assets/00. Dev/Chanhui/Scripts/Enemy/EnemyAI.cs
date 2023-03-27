@@ -106,7 +106,7 @@ public class EnemyAI : MonoBehaviour
             if(bestEnemyAIAction == null)
             {
                 bestEnemyAIAction = baseAction.GetBestEnemyAIAction();
-                bestBaseAction = baseAction;   
+                bestBaseAction = baseAction;
             }
             else
             {

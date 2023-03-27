@@ -109,6 +109,7 @@ public class Pathfinding : MonoBehaviour
                     continue;
                 }
                 
+
                 if (LevelGrid.Instance.HasAnyUnitOnGridPosition(neighbourNode.GetGridPosition()))
                 {
                     closedList.Add(neighbourNode); 

@@ -14,7 +14,6 @@ public class UnitActionSystem : MonoBehaviour
     public event EventHandler OffSelectedUnitChanged;
     public event EventHandler OnSelectedActionChanged;
     public event EventHandler OffSelectedActionChanged;
-    public event EventHandler<bool> OnBusyUnit;
     public event EventHandler OnActionStarted;
 
     [SerializeField] private Unit selectedUnit;
@@ -94,14 +93,12 @@ public class UnitActionSystem : MonoBehaviour
     {
         isBusy = true;
 
-        OnBusyUnit?.Invoke(this, isBusy);
     }
 
     private void ClearBusy()
     {
         isBusy = false;
 
-        OnBusyUnit?.Invoke(this, isBusy);
     }
 
     private bool TryHandleUnitSelection()

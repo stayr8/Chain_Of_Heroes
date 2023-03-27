@@ -148,4 +148,9 @@ public class KingAction : BaseAction
     {
         return GetValidActionGridPositionList(gridPosition).Count;
     }
+
+    public override int GetActionPointsCost()
+    {
+        return 2;
+    }
 }

@@ -8,10 +8,12 @@ public class EnemyMoveAction : BaseAction
     public event EventHandler OnStartMoving;
     public event EventHandler OnStopMoving;
 
+    [SerializeField] private int maxSearchDistance = 0;
     [SerializeField] private int maxMoveDistance = 0;
 
     private List<Vector3> positionList;
     private int currentPositionIndex = 0;
+
 
 
     private void Update()
@@ -48,6 +50,7 @@ public class EnemyMoveAction : BaseAction
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
+
         List<GridPosition> pathgridPositionList = Pathfinding.Instance.AttackFindPath(unit.GetGridPosition(), gridPosition, out int pathLength);
 
         currentPositionIndex = 1;
@@ -70,9 +73,9 @@ public class EnemyMoveAction : BaseAction
 
         GridPosition unitGridPosition = unit.GetGridPosition();
 
-        for (int x = -maxMoveDistance; x <= maxMoveDistance; x++)
+        for (int x = -maxSearchDistance; x <= maxSearchDistance; x++)
         {
-            for (int z = -maxMoveDistance; z <= maxMoveDistance; z++)
+            for (int z = -maxSearchDistance; z <= maxSearchDistance; z++)
             {
                 GridPosition offsetGridPosition = new GridPosition(x, z);
                 GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
@@ -82,15 +85,17 @@ public class EnemyMoveAction : BaseAction
                     continue;
                 }
 
+                
                 if (unitGridPosition == testGridPosition)
                 {
                     // Same Grid Position where the character is already at
                     continue;
                 }
 
+
                 int testDistance = Mathf.Abs(x) + Mathf.Abs(z);
                 int maxMovevalue = (maxMoveDistance * 2) - 1;
-
+                
                 if (testDistance >= maxMovevalue)
                 {
                     continue;
@@ -101,18 +106,19 @@ public class EnemyMoveAction : BaseAction
                     // Grid Position already occupied with another Character
                     continue;
                 }
+                
 
                 if (!Pathfinding.Instance.IsWalkableGridPosition(testGridPosition))
                 {
                     continue;
                 }
 
-                if (!Pathfinding.Instance.HasPath(unitGridPosition, testGridPosition))
+                
+                if (!Pathfinding.Instance.HasAtPath(unitGridPosition, testGridPosition))
                 {
                     continue;
                 }
-
-
+                
                 int pathfindingDistanceMultiplier = 12;
                 if (Pathfinding.Instance.GetPathLength(unitGridPosition, testGridPosition) > maxMoveDistance * pathfindingDistanceMultiplier)
                 {
@@ -126,6 +132,8 @@ public class EnemyMoveAction : BaseAction
 
         return validGridPositionList;
     }
+
+
 
     public override string GetActionName()
     {
@@ -145,10 +153,24 @@ public class EnemyMoveAction : BaseAction
             targetCountAtGridPosition = unit.GetAction<KingAction>().GetTargetCountAtPosition(gridPosition);
         }
 
+
         return new EnemyAIAction
         {
             gridPosition = gridPosition,
             actionValue = targetCountAtGridPosition * 10,
         };
+    }
+
+    public override int GetActionPointsCost()
+    {
+        if (unit.GetEnemyVisualType() == Unit.EnemyType.Archer)
+        {
+            return 1;
+        }
+        else if (unit.GetEnemyVisualType() == Unit.EnemyType.Sword)
+        {
+            return 2;
+        }
+        return 0;
     }
 }
