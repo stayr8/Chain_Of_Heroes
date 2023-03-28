@@ -136,7 +136,7 @@ public class KingAction : BaseAction
 
     public override string GetActionName()
     {
-        return "King";
+        return "ŷ";
     }
 
     public int GetMaxKingDistance()
@@ -152,5 +152,10 @@ public class KingAction : BaseAction
     public override int GetActionPointsCost()
     {
         return 2;
+    }
+
+    public override string GetSingleActionPoint()
+    {
+        return "1";
     }
 }

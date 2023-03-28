@@ -18,19 +18,20 @@ public class TurnSystemUI : MonoBehaviour
             turnNumberText.text = "TURN " + TurnSystem.Property.TurnNumber;
         });
 
+        /*
         BindingManager.Bind(TurnSystem.Property, "IsPlayerTurn", (object value) =>
         {
             UpdateEnemyTurnvisual();
-        });
+        });*/
 
     }
 
 
-   
+    /*
     private void UpdateEnemyTurnvisual()
     {
         enemyTurnVisualGameObject.SetActive(!TurnSystem.Property.IsPlayerTurn);
-    }
+    }*/
 
 
 }

@@ -130,7 +130,12 @@ public class MoveAction : BaseAction
 
     public override string GetActionName()
     {
-        return "Move";
+        return "¿Ãµø";
+    }
+
+    public override string GetSingleActionPoint()
+    {
+        return "1";
     }
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)

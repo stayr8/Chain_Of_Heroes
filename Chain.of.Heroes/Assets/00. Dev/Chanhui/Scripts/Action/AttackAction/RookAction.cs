@@ -216,6 +216,10 @@ public class RookAction : BaseAction
 
     public override string GetActionName()
     {
-        return "Rook";
+        return "·Ï";
+    }
+    public override string GetSingleActionPoint()
+    {
+        return "1";
     }
 }

@@ -215,6 +215,11 @@ public class BishopAction : BaseAction
 
     public override string GetActionName()
     {
-        return "Bishop";
+        return "ºñ¼ó";
+    }
+
+    public override string GetSingleActionPoint()
+    {
+        return "1";
     }
 }

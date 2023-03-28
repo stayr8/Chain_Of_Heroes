@@ -99,7 +99,14 @@ public class UnitActionSystemUI : MonoBehaviour
 
     private void UpdateActionPoints()
     {
-        actionPointsText.text = "Action Points: " + TurnSystem.Property.ActionPoints;
+        if (TurnSystem.Property.IsPlayerTurn)
+        {
+            actionPointsText.text = "AP  " + TurnSystem.Property.ActionPoints + "/" + TurnSystem.Property.AllPlayerPoint;
+        }
+        else
+        {
+            actionPointsText.text = "AP  " + TurnSystem.Property.ActionPoints + "/" + TurnSystem.Property.AllEnemyPoint;
+        }
     }
 
     private void TurnSystem_OnTurnChanged(object sender, EventArgs e)

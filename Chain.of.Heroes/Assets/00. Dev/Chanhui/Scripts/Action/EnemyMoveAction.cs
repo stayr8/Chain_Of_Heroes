@@ -173,4 +173,9 @@ public class EnemyMoveAction : BaseAction
         }
         return 0;
     }
+
+    public override string GetSingleActionPoint()
+    {
+        return "";
+    }
 }

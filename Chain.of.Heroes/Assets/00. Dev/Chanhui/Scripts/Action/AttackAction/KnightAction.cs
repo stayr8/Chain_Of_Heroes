@@ -233,6 +233,11 @@ public class KnightAction : BaseAction
 
     public override string GetActionName()
     {
-        return "Knight";
+        return "³ªÀÌÆ®";
+    }
+
+    public override string GetSingleActionPoint()
+    {
+        return "1";
     }
 }

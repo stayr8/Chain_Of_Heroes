@@ -20,6 +20,7 @@ public abstract class BaseAction : MonoBehaviour
     }
 
     public abstract string GetActionName();
+    public abstract string GetSingleActionPoint();
 
     public abstract void TakeAction(GridPosition gridPosition, Action onActionComplete);
 

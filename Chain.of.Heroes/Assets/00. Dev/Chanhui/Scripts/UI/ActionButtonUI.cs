@@ -8,6 +8,7 @@ public class ActionButtonUI : MonoBehaviour
 {
 
     [SerializeField] private TextMeshProUGUI textMeshPro;
+    [SerializeField] private TextMeshProUGUI textMeshProPoint;
     [SerializeField] private Button button;
     [SerializeField] private GameObject selectedGameObject;
 
@@ -18,6 +19,7 @@ public class ActionButtonUI : MonoBehaviour
     {
         this.baseAction = baseAction;
         textMeshPro.text = baseAction.GetActionName().ToUpper();
+        textMeshProPoint.text = "AP " + baseAction.GetSingleActionPoint().ToUpper();
 
         button.onClick.AddListener(() => {
             UnitActionSystem.Instance.SetSelectedAction(baseAction);

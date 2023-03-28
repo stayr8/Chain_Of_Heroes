@@ -204,4 +204,9 @@ public class ReadyAction : BaseAction
     {
         return GetValidActionGridPositionList(gridPosition).Count;
     }
+
+    public override string GetSingleActionPoint()
+    {
+        return "1";
+    }
 }

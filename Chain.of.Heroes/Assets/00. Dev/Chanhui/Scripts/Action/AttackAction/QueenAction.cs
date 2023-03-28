@@ -237,6 +237,11 @@ public class QueenAction : BaseAction
 
     public override string GetActionName()
     {
-        return "Queen";
+        return "Äý";
+    }
+
+    public override string GetSingleActionPoint()
+    {
+        return "1";
     }
 }

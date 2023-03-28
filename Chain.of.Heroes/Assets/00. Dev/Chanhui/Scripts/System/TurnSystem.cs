@@ -13,9 +13,12 @@ public partial class TurnSystem : MonoBehaviour
     {
         private int _turnNumber = 0;
         private int _actionPoints = 0;
+        private int _allPlayerPoints = 0;
+        private int _allEnemyPoints = 0;
         public bool _isPlayerTurn = true;
         public bool _isEnemyPointCheck = false;
         public bool _isTurnEnd = false;
+        
         public int TurnNumber
         {
             get
@@ -36,6 +39,28 @@ public partial class TurnSystem : MonoBehaviour
             set
             {
                 Set<int>(ref _actionPoints, value);
+            }
+        }
+        public int AllPlayerPoint
+        {
+            get
+            {
+                return _allPlayerPoints;
+            }
+            set
+            {
+                Set<int>(ref _allPlayerPoints, value);
+            }
+        }
+        public int AllEnemyPoint
+        {
+            get
+            {
+                return _allEnemyPoints;
+            }
+            set
+            {
+                Set<int>(ref _allEnemyPoints, value);
             }
         }
         public bool IsPlayerTurn
@@ -85,9 +110,6 @@ public partial class TurnSystem : MonoBehaviour
     //public event EventHandler OnAnyEnemyPoint;
     public event EventHandler OffPlayerGrid;
 
-    [SerializeField] private int PlayerPoint = 0;
-    [SerializeField] private int allEnemyPoint = 0;
-
     private List<Unit> AllEnemyList;
     private int currentEnemyPoint;
 
@@ -127,7 +149,7 @@ public partial class TurnSystem : MonoBehaviour
 
         });
 
-        Property.ActionPoints = PlayerPoint;
+        Property.ActionPoints = Property.AllPlayerPoint;
     }
 
     public void NextTurn()
@@ -144,13 +166,13 @@ public partial class TurnSystem : MonoBehaviour
     {
         if (!Property.IsPlayerTurn)
         {
-            Property.ActionPoints = allEnemyPoint;
+            Property.ActionPoints = Property.AllEnemyPoint;
 
             OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
         }
         else
         {
-            Property.ActionPoints = PlayerPoint;
+            Property.ActionPoints = Property.AllPlayerPoint;
 
             OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
         }
@@ -169,10 +191,10 @@ public partial class TurnSystem : MonoBehaviour
             currentEnemyPoint += AllEnemyList[i].GetEnemyActionPoint();
         }
 
-        if (currentEnemyPoint < allEnemyPoint)
+        if (currentEnemyPoint < Property.AllEnemyPoint)
         {
             
-            int newEnemyPoint = allEnemyPoint - currentEnemyPoint;
+            int newEnemyPoint = Property.AllEnemyPoint - currentEnemyPoint;
 
             for (int i = 0; i < AllEnemyList.Count; i++)
             {

@@ -74,6 +74,11 @@ public class EmptyAction : BaseAction
         return "Empty";
     }
 
+    public override string GetSingleActionPoint()
+    {
+        return "";
+    }
+
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
     {
         return new EnemyAIAction
