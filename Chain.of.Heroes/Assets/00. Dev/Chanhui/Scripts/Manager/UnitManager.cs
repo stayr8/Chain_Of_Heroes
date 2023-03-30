@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class UnitManager : MonoBehaviour
@@ -11,17 +12,22 @@ public class UnitManager : MonoBehaviour
     private List<Unit> friendlyUnitList;
     private List<Unit> enemyUnitList;
 
+    public MapData mapData;
 
     private void Awake()
     {
-        if (Instance != null)
+        if(Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (Instance != null)
         {
             Debug.LogError("There's more than one UnitManager! " + transform + " - " + Instance);
             Destroy(gameObject);
             return;
         }
-        Instance = this;
-
+        
         unitList = new List<Unit>();
         friendlyUnitList = new List<Unit>();
         enemyUnitList = new List<Unit>();
@@ -29,6 +35,10 @@ public class UnitManager : MonoBehaviour
 
     private void Start()
     {
+
+        SpawnAllPlayer();
+        SpawnAllEnemy();
+
         Unit.OnAnyUnitSpawned += Unit_OnAnyUnitSpawned;
         Unit.OnAnyUnitDead += Unit_OnAnyUnitDead;
     }
@@ -64,6 +74,42 @@ public class UnitManager : MonoBehaviour
         {
             friendlyUnitList.Remove(unit);
         }
+    }
+
+    private void SpawnAllPlayer()
+    {
+        for (int i = 0; i < mapData.Player_pf.Length; i++)
+        {
+            if (mapData.Player_pf[i] != null)
+            {
+                SpawnSinglePlayer(i);
+            }
+        }
+    }
+
+    private Unit SpawnSinglePlayer(int i)
+    {
+        Unit cp = Instantiate(mapData.Player_pf[i], transform).GetComponent<Unit>();
+
+        return cp;
+    }
+
+    private void SpawnAllEnemy()
+    {
+        for (int i = 0; i < mapData.Enemy_pf.Length; i++)
+        {
+            if (mapData.Player_pf[i] != null)
+            {
+                SpawnSingleEnemy(i);
+            }
+        }
+    }
+
+    private Unit SpawnSingleEnemy(int i)
+    {
+        Unit cp = Instantiate(mapData.Enemy_pf[i], transform).GetComponent<Unit>();
+
+        return cp;
     }
 
 
