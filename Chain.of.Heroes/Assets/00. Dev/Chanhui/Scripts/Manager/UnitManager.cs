@@ -12,6 +12,8 @@ public class UnitManager : MonoBehaviour
     private List<Unit> friendlyUnitList;
     private List<Unit> enemyUnitList;
 
+    private GridPosition gridPosition;
+
     public MapData mapData;
 
     private void Awake()
@@ -19,7 +21,7 @@ public class UnitManager : MonoBehaviour
         if(Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
         else if (Instance != null)
         {
@@ -51,12 +53,16 @@ public class UnitManager : MonoBehaviour
 
         if(unit.IsEnemy())
         {
+            Debug.Log("몬스터");
             enemyUnitList.Add(unit);
         }
         else
         {
+            Debug.Log("플레이어");
             friendlyUnitList.Add(unit);
         }
+        PositionAllPlayer();
+        PositionAllEnemy();
     }
 
     private void Unit_OnAnyUnitDead(object sender, EventArgs e)
@@ -80,7 +86,7 @@ public class UnitManager : MonoBehaviour
     {
         for (int i = 0; i < mapData.Player_pf.Length; i++)
         {
-            if (mapData.Player_pf[i] != null)
+            if (true)
             {
                 SpawnSinglePlayer(i);
             }
@@ -110,6 +116,38 @@ public class UnitManager : MonoBehaviour
         Unit cp = Instantiate(mapData.Enemy_pf[i], transform).GetComponent<Unit>();
 
         return cp;
+    }
+
+    private void PositionAllPlayer()
+    {
+        for (int i = 0; i < friendlyUnitList.Count; i++)
+        {
+            Debug.Log("들어옴_2?");
+            // if문 정의하기
+            if (friendlyUnitList[i] != null)
+            {
+                Debug.Log("들어옴_1?");
+                Vector3 pos = new Vector3(mapData.PlayerXY[i].x, 0, mapData.PlayerXY[i].y);
+                friendlyUnitList[i].SetPosition(pos);
+            }
+        }
+        
+    }
+
+    private void PositionAllEnemy()
+    {
+        for (int i = 0; i < enemyUnitList.Count; i++)
+        {
+            Debug.Log("들어옴_2?");
+            // if문 정의하기
+            if (enemyUnitList[i] != null)
+            {
+                Debug.Log("들어옴_2?");
+                Vector3 pos = new Vector3(mapData.EnemyXY[i].x, 0, mapData.EnemyXY[i].y);
+                enemyUnitList[i].SetPosition(pos);
+            }
+        }
+
     }
 
 

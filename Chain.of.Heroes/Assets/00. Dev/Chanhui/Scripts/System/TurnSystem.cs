@@ -147,7 +147,7 @@ public partial class TurnSystem : MonoBehaviour
                 turnNumberText.text = "" + TurnSystem.Property.TurnNumber;
             }
 
-        });
+        },false);
 
         Property.ActionPoints = Property.AllPlayerPoint;
     }
