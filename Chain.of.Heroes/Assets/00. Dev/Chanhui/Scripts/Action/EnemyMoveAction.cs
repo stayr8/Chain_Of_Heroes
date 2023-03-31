@@ -8,7 +8,6 @@ public class EnemyMoveAction : BaseAction
     public event EventHandler OnStartMoving;
     public event EventHandler OnStopMoving;
 
-    [SerializeField] private int maxSearchDistance = 0;
     [SerializeField] private int maxMoveDistance = 0;
 
     private List<Vector3> positionList;
@@ -73,9 +72,9 @@ public class EnemyMoveAction : BaseAction
 
         GridPosition unitGridPosition = unit.GetGridPosition();
 
-        for (int x = -maxSearchDistance; x <= maxSearchDistance; x++)
+        for (int x = -maxMoveDistance; x <= maxMoveDistance; x++)
         {
-            for (int z = -maxSearchDistance; z <= maxSearchDistance; z++)
+            for (int z = -maxMoveDistance; z <= maxMoveDistance; z++)
             {
                 GridPosition offsetGridPosition = new GridPosition(x, z);
                 GridPosition testGridPosition = unitGridPosition + offsetGridPosition;

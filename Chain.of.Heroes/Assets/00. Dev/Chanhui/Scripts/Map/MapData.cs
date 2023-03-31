@@ -13,24 +13,18 @@ public class MapData : ScriptableObject
     [SerializeField] private bool Map_Clear_Confirm;
 
 
-    //[SerializeField] private int monster_num;
-    //public int MONSTER_NUM { get { return monster_num; } }
-    //[SerializeField] private int player_num;
-    //public int PLAYER_NUM { get { return player_num; } }
-
     [Header("Monster_Information")]
     [SerializeField] private GameObject[] enemy_pf;
     public GameObject[] Enemy_pf { get { return enemy_pf; } }
+
+    [SerializeField] private Vector2[] enemyXY;
+    public Vector2[] EnemyXY { get { return enemyXY; } }
 
     [Header("Player_Information")]
     [SerializeField] private GameObject[] player_pf;
     public GameObject[] Player_pf { get { return player_pf; } }
 
-    //[SerializeField] private MonsterType[] type;
-    //public MonsterType[] Type { get { return type; } }
-
-    [Header("Position")]
-    [SerializeField] private Vector2[] currentXY;
-    public Vector2[] CurrentXY { get { return currentXY; } }
+    [SerializeField] private Vector2[] playerXY;
+    public Vector2[] PlayerXY { get { return playerXY; } }
 
 }

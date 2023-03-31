@@ -54,16 +54,15 @@ public class Unit : MonoBehaviour
             SoloEnemyActionPoints = 0;
         },false);
 
+        OnAnyUnitSpawned?.Invoke(this, EventArgs.Empty);
 
-        SoloEnemyActionPoints = newEnemyActionPoints;
 
         gridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
         LevelGrid.Instance.AddUnitAtGridPosition(gridPosition, this);
 
-        //TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
-        healthSystem.OnDead += HealthSystem_OnDead;
+        SoloEnemyActionPoints = newEnemyActionPoints;
 
-        OnAnyUnitSpawned?.Invoke(this, EventArgs.Empty);
+        healthSystem.OnDead += HealthSystem_OnDead;
     }
 
     private void Update()
@@ -173,6 +172,11 @@ public class Unit : MonoBehaviour
     {
         return transform.position;
     }
+
+    public Vector3 SetPosition(Vector3 position)
+    {
+        return transform.position = position;
+    }    
 
     public bool IsEnemy()
     {
