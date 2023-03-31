@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using SimpleJSON;
 
-public class Sheet1
+public class SwordWoman
 {
 	public int ID;
 	public string Name;

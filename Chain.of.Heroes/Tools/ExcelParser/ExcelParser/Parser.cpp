@@ -2,7 +2,10 @@
 #include <fstream>
 
 std::string path = 
-"../../../Assets/00. Dev/Junha/gameScenes/test/parse/Output/Resources/";
+"../../../Assets/00. Dev/Junha/gameScenes/test/parse/Resources/";
+
+const std::string& pathAndfileName =
+"../Data/SwordWoman.xlsx";
 
 void Parser::Initialize()
 {
@@ -29,7 +32,7 @@ void Parser::JsonParse()
 	/* 엑셀 파일을 로드 한다. */
 	/* TODO: 폴더내에 있는 모든 파일을 읽어오도록 변경 */
 	xlnt::workbook wb;
-	wb.load("../Data/SwordWoman.xlsx");
+	wb.load(pathAndfileName);
 	//wb.load("F:\ExcelParser\Data\Test.xlsx");
 
 	/* 엑셀 파일안에 있는 0번째 시트를 사용한다. */
