@@ -4,10 +4,11 @@ using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class DataManager : MonoBehaviour
+public class CharacterDataManager : MonoBehaviour
 {
     [SerializeField, Header("엑셀 이름")] private string CharacterName;
 
+    [Header("캐릭터 데이터")]
     public int m_id;
     public string m_name;
     public int m_level;
@@ -65,8 +66,8 @@ public class DataManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.G))
         {
-            firstArray.CurrentExp += 3;
-            Debug.Log("경험치 획득! +3\n" + firstArray.CurrentExp + " / " + firstArray.MaxExp);
+            ++firstArray.Level;
+            Debug.Log("레벨 업! 현재 레벨은: " + m_level);
         }
         updateInfo();
     }
@@ -87,14 +88,14 @@ public class DataManager : MonoBehaviour
         m_criticalDamage = firstArray.CriticalDamage;
 
         firstArray = _Array[m_level - 1];
+    }
 
-        // 현재 경험치가 최대 경험치보다 많다면?
-        if(m_currentExp >= m_maxExp)
-        {
-            ++firstArray.Level;
-            firstArray.CurrentExp = 0;
-            Debug.Log("레벨 업! 현재 레벨은: " + m_level);
-        }
+
+
+    // 레벨업 하게 되는 상황
+    protected virtual void LevelUp()
+    {
+
     }
 }
 

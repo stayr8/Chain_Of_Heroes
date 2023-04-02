@@ -154,50 +154,51 @@ public class Unit : MonoBehaviour
         }
     }
 
+    // 플레이어 포인터 감소
     private void SpendActionPoints(int amount)
     {
         TurnSystem.Property.ActionPoints -= amount;
 
         OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
     }
-
+    // 몬스터 포인터 감소
     private void EnemySpendActionPoints(int amount)
     {
         SoloEnemyActionPoints -= amount;
         TurnSystem.Property.ActionPoints -= amount;
         OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
     }
-
+    // 내 위치
     public Vector3 GetWorldPosition()
     {
         return transform.position;
     }
-
+    // 위치 설정
     public Vector3 SetPosition(Vector3 position)
     {
         return transform.position = position;
     }    
-
+    // 몬스터인지 아닌지
     public bool IsEnemy()
     {
         return isEnemy;
     }
-
+    // 현재 몬스터 포인터
     public int GetEnemyActionPoint()
     {
         return newEnemyActionPoints;
     }
-
+    // 몬스터 포인터 값 얻어오기
     public int SetnewEnemyActionPoint(int action)
     {
         return newEnemyActionPoints += action;
     }
-
+    // 몬스터, 플레이어 데미지 부분
     public void Damage(int damageAmount)
     {
         healthSystem.Damage(damageAmount);
     }
-
+    // 몬스터, 플레이어 죽음 및 확인
     private void HealthSystem_OnDead(object sender, EventArgs e)
     {
         LevelGrid.Instance.RemoveUnitAtGridPosition(gridPosition, this);
@@ -210,12 +211,12 @@ public class Unit : MonoBehaviour
 
         Destroy(gameObject, 2.0f);
     }
-
+    // 피 표준화
     public float GetHealthNormalized()
     {
         return healthSystem.GetHealthNormalized();
     }
-
+    // 몬스터 타입
     public EnemyType GetEnemyVisualType()
     {
         return enemyType;
