@@ -12,24 +12,18 @@ public class UnitManager : MonoBehaviour
     private List<Unit> friendlyUnitList;
     private List<Unit> enemyUnitList;
 
-    private GridPosition gridPosition;
-
     public MapData mapData;
 
     private void Awake()
     {
-        if(Instance == null)
-        {
-            Instance = this;
-            //DontDestroyOnLoad(gameObject);
-        }
-        else if (Instance != null)
+        if (Instance != null)
         {
             Debug.LogError("There's more than one UnitManager! " + transform + " - " + Instance);
             Destroy(gameObject);
             return;
         }
-        
+        Instance = this;
+
         unitList = new List<Unit>();
         friendlyUnitList = new List<Unit>();
         enemyUnitList = new List<Unit>();
@@ -37,12 +31,16 @@ public class UnitManager : MonoBehaviour
 
     private void Start()
     {
+        mapData = MapManager.Instance.mapData[MapManager.Instance.stageNum];
 
         SpawnAllPlayer();
         SpawnAllEnemy();
 
         Unit.OnAnyUnitSpawned += Unit_OnAnyUnitSpawned;
         Unit.OnAnyUnitDead += Unit_OnAnyUnitDead;
+
+        PositionAllEnemy();
+        PositionAllPlayer();
     }
 
     private void Unit_OnAnyUnitSpawned(object sender, EventArgs e)
@@ -53,22 +51,21 @@ public class UnitManager : MonoBehaviour
 
         if(unit.IsEnemy())
         {
-            Debug.Log("몬스터");
             enemyUnitList.Add(unit);
+            //PositionAllEnemy();
         }
         else
         {
-            Debug.Log("플레이어");
             friendlyUnitList.Add(unit);
+            //PositionAllPlayer();
         }
-        PositionAllPlayer();
-        PositionAllEnemy();
+        
+        
     }
 
     private void Unit_OnAnyUnitDead(object sender, EventArgs e)
     {
         Unit unit = sender as Unit;
-
 
         unitList.Remove(unit);
 
@@ -86,7 +83,7 @@ public class UnitManager : MonoBehaviour
     {
         for (int i = 0; i < mapData.Player_pf.Length; i++)
         {
-            if (true)
+            if (mapData.Player_pf[i] != null)
             {
                 SpawnSinglePlayer(i);
             }
@@ -104,7 +101,7 @@ public class UnitManager : MonoBehaviour
     {
         for (int i = 0; i < mapData.Enemy_pf.Length; i++)
         {
-            if (mapData.Player_pf[i] != null)
+            if (mapData.Enemy_pf[i] != null)
             {
                 SpawnSingleEnemy(i);
             }
@@ -120,35 +117,68 @@ public class UnitManager : MonoBehaviour
 
     private void PositionAllPlayer()
     {
-        for (int i = 0; i < friendlyUnitList.Count; i++)
+        for (int i = 0; i < mapData.Player_pf.Length; i++)
         {
-            Debug.Log("들어옴_2?");
-            // if문 정의하기
-            if (friendlyUnitList[i] != null)
+            Vector3 pos = new Vector3(mapData.PlayerXY[i].x, 0, mapData.PlayerXY[i].y);
+            Debug.Log(mapData.Player_pf[i].transform.position);
+            if (mapData.Player_pf[i].transform.position != pos)
             {
-                Debug.Log("들어옴_1?");
-                Vector3 pos = new Vector3(mapData.PlayerXY[i].x, 0, mapData.PlayerXY[i].y);
-                friendlyUnitList[i].SetPosition(pos);
+                //Debug.Log("플레이어 이동");
+                mapData.Player_pf[i].GetComponent<Unit>().transform.position = pos;
             }
-        }
-        
+        }  
     }
 
     private void PositionAllEnemy()
     {
-        for (int i = 0; i < enemyUnitList.Count; i++)
+        for (int i = 0; i < mapData.Enemy_pf.Length; i++)
         {
-            Debug.Log("들어옴_2?");
-            // if문 정의하기
-            if (enemyUnitList[i] != null)
+            Vector3 pos = new Vector3(mapData.EnemyXY[i].x, 0, mapData.EnemyXY[i].y);
+            Debug.Log(mapData.Enemy_pf[i].transform.position);
+            if (mapData.Enemy_pf[i].transform.position != pos)
             {
-                Debug.Log("들어옴_2?");
-                Vector3 pos = new Vector3(mapData.EnemyXY[i].x, 0, mapData.EnemyXY[i].y);
-                enemyUnitList[i].SetPosition(pos);
+                //Debug.Log("몬스터 이동");
+                mapData.Enemy_pf[i].GetComponent<Unit>().transform.position = pos;
             }
         }
-
     }
+
+    public void DestroyUnitList()
+    {
+        for(int i = 0; i < unitList.Count; i++)
+        {
+            if(unitList[i] != null)
+            {
+                unitList.Remove(unitList[i]);
+            }
+            //unitList[i] = null;
+        }
+    }
+    public void DestroyfriendlyList()
+    {
+        for (int i = 0; i < friendlyUnitList.Count; i++)
+        {
+            if (friendlyUnitList[i] != null)
+            {
+                friendlyUnitList.Remove(friendlyUnitList[i]);
+                LevelGrid.Instance.RemoveUnitAtGridPosition(friendlyUnitList[i].GetGridPosition(), friendlyUnitList[i]);
+            }
+            //friendlyUnitList[i] = null;
+        }
+    }
+    public void DestroyEnemyList()
+    {
+        for (int i = 0; i < enemyUnitList.Count; i++)
+        {
+            if (enemyUnitList[i] != null)
+            {
+                enemyUnitList.Remove(enemyUnitList[i]);
+                LevelGrid.Instance.RemoveUnitAtGridPosition(enemyUnitList[i].GetGridPosition(), enemyUnitList[i]);
+            }
+            //enemyUnitList[i] = null;
+        }
+    }
+
 
 
     public List<Unit> GetUnitList()

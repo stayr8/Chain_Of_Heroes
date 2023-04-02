@@ -123,6 +123,9 @@ public partial class TurnSystem : MonoBehaviour
     {
         Initialize();
 
+        Property.AllPlayerPoint = MapManager.Instance.mapData[MapManager.Instance.stageNum].Player_ActionPoint;
+        Property.AllEnemyPoint = MapManager.Instance.mapData[MapManager.Instance.stageNum].Enemy_ActionPoint;
+
         BindingManager.Bind(TurnSystem.Property, "IsPlayerTurn", (object value) =>
         {
             NextTurn();
@@ -204,7 +207,6 @@ public partial class TurnSystem : MonoBehaviour
                     break;
                 }
             }
-            Debug.Log(currentEnemyPoint);
         }
 
         Property.IsEnemyPointCheck = true;

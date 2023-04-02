@@ -112,6 +112,7 @@ GameObject:
   - component: {fileID: 1704985716213964383}
   - component: {fileID: 8793848107561141411}
   - component: {fileID: 3554671403889899109}
+  - component: {fileID: 9216930720616855236}
   m_Layer: 16
   m_Name: Unit
   m_TagString: Untagged
@@ -218,6 +219,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d086e90ae29afd6478b1c84025b91675, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &9216930720616855236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7963473072988374339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 118fad7f15dee8e4d8cef37b5e9c9cac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstaclesLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  maxQueenDistance: 2
 --- !u!1001 &4786877858034580788
 PrefabInstance:
   m_ObjectHideFlags: 0
