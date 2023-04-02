@@ -12,6 +12,10 @@ public class MapData : ScriptableObject
     public int Map_Stage_Number { get { return map_stage_number; } }
     [SerializeField] private bool Map_Clear_Confirm;
 
+    [SerializeField] private int player_actionpoint;
+    public int Player_ActionPoint { get { return player_actionpoint; } }
+    [SerializeField] private int enemy_actionpoint;
+    public int Enemy_ActionPoint { get { return enemy_actionpoint; } }
 
     [Header("Monster_Information")]
     [SerializeField] private GameObject[] enemy_pf;

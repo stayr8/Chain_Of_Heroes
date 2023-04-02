@@ -10,24 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fed57257f8886884badeb59fb3560b1b, type: 3}
-  m_Name: Stage_1
+  m_Name: Stage_2
   m_EditorClassIdentifier: 
   Map_Name: Stage-1
   map_stage_number: 0
   Map_Clear_Confirm: 0
-  player_actionpoint: 4
-  enemy_actionpoint: 4
+  player_actionpoint: 2
+  enemy_actionpoint: 2
   enemy_pf:
-  - {fileID: 3695012023952319668, guid: 55797141069490440a424becdc2700ea, type: 3}
-  - {fileID: 3695012023952319668, guid: 55797141069490440a424becdc2700ea, type: 3}
+  - {fileID: 7244344358574414659, guid: 0cc756921d52ed84c90a704791279881, type: 3}
   - {fileID: 7244344358574414659, guid: 0cc756921d52ed84c90a704791279881, type: 3}
   enemyXY:
   - {x: 4, y: 4}
   - {x: 6, y: 6}
-  - {x: 4, y: 6}
   player_pf:
   - {fileID: 7963473072988374339, guid: 6e335c4bf86fb744386362fea1ba3418, type: 3}
-  - {fileID: 7963473072988374339, guid: 6e335c4bf86fb744386362fea1ba3418, type: 3}
   playerXY:
-  - {x: 2, y: 2}
   - {x: 0, y: 0}
