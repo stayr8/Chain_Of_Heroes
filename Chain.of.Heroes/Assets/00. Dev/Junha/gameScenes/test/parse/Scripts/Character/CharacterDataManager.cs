@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class CharacterDataManager : MonoBehaviour
 {
     [SerializeField, Header("엑셀 이름")] private string CharacterName;
 
+    private SwordWoman[] _Array;
+    private SwordWoman firstArray;
     [Header("캐릭터 데이터")]
     public int m_id;
     public string m_name;
@@ -22,8 +22,6 @@ public class CharacterDataManager : MonoBehaviour
     public float m_criticalRate;
     public float m_criticalDamage;
 
-    private SwordWoman[] _Array;
-    private SwordWoman firstArray;
     private void Awake()
     {
         var data = Resources.Load<TextAsset>(CharacterName);
@@ -53,27 +51,32 @@ public class CharacterDataManager : MonoBehaviour
         {
             var node = Root[i];
 
-            var sheet1 = new SwordWoman();
-            sheet1.Parse(node);
+            var SwordWoman = new SwordWoman();
+            SwordWoman.Parse(node);
 
-            _Array[i] = sheet1;
+            _Array[i] = SwordWoman;
         }
 
-        firstArray = _Array[0];
+        //firstArray = _Array[0]; // Init
+        initInfo();
     }
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.G))
+        if (Input.GetKeyDown(KeyCode.L))
         {
-            ++firstArray.Level;
+            ++NumForLvUp;
+            initInfo();
+
             Debug.Log("레벨 업! 현재 레벨은: " + m_level);
         }
-        updateInfo();
     }
 
-    private void updateInfo()
+    private int NumForLvUp = 0;
+    private void initInfo()
     {
+        firstArray = _Array[NumForLvUp];
+
         m_id = firstArray.ID;
         m_name = firstArray.Name;
         m_level = firstArray.Level;
@@ -86,16 +89,6 @@ public class CharacterDataManager : MonoBehaviour
         m_hp = firstArray.Hp;
         m_criticalRate = firstArray.CriticalRate;
         m_criticalDamage = firstArray.CriticalDamage;
-
-        firstArray = _Array[m_level - 1];
-    }
-
-
-
-    // 레벨업 하게 되는 상황
-    protected virtual void LevelUp()
-    {
-
     }
 }
 

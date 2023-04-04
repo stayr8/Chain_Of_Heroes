@@ -5,7 +5,7 @@ std::string path =
 "../../../Assets/00. Dev/Junha/gameScenes/test/parse/Resources/";
 
 const std::string& pathAndfileName =
-"../Data/SwordWoman.xlsx";
+"../Data/NormalMonaster_Goblin.xlsx";
 
 void Parser::Initialize()
 {
