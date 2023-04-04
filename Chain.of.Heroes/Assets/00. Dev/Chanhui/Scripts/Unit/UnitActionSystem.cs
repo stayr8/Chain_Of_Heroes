@@ -18,7 +18,7 @@ public class UnitActionSystem : MonoBehaviour
 
     [SerializeField] private Unit selectedUnit;
     [SerializeField] private LayerMask UnitLayerMask;
-    [SerializeField] private CharacterBase selectedEnemy;
+    [SerializeField] private Unit selectedEnemy;
     [SerializeField] private LayerMask EnemyLayerMask;
 
     private BaseAction selectedAction;
@@ -43,18 +43,20 @@ public class UnitActionSystem : MonoBehaviour
 
     private void Update()
     {
-        
+        TryHandleEnemySelection();
         if (isBusy)
         {
             return;
         }
+
         //  몬스터 턴
         if(!TurnSystem.Property.IsPlayerTurn)
         {
             return;
         }
+        
 
-        if(EventSystem.current.IsPointerOverGameObject())
+        if (EventSystem.current.IsPointerOverGameObject())
         {
             return;
         }
@@ -65,6 +67,7 @@ public class UnitActionSystem : MonoBehaviour
         }
 
         HandleSelectedAction();
+
     }
 
     // 움직임 결정
@@ -143,7 +146,7 @@ public class UnitActionSystem : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(InputManager.Instance.GetMouseScreenPosition());
             if (Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, EnemyLayerMask))
             {
-                if (raycastHit.transform.TryGetComponent<CharacterBase>(out CharacterBase unit))
+                if (raycastHit.transform.TryGetComponent<Unit>(out Unit unit))
                 {
 
                     if (unit == selectedEnemy)
@@ -152,12 +155,12 @@ public class UnitActionSystem : MonoBehaviour
                         return true;
                     }
 
-                    /*
+                    
                     if (!unit.IsEnemy())
                     {
                         // Clicked on an enemy
                         return false;
-                    }*/
+                    }
 
                     SetSelectedEnemy(selectedEnemy);
                     return true;
@@ -179,7 +182,7 @@ public class UnitActionSystem : MonoBehaviour
         OnSelectedUnitChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    private void SetSelectedEnemy(CharacterBase unit)
+    private void SetSelectedEnemy(Unit unit)
     {
         selectedEnemy = unit;
     }

@@ -13,7 +13,7 @@ public class CharacterBase : MonoBehaviour
     private void Start()
     {
         CDM = GetComponent<CharacterDataManager>();
-        MDM = Monster.GetComponent<MonsterDataManager>();
+        //MDM = Monster.GetComponent<MonsterDataManager>();
     }
 
     private void Update()
