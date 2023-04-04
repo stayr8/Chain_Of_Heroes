@@ -112,19 +112,22 @@ public class QueenAction : BaseAction
                 break;
             case State.SwingingQueenAfterMoving:
                 AttackActionSystem.Instance.OnAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
-                float afterHitStateTime_1 = 0.7f;
+                ActionCameraStart();
+                float afterHitStateTime_1 = 2.0f;
                 stateTimer = afterHitStateTime_1;
-                OnQueenActionStarted?.Invoke(this, EventArgs.Empty);
                 state = State.SwingingQueenBeforeHit;
 
                 break;
             case State.SwingingQueenBeforeHit:
-                state = State.SwingingQueenAfterHit;
-                float afterHitStateTime_2 = 0.2f;
+                float afterHitStateTime_2 = 1.0f;
                 stateTimer = afterHitStateTime_2;
+                OnQueenActionStarted?.Invoke(this, EventArgs.Empty);
+                state = State.SwingingQueenAfterHit;
                 targetUnit.Damage(100);
+
                 break;
             case State.SwingingQueenAfterHit:
+                ActionCameraComplete();
                 AttackActionSystem.Instance.OffAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
                 OnQueenActionCompleted?.Invoke(this, EventArgs.Empty);
                 ActionComplete();

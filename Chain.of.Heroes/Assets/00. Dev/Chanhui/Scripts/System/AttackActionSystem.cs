@@ -8,6 +8,8 @@ public class AttackActionSystem : MonoBehaviour
 
     private Vector3 playerpos;
     private Vector3 enemypos;
+    private Quaternion playerrotation;
+    private Quaternion enemyrotation;
 
     public bool attacking = false;
 
@@ -28,12 +30,14 @@ public class AttackActionSystem : MonoBehaviour
     }
 
 
-    public void OnAtLocationMove(Unit unit, Unit enemy)
+    public void OnAtLocationMove(Unit unit, Unit target)
     {
         attacking = true;
 
         playerpos = unit.GetWorldPosition();
-        enemypos = enemy.GetWorldPosition();
+        enemypos = target.GetWorldPosition();
+        playerrotation = unit.transform.rotation;
+        enemyrotation = unit.transform.rotation;
 
         Vector3 playerlocationMove = new Vector3(0, 150, -3);
 
@@ -41,27 +45,30 @@ public class AttackActionSystem : MonoBehaviour
 
        
         LevelGrid.Instance.RemoveUnitAtGridPosition(unit.GetGridPosition(), unit);
-        LevelGrid.Instance.RemoveUnitAtGridPosition(enemy.GetGridPosition(), enemy);
+        LevelGrid.Instance.RemoveUnitAtGridPosition(target.GetGridPosition(), target);
 
         unit.SetPosition(playerlocationMove);
-        enemy.SetPosition(enemylocationMove);
+        target.SetPosition(enemylocationMove);
+
         unit.transform.rotation = Quaternion.Euler(0, 0, 0);
-        enemy.transform.rotation = Quaternion.Euler(0, 0, 0);
+        target.transform.rotation = Quaternion.Euler(0, 180, 0);
     }
 
-    public void OffAtLocationMove(Unit unit, Unit enemy)
+    public void OffAtLocationMove(Unit unit, Unit target)
     {
         unit.SetPosition(playerpos);
-        enemy.SetPosition(enemypos);
+        target.SetPosition(enemypos);
 
         if (unit.GetHealth() > 0)
         {
             LevelGrid.Instance.AddUnitAtGridPosition(unit.GetGridPosition(), unit);
+            unit.transform.rotation = playerrotation;
         }
         
-        if (enemy.GetHealth() > 0)
+        if (target.GetHealth() > 0)
         {
-            LevelGrid.Instance.AddUnitAtGridPosition(enemy.GetGridPosition(), enemy);
+            LevelGrid.Instance.AddUnitAtGridPosition(target.GetGridPosition(), target);
+            target.transform.rotation = enemyrotation;
         }
         attacking = false;
     }

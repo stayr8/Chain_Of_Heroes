@@ -3152,6 +3152,10 @@ MonoBehaviour:
   UnitLayerMask:
     serializedVersion: 2
     m_Bits: 65536
+  selectedEnemy: {fileID: 0}
+  EnemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 32768
   DoubleSelectedUnit: 0
 --- !u!4 &1051110622
 Transform:
