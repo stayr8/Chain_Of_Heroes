@@ -48,11 +48,12 @@ public class QueenAction : BaseAction
         Vector3 targetPosition = positionList[currentPositionIndex];
         Vector3 moveDirection = (targetPosition - transform.position).normalized;
 
-        float rotateSpeed_1 = 30f;
-        transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed_1);
 
         if (state == State.SwingingQueenBeforeMoving)
         {
+            float rotateSpeed_1 = 30f;
+            transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed_1);
+
             float stoppingDistance = 0.1f;
             if (Vector3.Distance(transform.position, targetPosition) > stoppingDistance)
             {
@@ -84,7 +85,8 @@ public class QueenAction : BaseAction
             case State.SwingingQueenAfterMoving:
 
             case State.SwingingQueenBeforeHit:
-                Vector3 targetDirection = positionList[currentPositionIndex];
+                //Vector3 targetDirection = positionList[currentPositionIndex];
+                Vector3 targetDirection = targetUnit.transform.position;
                 Vector3 aimDir = (targetDirection - transform.position).normalized;
                 float rotateSpeed = 20f;
                 transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateSpeed);
@@ -109,6 +111,7 @@ public class QueenAction : BaseAction
 
                 break;
             case State.SwingingQueenAfterMoving:
+                AttackActionSystem.Instance.OnAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
                 float afterHitStateTime_1 = 0.7f;
                 stateTimer = afterHitStateTime_1;
                 OnQueenActionStarted?.Invoke(this, EventArgs.Empty);
@@ -122,6 +125,7 @@ public class QueenAction : BaseAction
                 targetUnit.Damage(100);
                 break;
             case State.SwingingQueenAfterHit:
+                AttackActionSystem.Instance.OffAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
                 OnQueenActionCompleted?.Invoke(this, EventArgs.Empty);
                 ActionComplete();
                 break;
@@ -162,15 +166,14 @@ public class QueenAction : BaseAction
                 {
                     continue;
                 }
-
-                Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
+                
                 if (!LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition))
                 {
                     // Grid Position is empty, no Unit
-                    
                     continue;
                 }
-                
+
+                Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
                 if (targetUnit.IsEnemy() == unit.IsEnemy())
                 {
                     // Both Units on same 'team'

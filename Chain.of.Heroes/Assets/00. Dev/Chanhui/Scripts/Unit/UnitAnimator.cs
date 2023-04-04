@@ -208,4 +208,64 @@ public class UnitAnimator : MonoBehaviour
     {
         animator.SetBool("IsDie", true);
     }
+
+    private void OnDisable()
+    {
+        if (TryGetComponent<MoveAction>(out MoveAction moveAction))
+        {
+            moveAction.OnStartMoving -= MoveAction_OnStartMoving;
+            moveAction.OnStopMoving -= MoveAction_OnStopMoving;
+        }
+
+        if (TryGetComponent<EnemyMoveAction>(out EnemyMoveAction enemymoveAction))
+        {
+            enemymoveAction.OnStartMoving -= EnemyMoveAction_OnStartMoving;
+            enemymoveAction.OnStopMoving -= EnemyMoveAction_OnStopMoving;
+        }
+
+        if (TryGetComponent<ReadyAction>(out ReadyAction shootAction))
+        {
+            shootAction.OnShoot -= shootAction_OnShoot;
+        }
+
+        if (TryGetComponent<KingAction>(out KingAction kingAction))
+        {
+            kingAction.OnKingActionStarted -= KingAction_OnKingActionStarted;
+            kingAction.OnKingActionCompleted -= KingAction_OnKingActionCompleted;
+        }
+
+        if (TryGetComponent<RookAction>(out RookAction rookAction))
+        {
+            rookAction.OnRookStartMoving -= rookAction_OnRookStartMoving;
+            rookAction.OnRookStopMoving -= rookAction_OnRookStopMoving;
+            rookAction.OnRookActionStarted -= rookAction_OnRookActionStarted;
+            rookAction.OnRookActionCompleted -= rookAction_OnRookActionCompleted;
+        }
+
+        if (TryGetComponent<BishopAction>(out BishopAction bishopAction))
+        {
+            bishopAction.OnBishopStartMoving -= bishopAction_OnBishopStartMoving;
+            bishopAction.OnBishopStopMoving -= bishopAction_OnBishopStopMoving;
+            bishopAction.OnBishopActionStarted -= bishopAction_OnBishopActionStarted;
+            bishopAction.OnBishopActionCompleted -= bishopAction_OnBishopActionCompleted;
+        }
+
+        if (TryGetComponent<QueenAction>(out QueenAction queenAction))
+        {
+            queenAction.OnQueenStartMoving -= queenAction_OnQueenStartMoving;
+            queenAction.OnQueenStopMoving -= queenAction_OnQueenStopMoving;
+            queenAction.OnQueenActionStarted -= queenAction_OnQueenActionStarted;
+            queenAction.OnQueenActionCompleted -= queenAction_OnQueenActionCompleted;
+        }
+
+        if (TryGetComponent<KnightAction>(out KnightAction knightAction))
+        {
+            knightAction.OnKnightStartMoving -= knightAction_OnKnightStartMoving;
+            knightAction.OnKnightStopMoving -= knightAction_OnKnightStopMoving;
+            knightAction.OnKnightActionStarted -= knightAction_OnKnightActionStarted;
+            knightAction.OnKnightActionCompleted -= knightAction_OnKnightActionCompleted;
+        }
+
+        healthSystem.OnDead -= HealthSystem_OnDead;
+    }
 }

@@ -21,14 +21,14 @@ public class MapData : ScriptableObject
     [SerializeField] private GameObject[] enemy_pf;
     public GameObject[] Enemy_pf { get { return enemy_pf; } }
 
-    [SerializeField] private Vector2[] enemyXY;
-    public Vector2[] EnemyXY { get { return enemyXY; } }
+    [SerializeField] private Vector3[] enemyXY;
+    public Vector3[] EnemyXY { get { return enemyXY; } }
 
     [Header("Player_Information")]
     [SerializeField] private GameObject[] player_pf;
     public GameObject[] Player_pf { get { return player_pf; } }
 
-    [SerializeField] private Vector2[] playerXY;
-    public Vector2[] PlayerXY { get { return playerXY; } }
+    [SerializeField] private Vector3[] playerXY;
+    public Vector3[] PlayerXY { get { return playerXY; } }
 
 }

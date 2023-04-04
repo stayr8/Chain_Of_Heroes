@@ -29,7 +29,12 @@ public class ReadyAction : BaseAction
     private float stateTimer;
     private Unit targetUnit;
     private bool canShootBullet;
+    private Unit Myunit;
 
+    private void Start()
+    {
+        Myunit = GetComponent<Unit>();
+    }
 
     private void Update()
     {
@@ -71,7 +76,9 @@ public class ReadyAction : BaseAction
         switch (state)
         {
             case State.Aiming:
+                ActionCameraStart();
                 state = State.Shooting;
+                AttackActionSystem.Instance.OnAtLocationMove(Myunit, targetUnit);
                 float shootingStateTime = 0.1f;
                 stateTimer = shootingStateTime;
                 break;
@@ -81,6 +88,8 @@ public class ReadyAction : BaseAction
                 stateTimer = cooloffStateTime;
                 break;
             case State.Cooloff:
+                ActionCameraComplete();
+                AttackActionSystem.Instance.OffAtLocationMove(Myunit, targetUnit);
                 ActionComplete();
                 break;
         }

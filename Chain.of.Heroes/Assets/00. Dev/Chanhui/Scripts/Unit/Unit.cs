@@ -37,6 +37,8 @@ public class Unit : MonoBehaviour
 
     private void Start()
     {
+        transform.rotation = Quaternion.Euler((isEnemy == false) ? Vector3.zero : new Vector3(0, 180, 0));
+
         BindingManager.Bind(TurnSystem.Property, "IsEnemyPointCheck", (object value) =>
         {
             if (IsEnemy() && !TurnSystem.Property.IsPlayerTurn)
@@ -56,7 +58,6 @@ public class Unit : MonoBehaviour
 
         OnAnyUnitSpawned?.Invoke(this, EventArgs.Empty);
 
-
         gridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
         LevelGrid.Instance.AddUnitAtGridPosition(gridPosition, this);
 
@@ -67,15 +68,17 @@ public class Unit : MonoBehaviour
 
     private void Update()
     {
-        
-        GridPosition newGridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
-        if(newGridPosition != gridPosition)
+        if (!AttackActionSystem.Instance.attacking)
         {
-            // Character changed Grid Position
-            GridPosition oldGridPosition = gridPosition;
-            gridPosition = newGridPosition;
+            GridPosition newGridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
+            if (newGridPosition != gridPosition)
+            {
+                // Character changed Grid Position
+                GridPosition oldGridPosition = gridPosition;
+                gridPosition = newGridPosition;
 
-            LevelGrid.Instance.UnitMovedGridPosition(this, oldGridPosition, newGridPosition);
+                LevelGrid.Instance.UnitMovedGridPosition(this, oldGridPosition, newGridPosition);
+            }
         }
     }
 
@@ -158,7 +161,6 @@ public class Unit : MonoBehaviour
     private void SpendActionPoints(int amount)
     {
         TurnSystem.Property.ActionPoints -= amount;
-
         OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
     }
     // 몬스터 포인터 감소
@@ -216,9 +218,18 @@ public class Unit : MonoBehaviour
     {
         return healthSystem.GetHealthNormalized();
     }
+    public float GetHealth()
+    {
+        return healthSystem.GetHealth();
+    }
     // 몬스터 타입
     public EnemyType GetEnemyVisualType()
     {
         return enemyType;
+    }
+
+    private void OnDisable()
+    {
+        healthSystem.OnDead -= HealthSystem_OnDead;
     }
 }

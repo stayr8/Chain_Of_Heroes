@@ -41,22 +41,35 @@ public abstract class BaseAction : MonoBehaviour
     {
         isActive = true;
         this.onActionComplete = onActionComplete;
-        if(!unit.IsEnemy())
-            UnitActionSystem.Instance.OutSelectedUnit(unit);
+        //OnAnyActionStarted?.Invoke(this, EventArgs.Empty);
 
-        OnAnyActionStarted?.Invoke(this, EventArgs.Empty);
+        if (!unit.IsEnemy())
+            UnitActionSystem.Instance.OutSelectedUnit(unit);
     }
 
     protected void ActionComplete()
     {
         isActive = false;
         onActionComplete();
-        if(!TurnSystem.Property.IsTurnEnd && (TurnSystem.Property.IsPlayerTurn && (TurnSystem.Property.ActionPoints < 1)))
+        //OnAnyActionCompleted?.Invoke(this, EventArgs.Empty);
+
+        if (!TurnSystem.Property.IsTurnEnd && (TurnSystem.Property.IsPlayerTurn && (TurnSystem.Property.ActionPoints < 1)))
         {
-            TurnSystem.Property.IsPlayerTurn = !TurnSystem.Property.IsPlayerTurn;
+            // 여기 문제 있음@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+            TurnSystem.Property.IsPlayerTurn = false;
+            Debug.Log(TurnSystem.Property.IsPlayerTurn);
         }
         if (!unit.IsEnemy())
             UnitActionSystem.Instance.SetDoubleSelUnit(true);
+    }
+
+    protected void ActionCameraStart()
+    {
+        OnAnyActionStarted?.Invoke(this, EventArgs.Empty);
+    }
+
+    protected void ActionCameraComplete()
+    {
         OnAnyActionCompleted?.Invoke(this, EventArgs.Empty);
     }
 

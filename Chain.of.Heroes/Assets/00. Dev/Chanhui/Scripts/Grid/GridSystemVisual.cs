@@ -338,4 +338,11 @@ public class GridSystemVisual : MonoBehaviour
         Debug.LogError("Could not find GridVisualTypeMaterial for GridVisualType " + gridVisualType);
         return null;
     }
+
+    private void OnDisable()
+    {
+        UnitActionSystem.Instance.OnSelectedActionChanged -= UnitActionSystem_OnSelectedActionChanged;
+        UnitActionSystem.Instance.OffSelectedActionChanged -= UnitActionSystem_OffSelectedActionChanged;
+        LevelGrid.Instance.OnAnyUnitMovedGridPosition -= LevelGrid_OnAnyUnitMovedGridPosition;
+    }
 }
