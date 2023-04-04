@@ -118,4 +118,13 @@ public class UnitActionSystemUI : MonoBehaviour
     {
         UpdateActionPoints();
     }
+
+    private void OnDisable()
+    {
+        UnitActionSystem.Instance.OnSelectedUnitChanged -= UnitActionSystem_OnSelectedUnitChanged;
+        UnitActionSystem.Instance.OffSelectedUnitChanged -= UnitActionSystem_OffSelectedUnitChanged;
+        UnitActionSystem.Instance.OnSelectedActionChanged -= UnitActionSystem_OnSelectedActionChanged;
+        UnitActionSystem.Instance.OnActionStarted -= UnitActionSystem_OnActionStarted;
+        Unit.OnAnyActionPointsChanged -= Unit_OnAnyActionPointsChanged;
+    }
 }

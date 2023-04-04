@@ -19,16 +19,18 @@ public class StageUI : MonoBehaviour
         {
             if (TurnSystem.Property.IsPlayerTurn)
             {
+                //Debug.Log("Player");
                 PlayerShow();
                 EnemyHide();
             }
             else
             {
+                //Debug.Log("Enemy");
                 EnemyShow();
                 PlayerHide();
             }
 
-        });
+        },false);
 
         PlayerHide();
         EnemyHide();
@@ -39,7 +41,7 @@ public class StageUI : MonoBehaviour
         
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            if (true)
+            if (!IsMenu)
             {
                 IsMenu = !IsMenu;
                 MenuShow(IsMenu);
@@ -76,22 +78,26 @@ public class StageUI : MonoBehaviour
 
     public void OnContinueButton()
     {
-
+        IsMenu = !IsMenu;
+        MenuShow(IsMenu);
     }
 
     public void OnResetButton()
     {
 
     }
+
     public void OnExitButton()
     {
         // UI
         MenuUI.SetActive(false);
+        EnemyHide();
+        PlayerHide();
 
         // Unit Destroy
-        //UnitManager.Instance.DestroyfriendlyList();
-        //UnitManager.Instance.DestroyEnemyList();
-        //UnitManager.Instance.DestroyUnitList();
+        UnitManager.Instance.playerpos = 0;
+        UnitManager.Instance.enemypos = 0;
+        UnitManager.Instance.Release();
 
         SceneManager.LoadScene("ChoiceScene");
     }

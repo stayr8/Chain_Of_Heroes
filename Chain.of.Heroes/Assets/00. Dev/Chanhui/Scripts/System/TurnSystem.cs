@@ -6,7 +6,6 @@ using UnityEngine.UI;
 using TMPro;
 
 
-
 public partial class TurnSystem : MonoBehaviour
 {
     public class TurnProperty : ViewModel
@@ -107,8 +106,6 @@ public partial class TurnSystem : MonoBehaviour
 
     public static event EventHandler OnAnyActionPointsChanged;
     
-    //public event EventHandler OnAnyEnemyPoint;
-    public event EventHandler OffPlayerGrid;
 
     private List<Unit> AllEnemyList;
     private int currentEnemyPoint;
@@ -122,6 +119,7 @@ public partial class TurnSystem : MonoBehaviour
     private void Start()
     {
         Initialize();
+        Property.TurnNumber = 0;
 
         Property.AllPlayerPoint = MapManager.Instance.mapData[MapManager.Instance.stageNum].Player_ActionPoint;
         Property.AllEnemyPoint = MapManager.Instance.mapData[MapManager.Instance.stageNum].Enemy_ActionPoint;
@@ -153,15 +151,11 @@ public partial class TurnSystem : MonoBehaviour
         },false);
 
         Property.ActionPoints = Property.AllPlayerPoint;
+        Debug.Log(Property.IsPlayerTurn);
     }
 
     public void NextTurn()
     {
-        if (Property.IsPlayerTurn)
-        {
-            OffPlayerGrid?.Invoke(this, EventArgs.Empty);
-        }
-
         Property.TurnNumber++;
     }
 
@@ -226,5 +220,17 @@ public partial class TurnSystem : MonoBehaviour
     {
         enemyVictoryVisualGameObject.SetActive(true);
     }
+
+    /*
+    private void OnDisable()
+    {
+        Property.TurnNumber = 0;
+        Property.ActionPoints = 0;
+        Property.AllEnemyPoint = 0;
+        Property.AllPlayerPoint = 0;
+        Property.IsPlayerTurn = true;
+        Property.IsEnemyPointCheck = false;
+        Property.IsTurnEnd = false;
+    }*/
 
 }

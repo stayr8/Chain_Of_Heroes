@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class EmptyAction : BaseAction
 {
+    /* 나중에 몬스터가 가만히 있게 만들어 줄 수도 있다.*/
+
 
     private int maxDistance = 0;
 
