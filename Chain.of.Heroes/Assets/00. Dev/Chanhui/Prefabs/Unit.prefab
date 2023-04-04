@@ -113,6 +113,8 @@ GameObject:
   - component: {fileID: 8793848107561141411}
   - component: {fileID: 3554671403889899109}
   - component: {fileID: 9216930720616855236}
+  - component: {fileID: -4719305747903997168}
+  - component: {fileID: 1024481362807706275}
   m_Layer: 16
   m_Name: Unit
   m_TagString: Untagged
@@ -235,6 +237,46 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   maxQueenDistance: 2
+--- !u!114 &-4719305747903997168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7963473072988374339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b16e8a715253953468b7872a3aa8e79a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CharacterName: SwordWoman
+  m_id: 0
+  m_name: 
+  m_level: 0
+  m_maxLevel: 0
+  m_currentExp: 0
+  m_maxExp: 0
+  m_attackPower: 0
+  m_chainAttackPower: 0
+  m_defensePower: 0
+  m_hp: 0
+  m_criticalRate: 0
+  m_criticalDamage: 0
+--- !u!114 &1024481362807706275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7963473072988374339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67313e73f40f9a142a363c8383a5602e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CDM: {fileID: 0}
+  Monster: {fileID: 0}
+  isChain: 0
 --- !u!1001 &4786877858034580788
 PrefabInstance:
   m_ObjectHideFlags: 0

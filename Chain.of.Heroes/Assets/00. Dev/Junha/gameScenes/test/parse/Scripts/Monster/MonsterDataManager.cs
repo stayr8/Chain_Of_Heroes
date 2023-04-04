@@ -19,24 +19,24 @@ public class MonsterDataManager : MonoBehaviour
     public int m_attackRange;
     public int m_rank;
 
-    private Goblin[] _Array;
-    private Goblin firstArray;
+    private GoblinWarrior[] _Array;
+    private GoblinWarrior firstArray;
     private void Awake()
     {
         var data = Resources.Load<TextAsset>(CharacterName);
 
         var Root = SimpleJSON.JSON.Parse(data.text);
 
-        _Array = new Goblin[Root.Count];
+        _Array = new GoblinWarrior[Root.Count];
 
         for (int i = 0; i < Root.Count; ++i)
         {
             var node = Root[i];
 
-            var Goblin = new Goblin();
-            Goblin.Parse(node);
+            var GoblinWarrior = new GoblinWarrior();
+            GoblinWarrior.Parse(node);
 
-            _Array[i] = Goblin;
+            _Array[i] = GoblinWarrior;
         }
 
         firstArray = _Array[0];

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterGoblin : MonsterBase
+public class MonsterGoblinWarrior : MonsterBase
 {
 
 
