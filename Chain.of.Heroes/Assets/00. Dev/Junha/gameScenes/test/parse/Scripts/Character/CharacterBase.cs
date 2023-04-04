@@ -14,9 +14,6 @@ public class CharacterBase : MonoBehaviour
     {
         CDM = GetComponent<CharacterDataManager>();
         MDM = Monster.GetComponent<MonsterDataManager>();
-
-        // 그러나 몬스터는 여기에다가 GetComponent<~>();로 받아오면 안돼!
-        // 그렇다면 어떤 방식으로 받아와야 하나?
     }
 
     private void Update()
@@ -31,14 +28,13 @@ public class CharacterBase : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.C))
         {
             Calc_ChainAttack();
-            //Calc_Critical();
         }
 
-        // 피격
-        if(Input.GetKeyDown(KeyCode.D))
-        {
-            Calc_Defense();
-        }
+        //// 피격
+        //if(Input.GetKeyDown(KeyCode.D))
+        //{
+        //    Calc_Defense();
+        //}
     }
 
 
@@ -141,29 +137,16 @@ public class CharacterBase : MonoBehaviour
     }
     #endregion
 
-    
-    #region 방어 공식
-    // 피격 데미지 = ( 몬스터 데미지 * 100 / (100 + 캐릭터 방어력) * (1 – 데미지 감소율) )
+    #region 힐 공식
 
-    private float getDamage; // 피격 데미지
-    private float monsterDamage; // 몬스터 데미지
-    private float characterDP; // 캐릭터 방어력
-    private void Calc_Defense()
+
+    private void HealthUp()
     {
-        characterDP = CDM.m_defensePower;
-        Debug.Log("캐릭터 방어력: " + characterDP);
-        monsterDamage = MDM.m_attackPower;
-        Debug.Log("몬스터 데미지: " + monsterDamage);
 
-        getDamage = monsterDamage * (100 / (100 + characterDP)) * (1 /*- 데미지 감소율 */);
-        Debug.Log("피격 데미지: " + (int)getDamage);
-
-        // 데미지 받기
-        // Damaged((int)getDamage);
-        CDM.m_hp -= (int)getDamage;
-        Debug.Log("캐릭터 피격! 캐릭터의 남은 체력은: " +  CDM.m_hp);
     }
+
     #endregion
+
 
     #region 개발 전
     // 레벨업 방식
@@ -185,5 +168,30 @@ public class CharacterBase : MonoBehaviour
             ++CDM.m_level;
         }
     }
+    #endregion
+
+    #region 보류
+    #region 방어 공식
+    //// 피격 데미지 = ( 몬스터 데미지 * 100 / (100 + 캐릭터 방어력) * (1 – 데미지 감소율) )
+
+    //private float getDamage; // 피격 데미지
+    //private float monsterDamage; // 몬스터 데미지
+    //private float characterDP; // 캐릭터 방어력
+    //private void Calc_Defense()
+    //{
+    //    characterDP = CDM.m_defensePower;
+    //    Debug.Log("캐릭터 방어력: " + characterDP);
+    //    monsterDamage = MDM.m_attackPower;
+    //    Debug.Log("몬스터 데미지: " + monsterDamage);
+
+    //    getDamage = monsterDamage * (100 / (100 + characterDP)) * (1 /*- 데미지 감소율 */);
+    //    Debug.Log("피격 데미지: " + (int)getDamage);
+
+    //    // 데미지 받기
+    //    // Damaged((int)getDamage);
+    //    CDM.m_hp -= (int)getDamage;
+    //    Debug.Log("캐릭터 피격! 캐릭터의 남은 체력은: " + CDM.m_hp);
+    //}
+    #endregion
     #endregion
 }

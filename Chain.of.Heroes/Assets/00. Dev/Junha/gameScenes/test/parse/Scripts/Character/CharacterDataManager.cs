@@ -6,8 +6,6 @@ public class CharacterDataManager : MonoBehaviour
 {
     [SerializeField, Header("엑셀 이름")] private string CharacterName;
 
-    private SwordWoman[] _Array;
-    private SwordWoman firstArray;
     [Header("캐릭터 데이터")]
     public int m_id;
     public string m_name;
@@ -22,6 +20,8 @@ public class CharacterDataManager : MonoBehaviour
     public float m_criticalRate;
     public float m_criticalDamage;
 
+    private SwordWoman[] _Array;
+    private SwordWoman firstArray;
     private void Awake()
     {
         var data = Resources.Load<TextAsset>(CharacterName);

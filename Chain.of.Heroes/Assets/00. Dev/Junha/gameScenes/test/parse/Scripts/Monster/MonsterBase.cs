@@ -1,82 +1,86 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MonsterBase : MonoBehaviour
 {
-    [SerializeField, Header("¸ó½ºÅÍ µ¥ÀÌÅÍ ¸Å´ÏÀú")] private MonsterDataManager MDM;
-    [SerializeField, Header("´ë»ó Ä³¸¯ÅÍ")] private GameObject Character;
+    [SerializeField, Header("ëª¬ìŠ¤í„° ë°ì´í„° ë§¤ë‹ˆì €")] private MonsterDataManager MDM;
+    [SerializeField, Header("ëŒ€ìƒ ìºë¦­í„°")] private GameObject Character;
     CharacterDataManager CDM;
 
     private void Start()
     {
         MDM = GetComponent<MonsterDataManager>();
         CDM = Character.GetComponent<CharacterDataManager>();
-
-        // ±×·¯³ª Ä³¸¯ÅÍ´Â ¿©±â¿¡´Ù°¡ GetComponent<~>();·Î ¹Ş¾Æ¿À¸é ¾ÈµÅ!
-        // ±×·¸´Ù¸é ¾î¶² ¹æ½ÄÀ¸·Î ¹Ş¾Æ¿Í¾ß ÇÏ³ª?
     }
 
     private void Update()
     {
+        // ê³µê²©
         if(Input.GetKeyDown(KeyCode.Alpha1))
         {
             Calc_Attack();
         }
 
-        if(Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            Calc_Defense();
-        }
+        //// í”¼ê²©
+        //if(Input.GetKeyDown(KeyCode.Alpha2))
+        //{
+        //    Calc_Defense();
+        //}
     }
 
 
 
-    #region °ø°İ °ø½Ä
-    // ¸ó½ºÅÍ µ¥¹ÌÁö = ¸ó½ºÅÍ °ø°İ·Â * (100 / (100 + ´ë»ó Ä³¸¯ÅÍ ¹æ¾î·Â))
-    // µ¥¹ÌÁö °¨¼ÒÀ² Ãß°¡ ÇÊ¿ä!
+    #region ê³µê²© ê³µì‹
+    // ëª¬ìŠ¤í„° ë°ë¯¸ì§€ = ëª¬ìŠ¤í„° ê³µê²©ë ¥ * (100 / (100 + ëŒ€ìƒ ìºë¦­í„° ë°©ì–´ë ¥))
 
-    private float monsterDamage; // ¸ó½ºÅÍ µ¥¹ÌÁö
-    private float monsterAP; // ¸ó½ºÅÍ °ø°İ·Â
-    private float characterDP; // ´ë»ó Ä³¸¯ÅÍ ¹æ¾î·Â
+    // ìºë¦­í„° ê¸°ì¤€ìœ¼ë¡œ í”¼ê²© ì‹œ ë‹¤ìŒê³¼ ê°™ì€ ì‹ì„ ì‚¬ìš©í•˜ê³  ìˆì—ˆìŒ.
+    // í”¼ê²© ë°ë¯¸ì§€ = ( ëª¬ìŠ¤í„° ë°ë¯¸ì§€ * 100 / (100 + ìºë¦­í„° ë°©ì–´ë ¥) * (1 â€“ ë°ë¯¸ì§€ ê°ì†Œìœ¨) )
+    // ë”°ë¼ì„œ ìœ„ ê¸°ì¤€ì²˜ëŸ¼ ì‹ì„ ë³€ê²½í•¨.
+
+    private float monsterDamage; // ëª¬ìŠ¤í„° ë°ë¯¸ì§€
+    private float monsterAP; // ëª¬ìŠ¤í„° ê³µê²©ë ¥
+    private float characterDP; // ëŒ€ìƒ ìºë¦­í„° ë°©ì–´ë ¥
     private void Calc_Attack()
     {
         monsterAP = MDM.m_attackPower;
-        Debug.Log("¸ó½ºÅÍ °ø°İ·Â: " + monsterAP);
+        Debug.Log("ëª¬ìŠ¤í„° ê³µê²©ë ¥: " + monsterAP);
         characterDP = CDM.m_defensePower;
-        Debug.Log("´ë»ó Ä³¸¯ÅÍ ¹æ¾î·Â: " +  characterDP);
+        Debug.Log("ëŒ€ìƒ ìºë¦­í„° ë°©ì–´ë ¥: " +  characterDP);
                 
-        // ¸ó½ºÅÍ µ¥¹ÌÁö °áÁ¤
-        monsterDamage = monsterAP * (100 / (100 + characterDP));
-        Debug.Log("¸ó½ºÅÍ µ¥¹ÌÁö: " + monsterDamage);
+        // ëª¬ìŠ¤í„° ë°ë¯¸ì§€ ê²°ì •
+        monsterDamage = monsterAP * (100 / (100 + characterDP)) * (1 /*- ë°ë¯¸ì§€ ê°ì†Œìœ¨ */);
+        Debug.Log("ëª¬ìŠ¤í„° ë°ë¯¸ì§€: " + (int)monsterDamage);
 
-        // µ¥¹ÌÁö ³Ö±â
+        // ë°ë¯¸ì§€ ë„£ê¸°
         // Attack(monsterDamage);
         CDM.m_hp -= (int)monsterDamage;
-        Debug.Log("Ä³¸¯ÅÍ ÇÇ°İ! Ä³¸¯ÅÍÀÇ ³²Àº Ã¼·ÂÀº: " + CDM.m_hp);
+        Debug.Log("ìºë¦­í„° í”¼ê²©! ìºë¦­í„°ì˜ ë‚¨ì€ ì²´ë ¥ì€: " + CDM.m_hp);
     }
     #endregion
 
-    #region ¹æ¾î °ø½Ä
-    // ¸ó½ºÅÍ ÇÇ°İ µ¥¹ÌÁö = Ä³¸¯ÅÍ µ¥¹ÌÁö * (100 / (100 + ¸ó½ºÅÍ ¹æ¾î·Â))
+    #region ë³´ë¥˜
+    #region ë°©ì–´ ê³µì‹
+    //// ëª¬ìŠ¤í„° í”¼ê²© ë°ë¯¸ì§€ = ìºë¦­í„° ë°ë¯¸ì§€ * (100 / (100 + ëª¬ìŠ¤í„° ë°©ì–´ë ¥))
 
-    private float getDamage; // ¸ó½ºÅÍ ÇÇ°İ µ¥¹ÌÁö
-    private float characterAP; // Ä³¸¯ÅÍ µ¥¹ÌÁö
-    private float monsterDP; // ¸ó½ºÅÍ ¹æ¾î·Â
-    private void Calc_Defense()
-    {
-        characterAP = CDM.m_attackPower;
-        Debug.Log("Ä³¸¯ÅÍ µ¥¹ÌÁö: " + characterAP);
-        monsterDP = MDM.m_defensePower;
-        Debug.Log("¸ó½ºÅÍ ¹æ¾î·Â: " +  monsterDP);
+    //private float getDamage; // ëª¬ìŠ¤í„° í”¼ê²© ë°ë¯¸ì§€
+    //private float characterAP; // ìºë¦­í„° ë°ë¯¸ì§€
+    //private float monsterDP; // ëª¬ìŠ¤í„° ë°©ì–´ë ¥
+    //private void Calc_Defense()
+    //{
+    //    characterAP = CDM.m_attackPower;
+    //    Debug.Log("ìºë¦­í„° ë°ë¯¸ì§€: " + characterAP);
+    //    monsterDP = MDM.m_defensePower;
+    //    Debug.Log("ëª¬ìŠ¤í„° ë°©ì–´ë ¥: " +  monsterDP);
 
-        getDamage = characterAP * (100 / (100 + monsterDP));
-        Debug.Log("¸ó½ºÅÍ ÇÇ°İ µ¥¹ÌÁö: " + getDamage);
+    //    getDamage = characterAP * (100 / (100 + monsterDP));
+    //    Debug.Log("ëª¬ìŠ¤í„° í”¼ê²© ë°ë¯¸ì§€: " + (int)getDamage);
 
-        // µ¥¹ÌÁö ¹Ş±â
-        // Damage((int)getDamage);
-        MDM.m_hp -= (int)getDamage;
-        Debug.Log("¸ó½ºÅÍ ÇÇ°İ! ¸ó½ºÅÍÀÇ ³²Àº Ã¼·ÂÀº: " +  MDM.m_hp);
-    }
+    //    // ë°ë¯¸ì§€ ë°›ê¸°
+    //    // Damage((int)getDamage);
+    //    MDM.m_hp -= (int)getDamage;
+    //    Debug.Log("ëª¬ìŠ¤í„° í”¼ê²©! ëª¬ìŠ¤í„°ì˜ ë‚¨ì€ ì²´ë ¥ì€: " +  MDM.m_hp);
+    //}
+    #endregion
     #endregion
 }

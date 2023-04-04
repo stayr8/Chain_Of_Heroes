@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using SimpleJSON;
 
-public class Goblin
+public class GoblinWarrior
 {
 	public int ID;
 	public string Monster_Name;
