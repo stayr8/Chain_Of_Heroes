@@ -18,7 +18,7 @@ public class UnitActionSystem : MonoBehaviour
 
     [SerializeField] private Unit selectedUnit;
     [SerializeField] private LayerMask UnitLayerMask;
-    [SerializeField] private Unit selectedEnemy;
+    [SerializeField] private MonsterBase selectedEnemy;
     [SerializeField] private LayerMask EnemyLayerMask;
 
     private BaseAction selectedAction;
@@ -146,23 +146,12 @@ public class UnitActionSystem : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(InputManager.Instance.GetMouseScreenPosition());
             if (Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, EnemyLayerMask))
             {
-                if (raycastHit.transform.TryGetComponent<Unit>(out Unit unit))
+                if (raycastHit.transform.TryGetComponent<MonsterBase>(out MonsterBase unit))
                 {
-
-                    if (unit == selectedEnemy)
-                    {
-                        // character is already selected
-                        return true;
-                    }
-
+                    Debug.Log("클릭");
                     
-                    if (!unit.IsEnemy())
-                    {
-                        // Clicked on an enemy
-                        return false;
-                    }
 
-                    SetSelectedEnemy(selectedEnemy);
+                    SetSelectedEnemy(unit);
                     return true;
                 }
             }
@@ -182,7 +171,7 @@ public class UnitActionSystem : MonoBehaviour
         OnSelectedUnitChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    private void SetSelectedEnemy(Unit unit)
+    private void SetSelectedEnemy(MonsterBase unit)
     {
         selectedEnemy = unit;
     }
@@ -213,6 +202,13 @@ public class UnitActionSystem : MonoBehaviour
     public BaseAction GetSelectedAction()
     {
         return selectedAction;
+    }
+
+    // MonsterBase 값을 받아오는 구간.
+    // 클릭 전에는 호출 하지 않기. (빈 값을 가져가 오류가 생길 수 있기 때문에)
+    public MonsterBase GetSelectedEnemy()
+    { 
+        return selectedEnemy;
     }
 
     public void SetDoubleSelUnit(bool DoubleSelectedUnit)
