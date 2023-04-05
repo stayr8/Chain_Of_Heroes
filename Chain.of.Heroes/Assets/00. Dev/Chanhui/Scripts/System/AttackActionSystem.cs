@@ -57,7 +57,10 @@ public class AttackActionSystem : MonoBehaviour
     public void OffAtLocationMove(Unit unit, Unit target)
     {
         unit.SetPosition(playerpos);
-        target.SetPosition(enemypos);
+        if (target != null)
+        {
+            target.SetPosition(enemypos);
+        }
 
         if (unit.GetHealth() > 0)
         {
