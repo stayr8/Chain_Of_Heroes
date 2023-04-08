@@ -2,16 +2,20 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class CameraManager : MonoBehaviour
 {
 
     [SerializeField] private GameObject actionCameraGameObject;
+    [SerializeField] private GameObject AttackBeforeCameraGameObject;
 
     private void Start()
     {
         BaseAction.OnAnyActionStarted += BaseAction_OnAnyActionStarted;
         BaseAction.OnAnyActionCompleted += BaseAction_OnAnyActionCompleted;
+        BaseAction.OnAnyAttackStarted += BaseAction_OnAnyAttackStarted;
+        BaseAction.OnAnyAttackCompleted += BaseAction_OnAnyAttackCompleted;
 
         HideActionCamera();
     }
@@ -25,6 +29,16 @@ public class CameraManager : MonoBehaviour
     private void HideActionCamera()
     {
         actionCameraGameObject.SetActive(false);
+    }
+
+    private void ShowAttackActionCamera()
+    {
+        AttackBeforeCameraGameObject.SetActive(true);
+    }
+
+    private void HideAttackActionCamera()
+    {
+        AttackBeforeCameraGameObject.SetActive(false);
     }
 
 
@@ -82,6 +96,25 @@ public class CameraManager : MonoBehaviour
                 break;
             case QueenAction queenAction:
                 HideActionCamera();
+                break;
+        }
+    }
+
+    private void BaseAction_OnAnyAttackStarted(object sender, EventArgs e)
+    {
+        switch (sender)
+        {
+            case QueenAction queenAction:
+                ShowAttackActionCamera();
+                break;
+        }
+    }
+    private void BaseAction_OnAnyAttackCompleted(object sender, EventArgs e)
+    {
+        switch (sender)
+        {
+            case QueenAction queenAction:
+                HideAttackActionCamera();
                 break;
         }
     }

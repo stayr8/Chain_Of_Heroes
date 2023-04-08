@@ -16,8 +16,11 @@ public class QueenAction : BaseAction
     private enum State
     {
         SwingingQueenBeforeMoving,
+        SwingingQueenMoving,
         SwingingQueenAfterMoving,
+        SwingingQueenBeforeCamera,
         SwingingQueenBeforeHit,
+        SwingingQueenAfterCamera,
         SwingingQueenAfterHit,
     }
 
@@ -67,7 +70,7 @@ public class QueenAction : BaseAction
                 {
                     OnQueenStopMoving?.Invoke(this, EventArgs.Empty);
                     currentPositionIndex++;
-                    state = State.SwingingQueenAfterMoving;
+                    state = State.SwingingQueenMoving;
                 }
                 else
                 {
@@ -82,18 +85,27 @@ public class QueenAction : BaseAction
             case State.SwingingQueenBeforeMoving:
   
                 break;
-            case State.SwingingQueenAfterMoving:
-
-            case State.SwingingQueenBeforeHit:
-                //Vector3 targetDirection = positionList[currentPositionIndex];
+            case State.SwingingQueenMoving:
                 Vector3 targetDirection = targetUnit.transform.position;
                 Vector3 aimDir = (targetDirection - transform.position).normalized;
                 float rotateSpeed = 20f;
                 transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateSpeed);
 
                 break;
-            case State.SwingingQueenAfterHit:
+            case State.SwingingQueenBeforeCamera:
 
+                break;
+            case State.SwingingQueenAfterMoving:
+
+                break;
+            case State.SwingingQueenBeforeHit:
+
+                break;
+            case State.SwingingQueenAfterCamera:
+
+                break;
+            case State.SwingingQueenAfterHit:
+                
                 break;
         }
 
@@ -110,20 +122,44 @@ public class QueenAction : BaseAction
             case State.SwingingQueenBeforeMoving:
 
                 break;
+            case State.SwingingQueenMoving:
+                AttackCameraStart();
+                float afterHitStateTime = 0.5f;
+                stateTimer = afterHitStateTime;
+                state = State.SwingingQueenBeforeCamera;
+
+                break;
+            case State.SwingingQueenBeforeCamera:
+                
+                StageUI.Instance.Fade();
+                float afterHitStateTime_0 = 0.5f;
+                stateTimer = afterHitStateTime_0;
+                state = State.SwingingQueenAfterMoving;
+
+                break;
             case State.SwingingQueenAfterMoving:
+                //StageUI.Instance.Fade();
                 AttackActionSystem.Instance.OnAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
                 ActionCameraStart();
+                AttackCameraComplete();
                 float afterHitStateTime_1 = 2.0f;
                 stateTimer = afterHitStateTime_1;
                 state = State.SwingingQueenBeforeHit;
 
                 break;
             case State.SwingingQueenBeforeHit:
-                float afterHitStateTime_2 = 1.0f;
+                float afterHitStateTime_2 = 1.5f;
                 stateTimer = afterHitStateTime_2;
                 OnQueenActionStarted?.Invoke(this, EventArgs.Empty);
-                state = State.SwingingQueenAfterHit;
+                state = State.SwingingQueenAfterCamera;
                 targetUnit.Damage(100);
+
+                break;
+            case State.SwingingQueenAfterCamera:
+                StageUI.Instance.Fade();
+                float afterHitStateTime_3 = 0.5f;
+                stateTimer = afterHitStateTime_3;
+                state = State.SwingingQueenAfterHit;
 
                 break;
             case State.SwingingQueenAfterHit:

@@ -7,6 +7,8 @@ public abstract class BaseAction : MonoBehaviour
 {
     public static event EventHandler OnAnyActionStarted;
     public static event EventHandler OnAnyActionCompleted;
+    public static event EventHandler OnAnyAttackStarted;
+    public static event EventHandler OnAnyAttackCompleted;
 
 
     protected Unit unit;
@@ -71,6 +73,16 @@ public abstract class BaseAction : MonoBehaviour
     protected void ActionCameraComplete()
     {
         OnAnyActionCompleted?.Invoke(this, EventArgs.Empty);
+    }
+
+    protected void AttackCameraStart()
+    {
+        OnAnyAttackStarted?.Invoke(this, EventArgs.Empty);
+    }
+
+    protected void AttackCameraComplete()
+    {
+        OnAnyAttackCompleted?.Invoke(this, EventArgs.Empty);
     }
 
     public Unit GetUnit()
