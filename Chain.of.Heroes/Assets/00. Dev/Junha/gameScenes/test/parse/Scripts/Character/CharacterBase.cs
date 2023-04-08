@@ -58,6 +58,7 @@ public class CharacterBase : MonoBehaviour
     {
         characterAP = CDM.m_attackPower;
         Debug.Log("캐릭터 공격력: " + characterAP);
+        MDM = Monster.GetComponent<MonsterDataManager>();
         monsterDP = MDM.m_defensePower;
         Debug.Log("대상 몬스터 방어력: " + monsterDP);
 
@@ -94,11 +95,12 @@ public class CharacterBase : MonoBehaviour
     private bool Calc_Critical() 
     {
         characterCR = CDM.m_criticalRate / 100f;
-        Debug.Log("캐릭터 크리티컬 확률: " + characterCR);
+        //Debug.Log("캐릭터 크리티컬 확률: " + characterCR);
         float random = UnityEngine.Random.value;
-        Debug.Log(random);
-
-        if(random <= characterCR)
+        //Debug.Log(random);
+        Debug.Log("캐릭터 크리티컬 확률: " + characterCR + " | " + random + " :랜덤 수치");
+        
+        if (random <= characterCR)
         {
             return true;
         }

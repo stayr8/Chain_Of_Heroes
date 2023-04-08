@@ -59,7 +59,7 @@ public partial class SelectMenuPlayerCharacter : MonoBehaviour
 
     private void Update()
     {
-        if (!UIManager.isOnMenu)
+        if (!UIManager_WorldMap.isOnMenu)
         {
             Movement();
 
@@ -106,19 +106,19 @@ public partial class SelectMenuPlayerCharacter : MonoBehaviour
         {
             if(other.gameObject.name == ("Chapter.01"))
             {
-                UIManager._tmp.text = "Chapter.01\n졸업작품마이너갤러리";
+                UIManager_WorldMap._tmp.text = "Chapter.01\n졸업작품마이너갤러리";
             }
             else if (other.gameObject.name == ("Chapter.02"))
             {
-                UIManager._tmp.text = "Chapter.02\n차라리날죽여";
+                UIManager_WorldMap._tmp.text = "Chapter.02\n차라리날죽여";
             }
             else if (other.gameObject.name == ("Chapter.03"))
             {
-                UIManager._tmp.text = "Chapter.03\n잘작동하니?";
+                UIManager_WorldMap._tmp.text = "Chapter.03\n잘작동하니?";
             }
             else if (other.gameObject.name == ("Chapter.04"))
             {
-                UIManager._tmp.text = "Chapter.04\n브라보졸마갤";
+                UIManager_WorldMap._tmp.text = "Chapter.04\n브라보졸마갤";
             }
         }
     }
