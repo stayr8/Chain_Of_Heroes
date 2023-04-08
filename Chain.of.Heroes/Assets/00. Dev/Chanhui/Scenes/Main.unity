@@ -776,33 +776,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 748866614}
     m_Modifications:
-    - target: {fileID: 32576373624186353, guid: c33a7d8fb3dd13f468b70b5cf21523a2, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 890958593603927699, guid: c33a7d8fb3dd13f468b70b5cf21523a2, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 890958593603927699, guid: c33a7d8fb3dd13f468b70b5cf21523a2, type: 3}
-      propertyPath: m_AnchoredPosition.y
+    - target: {fileID: 602426589883563592, guid: c33a7d8fb3dd13f468b70b5cf21523a2, type: 3}
+      propertyPath: cursorImg
+      value: 
+      objectReference: {fileID: 2800000, guid: 69f7be063843bec42a445ce84891a860, type: 3}
+    - target: {fileID: 602426589883563592, guid: c33a7d8fb3dd13f468b70b5cf21523a2, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8994410577118999086, guid: c33a7d8fb3dd13f468b70b5cf21523a2, type: 3}
       propertyPath: m_RootOrder
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8994410577118999086, guid: c33a7d8fb3dd13f468b70b5cf21523a2, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8994410577118999086, guid: c33a7d8fb3dd13f468b70b5cf21523a2, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8994410577118999086, guid: c33a7d8fb3dd13f468b70b5cf21523a2, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8994410577118999086, guid: c33a7d8fb3dd13f468b70b5cf21523a2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -848,7 +832,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: MousePoint
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 602426589883563592, guid: c33a7d8fb3dd13f468b70b5cf21523a2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c33a7d8fb3dd13f468b70b5cf21523a2, type: 3}
 --- !u!1 &2059893492
 GameObject:

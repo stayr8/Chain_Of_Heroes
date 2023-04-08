@@ -9,9 +9,14 @@ public class CameraController : MonoBehaviour
     private const float MAX_FOLLOW_Y_OFFSET = 12f;
 
     [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
+    [SerializeField] private CinemachineVirtualCamera cinemachineVirtualingCamera;
 
     private CinemachineTransposer cinemachineTransposer;
     private Vector3 targetFollowOffset;
+
+    public bool camerazoom = false;
+    private float cameraDistance = 0;
+
 
     private void Start()
     {
@@ -24,6 +29,8 @@ public class CameraController : MonoBehaviour
         HandleMovement();
         HandleRotation();
         HandleZoom();
+        //HandleCameraZoom();
+        
     }
 
     // 카메라 이동
@@ -58,6 +65,18 @@ public class CameraController : MonoBehaviour
 
         float zoomSpeed = 5f;
         cinemachineTransposer.m_FollowOffset = Vector3.Lerp(cinemachineTransposer.m_FollowOffset, targetFollowOffset, Time.deltaTime * zoomSpeed);
+    }
+
+    private void HandleCameraZoom()
+    {
+        if (camerazoom)
+        {
+            if (cinemachineVirtualingCamera.m_Lens.FieldOfView > 25f) 
+            {
+                cameraDistance += Time.deltaTime / 10f;
+                cinemachineVirtualingCamera.m_Lens.FieldOfView -= cameraDistance;
+            }
+        }
     }
 
 }

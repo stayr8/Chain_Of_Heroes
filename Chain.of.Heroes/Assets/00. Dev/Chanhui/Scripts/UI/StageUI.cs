@@ -16,7 +16,7 @@ public class StageUI : MonoBehaviour
     private float time = 0f;
 
     private float F_time = 0.2f;
-    private float F_time2 = 1.5f;
+    private float F_time2 = 1.0f;
 
 
     private bool IsMenu;
@@ -91,14 +91,61 @@ public class StageUI : MonoBehaviour
         EnemyTurn.SetActive(false);
     }
 
-    public void FadeIn()
+    public void Fade()
     {
-        StartCoroutine(FadeFlow());
+        StartCoroutine(Fadeinout());
     }
 
-   
-    IEnumerator FadeFlow()
+    public void FadeIn()
     {
+        StartCoroutine(Fadein());
+    }
+
+    public void FadeOut()
+    {
+        StartCoroutine(Fadeout());
+    }
+
+
+    IEnumerator Fadein()
+    {
+        Panel.gameObject.SetActive(true);
+        time = 0f;
+        Color alpha = Panel.color;
+
+        while (alpha.a < 1f)
+        {
+            time += Time.deltaTime / F_time;
+            alpha.a = Mathf.Lerp(0, 1, time);
+            Panel.color = alpha;
+            yield return null;
+        }
+
+        Panel.gameObject.SetActive(false);
+
+        yield return null;
+    }
+    IEnumerator Fadeout()
+    {
+        Panel.gameObject.SetActive(true);
+        time = 0f;
+        Color alpha = Panel.color;
+
+        while (alpha.a > 0f)
+        {
+            time += Time.deltaTime / F_time2;
+            alpha.a = Mathf.Lerp(1, 0, time);
+            Panel.color = alpha;
+            yield return null;
+        }
+        Panel.gameObject.SetActive(false);
+
+        yield return null;
+    }
+
+    IEnumerator Fadeinout()
+    {
+        Panel.gameObject.SetActive(true);
         time = 0f;
         Color alpha = Panel.color;
         while (alpha.a < 1f)
@@ -120,75 +167,11 @@ public class StageUI : MonoBehaviour
             Panel.color = alpha;
             yield return null;
         }
-        //Panel.gameObject.SetActive(false);
-
-        yield return null;
-    }
-    public void OnFade()
-    {
-        time = 0f;
-        Color alpha = Panel.color;
-        while (alpha.a < 1f)
-        {
-            time += Time.deltaTime / F_time;
-            alpha.a = Mathf.Lerp(0, 1, time);
-            Panel.color = alpha;
-        }
-
-        time = 0f;
-
-        while (alpha.a > 0f)
-        {
-            time += Time.deltaTime / F_time2;
-            alpha.a = Mathf.Lerp(1, 0, time);
-            Panel.color = alpha;
-        }
-        //Panel.gameObject.SetActive(false);
-
-        return;
-    }
-
-    /*
-    public void FadeIn()
-    {
-        StartCoroutine(OnFadeIn());
-    }
-    public void FadeOut()
-    {
-        StartCoroutine(OffFadeOut());
-    }
-
-    IEnumerator OnFadeIn()
-    {
-        Panel.gameObject.SetActive(true);
-        time = 0f;
-        Color alpha = Panel.color;
-        while (alpha.a < 1f)
-        {
-            time += Time.deltaTime / F_time;
-            alpha.a = Mathf.Lerp(0, 1, time);
-            Panel.color = alpha;
-            yield return null;
-        }
-
-        yield return null;
-    }
-
-    IEnumerator OffFadeOut()
-    {
-        Color alpha = Panel.color;
-        time = 0f;
-
-        while (alpha.a > 0f)
-        {
-            time += Time.deltaTime / F_time2;
-            alpha.a = Mathf.Lerp(1, 0, time);
-            Panel.color = alpha;
-            yield return null;
-        }
         Panel.gameObject.SetActive(false);
+
         yield return null;
-    }*/
+    }
+ 
 
     private void MenuShow(bool isShow)
     {

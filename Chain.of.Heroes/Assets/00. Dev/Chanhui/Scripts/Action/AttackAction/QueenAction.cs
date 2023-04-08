@@ -86,6 +86,10 @@ public class QueenAction : BaseAction
   
                 break;
             case State.SwingingQueenMoving:
+                Vector3 targetDirection = targetUnit.transform.position;
+                Vector3 aimDir = (targetDirection - transform.position).normalized;
+                float rotateSpeed = 20f;
+                transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateSpeed);
 
                 break;
             case State.SwingingQueenBeforeCamera:
@@ -95,11 +99,6 @@ public class QueenAction : BaseAction
 
                 break;
             case State.SwingingQueenBeforeHit:
-                //Vector3 targetDirection = positionList[currentPositionIndex];
-                Vector3 targetDirection = targetUnit.transform.position;
-                Vector3 aimDir = (targetDirection - transform.position).normalized;
-                float rotateSpeed = 20f;
-                transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateSpeed);
 
                 break;
             case State.SwingingQueenAfterCamera:
@@ -124,21 +123,25 @@ public class QueenAction : BaseAction
 
                 break;
             case State.SwingingQueenMoving:
+                AttackCameraStart();
                 float afterHitStateTime = 0.5f;
                 stateTimer = afterHitStateTime;
                 state = State.SwingingQueenBeforeCamera;
 
                 break;
             case State.SwingingQueenBeforeCamera:
-                StageUI.Instance.FadeIn();
+                
+                StageUI.Instance.Fade();
                 float afterHitStateTime_0 = 0.5f;
                 stateTimer = afterHitStateTime_0;
                 state = State.SwingingQueenAfterMoving;
 
                 break;
             case State.SwingingQueenAfterMoving:
+                //StageUI.Instance.Fade();
                 AttackActionSystem.Instance.OnAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
                 ActionCameraStart();
+                AttackCameraComplete();
                 float afterHitStateTime_1 = 2.0f;
                 stateTimer = afterHitStateTime_1;
                 state = State.SwingingQueenBeforeHit;
@@ -153,7 +156,7 @@ public class QueenAction : BaseAction
 
                 break;
             case State.SwingingQueenAfterCamera:
-                StageUI.Instance.FadeIn();
+                StageUI.Instance.Fade();
                 float afterHitStateTime_3 = 0.5f;
                 stateTimer = afterHitStateTime_3;
                 state = State.SwingingQueenAfterHit;
