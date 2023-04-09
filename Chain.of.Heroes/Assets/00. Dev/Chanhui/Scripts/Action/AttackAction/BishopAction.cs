@@ -16,12 +16,16 @@ public class BishopAction : BaseAction
     private enum State
     {
         SwingingBishopBeforeMoving,
+        SwingingBishopMoving,
         SwingingBishopAfterMoving,
+        SwingingBishopBeforeCamera,
         SwingingBishopBeforeHit,
+        SwingingBishopAfterCamera,
         SwingingBishopAfterHit,
     }
-
+    [SerializeField] private LayerMask obstaclesLayerMask;
     [SerializeField] private int maxBishopDistance = 3;
+
     private State state;
     private float stateTimer;
     private Unit targetUnit;
@@ -46,11 +50,12 @@ public class BishopAction : BaseAction
         Vector3 targetPosition = positionList[currentPositionIndex];
         Vector3 moveDirection = (targetPosition - transform.position).normalized;
 
-        float rotateSpeed_1 = 30f;
-        transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed_1);
 
         if (state == State.SwingingBishopBeforeMoving)
         {
+            float rotateSpeed_1 = 30f;
+            transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed_1);
+
             float stoppingDistance = 0.1f;
             if (Vector3.Distance(transform.position, targetPosition) > stoppingDistance)
             {
@@ -64,7 +69,7 @@ public class BishopAction : BaseAction
                 {
                     OnBishopStopMoving?.Invoke(this, EventArgs.Empty);
                     currentPositionIndex++;
-                    state = State.SwingingBishopAfterMoving;
+                    state = State.SwingingBishopMoving;
                 }
                 else
                 {
@@ -79,13 +84,23 @@ public class BishopAction : BaseAction
             case State.SwingingBishopBeforeMoving:
 
                 break;
-            case State.SwingingBishopAfterMoving:
-
-            case State.SwingingBishopBeforeHit:
-                Vector3 targetDirection = positionList[currentPositionIndex];
+            case State.SwingingBishopMoving:
+                Vector3 targetDirection = targetUnit.transform.position;
                 Vector3 aimDir = (targetDirection - transform.position).normalized;
                 float rotateSpeed = 20f;
                 transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateSpeed);
+
+                break;
+            case State.SwingingBishopBeforeCamera:
+
+                break;
+            case State.SwingingBishopAfterMoving:
+
+                break;
+            case State.SwingingBishopBeforeHit:
+
+                break;
+            case State.SwingingBishopAfterCamera:
 
                 break;
             case State.SwingingBishopAfterHit:
@@ -106,22 +121,50 @@ public class BishopAction : BaseAction
             case State.SwingingBishopBeforeMoving:
 
                 break;
+            case State.SwingingBishopMoving:
+                AttackCameraStart();
+                float afterHitStateTime = 0.5f;
+                stateTimer = afterHitStateTime;
+                state = State.SwingingBishopBeforeCamera;
+
+                break;
+            case State.SwingingBishopBeforeCamera:
+                StageUI.Instance.Fade();
+                float afterHitStateTime_0 = 0.5f;
+                stateTimer = afterHitStateTime_0;
+                state = State.SwingingBishopAfterMoving;
+
+                break;
             case State.SwingingBishopAfterMoving:
-                float afterHitStateTime_1 = 0.7f;
+                AttackActionSystem.Instance.OnAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
+                ActionCameraStart();
+                AttackCameraComplete();
+                float afterHitStateTime_1 = 2.0f;
                 stateTimer = afterHitStateTime_1;
-                OnBishopActionStarted?.Invoke(this, EventArgs.Empty);
                 state = State.SwingingBishopBeforeHit;
 
                 break;
             case State.SwingingBishopBeforeHit:
-                state = State.SwingingBishopAfterHit;
-                float afterHitStateTime_2 = 0.2f;
+                float afterHitStateTime_2 = 1.5f;
                 stateTimer = afterHitStateTime_2;
+                OnBishopActionStarted?.Invoke(this, EventArgs.Empty);
+                state = State.SwingingBishopAfterCamera;
                 targetUnit.Damage(100);
+
+                break;
+            case State.SwingingBishopAfterCamera:
+                StageUI.Instance.Fade();
+                float afterHitStateTime_3 = 0.5f;
+                stateTimer = afterHitStateTime_3;
+                state = State.SwingingBishopAfterHit;
+
                 break;
             case State.SwingingBishopAfterHit:
+                ActionCameraComplete();
+                AttackActionSystem.Instance.OffAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
                 OnBishopActionCompleted?.Invoke(this, EventArgs.Empty);
                 ActionComplete();
+
                 break;
         }
     }
@@ -145,6 +188,12 @@ public class BishopAction : BaseAction
 
                 if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition))
                 {
+                    continue;
+                }
+
+                if (unitGridPosition == testGridPosition)
+                {
+                    // Same Grid Position where the character is already at
                     continue;
                 }
 
@@ -175,6 +224,18 @@ public class BishopAction : BaseAction
 
                 if (!Pathfinding.Instance.HasAtPath(unitGridPosition, testGridPosition))
                 {
+                    continue;
+                }
+
+                Vector3 unitWorldPosition = LevelGrid.Instance.GetWorldPosition(unitGridPosition);
+                Vector3 shootDir = (targetUnit.GetWorldPosition() - unitWorldPosition).normalized;
+
+                float unitShoulderHeight = 1.7f;
+                if (Physics.Raycast(unitWorldPosition + Vector3.up * unitShoulderHeight, shootDir,
+                    Vector3.Distance(unitWorldPosition, targetUnit.GetWorldPosition()),
+                    obstaclesLayerMask))
+                {
+                    // Blocked by an Obstacle
                     continue;
                 }
 

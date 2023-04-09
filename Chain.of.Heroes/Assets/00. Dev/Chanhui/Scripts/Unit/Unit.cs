@@ -206,12 +206,13 @@ public class Unit : MonoBehaviour
         LevelGrid.Instance.RemoveUnitAtGridPosition(gridPosition, this);
 
         OnAnyUnitDead?.Invoke(this, EventArgs.Empty);
+        /*
         if (UnitManager.Instance.VictoryPlayer() || UnitManager.Instance.VictoryEnemy())
         {
             TurnSystem.Property.IsTurnEnd = true;
-        }
+        }*/
 
-        Destroy(gameObject, 2.0f);
+        Destroy(gameObject, 4.0f);
     }
     // 피 표준화
     public float GetHealthNormalized()

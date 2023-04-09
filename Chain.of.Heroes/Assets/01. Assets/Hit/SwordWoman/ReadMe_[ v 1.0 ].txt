@@ -2,7 +2,7 @@
 
 =====================================================
 
-SwordWoman [3D Model]   < Ver 1.0 >
+ArcherA [3D Model]   < Ver 1.0 >
 
 =====================================================
 
@@ -12,7 +12,7 @@ SwordWoman [3D Model]   < Ver 1.0 >
 
 
 ----------------------------------------------------
-Includes 12 Animations
+Includes 15 Animations
 ----------------------------------------------------
 
 
@@ -20,23 +20,30 @@ Includes 12 Animations
 
 > Idle02
 
-> Idle02
+> Idle03
+
 
 
 > Run
 
-
 > Dash
-
 
 
 > Attack01
 
+> Attack02
 
 
 > Skill01
 
 > Skill02
+
+> Skill03
+
+> Skill04
+
+> Skill05
+
 
 
 
@@ -62,9 +69,9 @@ instructions
 ===================================================
 
 
-1.click to the  [File] > [Open Project] > [SwordWoman] folder
+1.click to the  [File] > [Open Project] > [ArcherA] folder
 
-2.Dubble click [Demo_scene] and Use Prefab file in the [Prefabs] folder
+2.Dubble click [Demo_scene] and Use Prefap file in the [Prefaps] folder
 
 3.you can use the model file ~  Too easy~~~
 

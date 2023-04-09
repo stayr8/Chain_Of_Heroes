@@ -115,8 +115,9 @@ GameObject:
   - component: {fileID: 9216930720616855236}
   - component: {fileID: -4719305747903997168}
   - component: {fileID: 1024481362807706275}
+  - component: {fileID: 1046729419428486419}
   m_Layer: 16
-  m_Name: Unit
+  m_Name: SwordWoman
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -277,6 +278,18 @@ MonoBehaviour:
   CDM: {fileID: 0}
   Monster: {fileID: 0}
   isChain: 0
+--- !u!114 &1046729419428486419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7963473072988374339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c4323a8e22cec84b98e3864daf8e54a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4786877858034580788
 PrefabInstance:
   m_ObjectHideFlags: 0

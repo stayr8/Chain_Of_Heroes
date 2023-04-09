@@ -12,20 +12,22 @@ public class KnightAction : BaseAction
 
     private List<Vector3> positionList;
     private int currentPositionIndex;
-    float stoppingDistance = 0.1f;
 
 
     private enum State
     {
         SwingingKnightBeforeMoving,
+        SwingingKnightMoving,
         SwingingKnightAfterMoving,
+        SwingingKnightBeforeCamera,
         SwingingKnightBeforeHit,
+        SwingingKnightAfterCamera,
         SwingingKnightAfterHit,
     }
 
     [SerializeField] private LayerMask obstaclesLayerMask;
+    [SerializeField] private int maxKnightDistance = 2;
 
-    private int maxKnightDistance = 2;
     private State state;
     private float stateTimer;
     private Unit targetUnit;
@@ -50,11 +52,13 @@ public class KnightAction : BaseAction
         Vector3 targetPosition = positionList[currentPositionIndex];
         Vector3 moveDirection = (targetPosition - transform.position).normalized;
 
-        float rotateSpeed_1 = 30f;
-        transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed_1);
 
         if (state == State.SwingingKnightBeforeMoving)
         {
+            float rotateSpeed_1 = 30f;
+            transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed_1);
+
+            float stoppingDistance = 0.1f;
             if (Vector3.Distance(transform.position, targetPosition) > stoppingDistance)
             {
                 float moveSpeed = 4f;
@@ -68,7 +72,7 @@ public class KnightAction : BaseAction
                 {
                     OnKnightStopMoving?.Invoke(this, EventArgs.Empty);
                     currentPositionIndex++;
-                    state = State.SwingingKnightAfterMoving;
+                    state = State.SwingingKnightMoving;
                 }
                 else
                 {
@@ -83,13 +87,23 @@ public class KnightAction : BaseAction
             case State.SwingingKnightBeforeMoving:
 
                 break;
-            case State.SwingingKnightAfterMoving:
-
-            case State.SwingingKnightBeforeHit:
-                Vector3 targetDirection = positionList[currentPositionIndex];
+            case State.SwingingKnightMoving:
+                Vector3 targetDirection = targetUnit.transform.position;
                 Vector3 aimDir = (targetDirection - transform.position).normalized;
                 float rotateSpeed = 20f;
                 transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateSpeed);
+
+                break;
+            case State.SwingingKnightBeforeCamera:
+
+                break;
+            case State.SwingingKnightAfterMoving:
+
+                break;
+            case State.SwingingKnightBeforeHit:
+
+                break;
+            case State.SwingingKnightAfterCamera:
 
                 break;
             case State.SwingingKnightAfterHit:
@@ -109,24 +123,51 @@ public class KnightAction : BaseAction
         {
             case State.SwingingKnightBeforeMoving:
 
+                break;
+            case State.SwingingKnightMoving:
+                AttackCameraStart();
+                float afterHitStateTime = 0.5f;
+                stateTimer = afterHitStateTime;
+                state = State.SwingingKnightBeforeCamera;
+
+                break;
+            case State.SwingingKnightBeforeCamera:
+                StageUI.Instance.Fade();
+                float afterHitStateTime_0 = 0.5f;
+                stateTimer = afterHitStateTime_0;
+                state = State.SwingingKnightAfterMoving;
 
                 break;
             case State.SwingingKnightAfterMoving:
-                float afterHitStateTime_1 = 0.7f;
+                AttackActionSystem.Instance.OnAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
+                ActionCameraStart();
+                AttackCameraComplete();
+                float afterHitStateTime_1 = 2.0f;
                 stateTimer = afterHitStateTime_1;
-                OnKnightActionStarted?.Invoke(this, EventArgs.Empty);
                 state = State.SwingingKnightBeforeHit;
 
                 break;
             case State.SwingingKnightBeforeHit:
-                state = State.SwingingKnightAfterHit;
-                float afterHitStateTime_2 = 0.2f;
+                float afterHitStateTime_2 = 1.5f;
                 stateTimer = afterHitStateTime_2;
+                OnKnightActionStarted?.Invoke(this, EventArgs.Empty);
+                state = State.SwingingKnightAfterCamera;
                 targetUnit.Damage(100);
+
+                break;
+            case State.SwingingKnightAfterCamera:
+                StageUI.Instance.Fade();
+                float afterHitStateTime_3 = 0.5f;
+                stateTimer = afterHitStateTime_3;
+                state = State.SwingingKnightAfterHit;
+
                 break;
             case State.SwingingKnightAfterHit:
+                ActionCameraComplete();
+                AttackActionSystem.Instance.OffAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
                 OnKnightActionCompleted?.Invoke(this, EventArgs.Empty);
                 ActionComplete();
+
                 break;
         }
     }
@@ -153,7 +194,12 @@ public class KnightAction : BaseAction
                     continue;
                 }
 
-                
+                if (unitGridPosition == testGridPosition)
+                {
+                    // Same Grid Position where the character is already at
+                    continue;
+                }
+
                 int testX = Mathf.Abs(x);
                 int testZ = Mathf.Abs(z);
                 if (testX == 0 || testZ == 0 || testX == testZ)

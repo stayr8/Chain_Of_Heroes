@@ -197,7 +197,7 @@ public class UnitAnimator : MonoBehaviour
         BulletProjectile bulletProjectile = bulletProjectileTransform.GetComponent<BulletProjectile>();
 
         Vector3 targetUnitShootAtPosition = e.targetUnit.GetWorldPosition();
-
+        
         targetUnitShootAtPosition.y = shootPointTransform.position.y;
 
         bulletProjectile.Setup(targetUnitShootAtPosition);

@@ -17,24 +17,21 @@ public class ReadyAction : BaseAction
 
     private enum State
     {
-        Aiming,
-        Shooting,
-        Cooloff,
+        SwingingArcherAttackCameraStart,
+        SwingingArcherBeforeCamera,
+        SwingingArcherAttackCameraEnd,
+        SwingingArcherAiming,
+        SwingingArcherShooting,
+        SwingingArcherCooloff,
     }
 
     [SerializeField] private LayerMask obstaclesLayerMask;
+    private int maxReadyDistance = 2;
 
     private State state;
-    private int maxReadyDistance = 2;
     private float stateTimer;
     private Unit targetUnit;
     private bool canShootBullet;
-    private Unit Myunit;
-
-    private void Start()
-    {
-        Myunit = GetComponent<Unit>();
-    }
 
     private void Update()
     {
@@ -47,20 +44,26 @@ public class ReadyAction : BaseAction
 
         switch(state)
         {
-            case State.Aiming:
+            case State.SwingingArcherAttackCameraStart:
                 Vector3 aimDir = (targetUnit.GetWorldPosition() - unit.GetWorldPosition()).normalized;
-
                 float rotateSpeed = 20f;
                 transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateSpeed);
+
                 break;
-            case State.Shooting:
-                if(canShootBullet)
-                {
-                    Shoot();
-                    canShootBullet = false;
-                }
+            case State.SwingingArcherBeforeCamera:
+
                 break;
-            case State.Cooloff:
+            case State.SwingingArcherAttackCameraEnd:
+
+                break;
+            case State.SwingingArcherAiming:
+                
+
+                break;
+            case State.SwingingArcherShooting:
+                
+                break;
+            case State.SwingingArcherCooloff:
                 
                 break;
         }
@@ -75,22 +78,66 @@ public class ReadyAction : BaseAction
     {
         switch (state)
         {
-            case State.Aiming:
+            case State.SwingingArcherAttackCameraStart:
+                AttackCameraStart();
+                float afterHitStateTime = 0.5f;
+                stateTimer = afterHitStateTime;
+                state = State.SwingingArcherBeforeCamera;
+
+                break;
+            case State.SwingingArcherBeforeCamera:
+                StageUI.Instance.Fade();
+                float afterHitStateTime_0 = 0.5f;
+                stateTimer = afterHitStateTime_0;
+                state = State.SwingingArcherAttackCameraEnd;
+
+                break;
+            case State.SwingingArcherAttackCameraEnd:
+                if (unit.IsEnemy())
+                {
+                    AttackActionSystem.Instance.OnAtLocationMove(targetUnit, unit);
+                }
+                else
+                {
+                    AttackActionSystem.Instance.OnAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
+                }
                 ActionCameraStart();
-                state = State.Shooting;
-                AttackActionSystem.Instance.OnAtLocationMove(Myunit, targetUnit);
-                float shootingStateTime = 0.1f;
-                stateTimer = shootingStateTime;
+                AttackCameraComplete();
+                float afterHitStateTime_1 = 2.0f;
+                stateTimer = afterHitStateTime_1;
+                state = State.SwingingArcherAiming;
+
                 break;
-            case State.Shooting:
-                state = State.Cooloff;
-                float cooloffStateTime = 0.5f;
-                stateTimer = cooloffStateTime;
+            case State.SwingingArcherAiming:
+                float afterHitStateTime_2 = 1.5f;
+                if (canShootBullet)
+                {
+                    Shoot();
+                    canShootBullet = false;
+                }
+                stateTimer = afterHitStateTime_2;
+                state = State.SwingingArcherShooting;
+
                 break;
-            case State.Cooloff:
+            case State.SwingingArcherShooting:
+                StageUI.Instance.Fade();
+                float afterHitStateTime_3 = 0.5f;
+                stateTimer = afterHitStateTime_3;
+                state = State.SwingingArcherCooloff;
+
+                break;
+            case State.SwingingArcherCooloff:
                 ActionCameraComplete();
-                AttackActionSystem.Instance.OffAtLocationMove(Myunit, targetUnit);
+                if (unit.IsEnemy())
+                {
+                    AttackActionSystem.Instance.OffAtLocationMove(targetUnit, unit);
+                }
+                else
+                {
+                    AttackActionSystem.Instance.OffAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
+                }
                 ActionComplete();
+
                 break;
         }
 
@@ -107,10 +154,6 @@ public class ReadyAction : BaseAction
         targetUnit.Damage(40);
     }
 
-    public override string GetActionName()
-    {
-        return "Ready";
-    }
 
     public override List<GridPosition> GetValidActionGridPositionList()
     {
@@ -134,6 +177,7 @@ public class ReadyAction : BaseAction
                     continue;
                 }
 
+                
 
                 int testDistance = Mathf.Abs(x) + Mathf.Abs(z);
                 if(testDistance > maxReadyDistance)
@@ -152,6 +196,11 @@ public class ReadyAction : BaseAction
                 if(targetUnit.IsEnemy() == unit.IsEnemy())
                 {
                     // Both Units on same 'team'
+                    continue;
+                }
+
+                if (!Pathfinding.Instance.IsWalkableGridPosition(testGridPosition))
+                {
                     continue;
                 }
 
@@ -178,18 +227,13 @@ public class ReadyAction : BaseAction
     {
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
 
-        state = State.Aiming;
-        float aimingStateTime = 1f;
+        state = State.SwingingArcherAttackCameraStart;
+        float aimingStateTime = 0.7f;
         stateTimer = aimingStateTime;
 
         canShootBullet = true;
 
         ActionStart(onActionComplete);
-    }
-
-    public Unit GetTargetUnit()
-    {
-        return targetUnit;
     }
 
     public int GetMaxShootDistance()
@@ -212,6 +256,10 @@ public class ReadyAction : BaseAction
     public int GetTargetCountAtPosition(GridPosition gridPosition)
     {
         return GetValidActionGridPositionList(gridPosition).Count;
+    }
+    public override string GetActionName()
+    {
+        return "Ready";
     }
 
     public override string GetSingleActionPoint()

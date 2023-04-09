@@ -130,7 +130,6 @@ public class QueenAction : BaseAction
 
                 break;
             case State.SwingingQueenBeforeCamera:
-                
                 StageUI.Instance.Fade();
                 float afterHitStateTime_0 = 0.5f;
                 stateTimer = afterHitStateTime_0;
@@ -138,7 +137,6 @@ public class QueenAction : BaseAction
 
                 break;
             case State.SwingingQueenAfterMoving:
-                //StageUI.Instance.Fade();
                 AttackActionSystem.Instance.OnAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
                 ActionCameraStart();
                 AttackCameraComplete();
@@ -167,6 +165,7 @@ public class QueenAction : BaseAction
                 AttackActionSystem.Instance.OffAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
                 OnQueenActionCompleted?.Invoke(this, EventArgs.Empty);
                 ActionComplete();
+
                 break;
         }
     }

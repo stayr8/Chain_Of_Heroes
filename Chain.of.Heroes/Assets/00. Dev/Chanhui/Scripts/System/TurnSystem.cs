@@ -151,7 +151,7 @@ public partial class TurnSystem : MonoBehaviour
         },false);
 
         Property.ActionPoints = Property.AllPlayerPoint;
-        Debug.Log(Property.IsPlayerTurn);
+
     }
 
     public void NextTurn()
@@ -221,7 +221,7 @@ public partial class TurnSystem : MonoBehaviour
         enemyVictoryVisualGameObject.SetActive(true);
     }
 
-    /*
+    
     private void OnDisable()
     {
         Property.TurnNumber = 0;
@@ -231,6 +231,6 @@ public partial class TurnSystem : MonoBehaviour
         Property.IsPlayerTurn = true;
         Property.IsEnemyPointCheck = false;
         Property.IsTurnEnd = false;
-    }*/
+    }
 
 }

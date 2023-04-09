@@ -27,6 +27,11 @@ public class InputManager : MonoBehaviour
         return Input.GetMouseButtonDown(0);
     }
 
+    public bool GetOnCamera()
+    {
+        return Input.GetKey(KeyCode.R);
+    }
+
     public Vector2 GetCameraMoveVector()
     {
         Vector3 inputMoveDir = new Vector2(0, 0);

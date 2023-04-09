@@ -12,17 +12,21 @@ public class RookAction : BaseAction
 
     private List<Vector3> positionList;
     private int currentPositionIndex;
-    private float stoppingDistance = 0.1f;
 
     private enum State
     {
         SwingingRookBeforeMoving,
+        SwingingRookMoving,
         SwingingRookAfterMoving,
+        SwingingRookBeforeCamera,
         SwingingRookBeforeHit,
+        SwingingRookAfterCamera,
         SwingingRookAfterHit,
     }
 
+    [SerializeField] private LayerMask obstaclesLayerMask;
     [SerializeField] private int maxRookDistance = 3;
+
     private State state;
     private float stateTimer;
     private Unit targetUnit;
@@ -47,11 +51,14 @@ public class RookAction : BaseAction
         Vector3 targetPosition = positionList[currentPositionIndex];
         Vector3 moveDirection = (targetPosition - transform.position).normalized;
 
-        float rotateSpeed_1 = 30f;
-        transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed_1);
+        
 
         if (state == State.SwingingRookBeforeMoving)
         {
+            float rotateSpeed_1 = 30f;
+            transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed_1);
+
+            float stoppingDistance = 0.1f;
             if (Vector3.Distance(transform.position, targetPosition) > stoppingDistance)
             {
                 float moveSpeed = 4f;
@@ -64,7 +71,7 @@ public class RookAction : BaseAction
                 {
                     OnRookStopMoving?.Invoke(this, EventArgs.Empty);
                     currentPositionIndex++;
-                    state = State.SwingingRookAfterMoving;
+                    state = State.SwingingRookMoving;
                 }
                 else
                 {
@@ -79,13 +86,23 @@ public class RookAction : BaseAction
             case State.SwingingRookBeforeMoving:
                 
                 break;
-            case State.SwingingRookAfterMoving:
-
-            case State.SwingingRookBeforeHit:
-                Vector3 targetDirection = positionList[currentPositionIndex];
+            case State.SwingingRookMoving:
+                Vector3 targetDirection = targetUnit.transform.position;
                 Vector3 aimDir = (targetDirection - transform.position).normalized;
                 float rotateSpeed = 20f;
                 transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateSpeed);
+
+                break;
+            case State.SwingingRookBeforeCamera:
+
+                break;
+            case State.SwingingRookAfterMoving:
+
+                break;
+            case State.SwingingRookBeforeHit:
+
+                break;
+            case State.SwingingRookAfterCamera:
 
                 break;
             case State.SwingingRookAfterHit:
@@ -104,25 +121,52 @@ public class RookAction : BaseAction
         switch (state)
         {
             case State.SwingingRookBeforeMoving:
-                
+
+                break;
+            case State.SwingingRookMoving:
+                AttackCameraStart();
+                float afterHitStateTime = 0.5f;
+                stateTimer = afterHitStateTime;
+                state = State.SwingingRookBeforeCamera;
+
+                break;
+            case State.SwingingRookBeforeCamera:
+                StageUI.Instance.Fade();
+                float afterHitStateTime_0 = 0.5f;
+                stateTimer = afterHitStateTime_0;
+                state = State.SwingingRookAfterMoving;
 
                 break;
             case State.SwingingRookAfterMoving:
-                float afterHitStateTime_1 = 0.7f;
+                AttackActionSystem.Instance.OnAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
+                ActionCameraStart();
+                AttackCameraComplete();
+                float afterHitStateTime_1 = 2.0f;
                 stateTimer = afterHitStateTime_1;
-                OnRookActionStarted?.Invoke(this, EventArgs.Empty);
                 state = State.SwingingRookBeforeHit;
 
                 break;
             case State.SwingingRookBeforeHit:
-                state = State.SwingingRookAfterHit;
-                float afterHitStateTime_2 = 0.2f;
+                float afterHitStateTime_2 = 1.5f;
                 stateTimer = afterHitStateTime_2;
+                OnRookActionStarted?.Invoke(this, EventArgs.Empty);
+                state = State.SwingingRookAfterCamera;
                 targetUnit.Damage(100);
+
+                break;
+            case State.SwingingRookAfterCamera:
+                StageUI.Instance.Fade();
+                float afterHitStateTime_3 = 0.5f;
+                stateTimer = afterHitStateTime_3;
+                state = State.SwingingRookAfterHit;
+
                 break;
             case State.SwingingRookAfterHit:
+                ActionCameraComplete();
+                AttackActionSystem.Instance.OffAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
                 OnRookActionCompleted?.Invoke(this, EventArgs.Empty);
                 ActionComplete();
+
                 break;
         }
     }
@@ -146,6 +190,12 @@ public class RookAction : BaseAction
 
                 if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition))
                 {
+                    continue;
+                }
+
+                if (unitGridPosition == testGridPosition)
+                {
+                    // Same Grid Position where the character is already at
                     continue;
                 }
 
@@ -176,6 +226,18 @@ public class RookAction : BaseAction
 
                 if (!Pathfinding.Instance.HasAtPath(unitGridPosition, testGridPosition))
                 {
+                    continue;
+                }
+
+                Vector3 unitWorldPosition = LevelGrid.Instance.GetWorldPosition(unitGridPosition);
+                Vector3 shootDir = (targetUnit.GetWorldPosition() - unitWorldPosition).normalized;
+
+                float unitShoulderHeight = 1.7f;
+                if (Physics.Raycast(unitWorldPosition + Vector3.up * unitShoulderHeight, shootDir,
+                    Vector3.Distance(unitWorldPosition, targetUnit.GetWorldPosition()),
+                    obstaclesLayerMask))
+                {
+                    // Blocked by an Obstacle
                     continue;
                 }
 

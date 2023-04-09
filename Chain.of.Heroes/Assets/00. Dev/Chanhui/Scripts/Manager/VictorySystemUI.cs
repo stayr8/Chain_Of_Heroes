@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class VictorySystemUI : MonoBehaviour
 {
@@ -30,6 +31,14 @@ public class VictorySystemUI : MonoBehaviour
     
         });
 
+    }
+
+    private void Update()
+    {
+        if(InputManager.Instance.IsMouseButtonDown())
+        {
+            SceneManager.LoadScene("ChoiceScene");
+        }
     }
 
 }

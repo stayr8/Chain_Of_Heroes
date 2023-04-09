@@ -9,7 +9,7 @@ public class TurnSystemUI : MonoBehaviour
 {
 
     [SerializeField] private TextMeshProUGUI turnNumberText;
-    [SerializeField] private GameObject enemyTurnVisualGameObject;
+
 
     private void Start()
     {
