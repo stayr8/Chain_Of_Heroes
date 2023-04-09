@@ -7,22 +7,17 @@ public class MonsterBase : MonoBehaviour
     [SerializeField, Header("몬스터 데이터 매니저")] private MonsterDataManager MDM;
     public CharacterDataManager CDM;
 
-    public static MonsterBase Instance { get; private set; }
     private void Awake()
     {
-        if(Instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-
         MDM = GetComponent<MonsterDataManager>();
     }
 
     private void Update()
     {
-
+        if(AttackActionSystem.Instance.attacking)
+        {
+            CDM = AttackActionSystem.Instance.GetCharacterDataManager(); 
+        }
     }
 
     #region 공격 공식

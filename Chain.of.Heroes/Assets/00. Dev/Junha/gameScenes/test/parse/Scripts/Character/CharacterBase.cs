@@ -7,16 +7,8 @@ public class CharacterBase : MonoBehaviour
     [SerializeField, Header("캐릭터 데이터 매니저")] private CharacterDataManager CDM;
     public MonsterDataManager MDM;
 
-    public static CharacterBase Instance { get; private set; }
     private void Awake()
     {
-        if (Instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-
         CDM = GetComponent<CharacterDataManager>();
     }
 

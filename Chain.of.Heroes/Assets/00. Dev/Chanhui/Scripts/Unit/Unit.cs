@@ -23,7 +23,7 @@ public class Unit : MonoBehaviour
     private GridPosition gridPosition;
     private HealthSystem healthSystem;
     private BaseAction[] baseActionArray;
-    private CharacterBase characterBase;
+    private CharacterDataManager characterDataManager;
 
     [SerializeField] private int newEnemyActionPoints = 2;
     [SerializeField] private int SoloEnemyActionPoints = 0;
@@ -34,7 +34,7 @@ public class Unit : MonoBehaviour
     {
         healthSystem = GetComponent<HealthSystem>();
         baseActionArray = GetComponents<BaseAction>();
-        characterBase = GetComponent<CharacterBase>();
+        characterDataManager = GetComponent<CharacterDataManager>();
     }
 
     private void Start()
@@ -231,9 +231,9 @@ public class Unit : MonoBehaviour
         return enemyType;
     }
 
-    public CharacterBase GetCharacterBase()
+    public CharacterDataManager GetCharacterDataManager()
     {
-        return characterBase;
+        return characterDataManager;
     }
 
     private void OnDisable()

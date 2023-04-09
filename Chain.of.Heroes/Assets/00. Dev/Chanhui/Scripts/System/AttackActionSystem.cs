@@ -11,6 +11,8 @@ public class AttackActionSystem : MonoBehaviour
     private Quaternion unitrotation;
     private Quaternion targetrotation;
 
+    private CharacterDataManager characterDataManager;
+
     public bool attacking = false;
 
     private void Awake()
@@ -32,6 +34,15 @@ public class AttackActionSystem : MonoBehaviour
 
     public void OnAtLocationMove(Unit unit, Unit target)
     {
+        if(!unit.IsEnemy())
+        {
+            characterDataManager = unit.GetCharacterDataManager();
+        }
+        else if(!target.IsEnemy())
+        {
+            characterDataManager = unit.GetCharacterDataManager();
+        }
+
         attacking = true;
 
         unitpos = unit.GetWorldPosition();
@@ -78,5 +89,10 @@ public class AttackActionSystem : MonoBehaviour
             target.transform.rotation = targetrotation;
         }
         attacking = false;
+    }
+
+    public CharacterDataManager GetCharacterDataManager()
+    {
+        return characterDataManager;
     }
 }

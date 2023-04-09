@@ -119,6 +119,7 @@ public class UnitManager : MonoBehaviour
         {
             if (mapData.Enemy_pf[i] != null)
             {
+                Debug.Log("ahstmxj");
                 SpawnSingleEnemy(i);
             }
         }
