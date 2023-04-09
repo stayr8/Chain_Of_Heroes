@@ -1,43 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 
 public class CharacterBase : MonoBehaviour
 {
     [SerializeField, Header("캐릭터 데이터 매니저")] private CharacterDataManager CDM;
-    [SerializeField, Header("대상 몬스터")] private GameObject Monster;
-    MonsterDataManager MDM;
+    public MonsterDataManager MDM;
 
-    private void Start()
+    public static CharacterBase Instance { get; private set; }
+    private void Awake()
     {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+
         CDM = GetComponent<CharacterDataManager>();
-        //MDM = Monster.GetComponent<MonsterDataManager>();
     }
 
     private void Update()
     {
-        //// 공격
-        //if(Input.GetKeyDown(KeyCode.A))
-        //{
-        //    Calc_Attack();
-        //}
-
-        //// 체인 공격
-        //if(Input.GetKeyDown(KeyCode.C))
-        //{
-        //    Calc_ChainAttack();
-        //}
-
-        //// 피격
-        //if(Input.GetKeyDown(KeyCode.D))
-        //{
-        //    Calc_Defense();
-        //}
+        //MDM = UnitActionSystem.Instance.GetSelectedEnemy();
     }
-
-
 
     #region 공격 공식
     // 최종 데미지 = 캐릭터 공격력 * ( 100 / (100 + 대상 몬스터 방어력))
@@ -54,16 +40,14 @@ public class CharacterBase : MonoBehaviour
     private float characterCD; // 캐릭터 크리티컬 피해 증가량 (으로 수정해야 함.)
     private float monsterDP; // 대상 몬스터 방어력
     private bool isCritical; // 크리티컬인가?
-    private void Calc_Attack()
+    public void Calc_Attack()
     {
         characterAP = CDM.m_attackPower;
         Debug.Log("캐릭터 공격력: " + characterAP);
-        MDM = Monster.GetComponent<MonsterDataManager>();
         monsterDP = MDM.m_defensePower;
         Debug.Log("대상 몬스터 방어력: " + monsterDP);
 
         isCritical = Calc_Critical();
-
         if (!isCritical)
         {
             Debug.Log("크리티컬 미발동!");
@@ -71,7 +55,7 @@ public class CharacterBase : MonoBehaviour
             // 최종 데미지 결정
             finalDamage = characterAP * (100 / (100 + monsterDP));
         }
-        else if(isCritical)
+        else if (isCritical)
         {
             Debug.Log("크리티컬 발동!");
 
@@ -92,14 +76,12 @@ public class CharacterBase : MonoBehaviour
     // 크리티컬 확률 계산 공식
 
     private float characterCR; // 크리티컬 확률
-    private bool Calc_Critical() 
+    private bool Calc_Critical()
     {
         characterCR = CDM.m_criticalRate / 100f;
-        //Debug.Log("캐릭터 크리티컬 확률: " + characterCR);
-        float random = UnityEngine.Random.value;
-        //Debug.Log(random);
+        float random = Random.value;
         Debug.Log("캐릭터 크리티컬 확률: " + characterCR + " | " + random + " :랜덤 수치");
-        
+
         if (random <= characterCR)
         {
             return true;
@@ -109,7 +91,6 @@ public class CharacterBase : MonoBehaviour
             return false;
         }
     }
-
     #endregion
 
     #region 체인 공격 공식
@@ -120,7 +101,7 @@ public class CharacterBase : MonoBehaviour
     public bool isChain = false; // 체인 상태인가?
     private void Calc_ChainAttack()
     {
-        if(isChain)
+        if (isChain)
         {
             characterCAP = CDM.m_chainAttackPower;
             Debug.Log("체인 발동 캐릭터 공격력: " + characterCAP);
@@ -146,8 +127,8 @@ public class CharacterBase : MonoBehaviour
     {
 
     }
-
     #endregion
+
 
 
     #region 개발 전
@@ -165,12 +146,14 @@ public class CharacterBase : MonoBehaviour
     {
         maxExp = CDM.m_maxExp;
 
-        if(currentExp >= maxExp)
+        if (currentExp >= maxExp)
         {
             ++CDM.m_level;
         }
     }
     #endregion
+
+
 
     #region 보류
     #region 방어 공식

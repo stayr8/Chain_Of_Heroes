@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MonsterDataManager : MonoBehaviour
 {
-    [SerializeField, Header("엑셀 이름")] private string CharacterName;
+    [SerializeField, Header("어떤 Json 파일을 불러올 것인가?")] private string CharacterName;
 
     [Header("캐릭터 데이터")]
     public int m_id;
@@ -39,8 +39,7 @@ public class MonsterDataManager : MonoBehaviour
             _Array[i] = GoblinWarrior;
         }
 
-        firstArray = _Array[0];
-
+        //firstArray = _Array[0];
         initInfo();
     }
 
@@ -49,8 +48,11 @@ public class MonsterDataManager : MonoBehaviour
         
     }
 
+    private int StageLevel = 0;
     private void initInfo()
     {
+        firstArray = _Array[StageLevel];
+
         m_id = firstArray.ID;
         m_name = firstArray.Monster_Name;
         m_level = firstArray.Monster_Level;
@@ -62,7 +64,5 @@ public class MonsterDataManager : MonoBehaviour
         m_movementRange = firstArray.Monster_MovementRange;
         m_attackRange = firstArray.Monster_AttackRange;
         m_rank = firstArray.Monster_Rank;
-
-        firstArray = _Array[m_level - 1];
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CharacterDataManager : MonoBehaviour
 {
-    [SerializeField, Header("엑셀 이름")] private string CharacterName;
+    [SerializeField, Header("어떤 Json 파일을 불러올 것인가?")] private string CharacterName;
 
     [Header("캐릭터 데이터")]
     public int m_id;
@@ -47,7 +47,7 @@ public class CharacterDataManager : MonoBehaviour
         //}
         */
 
-        for(int i = 0; i < Root.Count; ++i)
+        for (int i = 0; i < Root.Count; ++i)
         {
             var node = Root[i];
 

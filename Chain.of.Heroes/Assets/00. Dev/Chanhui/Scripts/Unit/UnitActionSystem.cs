@@ -18,7 +18,7 @@ public class UnitActionSystem : MonoBehaviour
 
     [SerializeField] private Unit selectedUnit;
     [SerializeField] private LayerMask UnitLayerMask;
-    [SerializeField] private MonsterBase selectedEnemy;
+    [SerializeField] private MonsterDataManager selectedEnemy;
     [SerializeField] private LayerMask EnemyLayerMask;
     [SerializeField] private Unit selectedUnitEnemy;
 
@@ -169,7 +169,7 @@ public class UnitActionSystem : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(InputManager.Instance.GetMouseScreenPosition());
             if (Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, EnemyLayerMask))
             {
-                if (raycastHit.transform.TryGetComponent<MonsterBase>(out MonsterBase unit))
+                if (raycastHit.transform.TryGetComponent<MonsterDataManager>(out MonsterDataManager unit))
                 {
                     Debug.Log("클릭");
                     
@@ -194,7 +194,7 @@ public class UnitActionSystem : MonoBehaviour
         OnSelectedUnitChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    private void SetSelectedEnemy(MonsterBase unit)
+    private void SetSelectedEnemy(MonsterDataManager unit)
     {
         selectedEnemy = unit;
     }
@@ -240,7 +240,7 @@ public class UnitActionSystem : MonoBehaviour
 
     // MonsterBase 값을 받아오는 구간.
     // 클릭 전에는 호출 하지 않기. (빈 값을 가져가 오류가 생길 수 있기 때문에)
-    public MonsterBase GetSelectedEnemy()
+    public MonsterDataManager GetSelectedEnemy()
     { 
         return selectedEnemy;
     }

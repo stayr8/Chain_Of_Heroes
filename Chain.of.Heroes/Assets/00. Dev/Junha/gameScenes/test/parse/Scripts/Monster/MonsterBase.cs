@@ -5,31 +5,25 @@ using UnityEngine;
 public class MonsterBase : MonoBehaviour
 {
     [SerializeField, Header("몬스터 데이터 매니저")] private MonsterDataManager MDM;
-    [SerializeField, Header("대상 캐릭터")] private GameObject Character;
-    CharacterDataManager CDM;
+    public CharacterDataManager CDM;
 
-    private void Start()
+    public static MonsterBase Instance { get; private set; }
+    private void Awake()
     {
+        if(Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+
         MDM = GetComponent<MonsterDataManager>();
-        //CDM = Character.GetComponent<CharacterDataManager>();
     }
 
     private void Update()
     {
-        // 공격
-        if(Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            Calc_Attack();
-        }
 
-        //// 피격
-        //if(Input.GetKeyDown(KeyCode.Alpha2))
-        //{
-        //    Calc_Defense();
-        //}
     }
-
-
 
     #region 공격 공식
     // 몬스터 데미지 = 몬스터 공격력 * (100 / (100 + 대상 캐릭터 방어력))
@@ -41,13 +35,13 @@ public class MonsterBase : MonoBehaviour
     private float monsterDamage; // 몬스터 데미지
     private float monsterAP; // 몬스터 공격력
     private float characterDP; // 대상 캐릭터 방어력
-    private void Calc_Attack()
+    public void Calc_Attack()
     {
         monsterAP = MDM.m_attackPower;
         Debug.Log("몬스터 공격력: " + monsterAP);
         characterDP = CDM.m_defensePower;
-        Debug.Log("대상 캐릭터 방어력: " +  characterDP);
-                
+        Debug.Log("대상 캐릭터 방어력: " + characterDP);
+
         // 몬스터 데미지 결정
         monsterDamage = monsterAP * (100 / (100 + characterDP)) * (1 /*- 데미지 감소율 */);
         Debug.Log("몬스터 데미지: " + (int)monsterDamage);
@@ -58,6 +52,8 @@ public class MonsterBase : MonoBehaviour
         Debug.Log("캐릭터 피격! 캐릭터의 남은 체력은: " + CDM.m_hp);
     }
     #endregion
+
+
 
     #region 보류
     #region 방어 공식
