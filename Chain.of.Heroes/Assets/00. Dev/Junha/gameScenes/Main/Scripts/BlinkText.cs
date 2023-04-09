@@ -1,14 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+
+using TMPro;
 
 public class BlinkText : MonoBehaviour
 {
     private TextMeshProUGUI tmp;
-    private float minAlpha = 0.25f;
-    private float maxAlpha = 1.0f;
-
     private void Start()
     {
         tmp = GetComponent<TextMeshProUGUI>();
@@ -16,6 +14,8 @@ public class BlinkText : MonoBehaviour
         StartCoroutine(FadeTextToZeroAlpha());
     }
 
+    private float minAlpha = 0.25f;
+    private float maxAlpha = 1.0f;
     private IEnumerator FadeTextToFullAlpha() // 알파값 minAlpha에서 maxAlpha로 전환
     {
         tmp.color = new Color(tmp.color.r, tmp.color.g, tmp.color.b, minAlpha);
