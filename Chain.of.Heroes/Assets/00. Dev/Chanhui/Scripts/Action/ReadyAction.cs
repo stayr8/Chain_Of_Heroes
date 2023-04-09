@@ -30,7 +30,7 @@ public class ReadyAction : BaseAction
 
     private State state;
     private float stateTimer;
-    private Unit targetUnit;
+    public static Unit targetUnit;
     private bool canShootBullet;
 
     private void Update()
@@ -239,6 +239,11 @@ public class ReadyAction : BaseAction
     public int GetMaxShootDistance()
     {
         return maxReadyDistance;
+    }
+
+    public static CharacterBase GetTargetUnit()
+    {
+        return targetUnit.GetCharacterBase();
     }
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)

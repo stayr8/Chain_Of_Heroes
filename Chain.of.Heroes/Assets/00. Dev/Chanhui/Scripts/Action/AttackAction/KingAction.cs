@@ -23,7 +23,7 @@ public class KingAction : BaseAction
 
     private State state;
     private float stateTimer;
-    private Unit targetUnit;
+    public static Unit targetUnit;
    
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
     {
@@ -206,6 +206,11 @@ public class KingAction : BaseAction
         stateTimer = beforeHitStateTime;
 
         ActionStart(onActionComplete);
+    }
+
+    public static CharacterBase GetTargetUnit()
+    {
+        return targetUnit.GetCharacterBase();
     }
 
     public override string GetActionName()
