@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class AllUI : MonoBehaviour
 {
-
+    [SerializeField] private string Stage_name;
 
 
     public void SceneChange()
@@ -24,7 +24,7 @@ public class AllUI : MonoBehaviour
                 break;
         }
 
-        SceneManager.LoadScene("Chan");
+        SceneManager.LoadScene(Stage_name);
     }
 
     public void NextScene()

@@ -20,10 +20,13 @@ public class UnitActionSystem : MonoBehaviour
     [SerializeField] private LayerMask UnitLayerMask;
     [SerializeField] private MonsterBase selectedEnemy;
     [SerializeField] private LayerMask EnemyLayerMask;
+    [SerializeField] private Unit selectedUnitEnemy;
 
     private BaseAction selectedAction;
     private bool isBusy;
     [SerializeField] private bool DoubleSelectedUnit;
+    [SerializeField] private bool CameraSelectedUnit;
+
 
     private void Awake()
     {
@@ -39,11 +42,13 @@ public class UnitActionSystem : MonoBehaviour
     private void Start()
     {
         DoubleSelectedUnit = true;
+        CameraSelectedUnit = true;
     }
 
     private void Update()
     {
         TryHandleEnemySelection();
+        TryHandleUnitEnemySelection();
         if (isBusy)
         {
             return;
@@ -139,6 +144,24 @@ public class UnitActionSystem : MonoBehaviour
         return false;
     }
 
+    private bool TryHandleUnitEnemySelection()
+    {
+        if (InputManager.Instance.IsMouseButtonDown())
+        {
+            Ray ray = Camera.main.ScreenPointToRay(InputManager.Instance.GetMouseScreenPosition());
+            if (Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, EnemyLayerMask))
+            {
+                if (raycastHit.transform.TryGetComponent<Unit>(out Unit unit))
+                {
+                    SetSelectedUnityEnemy(unit);
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     public bool TryHandleEnemySelection()
     {
         if (InputManager.Instance.IsMouseButtonDown())
@@ -176,6 +199,12 @@ public class UnitActionSystem : MonoBehaviour
         selectedEnemy = unit;
     }
 
+    private void SetSelectedUnityEnemy(Unit unit)
+    {
+        selectedUnitEnemy = unit;
+        CameraSelectedUnit = false;
+    }
+
     public void OutSelectedUnit(Unit unit)
     {
         selectedUnit = unit;
@@ -199,6 +228,11 @@ public class UnitActionSystem : MonoBehaviour
         return selectedUnit;
     }
 
+    public Unit GetSelecterdUnitEnemy()
+    {
+        return selectedUnitEnemy;
+    }
+
     public BaseAction GetSelectedAction()
     {
         return selectedAction;
@@ -211,8 +245,22 @@ public class UnitActionSystem : MonoBehaviour
         return selectedEnemy;
     }
 
+    public bool GetDoubleSelUnit()
+    {
+        return DoubleSelectedUnit;
+    }
+
     public void SetDoubleSelUnit(bool DoubleSelectedUnit)
     {
         this.DoubleSelectedUnit = DoubleSelectedUnit;
+    }
+    public bool GetCameraSelUnit()
+    {
+        return CameraSelectedUnit;
+    }
+
+    public void SetCameraSelUnit(bool CameraSelectedUnit)
+    {
+        this.CameraSelectedUnit = CameraSelectedUnit;
     }
 }

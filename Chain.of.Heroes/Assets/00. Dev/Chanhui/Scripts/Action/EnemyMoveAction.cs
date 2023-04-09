@@ -8,7 +8,8 @@ public class EnemyMoveAction : BaseAction
     public event EventHandler OnStartMoving;
     public event EventHandler OnStopMoving;
 
-    [SerializeField] private int maxMoveDistance = 0;
+    [SerializeField] private int maxMoveDistance;
+    [SerializeField] private int minMoveDistance;
 
     private List<Vector3> positionList;
     private int currentPositionIndex = 0;
@@ -23,26 +24,30 @@ public class EnemyMoveAction : BaseAction
         }
 
         Vector3 targetPosition = positionList[currentPositionIndex];
-        Vector3 moveDirection = (targetPosition - transform.position).normalized;
-
-        float rotateSpeed = 80f;
-        transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed);
+        Vector3 moveDirection = (targetPosition - transform.position).normalized; 
 
         float stoppingDistance = 0.1f;
         if (Vector3.Distance(transform.position, targetPosition) > stoppingDistance)
         {
+            float rotateSpeed = 80f;
+            transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed);
+
             float moveSpeed = 4f;
             transform.position += moveDirection * moveSpeed * Time.deltaTime;
 
         }
         else
         {
-            currentPositionIndex++;
-            if (currentPositionIndex >= positionList.Count)
+            int Distance = minMoveDistance > positionList.Count ? positionList.Count : minMoveDistance;
+            if (currentPositionIndex >= Distance)
             {
                 OnStopMoving?.Invoke(this, EventArgs.Empty);
 
                 ActionComplete();
+            }
+            else
+            {
+                currentPositionIndex++;
             }
         }
     }

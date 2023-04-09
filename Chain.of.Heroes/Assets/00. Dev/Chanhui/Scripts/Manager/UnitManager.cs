@@ -155,4 +155,10 @@ public class UnitManager : MonoBehaviour
     {
         return friendlyUnitList.Count <= 0;
     }
+
+    private void OnDisable()
+    {
+        Unit.OnAnyUnitSpawned -= Unit_OnAnyUnitSpawned;
+        Unit.OnAnyUnitDead -= Unit_OnAnyUnitDead;
+    }
 }

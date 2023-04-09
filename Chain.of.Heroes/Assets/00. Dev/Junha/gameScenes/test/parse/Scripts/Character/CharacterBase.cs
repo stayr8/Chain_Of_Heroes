@@ -18,17 +18,17 @@ public class CharacterBase : MonoBehaviour
 
     private void Update()
     {
-        // 공격
-        if(Input.GetKeyDown(KeyCode.A))
-        {
-            Calc_Attack();
-        }
+        //// 공격
+        //if(Input.GetKeyDown(KeyCode.A))
+        //{
+        //    Calc_Attack();
+        //}
 
-        // 체인 공격
-        if(Input.GetKeyDown(KeyCode.C))
-        {
-            Calc_ChainAttack();
-        }
+        //// 체인 공격
+        //if(Input.GetKeyDown(KeyCode.C))
+        //{
+        //    Calc_ChainAttack();
+        //}
 
         //// 피격
         //if(Input.GetKeyDown(KeyCode.D))

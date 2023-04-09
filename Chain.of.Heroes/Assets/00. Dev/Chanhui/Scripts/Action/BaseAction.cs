@@ -59,20 +59,32 @@ public abstract class BaseAction : MonoBehaviour
         {
             // 여기 문제 있음@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
             TurnSystem.Property.IsPlayerTurn = false;
-            Debug.Log(TurnSystem.Property.IsPlayerTurn);
+
         }
         if (!unit.IsEnemy())
+        {
             UnitActionSystem.Instance.SetDoubleSelUnit(true);
+            UnitActionSystem.Instance.SetCameraSelUnit(true);
+        }
+
+        if (UnitManager.Instance.VictoryPlayer() || UnitManager.Instance.VictoryEnemy())
+        {
+            TurnSystem.Property.IsTurnEnd = true;
+        }
     }
 
     protected void ActionCameraStart()
     {
         OnAnyActionStarted?.Invoke(this, EventArgs.Empty);
+        StageUI.Instance.TurnSystemHide();
+        StageUI.Instance.AttackShow();
     }
 
     protected void ActionCameraComplete()
     {
         OnAnyActionCompleted?.Invoke(this, EventArgs.Empty);
+        StageUI.Instance.AttackHide();
+        StageUI.Instance.TurnSystemShow();
     }
 
     protected void AttackCameraStart()

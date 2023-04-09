@@ -6,16 +6,16 @@ using Cinemachine;
 public class CameraController : MonoBehaviour
 {
     private const float MIN_FOLLOW_Y_OFFSET = 2f;
-    private const float MAX_FOLLOW_Y_OFFSET = 12f;
+    private const float MAX_FOLLOW_Y_OFFSET = 25f;
 
     [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
     [SerializeField] private CinemachineVirtualCamera cinemachineVirtualingCamera;
+    [SerializeField] private GameObject TopViewVirtualingCamera;
 
     private CinemachineTransposer cinemachineTransposer;
     private Vector3 targetFollowOffset;
 
     public bool camerazoom = false;
-    private float cameraDistance = 0;
 
 
     private void Start()
@@ -29,19 +29,30 @@ public class CameraController : MonoBehaviour
         HandleMovement();
         HandleRotation();
         HandleZoom();
-        //HandleCameraZoom();
-        
+        TopView();
+
+
+        if (UnitActionSystem.Instance.GetCameraSelUnit())
+        {
+            cinemachineVirtualingCamera.LookAt = this.transform;
+        }
+        else
+        {
+            cinemachineVirtualingCamera.LookAt = UnitActionSystem.Instance.GetSelecterdUnitEnemy().transform;
+        }
     }
 
     // 카메라 이동
     private void HandleMovement()
     {
+
         Vector2 inputMoveDir = InputManager.Instance.GetCameraMoveVector();
 
         float moveSpeed = 10f;
 
         Vector3 moveVector = transform.forward * inputMoveDir.y + transform.right * inputMoveDir.x;
         transform.position += moveVector * moveSpeed * Time.deltaTime;
+
     }
 
     // 카메라 회전
@@ -67,15 +78,32 @@ public class CameraController : MonoBehaviour
         cinemachineTransposer.m_FollowOffset = Vector3.Lerp(cinemachineTransposer.m_FollowOffset, targetFollowOffset, Time.deltaTime * zoomSpeed);
     }
 
-    private void HandleCameraZoom()
+    private void TopView()
     {
-        if (camerazoom)
+        if (InputManager.Instance.GetOnCamera())
         {
-            if (cinemachineVirtualingCamera.m_Lens.FieldOfView > 25f) 
+            if (!camerazoom)
             {
-                cameraDistance += Time.deltaTime / 10f;
-                cinemachineVirtualingCamera.m_Lens.FieldOfView -= cameraDistance;
+                TopViewVirtualingCamera.SetActive(true);
+                Invoke("Trem", 2);
             }
+            else
+            {
+                TopViewVirtualingCamera.SetActive(false);
+                Invoke("Trem", 2);
+            }
+        }
+    }
+
+    void Trem()
+    {
+        if(!camerazoom)
+        {
+            camerazoom = true;
+        }
+        else
+        {
+            camerazoom = false;
         }
     }
 

@@ -11,11 +11,16 @@ public class KingAction : BaseAction
 
     private enum State
     {
+        SwingingKingAttackCameraStart,
+        SwingingKingBeforeCamera,
+        SwingingKingAttackCameraEnd,
         SwingingKingBeforeHit,
+        SwingingKingAfterCamera,
         SwingingKingAfterHit,
     }
 
     private int maxKingDistance = 1;
+
     private State state;
     private float stateTimer;
     private Unit targetUnit;
@@ -41,15 +46,26 @@ public class KingAction : BaseAction
 
         switch (state)
         {
-            case State.SwingingKingBeforeHit:
+            case State.SwingingKingAttackCameraStart:
                 Vector3 aimDir = (targetUnit.GetWorldPosition() - unit.GetWorldPosition()).normalized;
-
                 float rotateSpeed = 20f;
                 transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateSpeed);
+
+                break;
+            case State.SwingingKingBeforeCamera:
+
+                break;
+            case State.SwingingKingAttackCameraEnd:
+
+                break;
+            case State.SwingingKingBeforeHit:
+                
+                break;
+            case State.SwingingKingAfterCamera:
+
                 break;
             case State.SwingingKingAfterHit:
                 
-
                 break;
         }
 
@@ -63,15 +79,64 @@ public class KingAction : BaseAction
     {
         switch (state)
         {
-            case State.SwingingKingBeforeHit:
-                state = State.SwingingKingAfterHit;
+            case State.SwingingKingAttackCameraStart:
+                AttackCameraStart();
                 float afterHitStateTime = 0.5f;
                 stateTimer = afterHitStateTime;
+                state = State.SwingingKingBeforeCamera;
+
+                break;
+            case State.SwingingKingBeforeCamera:
+                StageUI.Instance.Fade();
+                float afterHitStateTime_0 = 0.5f;
+                stateTimer = afterHitStateTime_0;
+                state = State.SwingingKingAttackCameraEnd;
+
+                break;
+            case State.SwingingKingAttackCameraEnd:
+                if (unit.IsEnemy())
+                {
+                    AttackActionSystem.Instance.OnAtLocationMove(targetUnit, unit);
+                }
+                else
+                {
+                    AttackActionSystem.Instance.OnAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
+                }
+                ActionCameraStart();
+                AttackCameraComplete();
+                float afterHitStateTime_1 = 2.0f;
+                stateTimer = afterHitStateTime_1;
+                state = State.SwingingKingBeforeHit;
+
+                break;
+            case State.SwingingKingBeforeHit:
+                float afterHitStateTime_2 = 1.5f;
+                stateTimer = afterHitStateTime_2;
+                OnKingActionStarted?.Invoke(this, EventArgs.Empty);
+                state = State.SwingingKingAfterCamera;
                 targetUnit.Damage(100);
+
+                break;
+            case State.SwingingKingAfterCamera:
+                StageUI.Instance.Fade();
+                float afterHitStateTime_3 = 0.5f;
+                stateTimer = afterHitStateTime_3;
+                state = State.SwingingKingAfterHit;
+
                 break;
             case State.SwingingKingAfterHit:
+                ActionCameraComplete();
+                if (unit.IsEnemy())
+                {
+                    AttackActionSystem.Instance.OffAtLocationMove(targetUnit, unit);
+                }
+                else
+                {
+                    AttackActionSystem.Instance.OffAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
+                }
                 OnKingActionCompleted?.Invoke(this, EventArgs.Empty);
                 ActionComplete();
+
                 break;
         }
 
@@ -99,17 +164,28 @@ public class KingAction : BaseAction
                     continue;
                 }
 
+                if (unitGridPosition == testGridPosition)
+                {
+                    // Same Grid Position where the character is already at
+                    continue;
+                }
+
+
                 if (!LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition))
                 {
                     // Grid Position is empty, no Unit
                     continue;
                 }
 
-
                 Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
                 if (targetUnit.IsEnemy() == unit.IsEnemy())
                 {
                     // Both Units on same 'team'
+                    continue;
+                }
+
+                if (!Pathfinding.Instance.IsWalkableGridPosition(testGridPosition))
+                {
                     continue;
                 }
 
@@ -125,18 +201,16 @@ public class KingAction : BaseAction
     {
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
 
-        state = State.SwingingKingBeforeHit;
+        state = State.SwingingKingAttackCameraStart;
         float beforeHitStateTime = 0.7f;
         stateTimer = beforeHitStateTime;
-
-        OnKingActionStarted?.Invoke(this, EventArgs.Empty);
 
         ActionStart(onActionComplete);
     }
 
     public override string GetActionName()
     {
-        return "ŷ";
+        return "킹";
     }
 
     public int GetMaxKingDistance()
@@ -151,7 +225,14 @@ public class KingAction : BaseAction
 
     public override int GetActionPointsCost()
     {
-        return 2;
+        if (unit.IsEnemy())
+        {
+            return 2;
+        }
+        else
+        {
+            return 1;
+        }
     }
 
     public override string GetSingleActionPoint()

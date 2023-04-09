@@ -6,10 +6,10 @@ public class AttackActionSystem : MonoBehaviour
 {
     public static AttackActionSystem Instance { get; private set; }
 
-    private Vector3 playerpos;
-    private Vector3 enemypos;
-    private Quaternion playerrotation;
-    private Quaternion enemyrotation;
+    private Vector3 unitpos;
+    private Vector3 targetpos;
+    private Quaternion unitrotation;
+    private Quaternion targetrotation;
 
     public bool attacking = false;
 
@@ -34,10 +34,10 @@ public class AttackActionSystem : MonoBehaviour
     {
         attacking = true;
 
-        playerpos = unit.GetWorldPosition();
-        enemypos = target.GetWorldPosition();
-        playerrotation = unit.transform.rotation;
-        enemyrotation = unit.transform.rotation;
+        unitpos = unit.GetWorldPosition();
+        targetpos = target.GetWorldPosition();
+        unitrotation = unit.transform.rotation;
+        targetrotation = target.transform.rotation;
 
         Vector3 playerlocationMove = new Vector3(0, 150, -3);
 
@@ -56,22 +56,26 @@ public class AttackActionSystem : MonoBehaviour
 
     public void OffAtLocationMove(Unit unit, Unit target)
     {
-        unit.SetPosition(playerpos);
+        if(unit != null)
+        {
+            unit.SetPosition(unitpos);
+        }
+
         if (target != null)
         {
-            target.SetPosition(enemypos);
+            target.SetPosition(targetpos);
         }
 
         if (unit.GetHealth() > 0)
         {
             LevelGrid.Instance.AddUnitAtGridPosition(unit.GetGridPosition(), unit);
-            unit.transform.rotation = playerrotation;
+            unit.transform.rotation = unitrotation;
         }
         
         if (target.GetHealth() > 0)
         {
             LevelGrid.Instance.AddUnitAtGridPosition(target.GetGridPosition(), target);
-            target.transform.rotation = enemyrotation;
+            target.transform.rotation = targetrotation;
         }
         attacking = false;
     }

@@ -11,6 +11,9 @@ public class StageUI : MonoBehaviour
     [SerializeField] private GameObject PlayerTurn;
     [SerializeField] private GameObject EnemyTurn;
     [SerializeField] private GameObject MenuUI;
+    [SerializeField] private GameObject AttackUI;
+    [SerializeField] private GameObject TurnSystemUI;
+    [SerializeField] private GameObject GameCondition;
     [SerializeField] private Image Panel;
 
     private float time = 0f;
@@ -46,7 +49,7 @@ public class StageUI : MonoBehaviour
             }
             else
             {
-                //Debug.Log("Enemy");
+                Debug.Log("Enemy");
                 EnemyShow();
                 PlayerHide();
             }
@@ -55,6 +58,7 @@ public class StageUI : MonoBehaviour
 
         PlayerHide();
         EnemyHide();
+        ConditionShow();
     }
 
     private void Update()
@@ -89,6 +93,31 @@ public class StageUI : MonoBehaviour
     private void EnemyHide()
     {
         EnemyTurn.SetActive(false);
+    }
+
+    private void ConditionShow()
+    {
+        GameCondition.SetActive(true);
+    }
+
+    public void AttackShow()
+    {
+        AttackUI.SetActive(true);
+    }
+
+    public void AttackHide()
+    {
+        AttackUI.SetActive(false);
+    }
+
+    public void TurnSystemShow()
+    {
+        TurnSystemUI.SetActive(true);
+    }
+
+    public void TurnSystemHide()
+    {
+        TurnSystemUI.SetActive(false);
     }
 
     public void Fade()
@@ -194,13 +223,11 @@ public class StageUI : MonoBehaviour
     {
         // UI
         MenuUI.SetActive(false);
-        EnemyHide();
-        PlayerHide();
+        
 
         // Unit Destroy
         UnitManager.Instance.playerpos = 0;
         UnitManager.Instance.enemypos = 0;
-        UnitManager.Instance.Release();
 
         SceneManager.LoadScene("ChoiceScene");
     }
