@@ -150,7 +150,8 @@ public class QueenAction : BaseAction
                 stateTimer = afterHitStateTime_2;
                 OnQueenActionStarted?.Invoke(this, EventArgs.Empty);
                 state = State.SwingingQueenAfterCamera;
-                targetUnit.Damage(100);
+                //targetUnit.Damage(100);
+                AttackActionSystem.Instance.OnAtking();
 
                 break;
             case State.SwingingQueenAfterCamera:
@@ -162,6 +163,7 @@ public class QueenAction : BaseAction
                 break;
             case State.SwingingQueenAfterHit:
                 ActionCameraComplete();
+                AttackActionSystem.Instance.OffAtking();
                 AttackActionSystem.Instance.OffAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
                 OnQueenActionCompleted?.Invoke(this, EventArgs.Empty);
                 ActionComplete();

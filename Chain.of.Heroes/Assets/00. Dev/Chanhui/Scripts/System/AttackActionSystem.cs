@@ -14,6 +14,7 @@ public class AttackActionSystem : MonoBehaviour
     private CharacterDataManager characterDataManager;
 
     public bool attacking = false;
+    public bool isAttacking = false;
 
     private void Awake()
     {
@@ -89,6 +90,16 @@ public class AttackActionSystem : MonoBehaviour
             target.transform.rotation = targetrotation;
         }
         attacking = false;
+    }
+
+    public void OnAtking()
+    {
+        isAttacking = true;
+    }
+
+    public void OffAtking()
+    {
+        isAttacking = false;
     }
 
     public CharacterDataManager GetCharacterDataManager()

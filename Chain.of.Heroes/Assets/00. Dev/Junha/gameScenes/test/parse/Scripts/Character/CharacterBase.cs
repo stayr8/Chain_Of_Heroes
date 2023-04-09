@@ -7,6 +7,8 @@ public class CharacterBase : MonoBehaviour
     [SerializeField, Header("캐릭터 데이터 매니저")] private CharacterDataManager CDM;
     public MonsterDataManager MDM;
 
+
+    bool isAtk = false;
     private void Awake()
     {
         CDM = GetComponent<CharacterDataManager>();
@@ -14,7 +16,23 @@ public class CharacterBase : MonoBehaviour
 
     private void Update()
     {
-        //MDM = UnitActionSystem.Instance.GetSelectedEnemy();
+        if(UnitActionSystem.Instance.GetSelectedEnemy() != null)
+        {
+            MDM = UnitActionSystem.Instance.GetSelectedEnemy();
+        }
+
+        if (AttackActionSystem.Instance.isAttacking)
+        {
+            if (!isAtk)
+            {
+                Calc_Attack();
+                isAtk = true;
+            }
+        }
+        else
+        {
+            isAtk = false;
+        }
     }
 
     #region 공격 공식

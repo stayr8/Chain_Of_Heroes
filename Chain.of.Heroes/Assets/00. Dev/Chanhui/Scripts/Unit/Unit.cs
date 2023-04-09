@@ -202,6 +202,7 @@ public class Unit : MonoBehaviour
     {
         healthSystem.Damage(damageAmount);
     }
+    
     // 몬스터, 플레이어 죽음 및 확인
     private void HealthSystem_OnDead(object sender, EventArgs e)
     {
