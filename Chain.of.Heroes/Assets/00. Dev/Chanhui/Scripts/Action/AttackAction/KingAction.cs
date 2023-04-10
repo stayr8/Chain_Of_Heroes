@@ -114,7 +114,14 @@ public class KingAction : BaseAction
                 stateTimer = afterHitStateTime_2;
                 OnKingActionStarted?.Invoke(this, EventArgs.Empty);
                 state = State.SwingingKingAfterCamera;
-                targetUnit.Damage(100);
+                if (unit.IsEnemy())
+                {
+                    AttackActionSystem.Instance.OnEnemyAtking();
+                }
+                else
+                {
+                    AttackActionSystem.Instance.OnPlayerAtking();
+                }
 
                 break;
             case State.SwingingKingAfterCamera:
@@ -126,13 +133,16 @@ public class KingAction : BaseAction
                 break;
             case State.SwingingKingAfterHit:
                 ActionCameraComplete();
+                AttackActionSystem.Instance.OffEnemyAtking();
                 if (unit.IsEnemy())
                 {
                     AttackActionSystem.Instance.OffAtLocationMove(targetUnit, unit);
+                    AttackActionSystem.Instance.OffEnemyAtking();
                 }
                 else
                 {
                     AttackActionSystem.Instance.OffAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
+                    AttackActionSystem.Instance.OffPlayerAtking();
                 }
                 OnKingActionCompleted?.Invoke(this, EventArgs.Empty);
                 ActionComplete();

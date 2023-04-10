@@ -47,6 +47,8 @@ public abstract class BaseAction : MonoBehaviour
 
         if (!unit.IsEnemy())
             UnitActionSystem.Instance.OutSelectedUnit(unit);
+
+        AttackActionSystem.Instance.SetFindPlayer(true);
     }
 
     protected void ActionComplete()
@@ -71,6 +73,8 @@ public abstract class BaseAction : MonoBehaviour
         {
             TurnSystem.Property.IsTurnEnd = true;
         }
+
+        AttackActionSystem.Instance.SetFindPlayer(false);
     }
 
     protected void ActionCameraStart()

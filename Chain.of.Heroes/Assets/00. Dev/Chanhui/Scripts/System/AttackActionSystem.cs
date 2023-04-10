@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
+
 
 public class AttackActionSystem : MonoBehaviour
 {
@@ -13,8 +16,20 @@ public class AttackActionSystem : MonoBehaviour
 
     private CharacterDataManager characterDataManager;
 
-    public bool attacking = false;
-    public bool isAttacking = false;
+    private Unit player;
+    private Unit enemy;
+
+    private bool playerfing;
+    public bool OnAttackAtGround = false;
+    public bool EnemyAttacking = false;
+    public bool PlayerAttacking = false;
+
+    public Slider player_bar;
+    public Slider enemy_bar;
+    [SerializeField] private TextMeshProUGUI PlayerHPText;
+    [SerializeField] private TextMeshProUGUI EnemyHPText;
+    [SerializeField] private TextMeshProUGUI PlayerName;
+    [SerializeField] private TextMeshProUGUI EnemyName;
 
     private void Awake()
     {
@@ -29,7 +44,25 @@ public class AttackActionSystem : MonoBehaviour
 
     private void Start()
     {
-        attacking = false;
+        playerfing = false;
+        OnAttackAtGround = false;
+    }
+
+    private void Update()
+    {
+        if (OnAttackAtGround && player != null)
+        {
+            player_bar.value = player.GetCharacterDataManager().m_hp / 1000;
+            PlayerHPText.text = "" + (int)player.GetCharacterDataManager().m_hp;
+            PlayerName.text = "" + player.GetUnitName();
+        }
+
+        if (OnAttackAtGround && enemy != null)
+        {
+            enemy_bar.value = enemy.GetMonsterDataManager().m_hp / 100;
+            EnemyHPText.text = "" + (int)enemy.GetMonsterDataManager().m_hp;
+            EnemyName.text = "" + enemy.GetUnitName();
+        }
     }
 
 
@@ -38,13 +71,21 @@ public class AttackActionSystem : MonoBehaviour
         if(!unit.IsEnemy())
         {
             characterDataManager = unit.GetCharacterDataManager();
+            player = unit;
+            enemy = target;
         }
-        else if(!target.IsEnemy())
+        else
+        {
+            player = target;
+            enemy = unit;
+        }
+        
+        if(!target.IsEnemy())
         {
             characterDataManager = unit.GetCharacterDataManager();
         }
 
-        attacking = true;
+        OnAttackAtGround = true;
 
         unitpos = unit.GetWorldPosition();
         targetpos = target.GetWorldPosition();
@@ -89,17 +130,37 @@ public class AttackActionSystem : MonoBehaviour
             LevelGrid.Instance.AddUnitAtGridPosition(target.GetGridPosition(), target);
             target.transform.rotation = targetrotation;
         }
-        attacking = false;
+        OnAttackAtGround = false;
     }
 
-    public void OnAtking()
+    public void OnEnemyAtking()
     {
-        isAttacking = true;
+        EnemyAttacking = true;
     }
 
-    public void OffAtking()
+    public void OffEnemyAtking()
     {
-        isAttacking = false;
+        EnemyAttacking = false;
+    }
+
+    public void OnPlayerAtking()
+    {
+        PlayerAttacking = true;
+    }
+
+    public void OffPlayerAtking()
+    {
+        PlayerAttacking = false;
+    }
+
+    public bool GetFindPlayer()
+    {
+        return playerfing;
+    }
+
+    public bool SetFindPlayer(bool playerfing)
+    {
+        return this.playerfing = playerfing;
     }
 
     public CharacterDataManager GetCharacterDataManager()

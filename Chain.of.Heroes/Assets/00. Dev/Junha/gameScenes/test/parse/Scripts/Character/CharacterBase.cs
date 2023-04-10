@@ -8,7 +8,7 @@ public class CharacterBase : MonoBehaviour
     public MonsterDataManager MDM;
 
 
-    bool isAtk = false;
+    private bool isAtk = false;
     private void Awake()
     {
         CDM = GetComponent<CharacterDataManager>();
@@ -21,7 +21,7 @@ public class CharacterBase : MonoBehaviour
             MDM = UnitActionSystem.Instance.GetSelectedEnemy();
         }
 
-        if (AttackActionSystem.Instance.isAttacking)
+        if (AttackActionSystem.Instance.PlayerAttacking)
         {
             if (!isAtk)
             {
@@ -80,6 +80,7 @@ public class CharacterBase : MonoBehaviour
         // 데미지 넣기
         // Attack((int)finalDamage);
         MDM.m_hp -= (int)finalDamage;
+        //MDM.Damage();
         Debug.Log("몬스터 피격! 몬스터의 남은 체력은: " + MDM.m_hp);
     }
 
@@ -189,4 +190,8 @@ public class CharacterBase : MonoBehaviour
     //}
     #endregion
     #endregion
+
+    
+    
+
 }

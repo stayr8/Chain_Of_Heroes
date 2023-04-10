@@ -152,7 +152,7 @@ public class KnightAction : BaseAction
                 stateTimer = afterHitStateTime_2;
                 OnKnightActionStarted?.Invoke(this, EventArgs.Empty);
                 state = State.SwingingKnightAfterCamera;
-                targetUnit.Damage(100);
+                AttackActionSystem.Instance.OnEnemyAtking();
 
                 break;
             case State.SwingingKnightAfterCamera:
@@ -164,6 +164,7 @@ public class KnightAction : BaseAction
                 break;
             case State.SwingingKnightAfterHit:
                 ActionCameraComplete();
+                AttackActionSystem.Instance.OffEnemyAtking();
                 AttackActionSystem.Instance.OffAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
                 OnKnightActionCompleted?.Invoke(this, EventArgs.Empty);
                 ActionComplete();
