@@ -151,7 +151,7 @@ public class RookAction : BaseAction
                 stateTimer = afterHitStateTime_2;
                 OnRookActionStarted?.Invoke(this, EventArgs.Empty);
                 state = State.SwingingRookAfterCamera;
-                targetUnit.Damage(100);
+                AttackActionSystem.Instance.OnEnemyAtking();
 
                 break;
             case State.SwingingRookAfterCamera:
@@ -163,6 +163,7 @@ public class RookAction : BaseAction
                 break;
             case State.SwingingRookAfterHit:
                 ActionCameraComplete();
+                AttackActionSystem.Instance.OffEnemyAtking();
                 AttackActionSystem.Instance.OffAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
                 OnRookActionCompleted?.Invoke(this, EventArgs.Empty);
                 ActionComplete();

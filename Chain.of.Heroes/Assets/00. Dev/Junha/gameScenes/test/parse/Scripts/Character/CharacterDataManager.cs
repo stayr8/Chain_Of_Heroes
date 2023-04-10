@@ -1,9 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterDataManager : MonoBehaviour
 {
+    public event EventHandler OnDead;
+    public event EventHandler OnDamage;
+
     [SerializeField, Header("어떤 Json 파일을 불러올 것인가?")] private string CharacterName;
 
     [Header("캐릭터 데이터")]
@@ -70,6 +74,12 @@ public class CharacterDataManager : MonoBehaviour
 
             Debug.Log("레벨 업! 현재 레벨은: " + m_level);
         }
+
+        if(m_hp < 0)
+        {
+            m_hp = 0;
+            Die();
+        }
     }
 
     private int NumForLvUp = 0;
@@ -89,6 +99,26 @@ public class CharacterDataManager : MonoBehaviour
         m_hp = firstArray.Hp;
         m_criticalRate = firstArray.CriticalRate;
         m_criticalDamage = firstArray.CriticalDamage;
+    }
+
+    public float GetHealthNormalized()
+    {
+        return (float)m_hp / 1000;
+    }
+
+    public float GetHealth()
+    {
+        return m_hp;
+    }
+
+    private void Die()
+    {
+        OnDead?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void Damage()
+    {
+        OnDamage?.Invoke(this, EventArgs.Empty);
     }
 }
 

@@ -10,7 +10,6 @@ public class UnitAnimator : MonoBehaviour
     [SerializeField] private Transform bulletProjectilePrefab;
     [SerializeField] private Transform shootPointTransform;
 
-    private HealthSystem healthSystem;
 
     private void Awake()
     {
@@ -69,9 +68,18 @@ public class UnitAnimator : MonoBehaviour
             knightAction.OnKnightActionCompleted += knightAction_OnKnightActionCompleted;
         }
 
-        healthSystem = GetComponent<HealthSystem>();
+        if(TryGetComponent<CharacterDataManager>(out CharacterDataManager characterdatamanager))
+        {
+            characterdatamanager.OnDead += Unit_OnDead;
+            characterdatamanager.OnDamage += Unit_OnDamage;
+        }
 
-        healthSystem.OnDead += HealthSystem_OnDead;
+        if (TryGetComponent<MonsterDataManager>(out MonsterDataManager monsterdatamanager))
+        {
+            monsterdatamanager.OnDead += Unit_OnDead;
+            monsterdatamanager.OnDamage += Unit_OnDamage;
+        }
+
     }
 
     #region Attack Action
@@ -204,9 +212,15 @@ public class UnitAnimator : MonoBehaviour
 
     }
 
-    private void HealthSystem_OnDead(object sender, EventArgs e)
+    
+    private void Unit_OnDead(object sender, EventArgs e)
     {
         animator.SetBool("IsDie", true);
+    }
+
+    private void Unit_OnDamage(object sender, EventArgs e)
+    {
+        animator.SetTrigger("IsDamage");
     }
 
     private void OnDisable()
@@ -266,6 +280,16 @@ public class UnitAnimator : MonoBehaviour
             knightAction.OnKnightActionCompleted -= knightAction_OnKnightActionCompleted;
         }
 
-        healthSystem.OnDead -= HealthSystem_OnDead;
+        if (TryGetComponent<CharacterDataManager>(out CharacterDataManager characterdatamanager))
+        {
+            characterdatamanager.OnDead -= Unit_OnDead;
+            characterdatamanager.OnDamage -= Unit_OnDamage;
+        }
+
+        if (TryGetComponent<MonsterDataManager>(out MonsterDataManager monsterdatamanager))
+        {
+            monsterdatamanager.OnDead -= Unit_OnDead;
+            monsterdatamanager.OnDamage -= Unit_OnDamage;
+        }
     }
 }

@@ -58,7 +58,7 @@ public class StageUI : MonoBehaviour
 
         PlayerHide();
         EnemyHide();
-        ConditionShow();
+        //ConditionShow();
     }
 
     private void Update()

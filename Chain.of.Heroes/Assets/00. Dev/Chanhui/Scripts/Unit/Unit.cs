@@ -21,20 +21,31 @@ public class Unit : MonoBehaviour
     }
 
     private GridPosition gridPosition;
-    private HealthSystem healthSystem;
     private BaseAction[] baseActionArray;
     private CharacterDataManager characterDataManager;
+    private MonsterDataManager monsterDataManager;
 
     [SerializeField] private int newEnemyActionPoints = 2;
     [SerializeField] private int SoloEnemyActionPoints = 0;
 
     [SerializeField] private EnemyType enemyType;
 
+    [SerializeField] private String UnitName;
+
     private void Awake()
     {
-        healthSystem = GetComponent<HealthSystem>();
         baseActionArray = GetComponents<BaseAction>();
-        characterDataManager = GetComponent<CharacterDataManager>();
+        if (TryGetComponent<CharacterDataManager>(out CharacterDataManager characterdatamanager))
+        {
+            this.characterDataManager = characterdatamanager;
+            characterDataManager.OnDead += CharacterDataManager_OnDead;
+        }
+        if (TryGetComponent<MonsterDataManager>(out MonsterDataManager monsterdatamanager))
+        {
+            this.monsterDataManager = monsterdatamanager;
+            monsterDataManager.OnDead += CharacterDataManager_OnDead;
+        }
+
     }
 
     private void Start()
@@ -65,12 +76,11 @@ public class Unit : MonoBehaviour
 
         SoloEnemyActionPoints = newEnemyActionPoints;
 
-        healthSystem.OnDead += HealthSystem_OnDead;
     }
 
     private void Update()
     {
-        if (!AttackActionSystem.Instance.attacking)
+        if (!AttackActionSystem.Instance.OnAttackAtGround)
         {
             GridPosition newGridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
             if (newGridPosition != gridPosition)
@@ -197,48 +207,67 @@ public class Unit : MonoBehaviour
     {
         return newEnemyActionPoints += action;
     }
-    // 몬스터, 플레이어 데미지 부분
-    public void Damage(int damageAmount)
-    {
-        healthSystem.Damage(damageAmount);
-    }
+   
     
     // 몬스터, 플레이어 죽음 및 확인
-    private void HealthSystem_OnDead(object sender, EventArgs e)
+    private void CharacterDataManager_OnDead(object sender, EventArgs e)
     {
         LevelGrid.Instance.RemoveUnitAtGridPosition(gridPosition, this);
 
         OnAnyUnitDead?.Invoke(this, EventArgs.Empty);
-        /*
-        if (UnitManager.Instance.VictoryPlayer() || UnitManager.Instance.VictoryEnemy())
-        {
-            TurnSystem.Property.IsTurnEnd = true;
-        }*/
+       
 
         Destroy(gameObject, 4.0f);
     }
+
     // 피 표준화
     public float GetHealthNormalized()
     {
-        return healthSystem.GetHealthNormalized();
+        return characterDataManager.GetHealthNormalized();
     }
     public float GetHealth()
     {
-        return healthSystem.GetHealth();
+        if (!isEnemy)
+        {
+            return characterDataManager.GetHealth();
+        }
+        else
+        {
+            return monsterDataManager.GetHealth();
+        }
     }
+   
     // 몬스터 타입
     public EnemyType GetEnemyVisualType()
     {
         return enemyType;
     }
-
+    
     public CharacterDataManager GetCharacterDataManager()
     {
         return characterDataManager;
     }
 
+    public MonsterDataManager GetMonsterDataManager()
+    {
+        return monsterDataManager;
+    }
+
+    public String GetUnitName()
+    {
+        return UnitName;
+    }
+
+
     private void OnDisable()
     {
-        healthSystem.OnDead -= HealthSystem_OnDead;
+        if (TryGetComponent<CharacterDataManager>(out CharacterDataManager characterdatamanager))
+        {
+            characterDataManager.OnDead -= CharacterDataManager_OnDead;
+        }
+        if (TryGetComponent<MonsterDataManager>(out MonsterDataManager monsterdatamanager))
+        {
+            monsterDataManager.OnDead -= CharacterDataManager_OnDead;
+        }
     }
 }

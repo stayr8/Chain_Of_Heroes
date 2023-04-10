@@ -7,6 +7,7 @@ public class MonsterBase : MonoBehaviour
     [SerializeField, Header("몬스터 데이터 매니저")] private MonsterDataManager MDM;
     public CharacterDataManager CDM;
 
+    private bool isAtk = false;
     private void Awake()
     {
         MDM = GetComponent<MonsterDataManager>();
@@ -14,9 +15,22 @@ public class MonsterBase : MonoBehaviour
 
     private void Update()
     {
-        if(AttackActionSystem.Instance.attacking)
+        if(AttackActionSystem.Instance.GetFindPlayer())
         {
             CDM = AttackActionSystem.Instance.GetCharacterDataManager(); 
+        }
+
+        if (AttackActionSystem.Instance.EnemyAttacking)
+        {
+            if (!isAtk)
+            {
+                Calc_Attack();
+                isAtk = true;
+            }
+        }
+        else
+        {
+            isAtk = false;
         }
     }
 
@@ -44,6 +58,7 @@ public class MonsterBase : MonoBehaviour
         // 데미지 넣기
         // Attack(monsterDamage);
         CDM.m_hp -= (int)monsterDamage;
+        //CDM.Damage();
         Debug.Log("캐릭터 피격! 캐릭터의 남은 체력은: " + CDM.m_hp);
     }
     #endregion
@@ -74,4 +89,6 @@ public class MonsterBase : MonoBehaviour
     //}
     #endregion
     #endregion
+
+   
 }
