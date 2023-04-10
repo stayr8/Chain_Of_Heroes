@@ -144,8 +144,7 @@ public class Main_UIManager : MonoBehaviour
         }
 
         yield return new WaitForSeconds(1f);
-        //SceneManager.LoadScene("Main");
-        LoadingSceneController.LoadScene("Main");
+        LoadingSceneController.LoadScene("WorldMapScene");
     }
     [SerializeField, Header("¹è°æ À½¾Ç")] private AudioSource _background;
     private IEnumerator SoundFadeIn()

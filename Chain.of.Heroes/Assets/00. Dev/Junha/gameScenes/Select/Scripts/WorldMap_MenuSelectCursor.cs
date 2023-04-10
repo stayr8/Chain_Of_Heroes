@@ -4,6 +4,7 @@ using UnityEngine;
 
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class WorldMap_MenuSelectCursor : CursorBase
 {
@@ -77,7 +78,8 @@ public class WorldMap_MenuSelectCursor : CursorBase
 
                     break;
                 case "_Yes":
-                    Debug.Log("진행하기");
+                    MapManager.Instance.stageNum = 0;
+                    SceneManager.LoadScene("Ch_01");
 
                     break;
                 case "_No":

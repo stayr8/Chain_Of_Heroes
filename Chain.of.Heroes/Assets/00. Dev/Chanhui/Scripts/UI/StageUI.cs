@@ -37,6 +37,8 @@ public class StageUI : MonoBehaviour
 
     private void Start()
     {
+        SoundManager.instance.Sound_Battle();
+
         IsMenu = false;
 
         BindingManager.Bind(TurnSystem.Property, "IsPlayerTurn", (object value) =>

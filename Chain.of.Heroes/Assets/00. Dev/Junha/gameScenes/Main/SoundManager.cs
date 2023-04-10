@@ -36,4 +36,32 @@ public class SoundManager : MonoBehaviour
         _thisObject.PlayOneShot(_SelectMenu);
     }
     #endregion
+
+    #region ===== Battle Sound =====
+    public void Sound_Battle()
+    {
+        _SelectMenu = Resources.Load<AudioClip>("BattleSound");
+
+        _thisObject.PlayOneShot(_SelectMenu);
+    }
+    #endregion
+
+    #region ===== Win / Lose Sound =====
+    public void Sound_StageWin()
+    {
+        _thisObject.Stop();
+
+        _SelectMenu = Resources.Load<AudioClip>("StageWin");
+
+        _thisObject.PlayOneShot(_SelectMenu);
+    }
+    public void Sound_StageLose()
+    {
+        _thisObject.Stop();
+
+        _SelectMenu = Resources.Load<AudioClip>("StageLose");
+
+        _thisObject.PlayOneShot(_SelectMenu);
+    }
+    #endregion
 }

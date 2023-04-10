@@ -272,6 +272,18 @@ public class ReadyAction : BaseAction
     {
         return GetValidActionGridPositionList(gridPosition).Count;
     }
+
+    public override int GetActionPointsCost()
+    {
+        if (unit.IsEnemy())
+        {
+            return 2;
+        }
+        else
+        {
+            return 1;
+        }
+    }
     public override string GetActionName()
     {
         return "Ready";

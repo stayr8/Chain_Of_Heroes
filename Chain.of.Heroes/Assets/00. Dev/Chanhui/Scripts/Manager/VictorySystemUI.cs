@@ -22,10 +22,14 @@ public class VictorySystemUI : MonoBehaviour
         {
             if (UnitManager.Instance.VictoryPlayer())
             {
+                SoundManager.instance.Sound_StageWin();
+
                 turnNumberText.text = "" + TurnSystem.Property.TurnNumber;
             }
             else if (UnitManager.Instance.VictoryEnemy())
             {
+                SoundManager.instance.Sound_StageLose();
+
                 turnNumberText.text = "" + TurnSystem.Property.TurnNumber;
             }
     
