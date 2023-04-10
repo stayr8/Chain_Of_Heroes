@@ -45,23 +45,23 @@ public class WorldMap_SelectedMenu : MonoBehaviour, ISelectHandler, IDeselectHan
 
         if (gameObject.name == "_ChapterStart")
         {
-            setPos(75f, rt.anchoredPosition.y);
+            setPos(55f, rt.anchoredPosition.y);
         }
         else if (gameObject.name == "_Inventory")
         {
-            setPos(50f, rt.anchoredPosition.y);
+            setPos(45f, rt.anchoredPosition.y);
         }
         else if (gameObject.name == "_Party")
         {
-            setPos(25f, rt.anchoredPosition.y);
+            setPos(35f, rt.anchoredPosition.y);
         }
         else if (gameObject.name == "_Save")
         {
-            setPos(0f, rt.anchoredPosition.y);
+            setPos(25f, rt.anchoredPosition.y);
         }
         else if (gameObject.name == "_BaseCamp")
         {
-            setPos(-25f, rt.anchoredPosition.y);
+            setPos(15f, rt.anchoredPosition.y);
         }
         rt.sizeDelta = new Vector2(557f, rt.sizeDelta.y);
     }
@@ -71,15 +71,15 @@ public class WorldMap_SelectedMenu : MonoBehaviour, ISelectHandler, IDeselectHan
 
         if (gameObject.name == "_ChapterStart")
         {
-            setPos(0f, rt.anchoredPosition.y);
+            setPos(-45f, rt.anchoredPosition.y);
         }
         else if (gameObject.name == "_Inventory")
         {
-            setPos(-25f, rt.anchoredPosition.y);
+            setPos(-55f, rt.anchoredPosition.y);
         }
         else if (gameObject.name == "_Party")
         {
-            setPos(-50f, rt.anchoredPosition.y);
+            setPos(-65f, rt.anchoredPosition.y);
         }
         else if (gameObject.name == "_Save")
         {
@@ -87,7 +87,7 @@ public class WorldMap_SelectedMenu : MonoBehaviour, ISelectHandler, IDeselectHan
         }
         else if (gameObject.name == "_BaseCamp")
         {
-            setPos(-100f, rt.anchoredPosition.y);
+            setPos(-85f, rt.anchoredPosition.y);
         }
         rt.sizeDelta = new Vector2(335f, rt.sizeDelta.y);
     }

@@ -59,12 +59,12 @@ public partial class WorldMap_PlayerCharacter : MonoBehaviour
 
     private void Update()
     {
-        //if (!WorldMap_UIManager.isOnMenu)
-        //{
-        //    Movement();
+        if (!WorldMap_UIManager.isOnWorldMapMenu)
+        {
+            Movement();
 
-        //    Search();
-        //}
+            Search();
+        }
     }
 
     private void Movement()
@@ -104,22 +104,22 @@ public partial class WorldMap_PlayerCharacter : MonoBehaviour
     {
         if (other.CompareTag("Chapter"))
         {
-            //if(other.gameObject.name == ("Chapter.01"))
-            //{
-            //    WorldMap_UIManager._tmp.text = "Chapter.01\n졸업작품마이너갤러리";
-            //}
-            //else if (other.gameObject.name == ("Chapter.02"))
-            //{
-            //    WorldMap_UIManager._tmp.text = "Chapter.02\n차라리날죽여";
-            //}
-            //else if (other.gameObject.name == ("Chapter.03"))
-            //{
-            //    WorldMap_UIManager._tmp.text = "Chapter.03\n잘작동하니?";
-            //}
-            //else if (other.gameObject.name == ("Chapter.04"))
-            //{
-            //    WorldMap_UIManager._tmp.text = "Chapter.04\n브라보졸마갤";
-            //}
+            if (other.gameObject.name == ("Chapter.01"))
+            {
+                //WorldMap_UIManager._tmp.text = "Chapter.01\n졸업작품마이너갤러리";
+            }
+            else if (other.gameObject.name == ("Chapter.02"))
+            {
+                //WorldMap_UIManager._tmp.text = "Chapter.02\n차라리날죽여";
+            }
+            else if (other.gameObject.name == ("Chapter.03"))
+            {
+                //WorldMap_UIManager._tmp.text = "Chapter.03\n잘작동하니?";
+            }
+            else if (other.gameObject.name == ("Chapter.04"))
+            {
+                //WorldMap_UIManager._tmp.text = "Chapter.04\n브라보졸마갤";
+            }
         }
     }
 }

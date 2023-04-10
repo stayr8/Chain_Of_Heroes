@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 using UnityEngine.UI;
@@ -15,8 +16,10 @@ public class CursorBase : MonoBehaviour
 
     protected virtual void Movement(RectTransform _rt, ref GameObject _currentSelected, float _moveDistance, float _minY, float _maxY)
     {
-        if(Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
+            SoundManager.instance.Sound_SelectMenu();
+
             _rt.anchoredPosition += new Vector2(0, _moveDistance);
 
             _currentSelected = _currentSelected.GetComponent<Selectable>().FindSelectableOnUp().gameObject;
@@ -29,6 +32,8 @@ public class CursorBase : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
+            SoundManager.instance.Sound_SelectMenu();
+
             _rt.anchoredPosition += new Vector2(0, -_moveDistance);
 
             _currentSelected = _currentSelected.GetComponent<Selectable>().FindSelectableOnDown().gameObject;
@@ -52,7 +57,9 @@ public class CursorBase : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            _rt.anchoredPosition += new Vector2(25f, _moveDistance);
+            SoundManager.instance.Sound_SelectMenu();
+
+            _rt.anchoredPosition += new Vector2(10f, _moveDistance);
 
             _currentSelected = _currentSelected.GetComponent<Selectable>().FindSelectableOnUp().gameObject;
             Select(_currentSelected);
@@ -68,7 +75,9 @@ public class CursorBase : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            _rt.anchoredPosition += new Vector2(-25f, -_moveDistance);
+            SoundManager.instance.Sound_SelectMenu();
+
+            _rt.anchoredPosition += new Vector2(-10f, -_moveDistance);
 
             _currentSelected = _currentSelected.GetComponent<Selectable>().FindSelectableOnDown().gameObject;
             Select(_currentSelected);

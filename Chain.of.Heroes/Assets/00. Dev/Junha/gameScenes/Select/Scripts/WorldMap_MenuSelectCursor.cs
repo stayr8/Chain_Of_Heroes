@@ -14,7 +14,7 @@ public class WorldMap_MenuSelectCursor : CursorBase
         rt = GetComponent<RectTransform>();
     }
 
-    private const float INIT_X = -800f;
+    private const float INIT_X = -860f;
     private const float INIT_Y = 200f;
     private void OnEnable()
     {
@@ -24,7 +24,7 @@ public class WorldMap_MenuSelectCursor : CursorBase
     public static bool isChapterStart = false;
     public static bool isBaseCamp = false;
     private const float MOVE_DISTANCE = 100f;
-    private const float MAX_POSITION_X = -800f; private const float MAX_POSITION_Y = 200f;
+    private const float MAX_POSITION_X = -860f; private const float MAX_POSITION_Y = 200f;
     private const float MIN_POSITION_X = -900f; private const float MIN_POSITION_Y = -200f;
     private void Update()
     {
@@ -46,6 +46,7 @@ public class WorldMap_MenuSelectCursor : CursorBase
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
+            SoundManager.instance.Sound_SelectMenu();
             switch (currentSelected.name)
             {
                 case "_ChapterStart":

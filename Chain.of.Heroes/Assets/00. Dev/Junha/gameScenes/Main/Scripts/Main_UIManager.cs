@@ -9,9 +9,9 @@ using UnityEngine.UI;
 public class Main_UIManager : MonoBehaviour
 {
     [SerializeField, Header("메인 화면")] private GameObject Main;
-    [SerializeField, Header("\n메뉴 화면")] private GameObject Menu;
-    [SerializeField, Header("\n이어서 시작 화면")] private GameObject Continue;
-    [SerializeField, Header("\n크레딧 화면")] private GameObject Credit;
+    [SerializeField, Header("메뉴 화면")] private GameObject Menu;
+    [SerializeField, Header("이어서 시작 화면")] private GameObject Continue;
+    [SerializeField, Header("크레딧 화면")] private GameObject Credit;
 
     public static Main_UIManager instance;
     private void Awake()
@@ -30,8 +30,8 @@ public class Main_UIManager : MonoBehaviour
         UI_STATE();
     }
 
-    public enum STATE { MAIN, MENU, START, CONTINUE, CREDIT }
-    public STATE state = STATE.MAIN;
+    private enum STATE { MAIN, MENU, START, CONTINUE, CREDIT }
+    private STATE state = STATE.MAIN;
     private void UI_STATE()
     {
         switch (state)
@@ -41,6 +41,8 @@ public class Main_UIManager : MonoBehaviour
                 {
                     Main.SetActive(false);
                     Menu.SetActive(true);
+
+                    SoundManager.instance.Sound_SelectMenu();
 
                     state = STATE.MENU;
                 }
@@ -88,11 +90,47 @@ public class Main_UIManager : MonoBehaviour
     {
         Menu.SetActive(false);
 
+        SoundManager.instance.Sound_SelectMenu();
+
         state = STATE.START;
-
     }
-    [SerializeField, Header("페이드 인/아웃")] private Image _image;
 
+    public void GameContinue() // 이어서 시작
+    {
+        Menu.SetActive(false);
+        Continue.SetActive(true);
+
+        SoundManager.instance.Sound_SelectMenu();
+
+        state = STATE.CONTINUE;
+    }
+
+    public void GameCredit() // 크레딧
+    {
+        Menu.SetActive(false);
+        Credit.SetActive(true);
+
+        SoundManager.instance.Sound_SelectMenu();
+
+        state = STATE.CREDIT;
+    }
+
+    public void GameExit() // 게임 종료
+    {
+#if UNITY_EDITOR
+        SoundManager.instance.Sound_SelectMenu();
+
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        SoundManager.instance.Sound_SelectMenu();
+
+        Application.Quit();
+#endif
+    }
+    #endregion
+
+    [SerializeField, Header("===============\n페이드 인/아웃")] private Image _image;
+    #region ===== FadeIn =====
     private IEnumerator ImageFadeIn()
     {
         float time = 1f; // FadeIn에 걸리는 시간
@@ -106,7 +144,8 @@ public class Main_UIManager : MonoBehaviour
         }
 
         yield return new WaitForSeconds(1f);
-        SceneManager.LoadScene("Main");
+        //SceneManager.LoadScene("Main");
+        LoadingSceneController.LoadScene("Main");
     }
     [SerializeField, Header("배경 음악")] private AudioSource _background;
     private IEnumerator SoundFadeIn()
@@ -118,14 +157,17 @@ public class Main_UIManager : MonoBehaviour
         while (time < value)
         {
             time += Time.deltaTime;
-            currentVolume = Mathf.Lerp(0.2f, targetVolume, time / value);
-            _background.volume = currentVolume;
+            float temp = Mathf.Lerp(currentVolume, targetVolume, time / value);
+            _background.volume = temp;
             yield return null;
         }
 
+        // @@@@@ 이건 필요한 부분인가? @@@@@
         _background.Stop();
     }
+    #endregion
 
+    #region FadeOut
     private IEnumerator ImageFadeOut()
     {
         float time = 0f; // FadeOut에 걸리는 시간
@@ -140,32 +182,20 @@ public class Main_UIManager : MonoBehaviour
     }
     private IEnumerator SoundFadeOut()
     {
-        yield return null;
-    }
+        float time = 0f; // time부터 value까지
+        float value = 1f; // FadeIn에 걸리는 시간 
+        float currentVolume = 0f; float targetVolume = 1f; // 현재 볼륨과 타겟 볼륨
 
-    public void GameContinue() // 이어서 시작
-    {
-        Menu.SetActive(false);
-        Continue.SetActive(true);
+        while (time < value)
+        {
+            time += Time.deltaTime;
+            float temp = Mathf.Lerp(currentVolume, targetVolume, time / value);
+            _background.volume = temp;
+            yield return null;
+        }
 
-        state = STATE.CONTINUE;
-    }
-
-    public void GameCredit() // 크레딧
-    {
-        Menu.SetActive(false);
-        Credit.SetActive(true);
-
-        state = STATE.CREDIT;
-    }
-
-    public void GameExit() // 게임 종료
-    {
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-                Application.Quit(); // 어플리케이션 종료
-#endif
+        // @@@@@ 이건 필요한 부분인가? @@@@@
+        _background.Stop();
     }
     #endregion
 }

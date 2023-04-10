@@ -32,28 +32,6 @@ public class ChapterDataManager : MonoBehaviour
 
     private void ChapterImageControl()
     {
-        /*
-        for(int i = 0; i < chapter.Length; i++)
-        {
-            if (info[i].isUnLock)
-            {
-                if (info[i].isClear)
-                {
-                    chapter[i].gameObject.GetComponent<SpriteRenderer>().sprite = Img_ChapterClear;
-                    info[i + 1].isUnLock = true;
-                }
-                else
-                {
-                    chapter[i].gameObject.GetComponent<SpriteRenderer>().sprite = Img_ChapterOpen;
-                }
-            }
-            else
-            {
-                chapter[i].gameObject.GetComponent<SpriteRenderer>().sprite = Img_ChapterClose;
-            }
-        }
-        */
-
         if (info[0].isUnLock)
         {
             if (info[0].isClear)

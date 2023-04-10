@@ -17,19 +17,9 @@ public class WorldMap_UIManager : MonoBehaviour
     private void Update()
     {
         Controller_WorldMapMenu();
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            Debug.Log(WorldMap_MenuSelectCursor.isChapterStart);
-        }
-
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            Debug.Log(WorldMap_MenuSelectCursor.isBaseCamp);
-        }
     }
 
-    private bool isOnWorldMapMenu = false;
+    public static bool isOnWorldMapMenu = false;
     private void Controller_WorldMapMenu()
     {
         if (Input.GetKeyDown(KeyCode.Escape) || (!isOnWorldMapMenu && Input.GetKeyDown(KeyCode.Return)))
@@ -53,6 +43,7 @@ public class WorldMap_UIManager : MonoBehaviour
 
                 rt_ChapterInfo.anchoredPosition = new Vector2(rt_ChapterInfo.anchoredPosition.x, -315f);
             }
+            SoundManager.instance.Sound_WorldMapUIOpen();
         }
     }
 }
