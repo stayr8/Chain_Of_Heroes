@@ -24,6 +24,8 @@ public class StageUI : MonoBehaviour
 
     private bool IsMenu;
 
+    private List<Binding> Binds = new List<Binding>();
+
     private void Awake()
     {
         if (Instance != null)
@@ -41,7 +43,7 @@ public class StageUI : MonoBehaviour
 
         IsMenu = false;
 
-        BindingManager.Bind(TurnSystem.Property, "IsPlayerTurn", (object value) =>
+        Binding Bind = BindingManager.Bind(TurnSystem.Property, "IsPlayerTurn", (object value) =>
         {
             if (TurnSystem.Property.IsPlayerTurn)
             {
@@ -57,6 +59,7 @@ public class StageUI : MonoBehaviour
             }
 
         },false);
+        Binds.Add(Bind);
 
         PlayerHide();
         EnemyHide();
@@ -223,6 +226,11 @@ public class StageUI : MonoBehaviour
 
     public void OnExitButton()
     {
+        foreach(var bind in Binds)
+        {
+            BindingManager.Unbind(TurnSystem.Property, bind);
+        }
+
         // UI
         MenuUI.SetActive(false);
         
