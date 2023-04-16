@@ -10,8 +10,13 @@ public class Unit : MonoBehaviour
     public static event EventHandler OnAnyUnitSpawned;
     public static event EventHandler OnAnyUnitDead;
 
+    public event EventHandler OnUnitDamage;
+    public event EventHandler OnUnitDie;
+
 
     [SerializeField] private bool isEnemy;
+    [SerializeField] private Transform CameraPos;
+    [SerializeField] private Transform CameraFollow;
 
     public enum EnemyType
     {
@@ -23,7 +28,9 @@ public class Unit : MonoBehaviour
     private GridPosition gridPosition;
     private BaseAction[] baseActionArray;
     private CharacterDataManager characterDataManager;
+    private CharacterBase characterBase;
     private MonsterDataManager monsterDataManager;
+    private MonsterBase monsterBase;
 
     [SerializeField] private int newEnemyActionPoints = 2;
     [SerializeField] private int SoloEnemyActionPoints = 0;
@@ -38,14 +45,21 @@ public class Unit : MonoBehaviour
         if (TryGetComponent<CharacterDataManager>(out CharacterDataManager characterdatamanager))
         {
             this.characterDataManager = characterdatamanager;
-            characterDataManager.OnDead += CharacterDataManager_OnDead;
         }
-        if (TryGetComponent<MonsterDataManager>(out MonsterDataManager monsterdatamanager))
+        else if (TryGetComponent<MonsterDataManager>(out MonsterDataManager monsterdatamanager))
         {
             this.monsterDataManager = monsterdatamanager;
-            monsterDataManager.OnDead += CharacterDataManager_OnDead;
         }
 
+        if (TryGetComponent<CharacterBase>(out CharacterBase characterBase))
+        {
+            this.characterBase = characterBase;
+        }
+        else if (TryGetComponent<MonsterBase>(out MonsterBase monsterBase))
+        {
+            this.monsterBase = monsterBase;
+        }
+        
     }
 
     private void Start()
@@ -209,16 +223,60 @@ public class Unit : MonoBehaviour
     }
    
     
-    // 몬스터, 플레이어 죽음 및 확인
-    private void CharacterDataManager_OnDead(object sender, EventArgs e)
+    // 몬스터, 플레이어 죽음 및 피격!
+    public void Damage()
     {
-        LevelGrid.Instance.RemoveUnitAtGridPosition(gridPosition, this);
+        if(IsEnemy())
+        {
+            monsterBase.Calc_Attack(AttackActionSystem.Instance.GetCharacterDataManager(), monsterDataManager);
 
-        OnAnyUnitDead?.Invoke(this, EventArgs.Empty);
-       
+            if (monsterDataManager.GetHealth() <= 0)
+            {
+                OnUnitDie?.Invoke(this, EventArgs.Empty);
+                OnAnyUnitDead?.Invoke(this, EventArgs.Empty);
 
-        Destroy(gameObject, 4.0f);
+                LevelGrid.Instance.RemoveUnitAtGridPosition(gridPosition, this);
+
+                Destroy(gameObject, 4.0f);
+
+            }
+            else
+            {
+                OnUnitDamage?.Invoke(this, EventArgs.Empty);
+            }
+        }
+        else if(!IsEnemy())
+        {
+            characterBase.Calc_Attack(characterDataManager, AttackActionSystem.Instance.GetMonsterDataManager());
+
+            if (characterDataManager.GetHealth() <= 0)
+            {
+                OnUnitDie?.Invoke(this, EventArgs.Empty);
+                OnAnyUnitDead?.Invoke(this, EventArgs.Empty);
+
+                LevelGrid.Instance.RemoveUnitAtGridPosition(gridPosition, this);
+
+                Destroy(gameObject, 4.0f);
+
+            }
+            else
+            {
+                OnUnitDamage?.Invoke(this, EventArgs.Empty);
+                
+            }
+
+        }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.transform.tag == "Melee")
+        {
+            ScreenShake.Instance.Shake();
+            Damage();
+        }
+    }
+
 
     // 피 표준화
     public float GetHealthNormalized()
@@ -258,16 +316,12 @@ public class Unit : MonoBehaviour
         return UnitName;
     }
 
-
-    private void OnDisable()
+    public Transform GetCameraPos()
     {
-        if (TryGetComponent<CharacterDataManager>(out CharacterDataManager characterdatamanager))
-        {
-            characterDataManager.OnDead -= CharacterDataManager_OnDead;
-        }
-        if (TryGetComponent<MonsterDataManager>(out MonsterDataManager monsterdatamanager))
-        {
-            monsterDataManager.OnDead -= CharacterDataManager_OnDead;
-        }
+        return CameraPos;
+    }
+    public Transform GetCameraFollow()
+    {
+        return CameraFollow;
     }
 }

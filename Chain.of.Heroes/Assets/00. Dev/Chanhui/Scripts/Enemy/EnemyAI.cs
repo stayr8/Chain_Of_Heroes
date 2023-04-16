@@ -16,6 +16,8 @@ public class EnemyAI : MonoBehaviour
     private State state;
     private float timer;
 
+    private List<Binding> Binds = new List<Binding>();
+
     private void Awake()
     {
         state = State.WaitingForEnemyTurn;
@@ -23,7 +25,7 @@ public class EnemyAI : MonoBehaviour
 
     private void Start()
     {
-        BindingManager.Bind(TurnSystem.Property, "IsPlayerTurn", (object value) =>
+        Binding Bind = BindingManager.Bind(TurnSystem.Property, "IsPlayerTurn", (object value) =>
         {
             if (!TurnSystem.Property.IsPlayerTurn)
             {
@@ -31,6 +33,7 @@ public class EnemyAI : MonoBehaviour
                 timer = 2f;
             }
         });
+        Binds.Add(Bind);
     }
 
 
@@ -131,5 +134,11 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-
+    private void OnDisable()
+    {
+        foreach (var bind in Binds)
+        {
+            BindingManager.Unbind(TurnSystem.Property, bind);
+        }
+    }
 }

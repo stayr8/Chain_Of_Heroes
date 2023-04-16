@@ -10,10 +10,13 @@ public class CameraController : MonoBehaviour
 
     [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
     [SerializeField] private CinemachineVirtualCamera cinemachineVirtualingCamera;
+    [SerializeField] private CinemachineVirtualCamera ActionVirtualCamera;
     [SerializeField] private GameObject TopViewVirtualingCamera;
 
     private CinemachineTransposer cinemachineTransposer;
     private Vector3 targetFollowOffset;
+
+    public Transform actiontr;
 
     public bool camerazoom = false;
 
@@ -22,6 +25,7 @@ public class CameraController : MonoBehaviour
     {
         cinemachineTransposer = cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>();
         targetFollowOffset = cinemachineTransposer.m_FollowOffset;
+
     }
 
     private void Update()
@@ -39,7 +43,21 @@ public class CameraController : MonoBehaviour
         else
         {
             cinemachineVirtualingCamera.LookAt = UnitActionSystem.Instance.GetSelecterdUnitEnemy().transform;
+            //ActionVirtualCamera.Follow = UnitActionSystem.Instance.GetSelecterdUnit().GetCameraFollow();
+            //ActionVirtualCamera.LookAt = UnitActionSystem.Instance.GetSelecterdUnit().GetCameraPos();
         }
+
+        if(AttackActionSystem.Instance.OnAttackGroundCheck())
+        {
+            ActionVirtualCamera.Follow = AttackActionSystem.Instance.GetPlayer().GetCameraFollow();
+            ActionVirtualCamera.LookAt = AttackActionSystem.Instance.GetPlayer().GetCameraPos();
+        }
+        else
+        {
+            ActionVirtualCamera.Follow = null;
+            ActionVirtualCamera.LookAt = null;
+        }
+        
     }
 
     // 카메라 이동

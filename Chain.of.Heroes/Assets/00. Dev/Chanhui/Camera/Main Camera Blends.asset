@@ -17,7 +17,7 @@ MonoBehaviour:
     m_To: CinemachineVirtualingCamera
     m_Blend:
       m_Style: 1
-      m_Time: 0.5
+      m_Time: 0.2
       m_CustomCurve:
         serializedVersion: 2
         m_Curve: []
@@ -25,6 +25,17 @@ MonoBehaviour:
         m_PostInfinity: 0
         m_RotationOrder: 0
   - m_From: CinemachineVirtualingCamera
+    m_To: ActionVirtualCamera
+    m_Blend:
+      m_Style: 0
+      m_Time: 2
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: CinemachineVirtualCamera
     m_To: ActionVirtualCamera
     m_Blend:
       m_Style: 0

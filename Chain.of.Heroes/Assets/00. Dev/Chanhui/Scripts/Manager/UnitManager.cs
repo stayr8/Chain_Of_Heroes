@@ -48,11 +48,6 @@ public class UnitManager : MonoBehaviour
         //PositionAllPlayer();
     }
 
-    public void Release()
-    {
-        Unit.OnAnyUnitSpawned -= Unit_OnAnyUnitSpawned;
-        Unit.OnAnyUnitDead -= Unit_OnAnyUnitDead;
-    }
 
     private void Unit_OnAnyUnitSpawned(object sender, EventArgs e)
     {
@@ -65,14 +60,14 @@ public class UnitManager : MonoBehaviour
             enemyUnitList.Add(unit);
             unit.SetPosition(mapData.EnemyXY[enemypos]);
             enemypos++;
-            //PositionAllEnemy();
+
         }
         else
         {
             friendlyUnitList.Add(unit);
             unit.SetPosition(mapData.PlayerXY[playerpos]);
             playerpos++;
-            //PositionAllPlayer();
+
         }
         
         
@@ -144,6 +139,11 @@ public class UnitManager : MonoBehaviour
     public List<Unit> GetEnemyUnitList()
     {
         return enemyUnitList;
+    }
+
+    public Unit GetFriendlyfristUnit()
+    {
+        return friendlyUnitList[0];
     }
 
     public bool VictoryPlayer()

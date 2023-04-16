@@ -99,7 +99,7 @@ public class ReadyAction : BaseAction
                 }
                 else
                 {
-                    AttackActionSystem.Instance.OnAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
+                    AttackActionSystem.Instance.OnAtLocationMove(unit, targetUnit);
                 }
                 ActionCameraStart();
                 AttackCameraComplete();
@@ -109,18 +109,7 @@ public class ReadyAction : BaseAction
 
                 break;
             case State.SwingingArcherAiming:
-                if (unit.IsEnemy())
-                {
-                    AttackActionSystem.Instance.OnEnemyAtking();
-                    targetUnit.GetCharacterDataManager().Damage();
-                    
-                }
-                else
-                {
-                    AttackActionSystem.Instance.OnPlayerAtking();
-                    targetUnit.GetMonsterDataManager().Damage();
-                }
-                
+               
                 float afterHitStateTime_2 = 1.5f;
                 if (canShootBullet)
                 {
@@ -143,12 +132,10 @@ public class ReadyAction : BaseAction
                 if (unit.IsEnemy())
                 {
                     AttackActionSystem.Instance.OffAtLocationMove(targetUnit, unit);
-                    AttackActionSystem.Instance.OffEnemyAtking();
                 }
                 else
                 {
-                    AttackActionSystem.Instance.OffAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
-                    AttackActionSystem.Instance.OffPlayerAtking();
+                    AttackActionSystem.Instance.OffAtLocationMove(unit, targetUnit);
                 }
 
                 ActionComplete();

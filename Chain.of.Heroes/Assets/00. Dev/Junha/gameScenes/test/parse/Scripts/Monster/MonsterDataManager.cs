@@ -1,12 +1,9 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MonsterDataManager : MonoBehaviour
 {
-    public event EventHandler OnDead;
-    public event EventHandler OnDamage;
 
     [SerializeField, Header("어떤 Json 파일을 불러올 것인가?")] private string CharacterName;
 
@@ -49,12 +46,12 @@ public class MonsterDataManager : MonoBehaviour
 
     private void Update()
     {
-        if (m_hp < 0)
+        if (m_hp <= 0)
         {
             m_hp = 0;
-            Die();
         }
     }
+
 
     private int StageLevel = 0;
     private void initInfo()
@@ -82,15 +79,5 @@ public class MonsterDataManager : MonoBehaviour
     public float GetHealth()
     {
         return m_hp;
-    }
-
-    private void Die()
-    {
-        OnDead?.Invoke(this, EventArgs.Empty);
-    }
-
-    public void Damage()
-    {
-        OnDamage?.Invoke(this, EventArgs.Empty);
     }
 }

@@ -39,7 +39,7 @@ public class EnemyMoveAction : BaseAction
         else
         {
             int Distance = minMoveDistance > positionList.Count ? positionList.Count : minMoveDistance;
-            if (currentPositionIndex >= Distance)
+            if (currentPositionIndex >= Distance - 1)
             {
                 OnStopMoving?.Invoke(this, EventArgs.Empty);
 

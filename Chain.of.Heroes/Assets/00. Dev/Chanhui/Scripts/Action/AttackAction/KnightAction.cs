@@ -7,8 +7,8 @@ public class KnightAction : BaseAction
 {
     public event EventHandler OnKnightStartMoving;
     public event EventHandler OnKnightStopMoving;
-    public event EventHandler OnKnightActionStarted;
-    public event EventHandler OnKnightActionCompleted;
+    public event EventHandler OnKnightSwordSlash;
+
 
     private List<Vector3> positionList;
     private int currentPositionIndex;
@@ -20,6 +20,7 @@ public class KnightAction : BaseAction
         SwingingKnightMoving,
         SwingingKnightAfterMoving,
         SwingingKnightBeforeCamera,
+        SwingingKnightAttackMoving,
         SwingingKnightBeforeHit,
         SwingingKnightAfterCamera,
         SwingingKnightAfterHit,
@@ -100,6 +101,25 @@ public class KnightAction : BaseAction
             case State.SwingingKnightAfterMoving:
 
                 break;
+            case State.SwingingKnightAttackMoving:
+                Vector3 targetDirection2 = targetUnit.transform.position;
+                Vector3 aimDir2 = (targetDirection2 - transform.position).normalized;
+                float rotateSpeed2 = 20f;
+                transform.forward = Vector3.Lerp(transform.forward, aimDir2, Time.deltaTime * rotateSpeed2);
+
+                float stoppingDistance1 = 1.5f;
+                if (Vector3.Distance(transform.position, targetDirection2) > stoppingDistance1)
+                {
+                    float moveSpeed = 6f;
+                    transform.position += aimDir2 * moveSpeed * Time.deltaTime;
+                }
+                else
+                {
+                    OnKnightStopMoving?.Invoke(this, EventArgs.Empty);
+                    state = State.SwingingKnightBeforeHit;
+                }
+
+                break;
             case State.SwingingKnightBeforeHit:
 
                 break;
@@ -142,17 +162,22 @@ public class KnightAction : BaseAction
                 AttackActionSystem.Instance.OnAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
                 ActionCameraStart();
                 AttackCameraComplete();
-                float afterHitStateTime_1 = 2.0f;
+                OnKnightStartMoving?.Invoke(this, EventArgs.Empty);
+
+                float afterHitStateTime_1 = 1.0f;
                 stateTimer = afterHitStateTime_1;
-                state = State.SwingingKnightBeforeHit;
+                state = State.SwingingKnightAttackMoving;
+
+                break;
+            case State.SwingingKnightAttackMoving:
 
                 break;
             case State.SwingingKnightBeforeHit:
                 float afterHitStateTime_2 = 1.5f;
                 stateTimer = afterHitStateTime_2;
-                OnKnightActionStarted?.Invoke(this, EventArgs.Empty);
+                OnKnightSwordSlash?.Invoke(this, EventArgs.Empty);
                 state = State.SwingingKnightAfterCamera;
-                AttackActionSystem.Instance.OnEnemyAtking();
+
 
                 break;
             case State.SwingingKnightAfterCamera:
@@ -164,9 +189,8 @@ public class KnightAction : BaseAction
                 break;
             case State.SwingingKnightAfterHit:
                 ActionCameraComplete();
-                AttackActionSystem.Instance.OffEnemyAtking();
                 AttackActionSystem.Instance.OffAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
-                OnKnightActionCompleted?.Invoke(this, EventArgs.Empty);
+
                 ActionComplete();
 
                 break;

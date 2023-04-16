@@ -21,7 +21,7 @@ public class BulletProjectile : MonoBehaviour
 
         float distanceBeforeMoving = Vector3.Distance(transform.position, targetPosition);
 
-        float moveSpeed = 200f;
+        float moveSpeed = 40f;
         transform.position += moveDir * moveSpeed * Time.deltaTime;
 
         float distanceAfterMoving = Vector3.Distance(transform.position, targetPosition);
@@ -37,4 +37,19 @@ public class BulletProjectile : MonoBehaviour
             Instantiate(bulletHitVfxPrefab, targetPosition, Quaternion.identity);
         }
     }
+
+    /*
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.tag == "Enemy")
+        {
+            Debug.Log("왜 안들어오니?");
+            other.GetComponent<Unit>().Damage();
+        }
+        else if (other.transform.tag == "Player")
+        {
+            Debug.Log("왜 안들어오니?");
+            other.GetComponent<Unit>().Damage();
+        }
+    }*/
 }

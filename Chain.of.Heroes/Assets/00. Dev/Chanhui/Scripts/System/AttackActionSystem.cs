@@ -15,14 +15,12 @@ public class AttackActionSystem : MonoBehaviour
     private Quaternion targetrotation;
 
     private CharacterDataManager characterDataManager;
-
+    private MonsterDataManager monsterDataManager;
     private Unit player;
     private Unit enemy;
 
-    private bool playerfing;
     public bool OnAttackAtGround = false;
-    public bool EnemyAttacking = false;
-    public bool PlayerAttacking = false;
+
 
     public Slider player_bar;
     public Slider enemy_bar;
@@ -44,7 +42,6 @@ public class AttackActionSystem : MonoBehaviour
 
     private void Start()
     {
-        playerfing = false;
         OnAttackAtGround = false;
     }
 
@@ -68,22 +65,12 @@ public class AttackActionSystem : MonoBehaviour
 
     public void OnAtLocationMove(Unit unit, Unit target)
     {
-        if(!unit.IsEnemy())
-        {
-            characterDataManager = unit.GetCharacterDataManager();
-            player = unit;
-            enemy = target;
-        }
-        else
-        {
-            player = target;
-            enemy = unit;
-        }
-        
-        if(!target.IsEnemy())
-        {
-            characterDataManager = unit.GetCharacterDataManager();
-        }
+
+        characterDataManager = unit.GetCharacterDataManager();
+        monsterDataManager = target.GetMonsterDataManager();
+        player = unit;
+        enemy = target;
+
 
         OnAttackAtGround = true;
 
@@ -133,38 +120,28 @@ public class AttackActionSystem : MonoBehaviour
         OnAttackAtGround = false;
     }
 
-    public void OnEnemyAtking()
+    public bool OnAttackGroundCheck()
     {
-        EnemyAttacking = true;
-    }
-
-    public void OffEnemyAtking()
-    {
-        EnemyAttacking = false;
-    }
-
-    public void OnPlayerAtking()
-    {
-        PlayerAttacking = true;
-    }
-
-    public void OffPlayerAtking()
-    {
-        PlayerAttacking = false;
-    }
-
-    public bool GetFindPlayer()
-    {
-        return playerfing;
-    }
-
-    public bool SetFindPlayer(bool playerfing)
-    {
-        return this.playerfing = playerfing;
+        return OnAttackAtGround;
     }
 
     public CharacterDataManager GetCharacterDataManager()
     {
         return characterDataManager;
+    }
+
+    public MonsterDataManager GetMonsterDataManager()
+    {
+        return monsterDataManager;
+    }
+
+    public Unit GetPlayer()
+    {
+        return player;
+    }
+
+    public Unit GetEnemy()
+    {
+        return enemy;
     }
 }

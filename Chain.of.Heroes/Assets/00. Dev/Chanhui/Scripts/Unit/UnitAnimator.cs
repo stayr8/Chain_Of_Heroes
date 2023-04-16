@@ -11,8 +11,10 @@ public class UnitAnimator : MonoBehaviour
     [SerializeField] private Transform shootPointTransform;
 
 
+
     private void Awake()
     {
+
         if(TryGetComponent<MoveAction>(out MoveAction moveAction))
         {
             moveAction.OnStartMoving += MoveAction_OnStartMoving;
@@ -32,149 +34,77 @@ public class UnitAnimator : MonoBehaviour
 
         if (TryGetComponent<KingAction>(out KingAction kingAction))
         {
-            kingAction.OnKingActionStarted += KingAction_OnKingActionStarted;
-            kingAction.OnKingActionCompleted += KingAction_OnKingActionCompleted;
+            kingAction.OnKingSwordSlash += KingAction_OnKingSwordSlash;
+            kingAction.OnKingStartMoving += KingAction_OnKingStartMoving;
+            kingAction.OnKingStopMoving += KingAction_OnKingStopMoving;
         }
 
         if (TryGetComponent<RookAction>(out RookAction rookAction))
         {
             rookAction.OnRookStartMoving += rookAction_OnRookStartMoving;
             rookAction.OnRookStopMoving += rookAction_OnRookStopMoving;
-            rookAction.OnRookActionStarted += rookAction_OnRookActionStarted;
-            rookAction.OnRookActionCompleted += rookAction_OnRookActionCompleted;
+            rookAction.OnRookSwordSlash += rookAction_OnRookSwordSlash;
         }
 
         if (TryGetComponent<BishopAction>(out BishopAction bishopAction))
         {
             bishopAction.OnBishopStartMoving += bishopAction_OnBishopStartMoving;
             bishopAction.OnBishopStopMoving += bishopAction_OnBishopStopMoving;
-            bishopAction.OnBishopActionStarted += bishopAction_OnBishopActionStarted;
-            bishopAction.OnBishopActionCompleted += bishopAction_OnBishopActionCompleted;
+            bishopAction.OnBishopSwordSlash += bishopAction_OnBishopSwordSlash;
         }
 
         if (TryGetComponent<QueenAction>(out QueenAction queenAction))
         {
             queenAction.OnQueenStartMoving += queenAction_OnQueenStartMoving;
             queenAction.OnQueenStopMoving += queenAction_OnQueenStopMoving;
-            queenAction.OnQueenActionStarted += queenAction_OnQueenActionStarted;
-            queenAction.OnQueenActionCompleted += queenAction_OnQueenActionCompleted;
+            queenAction.OnQueenSwordSlash += queenAction_OnQueenSwordSlash;
+            //queenAction.OnQueenDash += queenAction_OnQueenDash;
         }
 
         if (TryGetComponent<KnightAction>(out KnightAction knightAction))
         {
             knightAction.OnKnightStartMoving += knightAction_OnKnightStartMoving;
             knightAction.OnKnightStopMoving += knightAction_OnKnightStopMoving;
-            knightAction.OnKnightActionStarted += knightAction_OnKnightActionStarted;
-            knightAction.OnKnightActionCompleted += knightAction_OnKnightActionCompleted;
+            knightAction.OnKnightSwordSlash += knightAction_OnKnightSwordSlash;
         }
 
-        if(TryGetComponent<CharacterDataManager>(out CharacterDataManager characterdatamanager))
+        if (TryGetComponent<Unit>(out Unit unit))
         {
-            characterdatamanager.OnDead += Unit_OnDead;
-            characterdatamanager.OnDamage += Unit_OnDamage;
-        }
-
-        if (TryGetComponent<MonsterDataManager>(out MonsterDataManager monsterdatamanager))
-        {
-            monsterdatamanager.OnDead += Unit_OnDead;
-            monsterdatamanager.OnDamage += Unit_OnDamage;
+            unit.OnUnitDamage += Unit_OnUnitDamage;
+            unit.OnUnitDie += Unit_OnUnitDie;
         }
 
     }
 
     #region Attack Action
-    private void KingAction_OnKingActionStarted(object sender, EventArgs e)
+    private void KingAction_OnKingSwordSlash(object sender, EventArgs e)
     {
         animator.SetTrigger("SwordSlash");
     }
 
-    private void KingAction_OnKingActionCompleted(object sender, EventArgs e)
-    {
-
-    }
-    private void rookAction_OnRookActionStarted(object sender, EventArgs e)
+    private void rookAction_OnRookSwordSlash(object sender, EventArgs e)
     {
         animator.SetTrigger("SwordSlash");
     }
 
-    private void rookAction_OnRookActionCompleted(object sender, EventArgs e)
-    {
-        
-    }
-
-    private void rookAction_OnRookStartMoving(object sender, EventArgs e)
-    {
-        animator.SetBool("IsWalking", true);
-    }
-
-    private void rookAction_OnRookStopMoving(object sender, EventArgs e)
-    {
-        animator.SetBool("IsWalking", false);
-    }
-
-    private void bishopAction_OnBishopStartMoving(object sender, EventArgs e)
-    {
-        animator.SetBool("IsWalking", true);
-    }
-
-    private void bishopAction_OnBishopStopMoving(object sender, EventArgs e)
-    {
-        animator.SetBool("IsWalking", false);
-    }
-
-    private void bishopAction_OnBishopActionStarted(object sender, EventArgs e)
+    private void bishopAction_OnBishopSwordSlash(object sender, EventArgs e)
     {
         animator.SetTrigger("SwordSlash");
     }
 
-    private void bishopAction_OnBishopActionCompleted(object sender, EventArgs e)
-    {
-        
-    }
-
-    private void queenAction_OnQueenStartMoving(object sender, EventArgs e)
-    {
-        animator.SetBool("IsWalking", true);
-    }
-
-    private void queenAction_OnQueenStopMoving(object sender, EventArgs e)
-    {
-        animator.SetBool("IsWalking", false);
-    }
-
-    private void queenAction_OnQueenActionStarted(object sender, EventArgs e)
+    private void queenAction_OnQueenSwordSlash(object sender, EventArgs e)
     {
         animator.SetTrigger("SwordSlash");
     }
 
-    private void queenAction_OnQueenActionCompleted(object sender, EventArgs e)
-    {
-
-    }
-    private void knightAction_OnKnightStartMoving(object sender, EventArgs e)
-    {
-        animator.SetBool("IsWalking", true);
-    }
-
-    private void knightAction_OnKnightStopMoving(object sender, EventArgs e)
-    {
-        animator.SetBool("IsWalking", false);
-    }
-
-    private void knightAction_OnKnightActionStarted(object sender, EventArgs e)
+    private void knightAction_OnKnightSwordSlash(object sender, EventArgs e)
     {
         animator.SetTrigger("SwordSlash");
     }
 
-    private void knightAction_OnKnightActionCompleted(object sender, EventArgs e)
-    {
-
-    }
     #endregion
 
-
-
-
+    #region Move Action
 
     private void MoveAction_OnStartMoving(object sender, EventArgs e)
     {
@@ -195,6 +125,59 @@ public class UnitAnimator : MonoBehaviour
     {
         animator.SetBool("IsWalking", false);
     }
+    private void rookAction_OnRookStartMoving(object sender, EventArgs e)
+    {
+        animator.SetBool("IsWalking", true);
+    }
+
+    private void rookAction_OnRookStopMoving(object sender, EventArgs e)
+    {
+        animator.SetBool("IsWalking", false);
+    }
+
+    private void bishopAction_OnBishopStartMoving(object sender, EventArgs e)
+    {
+        animator.SetBool("IsWalking", true);
+    }
+
+    private void bishopAction_OnBishopStopMoving(object sender, EventArgs e)
+    {
+        animator.SetBool("IsWalking", false);
+    }
+
+    private void queenAction_OnQueenStartMoving(object sender, EventArgs e)
+    {
+        animator.SetBool("IsWalking", true);
+    }
+
+    private void queenAction_OnQueenStopMoving(object sender, EventArgs e)
+    {
+        animator.SetBool("IsWalking", false);
+    }
+
+    private void knightAction_OnKnightStartMoving(object sender, EventArgs e)
+    {
+        animator.SetBool("IsWalking", true);
+    }
+
+    private void knightAction_OnKnightStopMoving(object sender, EventArgs e)
+    {
+        animator.SetBool("IsWalking", false);
+    }
+
+    private void KingAction_OnKingStartMoving(object sender, EventArgs e)
+    {
+        animator.SetBool("IsWalking", true);
+    }
+
+    private void KingAction_OnKingStopMoving(object sender, EventArgs e)
+    {
+        animator.SetBool("IsWalking", false);
+    }
+
+    #endregion
+
+
 
     private void shootAction_OnShoot(object sender, ReadyAction.OnShootEventArgs e)
     {
@@ -213,15 +196,21 @@ public class UnitAnimator : MonoBehaviour
     }
 
     
-    private void Unit_OnDead(object sender, EventArgs e)
+    private void Unit_OnUnitDie(object sender, EventArgs e)
     {
         animator.SetBool("IsDie", true);
     }
 
-    private void Unit_OnDamage(object sender, EventArgs e)
+    private void Unit_OnUnitDamage(object sender, EventArgs e)
     {
         animator.SetTrigger("IsDamage");
     }
+    /*
+    private void queenAction_OnQueenDash(object sender, EventArgs e)
+    {
+        animator.SetTrigger("IsDash");
+    }*/
+
 
     private void OnDisable()
     {
@@ -244,52 +233,44 @@ public class UnitAnimator : MonoBehaviour
 
         if (TryGetComponent<KingAction>(out KingAction kingAction))
         {
-            kingAction.OnKingActionStarted -= KingAction_OnKingActionStarted;
-            kingAction.OnKingActionCompleted -= KingAction_OnKingActionCompleted;
+            kingAction.OnKingSwordSlash -= KingAction_OnKingSwordSlash;
+            kingAction.OnKingStartMoving -= KingAction_OnKingStartMoving;
+            kingAction.OnKingStopMoving -= KingAction_OnKingStopMoving;
         }
 
         if (TryGetComponent<RookAction>(out RookAction rookAction))
         {
             rookAction.OnRookStartMoving -= rookAction_OnRookStartMoving;
             rookAction.OnRookStopMoving -= rookAction_OnRookStopMoving;
-            rookAction.OnRookActionStarted -= rookAction_OnRookActionStarted;
-            rookAction.OnRookActionCompleted -= rookAction_OnRookActionCompleted;
+            rookAction.OnRookSwordSlash -= rookAction_OnRookSwordSlash;
         }
 
         if (TryGetComponent<BishopAction>(out BishopAction bishopAction))
         {
             bishopAction.OnBishopStartMoving -= bishopAction_OnBishopStartMoving;
             bishopAction.OnBishopStopMoving -= bishopAction_OnBishopStopMoving;
-            bishopAction.OnBishopActionStarted -= bishopAction_OnBishopActionStarted;
-            bishopAction.OnBishopActionCompleted -= bishopAction_OnBishopActionCompleted;
+            bishopAction.OnBishopSwordSlash -= bishopAction_OnBishopSwordSlash;
         }
 
         if (TryGetComponent<QueenAction>(out QueenAction queenAction))
         {
             queenAction.OnQueenStartMoving -= queenAction_OnQueenStartMoving;
             queenAction.OnQueenStopMoving -= queenAction_OnQueenStopMoving;
-            queenAction.OnQueenActionStarted -= queenAction_OnQueenActionStarted;
-            queenAction.OnQueenActionCompleted -= queenAction_OnQueenActionCompleted;
+            queenAction.OnQueenSwordSlash -= queenAction_OnQueenSwordSlash;
+
         }
 
         if (TryGetComponent<KnightAction>(out KnightAction knightAction))
         {
             knightAction.OnKnightStartMoving -= knightAction_OnKnightStartMoving;
             knightAction.OnKnightStopMoving -= knightAction_OnKnightStopMoving;
-            knightAction.OnKnightActionStarted -= knightAction_OnKnightActionStarted;
-            knightAction.OnKnightActionCompleted -= knightAction_OnKnightActionCompleted;
+            knightAction.OnKnightSwordSlash -= knightAction_OnKnightSwordSlash;
         }
 
-        if (TryGetComponent<CharacterDataManager>(out CharacterDataManager characterdatamanager))
+        if (TryGetComponent<Unit>(out Unit unit))
         {
-            characterdatamanager.OnDead -= Unit_OnDead;
-            characterdatamanager.OnDamage -= Unit_OnDamage;
-        }
-
-        if (TryGetComponent<MonsterDataManager>(out MonsterDataManager monsterdatamanager))
-        {
-            monsterdatamanager.OnDead -= Unit_OnDead;
-            monsterdatamanager.OnDamage -= Unit_OnDamage;
+            unit.OnUnitDamage -= Unit_OnUnitDamage;
+            unit.OnUnitDie -= Unit_OnUnitDie;
         }
     }
 }

@@ -115,6 +115,7 @@ public partial class TurnSystem : MonoBehaviour
     [SerializeField] private GameObject playerVictoryVisualGameObject;
     [SerializeField] private GameObject enemyVictoryVisualGameObject;
 
+    private List<Binding> Binds = new List<Binding>();
 
     private void Start()
     {
@@ -124,7 +125,7 @@ public partial class TurnSystem : MonoBehaviour
         Property.AllPlayerPoint = MapManager.Instance.mapData[MapManager.Instance.stageNum].Player_ActionPoint;
         Property.AllEnemyPoint = MapManager.Instance.mapData[MapManager.Instance.stageNum].Enemy_ActionPoint;
 
-        BindingManager.Bind(TurnSystem.Property, "IsPlayerTurn", (object value) =>
+        Binding Bind = BindingManager.Bind(TurnSystem.Property, "IsPlayerTurn", (object value) =>
         {
             NextTurn();
 
@@ -132,8 +133,9 @@ public partial class TurnSystem : MonoBehaviour
 
             OnAnyEnemyPoint();
         });
+        Binds.Add(Bind);
 
-        BindingManager.Bind(TurnSystem.Property, "IsTurnEnd", (object value) =>
+        Bind = BindingManager.Bind(TurnSystem.Property, "IsTurnEnd", (object value) =>
         {
             if (UnitManager.Instance.VictoryPlayer())
             {
@@ -149,6 +151,7 @@ public partial class TurnSystem : MonoBehaviour
             }
 
         },false);
+        Binds.Add(Bind);
 
         Property.ActionPoints = Property.AllPlayerPoint;
 
@@ -157,6 +160,7 @@ public partial class TurnSystem : MonoBehaviour
     public void NextTurn()
     {
         Property.TurnNumber++;
+        Debug.Log(Property.TurnNumber);
     }
 
     private void OnTurnChanged()
@@ -224,6 +228,11 @@ public partial class TurnSystem : MonoBehaviour
     
     private void OnDisable()
     {
+        foreach (var bind in Binds)
+        {
+            BindingManager.Unbind(TurnSystem.Property, bind);
+        }
+
         Property.TurnNumber = 0;
         Property.ActionPoints = 0;
         Property.AllEnemyPoint = 0;
