@@ -16,6 +16,7 @@ public class EnemyAI : MonoBehaviour
     private State state;
     private float timer;
 
+
     private List<Binding> Binds = new List<Binding>();
 
     private void Awake()
@@ -39,6 +40,7 @@ public class EnemyAI : MonoBehaviour
 
     private void Update()
     {
+
         if(TurnSystem.Property.IsPlayerTurn)
         {
             return;
@@ -79,6 +81,7 @@ public class EnemyAI : MonoBehaviour
     }
 
 
+
     private bool TryTakeEnemyAIAction(Action onEnemyAIActionComplete)
     {
         foreach (Unit enemyUnit in UnitManager.Instance.GetEnemyUnitList())
@@ -106,10 +109,16 @@ public class EnemyAI : MonoBehaviour
                 continue;
             }
 
+            if(baseAction == enemyUnit.GetAction<ChainAction>())
+            {
+                continue;
+            }
+
             if(bestEnemyAIAction == null)
             {
                 bestEnemyAIAction = baseAction.GetBestEnemyAIAction();
                 bestBaseAction = baseAction;
+                Debug.Log(baseAction);
             }
             else
             {

@@ -199,7 +199,7 @@ public class QueenAction : BaseAction
                 ActionCameraComplete();
                 AttackActionSystem.Instance.OffAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
                 ActionComplete();
-
+                AttackActionSystem.Instance.SetIsAtk(false);
                 break;
         }
     }
@@ -301,6 +301,7 @@ public class QueenAction : BaseAction
         }
 
         OnQueenStartMoving?.Invoke(this, EventArgs.Empty);
+        AttackActionSystem.Instance.SetIsAtk(true);
 
         ActionStart(onActionComplete);
     }

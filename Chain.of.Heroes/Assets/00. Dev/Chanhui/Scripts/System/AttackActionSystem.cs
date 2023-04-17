@@ -19,7 +19,8 @@ public class AttackActionSystem : MonoBehaviour
     private Unit player;
     private Unit enemy;
 
-    public bool OnAttackAtGround = false;
+    private bool OnAttackAtGround;
+    private bool isAtk;
 
 
     public Slider player_bar;
@@ -38,11 +39,9 @@ public class AttackActionSystem : MonoBehaviour
             return;
         }
         Instance = this;
-    }
 
-    private void Start()
-    {
         OnAttackAtGround = false;
+        isAtk = false;
     }
 
     private void Update()
@@ -143,5 +142,15 @@ public class AttackActionSystem : MonoBehaviour
     public Unit GetEnemy()
     {
         return enemy;
+    }
+
+    public bool GetIsAtk()
+    {
+        return isAtk;
+    }
+
+    public void SetIsAtk(bool isAtk)
+    {
+        this.isAtk = isAtk;
     }
 }

@@ -94,7 +94,7 @@ public class Unit : MonoBehaviour
 
     private void Update()
     {
-        if (!AttackActionSystem.Instance.OnAttackAtGround)
+        if (!AttackActionSystem.Instance.OnAttackGroundCheck())
         {
             GridPosition newGridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
             if (newGridPosition != gridPosition)

@@ -169,7 +169,7 @@ public class EnemyMoveAction : BaseAction
     {
         if (unit.GetEnemyVisualType() == Unit.EnemyType.Archer)
         {
-            return 1;
+            return 2;
         }
         else if (unit.GetEnemyVisualType() == Unit.EnemyType.Sword)
         {

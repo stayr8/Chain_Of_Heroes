@@ -44,6 +44,10 @@ public abstract class BaseAction : MonoBehaviour
         isActive = true;
         this.onActionComplete = onActionComplete;
 
+        if(TurnSystem.Property.IsPlayerTurn)
+        {
+           
+        }
 
         if (!unit.IsEnemy())
         {
@@ -71,6 +75,11 @@ public abstract class BaseAction : MonoBehaviour
         if (UnitManager.Instance.VictoryPlayer() || UnitManager.Instance.VictoryEnemy())
         {
             TurnSystem.Property.IsTurnEnd = true;
+        }
+
+        if (TurnSystem.Property.IsPlayerTurn)
+        {
+            ChainSystem.Instance.SetChain(false);
         }
     }
 

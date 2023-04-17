@@ -21,19 +21,19 @@ public class CharacterBase : MonoBehaviour
     public void Calc_Attack(CharacterDataManager CDM, MonsterDataManager MDM)
     {
         monsterAP = MDM.m_attackPower;
-        Debug.Log("몬스터 공격력: " + monsterAP);
+        //Debug.Log("몬스터 공격력: " + monsterAP);
         characterDP = CDM.m_defensePower;
-        Debug.Log("대상 캐릭터 방어력: " + characterDP);
+        //Debug.Log("대상 캐릭터 방어력: " + characterDP);
 
         // 몬스터 데미지 결정
         monsterDamage = monsterAP * (100 / (100 + characterDP)) * (1 /*- 데미지 감소율 */);
-        Debug.Log("몬스터 데미지: " + (int)monsterDamage);
+        //Debug.Log("몬스터 데미지: " + (int)monsterDamage);
 
         // 데미지 넣기
         // Attack(monsterDamage);
         CDM.m_hp -= (int)monsterDamage;
         //CDM.Damage();
-        Debug.Log("캐릭터 피격! 캐릭터의 남은 체력은: " + CDM.m_hp);
+        //Debug.Log("캐릭터 피격! 캐릭터의 남은 체력은: " + CDM.m_hp);
     }
     #endregion
 

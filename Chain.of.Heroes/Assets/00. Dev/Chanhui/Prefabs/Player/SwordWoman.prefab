@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 1024481362807706275}
   - component: {fileID: 6876657313687996133}
   - component: {fileID: -7714630294423972437}
+  - component: {fileID: 2268307217339505830}
   m_Layer: 16
   m_Name: SwordWoman
   m_TagString: Player
@@ -326,6 +327,19 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 262144
   maxQueenDistance: 2
+--- !u!114 &2268307217339505830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7963473072988374339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a55ed3e7872199d4dae47195b73f6098, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxChainDistance: 1
 --- !u!1 &8173412459981235173
 GameObject:
   m_ObjectHideFlags: 0

@@ -41,13 +41,14 @@ GameObject:
   m_Component:
   - component: {fileID: 2613088952420678997}
   - component: {fileID: 4487955735849804943}
+  - component: {fileID: 787686133434753040}
   - component: {fileID: 1373308299882667326}
   - component: {fileID: 1212361113084644278}
   - component: {fileID: 9054943789650772714}
   - component: {fileID: 6030806032592465833}
   - component: {fileID: 8681924711701863764}
   - component: {fileID: 5786774799620719496}
-  - component: {fileID: 787686133434753040}
+  - component: {fileID: 8141815212963083106}
   m_Layer: 15
   m_Name: Enemy_1
   m_TagString: Enemy
@@ -85,6 +86,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.82713366, y: 1.1732339, z: 0.85249376}
   m_Center: {x: 0.0040647984, y: 0.5819437, z: 0.026043177}
+--- !u!54 &787686133434753040
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3695012023952319668}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!114 &1373308299882667326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,10 +115,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEnemy: 1
+  CameraPos: {fileID: 0}
+  CameraFollow: {fileID: 0}
   newEnemyActionPoints: 2
   SoloEnemyActionPoints: 0
   enemyType: 1
-  UnitName: "\uC784\uB098\uC8FC"
+  UnitName: "\uAD81\uC218\uACE0\uBE14\uB9B0"
 --- !u!114 &1212361113084644278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,22 +201,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c03f854572abaca468dcae3c6979f133, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!54 &787686133434753040
-Rigidbody:
+--- !u!114 &8141815212963083106
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3695012023952319668}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a55ed3e7872199d4dae47195b73f6098, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxChainDistance: 1
 --- !u!1 &7420146111581597954
 GameObject:
   m_ObjectHideFlags: 0
