@@ -82,7 +82,6 @@ public class CursorBase : MonoBehaviour
             _currentSelected = _currentSelected.GetComponent<Selectable>().FindSelectableOnDown().gameObject;
             Select(_currentSelected);
 
-
             if (_rt.anchoredPosition.x < _minX)
             {
                 _rt.anchoredPosition = new Vector2(_maxX, _rt.anchoredPosition.y);
