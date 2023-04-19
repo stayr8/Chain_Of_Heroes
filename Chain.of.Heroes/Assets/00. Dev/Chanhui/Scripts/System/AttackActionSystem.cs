@@ -11,8 +11,10 @@ public class AttackActionSystem : MonoBehaviour
 
     private Vector3 unitpos;
     private Vector3 targetpos;
+    private Vector3 chainpos;
     private Quaternion unitrotation;
     private Quaternion targetrotation;
+    private Quaternion chainrotation;
 
     private CharacterDataManager characterDataManager;
     private MonsterDataManager monsterDataManager;
@@ -21,6 +23,7 @@ public class AttackActionSystem : MonoBehaviour
 
     private bool OnAttackAtGround;
     private bool isAtk;
+    private bool isChainAtk;
 
 
     public Slider player_bar;
@@ -42,6 +45,7 @@ public class AttackActionSystem : MonoBehaviour
 
         OnAttackAtGround = false;
         isAtk = false;
+        isChainAtk = false;
     }
 
     private void Update()
@@ -119,6 +123,30 @@ public class AttackActionSystem : MonoBehaviour
         OnAttackAtGround = false;
     }
 
+    public void OnAtChainLocationMove(Unit chainunit)
+    {
+        characterDataManager = chainunit.GetCharacterDataManager();
+
+        chainpos = chainunit.GetWorldPosition();
+        chainrotation = chainunit.transform.rotation;
+
+        LevelGrid.Instance.RemoveUnitAtGridPosition(chainunit.GetGridPosition(), chainunit);
+
+        Vector3 chainlocationMove = new Vector3(-2.5f, 150, 3.2f);
+        chainunit.SetPosition(chainlocationMove);
+
+
+        chainunit.transform.rotation = Quaternion.Euler(0, 90, 0);
+    }
+
+    public void OffAtChainLocationMove(Unit chainunit)
+    {
+        chainunit.SetPosition(chainpos);
+
+        LevelGrid.Instance.AddUnitAtGridPosition(chainunit.GetGridPosition(), chainunit);
+        chainunit.transform.rotation = chainrotation;
+    }
+
     public bool OnAttackGroundCheck()
     {
         return OnAttackAtGround;
@@ -127,6 +155,11 @@ public class AttackActionSystem : MonoBehaviour
     public CharacterDataManager GetCharacterDataManager()
     {
         return characterDataManager;
+    }
+
+    public void SetCharacterDataManager(CharacterDataManager characterDataManager)
+    {
+        this.characterDataManager = characterDataManager;
     }
 
     public MonsterDataManager GetMonsterDataManager()
@@ -152,5 +185,15 @@ public class AttackActionSystem : MonoBehaviour
     public void SetIsAtk(bool isAtk)
     {
         this.isAtk = isAtk;
+    }
+
+    public bool GetIsChainAtk()
+    {
+        return isChainAtk;
+    }
+
+    public void SetIsChainAtk(bool isChainAtk)
+    {
+        this.isChainAtk = isChainAtk;
     }
 }

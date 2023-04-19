@@ -9,17 +9,18 @@ public class ChainAction : BaseAction
 
     private Unit targetUnit;
 
-    private void Update()
-    { 
-    
-    }
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
-       
+        // 발견 된 체인 플레이어가 Action을 시작하는 곳
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
+
         Debug.Log(targetUnit.GetUnitName());
+        BaseAction bestBaseAction = targetUnit.GetAction<ChainLongAttackAction>();
+
+        bestBaseAction.TakeAction(targetUnit.GetGridPosition(), onActionComplete);
     }
+    
 
     // 이동 범위 선정
     public override List<GridPosition> GetValidActionGridPositionList()
@@ -46,11 +47,18 @@ public class ChainAction : BaseAction
                     continue;
                 }
 
+                /*
                 Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
                 if (AttackActionSystem.Instance.GetPlayer() == targetUnit)
                 {
                     continue;
-                }
+                }*/
+                /*
+                if (targetUnit.IsEnemy() == unit.IsEnemy())
+                {
+                    // Both Units on same 'team'
+                    continue;
+                }*/
 
                 int testDistance = Mathf.Abs(x) + Mathf.Abs(z);
                 if (testDistance > maxChainDistance)
@@ -81,7 +89,7 @@ public class ChainAction : BaseAction
                 validGridPositionList.Add(testGridPosition);
             }
         }
-
+        Debug.Log("몬스터 체인 발동");
         return validGridPositionList;
     }
 

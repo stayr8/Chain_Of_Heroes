@@ -46,7 +46,7 @@ public class UnitActionSystemUI : MonoBehaviour
 
         foreach(BaseAction baseAction in selectedUnit.GetBaseActionArray())
         {
-            if(baseAction.GetActionName() == "Empty")
+            if(baseAction.GetActionName() == "Empty" || baseAction.GetActionName() == "체인 근거리 공격")
                 continue;
 
             Transform actionButtonTransform = Instantiate(actionButtonPrefab, actionButtonContainerTransform);

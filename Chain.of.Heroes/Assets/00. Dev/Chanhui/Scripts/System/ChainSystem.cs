@@ -7,8 +7,8 @@ public class ChainSystem : MonoBehaviour
 {
     public static ChainSystem Instance { get; private set; }
 
-    private bool onChainAction;
     private bool IsChain;
+    
 
     private void Awake()
     {
@@ -20,7 +20,6 @@ public class ChainSystem : MonoBehaviour
         }
         Instance = this;
 
-        onChainAction = false;
         IsChain = false;
     }
 
@@ -49,6 +48,7 @@ public class ChainSystem : MonoBehaviour
 
     }
 
+
     private bool TryTakeEnemyAIAction(Action onEnemyAIActionComplete)
     {
         foreach (Unit enemyUnit in UnitManager.Instance.GetEnemyUnitList())
@@ -73,6 +73,7 @@ public class ChainSystem : MonoBehaviour
 
         if (bestEnemyAIAction != null && enemyUnit.TrySpendActionPointsToTakeAction(bestBaseAction))
         {
+            Debug.Log("몬스터 인식");
             bestBaseAction.TakeAction(bestEnemyAIAction.gridPosition, onEnemyAIActionComplete);
             return true;
         }

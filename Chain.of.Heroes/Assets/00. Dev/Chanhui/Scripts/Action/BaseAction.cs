@@ -44,11 +44,6 @@ public abstract class BaseAction : MonoBehaviour
         isActive = true;
         this.onActionComplete = onActionComplete;
 
-        if(TurnSystem.Property.IsPlayerTurn)
-        {
-           
-        }
-
         if (!unit.IsEnemy())
         {
             UnitActionSystem.Instance.OutSelectedUnit(unit);

@@ -13,10 +13,19 @@ public class Unit : MonoBehaviour
     public event EventHandler OnUnitDamage;
     public event EventHandler OnUnitDie;
 
-
-    [SerializeField] private bool isEnemy;
     [SerializeField] private Transform CameraPos;
     [SerializeField] private Transform CameraFollow;
+
+    private GridPosition gridPosition;
+    private BaseAction[] baseActionArray;
+
+    [Header("Monster Information")]
+    [SerializeField] private bool isEnemy;
+    [SerializeField] private int newEnemyActionPoints = 2;
+    [SerializeField] private int SoloEnemyActionPoints = 0;
+
+    private MonsterDataManager monsterDataManager;
+    private MonsterBase monsterBase;
 
     public enum EnemyType
     {
@@ -25,19 +34,15 @@ public class Unit : MonoBehaviour
         Sword,
     }
 
-    private GridPosition gridPosition;
-    private BaseAction[] baseActionArray;
-    private CharacterDataManager characterDataManager;
-    private CharacterBase characterBase;
-    private MonsterDataManager monsterDataManager;
-    private MonsterBase monsterBase;
-
-    [SerializeField] private int newEnemyActionPoints = 2;
-    [SerializeField] private int SoloEnemyActionPoints = 0;
-
     [SerializeField] private EnemyType enemyType;
 
+
+    [Header("Player Information")]
+    private CharacterDataManager characterDataManager;
+    private CharacterBase characterBase;
+
     [SerializeField] private String UnitName;
+    [SerializeField] private bool IsLongdistance;
 
     private void Awake()
     {
@@ -221,8 +226,58 @@ public class Unit : MonoBehaviour
     {
         return newEnemyActionPoints += action;
     }
-   
-    
+    // 몬스터 타입
+    public EnemyType GetEnemyVisualType()
+    {
+        return enemyType;
+    }
+
+    public CharacterDataManager GetCharacterDataManager()
+    {
+        return characterDataManager;
+    }
+
+    public MonsterDataManager GetMonsterDataManager()
+    {
+        return monsterDataManager;
+    }
+
+    public String GetUnitName()
+    {
+        return UnitName;
+    }
+
+    public Transform GetCameraPos()
+    {
+        return CameraPos;
+    }
+    public Transform GetCameraFollow()
+    {
+        return CameraFollow;
+    }
+
+    public bool GetIsAttackDistance()
+    {
+        return IsLongdistance;
+    }
+
+    // 피 표준화
+    public float GetHealthNormalized()
+    {
+        return characterDataManager.GetHealthNormalized();
+    }
+    public float GetHealth()
+    {
+        if (!isEnemy)
+        {
+            return characterDataManager.GetHealth();
+        }
+        else
+        {
+            return monsterDataManager.GetHealth();
+        }
+    }
+
     // 몬스터, 플레이어 죽음 및 피격!
     public void Damage()
     {
@@ -278,50 +333,5 @@ public class Unit : MonoBehaviour
     }
 
 
-    // 피 표준화
-    public float GetHealthNormalized()
-    {
-        return characterDataManager.GetHealthNormalized();
-    }
-    public float GetHealth()
-    {
-        if (!isEnemy)
-        {
-            return characterDataManager.GetHealth();
-        }
-        else
-        {
-            return monsterDataManager.GetHealth();
-        }
-    }
    
-    // 몬스터 타입
-    public EnemyType GetEnemyVisualType()
-    {
-        return enemyType;
-    }
-    
-    public CharacterDataManager GetCharacterDataManager()
-    {
-        return characterDataManager;
-    }
-
-    public MonsterDataManager GetMonsterDataManager()
-    {
-        return monsterDataManager;
-    }
-
-    public String GetUnitName()
-    {
-        return UnitName;
-    }
-
-    public Transform GetCameraPos()
-    {
-        return CameraPos;
-    }
-    public Transform GetCameraFollow()
-    {
-        return CameraFollow;
-    }
 }

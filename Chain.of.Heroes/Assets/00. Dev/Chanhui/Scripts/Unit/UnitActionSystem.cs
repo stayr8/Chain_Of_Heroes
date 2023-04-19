@@ -181,7 +181,7 @@ public class UnitActionSystem : MonoBehaviour
 
     public void OutSelectedUnit(Unit unit)
     {
-        selectedUnit = unit;
+        //selectedUnit = unit;
         DoubleSelectedUnit = true;
 
         SetSelectedAction(unit.GetAction<EmptyAction>());

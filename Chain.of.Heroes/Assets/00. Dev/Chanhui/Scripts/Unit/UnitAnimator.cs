@@ -68,6 +68,13 @@ public class UnitAnimator : MonoBehaviour
             knightAction.OnKnightSwordSlash += knightAction_OnKnightSwordSlash;
         }
 
+        if (TryGetComponent<ChainAttackAction>(out ChainAttackAction chainAttackAction))
+        {
+            chainAttackAction.OnChainAttackStartMoving += ChainAttackAction_OnChainAttackStartMoving;
+            chainAttackAction.OnChainAttackStopMoving += ChainAttackAction_OnChainAttackStopMoving;
+            chainAttackAction.OnChainAttackSwordSlash += ChainAttackAction_OnChainAttackSwordSlash;
+        }
+
         if (TryGetComponent<Unit>(out Unit unit))
         {
             unit.OnUnitDamage += Unit_OnUnitDamage;
@@ -98,6 +105,11 @@ public class UnitAnimator : MonoBehaviour
     }
 
     private void knightAction_OnKnightSwordSlash(object sender, EventArgs e)
+    {
+        animator.SetTrigger("SwordSlash");
+    }
+
+    private void ChainAttackAction_OnChainAttackSwordSlash(object sender, EventArgs e)
     {
         animator.SetTrigger("SwordSlash");
     }
@@ -171,6 +183,16 @@ public class UnitAnimator : MonoBehaviour
     }
 
     private void KingAction_OnKingStopMoving(object sender, EventArgs e)
+    {
+        animator.SetBool("IsWalking", false);
+    }
+
+    private void ChainAttackAction_OnChainAttackStartMoving(object sender, EventArgs e)
+    {
+        animator.SetBool("IsWalking", true);
+    }
+
+    private void ChainAttackAction_OnChainAttackStopMoving(object sender, EventArgs e)
     {
         animator.SetBool("IsWalking", false);
     }
@@ -265,6 +287,13 @@ public class UnitAnimator : MonoBehaviour
             knightAction.OnKnightStartMoving -= knightAction_OnKnightStartMoving;
             knightAction.OnKnightStopMoving -= knightAction_OnKnightStopMoving;
             knightAction.OnKnightSwordSlash -= knightAction_OnKnightSwordSlash;
+        }
+
+        if (TryGetComponent<ChainAttackAction>(out ChainAttackAction chainAttackAction))
+        {
+            chainAttackAction.OnChainAttackStartMoving -= ChainAttackAction_OnChainAttackStartMoving;
+            chainAttackAction.OnChainAttackStopMoving -= ChainAttackAction_OnChainAttackStopMoving;
+            chainAttackAction.OnChainAttackSwordSlash -= ChainAttackAction_OnChainAttackSwordSlash;
         }
 
         if (TryGetComponent<Unit>(out Unit unit))

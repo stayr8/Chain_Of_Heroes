@@ -8,67 +8,16 @@ public class EmptyAction : BaseAction
     /* 나중에 몬스터가 가만히 있게 만들어 줄 수도 있다.*/
 
 
-    private int maxDistance = 0;
-
-    private void Update()
-    {
-        if (!isActive)
-        {
-            return;
-        } 
-    }
-
-
     public override List<GridPosition> GetValidActionGridPositionList()
     {
-        List<GridPosition> validGridPositionList = new List<GridPosition>();
-
-        GridPosition unitGridPosition = unit.GetGridPosition();
-
-        for (int x = -maxDistance; x <= maxDistance; x++)
-        {
-            for (int z = -maxDistance; z <= maxDistance; z++)
-            {
-                GridPosition offsetGridPosition = new GridPosition(x, z);
-                GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
-
-                if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition))
-                {
-                    continue;
-                }
-
-                if (unitGridPosition == testGridPosition)
-                {
-                    // Same Grid Position where the character is already at
-                    continue;
-                }
-
-                if (LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition))
-                {
-                    // Grid Position already occupied with another Character
-                    continue;
-                }
-
-                if (!Pathfinding.Instance.IsWalkableGridPosition(testGridPosition))
-                {
-                    continue;
-                }
-
-                if (!Pathfinding.Instance.HasPath(unitGridPosition, testGridPosition))
-                {
-                    continue;
-                }
-
-                validGridPositionList.Add(testGridPosition);
-            }
-        }
+        List<GridPosition> validGridPositionList = new List<GridPosition>();      
 
         return validGridPositionList;
     }
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
-        //ActionStart(onActionComplete);
+        
     }
 
     public override string GetActionName()

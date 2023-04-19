@@ -124,6 +124,11 @@ public class QueenAction : BaseAction
 
                 break;
             case State.SwingingQueenBeforeHit:
+                /*
+                if (!AttackActionSystem.Instance.GetIsChainAtk())
+                {
+                    state = State.SwingingQueenAfterCamera;
+                }*/
 
                 break;
             case State.SwingingQueenAfterCamera:
@@ -162,7 +167,7 @@ public class QueenAction : BaseAction
 
                 break;
             case State.SwingingQueenAttackStand:
-                AttackActionSystem.Instance.OnAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
+                AttackActionSystem.Instance.OnAtLocationMove(unit, targetUnit);
                 ActionCameraStart();
                 AttackCameraComplete();
                 stateTimer = 0.8f;
@@ -182,10 +187,20 @@ public class QueenAction : BaseAction
 
                 break;
             case State.SwingingQueenBeforeHit:
+             
+                OnQueenSwordSlash?.Invoke(this, EventArgs.Empty);
+                AttackActionSystem.Instance.SetIsAtk(false);
+
                 float afterHitStateTime_2 = 1.5f;
                 stateTimer = afterHitStateTime_2;
-                OnQueenSwordSlash?.Invoke(this, EventArgs.Empty);
                 state = State.SwingingQueenAfterCamera;
+                /*
+                if (!AttackActionSystem.Instance.GetIsChainAtk())
+                {
+                    float afterHitStateTime_2 = 1.5f;
+                    stateTimer = afterHitStateTime_2;
+                    state = State.SwingingQueenAfterCamera;
+                }*/
 
                 break;
             case State.SwingingQueenAfterCamera:
@@ -199,7 +214,7 @@ public class QueenAction : BaseAction
                 ActionCameraComplete();
                 AttackActionSystem.Instance.OffAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
                 ActionComplete();
-                AttackActionSystem.Instance.SetIsAtk(false);
+                
                 break;
         }
     }
