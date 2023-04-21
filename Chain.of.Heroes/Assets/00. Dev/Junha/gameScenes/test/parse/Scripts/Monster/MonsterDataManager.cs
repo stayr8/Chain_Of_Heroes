@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +23,13 @@ public class MonsterDataManager : MonoBehaviour
 
     private GoblinWarrior[] _Array;
     private GoblinWarrior firstArray;
+
+    public event EventHandler OnEnemyDamage;
+    public event EventHandler OnEnemyDie;
+
+    private Unit monster;
+    private MonsterBase monsterBase;
+
     private void Awake()
     {
         var data = Resources.Load<TextAsset>(CharacterName);
@@ -40,7 +48,9 @@ public class MonsterDataManager : MonoBehaviour
             _Array[i] = GoblinWarrior;
         }
 
-        //firstArray = _Array[0];
+        monster = GetComponent<Unit>();
+        monsterBase = GetComponent<MonsterBase>();
+
         initInfo();
     }
 
@@ -79,5 +89,36 @@ public class MonsterDataManager : MonoBehaviour
     public float GetHealth()
     {
         return m_hp;
+    }
+
+    public void Damage()
+    {
+        monsterBase.Calc_Attack(AttackActionSystem.Instance.GetCharacterDataManager(), this);
+
+        if (m_hp <= 0)
+        {
+            OnEnemyDie?.Invoke(this, EventArgs.Empty);
+            monster.GetAnyUnitDead();
+
+            LevelGrid.Instance.RemoveUnitAtGridPosition(monster.GetGridPosition(), monster);
+
+            Destroy(gameObject, 4.0f);
+
+        }
+        else
+        {
+            OnEnemyDamage?.Invoke(this, EventArgs.Empty);
+
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.tag == "Melee")
+        {
+            Debug.Log(other.gameObject.name);
+            ScreenShake.Instance.Shake();
+            Damage();
+        }
     }
 }

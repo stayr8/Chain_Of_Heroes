@@ -10,14 +10,12 @@ public class Unit : MonoBehaviour
     public static event EventHandler OnAnyUnitSpawned;
     public static event EventHandler OnAnyUnitDead;
 
-    public event EventHandler OnUnitDamage;
-    public event EventHandler OnUnitDie;
-
     [SerializeField] private Transform CameraPos;
     [SerializeField] private Transform CameraFollow;
 
     private GridPosition gridPosition;
     private BaseAction[] baseActionArray;
+    [SerializeField] private bool IsGrid;
 
     [Header("Monster Information")]
     [SerializeField] private bool isEnemy;
@@ -25,7 +23,6 @@ public class Unit : MonoBehaviour
     [SerializeField] private int SoloEnemyActionPoints = 0;
 
     private MonsterDataManager monsterDataManager;
-    private MonsterBase monsterBase;
 
     public enum EnemyType
     {
@@ -36,10 +33,10 @@ public class Unit : MonoBehaviour
 
     [SerializeField] private EnemyType enemyType;
 
-
     [Header("Player Information")]
     private CharacterDataManager characterDataManager;
-    private CharacterBase characterBase;
+    private bool isChainfirst;
+    private bool isChaintwo;
 
     [SerializeField] private String UnitName;
     [SerializeField] private bool IsLongdistance;
@@ -54,15 +51,6 @@ public class Unit : MonoBehaviour
         else if (TryGetComponent<MonsterDataManager>(out MonsterDataManager monsterdatamanager))
         {
             this.monsterDataManager = monsterdatamanager;
-        }
-
-        if (TryGetComponent<CharacterBase>(out CharacterBase characterBase))
-        {
-            this.characterBase = characterBase;
-        }
-        else if (TryGetComponent<MonsterBase>(out MonsterBase monsterBase))
-        {
-            this.monsterBase = monsterBase;
         }
         
     }
@@ -94,12 +82,13 @@ public class Unit : MonoBehaviour
         LevelGrid.Instance.AddUnitAtGridPosition(gridPosition, this);
 
         SoloEnemyActionPoints = newEnemyActionPoints;
+        IsGrid = false;
 
     }
 
     private void Update()
     {
-        if (!AttackActionSystem.Instance.OnAttackGroundCheck())
+        if (!IsGrid)
         {
             GridPosition newGridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
             if (newGridPosition != gridPosition)
@@ -278,60 +267,38 @@ public class Unit : MonoBehaviour
         }
     }
 
-    // 몬스터, 플레이어 죽음 및 피격!
-    public void Damage()
+    public void GetAnyUnitDead()
     {
-        if(IsEnemy())
-        {
-            monsterBase.Calc_Attack(AttackActionSystem.Instance.GetCharacterDataManager(), monsterDataManager);
-
-            if (monsterDataManager.GetHealth() <= 0)
-            {
-                OnUnitDie?.Invoke(this, EventArgs.Empty);
-                OnAnyUnitDead?.Invoke(this, EventArgs.Empty);
-
-                LevelGrid.Instance.RemoveUnitAtGridPosition(gridPosition, this);
-
-                Destroy(gameObject, 4.0f);
-
-            }
-            else
-            {
-                OnUnitDamage?.Invoke(this, EventArgs.Empty);
-            }
-        }
-        else if(!IsEnemy())
-        {
-            characterBase.Calc_Attack(characterDataManager, AttackActionSystem.Instance.GetMonsterDataManager());
-
-            if (characterDataManager.GetHealth() <= 0)
-            {
-                OnUnitDie?.Invoke(this, EventArgs.Empty);
-                OnAnyUnitDead?.Invoke(this, EventArgs.Empty);
-
-                LevelGrid.Instance.RemoveUnitAtGridPosition(gridPosition, this);
-
-                Destroy(gameObject, 4.0f);
-
-            }
-            else
-            {
-                OnUnitDamage?.Invoke(this, EventArgs.Empty);
-                
-            }
-
-        }
+        OnAnyUnitDead?.Invoke(this, EventArgs.Empty);
     }
 
-    private void OnTriggerEnter(Collider other)
+    public bool GetIsGrid()
     {
-        if(other.transform.tag == "Melee")
-        {
-            ScreenShake.Instance.Shake();
-            Damage();
-        }
+        return IsGrid;
     }
 
+    public void SetIsGrid(bool IsGrid)
+    {
+        this.IsGrid = IsGrid;
+    }
 
-   
+    public bool GetChainfirst()
+    {
+        return isChainfirst;
+    }
+
+    public bool GetChaintwo()
+    {
+        return isChaintwo;
+    }
+
+    public void SetChainfirst(bool isChainfirst)
+    {
+        this.isChainfirst = isChainfirst;
+    }
+
+    public void SetChaintwo(bool isChaintwo)
+    {
+        this.isChaintwo = isChaintwo;
+    }
 }

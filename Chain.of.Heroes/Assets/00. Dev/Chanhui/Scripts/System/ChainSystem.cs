@@ -27,7 +27,7 @@ public class ChainSystem : MonoBehaviour
     {
         if (AttackActionSystem.Instance.GetIsAtk() && !IsChain)
         {
-            Debug.Log("여기 실행되니?");
+            Debug.Log("체인 시스템 온?");
             IsChain = true;
             TryTakeEnemyAIAction(Chain);
         }
@@ -51,9 +51,10 @@ public class ChainSystem : MonoBehaviour
 
     private bool TryTakeEnemyAIAction(Action onEnemyAIActionComplete)
     {
+
         foreach (Unit enemyUnit in UnitManager.Instance.GetEnemyUnitList())
         {
-            if (AttackActionSystem.Instance.GetEnemy() == enemyUnit) 
+            if (UnitActionSystem.Instance.GetSelecterdUnitEnemy() == enemyUnit) 
             {
                 if (TryTakeEnemyAIAction(enemyUnit, onEnemyAIActionComplete))
                 {

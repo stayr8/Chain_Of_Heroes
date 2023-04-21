@@ -44,8 +44,7 @@ public class UnitManager : MonoBehaviour
 
         Unit.OnAnyUnitSpawned += Unit_OnAnyUnitSpawned;
         Unit.OnAnyUnitDead += Unit_OnAnyUnitDead;
-        //PositionAllEnemy();
-        //PositionAllPlayer();
+ 
     }
 
 

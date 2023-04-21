@@ -123,12 +123,7 @@ public class QueenAction : BaseAction
                 }
 
                 break;
-            case State.SwingingQueenBeforeHit:
-                /*
-                if (!AttackActionSystem.Instance.GetIsChainAtk())
-                {
-                    state = State.SwingingQueenAfterCamera;
-                }*/
+            case State.SwingingQueenBeforeHit:         
 
                 break;
             case State.SwingingQueenAfterCamera:
@@ -187,20 +182,25 @@ public class QueenAction : BaseAction
 
                 break;
             case State.SwingingQueenBeforeHit:
-             
-                OnQueenSwordSlash?.Invoke(this, EventArgs.Empty);
-                AttackActionSystem.Instance.SetIsAtk(false);
-
-                float afterHitStateTime_2 = 1.5f;
-                stateTimer = afterHitStateTime_2;
-                state = State.SwingingQueenAfterCamera;
-                /*
+                if (!isAtk)
+                {
+                    OnQueenSwordSlash?.Invoke(this, EventArgs.Empty);
+                    AttackActionSystem.Instance.SetIsAtk(false);
+                    isAtk = true;
+                }
+                
+                
                 if (!AttackActionSystem.Instance.GetIsChainAtk())
                 {
-                    float afterHitStateTime_2 = 1.5f;
+                    float afterHitStateTime_2 = 1.0f;
                     stateTimer = afterHitStateTime_2;
                     state = State.SwingingQueenAfterCamera;
-                }*/
+                }
+                else
+                {
+                    float afterHitStateTime_2 = 0.1f;
+                    stateTimer = afterHitStateTime_2;
+                }
 
                 break;
             case State.SwingingQueenAfterCamera:
@@ -212,9 +212,10 @@ public class QueenAction : BaseAction
                 break;
             case State.SwingingQueenAfterHit:
                 ActionCameraComplete();
-                AttackActionSystem.Instance.OffAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
+                AttackActionSystem.Instance.OffAtLocationMove(unit, targetUnit);
                 ActionComplete();
-                
+                isAtk = false;
+
                 break;
         }
     }

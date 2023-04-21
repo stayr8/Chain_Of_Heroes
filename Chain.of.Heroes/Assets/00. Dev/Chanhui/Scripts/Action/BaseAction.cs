@@ -13,6 +13,7 @@ public abstract class BaseAction : MonoBehaviour
 
     protected Unit unit;
     protected bool isActive;
+    protected bool isAtk;
     protected Action onActionComplete;
 
 
@@ -72,10 +73,11 @@ public abstract class BaseAction : MonoBehaviour
             TurnSystem.Property.IsTurnEnd = true;
         }
 
-        if (TurnSystem.Property.IsPlayerTurn)
+        if (!unit.IsEnemy())
         {
             ChainSystem.Instance.SetChain(false);
         }
+
     }
 
     protected void ActionCameraStart()

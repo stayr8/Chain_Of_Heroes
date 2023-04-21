@@ -56,11 +56,6 @@ public class ChainAttackAction : BaseAction
 
                 break;
             case State.SwingingChainAttackMoveOn:
-                /*
-                if(!AttackActionSystem.Instance.GetIsAtk())
-                {
-                    state = State.SwingingChainAttackMoving;
-                }*/
                 
                 break;
             case State.SwingingChainAttackMoving:
@@ -69,10 +64,10 @@ public class ChainAttackAction : BaseAction
                 float rotateSpeed2 = 20f;
                 transform.forward = Vector3.Lerp(transform.forward, aimDir2, Time.deltaTime * rotateSpeed2);
 
-                float stoppingDistance1 = 1.5f;
+                float stoppingDistance1 = 2.0f;
                 if (Vector3.Distance(transform.position, targetDirection2) > stoppingDistance1)
                 {
-                    float moveSpeed = 6f;
+                    float moveSpeed = 15f;
                     transform.position += aimDir2 * moveSpeed * Time.deltaTime;
                 }
                 else
@@ -111,7 +106,14 @@ public class ChainAttackAction : BaseAction
 
                 break;
             case State.SwingingChainAttackOnLocationMove:
-                AttackActionSystem.Instance.OnAtChainLocationMove(unit);
+                if (unit.GetChainfirst())
+                {
+                    AttackActionSystem.Instance.OnAtChainLocationMove_1(unit);
+                }
+                else if(unit.GetChaintwo())
+                {
+                    AttackActionSystem.Instance.OnAtChainLocationMove_2(unit);
+                }
                 float afterHitStateTime_0 = 0.5f;
                 stateTimer = afterHitStateTime_0;
                 state = State.SwingingChainAttackMoveOn;
@@ -127,26 +129,33 @@ public class ChainAttackAction : BaseAction
                 break;
             case State.SwingingChainAttackMoving:
                 AttackActionSystem.Instance.SetCharacterDataManager(unit.GetCharacterDataManager());
+
                 break;
             case State.SwingingChainAttackSlash:
                 OnChainAttackSwordSlash?.Invoke(this, EventArgs.Empty);
                 AttackActionSystem.Instance.SetIsChainAtk(false);
 
-                float afterHitStateTime_2 = 2.0f;
+                float afterHitStateTime_2 = 1.0f;
                 stateTimer = afterHitStateTime_2;
                 state = State.SwingingChainAttackOffLocationMove;
 
                 break;
             case State.SwingingChainAttackOffLocationMove:
-
-                AttackActionSystem.Instance.OffAtChainLocationMove(unit);
+                if (unit.GetChainfirst())
+                {
+                    AttackActionSystem.Instance.OffAtChainLocationMove_1(unit);
+                }
+                else if (unit.GetChaintwo())
+                {
+                    AttackActionSystem.Instance.OffAtChainLocationMove_2(unit);
+                }
+                
                 float afterHitStateTime_3 = 0.5f;
                 stateTimer = afterHitStateTime_3;
                 state = State.SwingingChainAttackComplete;
 
                 break;
             case State.SwingingChainAttackComplete:
-               
                 ActionComplete();
 
                 break;

@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 8732296480811401870}
   - component: {fileID: 3041114212193464494}
   - component: {fileID: 6367536968374047644}
-  m_Layer: 0
-  m_Name: BulletProjectile
-  m_TagString: Melee
+  m_Layer: 13
+  m_Name: EnemyBulletProjectile
+  m_TagString: EnemyMelee
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -71,7 +71,7 @@ GameObject:
   m_Component:
   - component: {fileID: 535464507529774192}
   - component: {fileID: 4037745179069185789}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}

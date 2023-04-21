@@ -47,6 +47,7 @@ public class MonsterBase : MonoBehaviour
     private bool isCritical; // 크리티컬인가?
     public void Calc_Attack(CharacterDataManager CDM, MonsterDataManager MDM)
     {
+        Debug.Log("몬스터 맞음");
         characterAP = CDM.m_attackPower;
         //Debug.Log("캐릭터 공격력: " + characterAP);
         monsterDP = MDM.m_defensePower;

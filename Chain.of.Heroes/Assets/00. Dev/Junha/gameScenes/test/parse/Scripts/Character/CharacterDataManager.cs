@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,6 +24,16 @@ public class CharacterDataManager : MonoBehaviour
 
     private SwordWoman[] _Array;
     private SwordWoman firstArray;
+
+
+    public event EventHandler OnPlayerDamage;
+    public event EventHandler OnPlayerDie;
+
+
+    private CharacterBase characterBase;
+    private Unit player;
+
+
     private void Awake()
     {
         var data = Resources.Load<TextAsset>(CharacterName);
@@ -56,6 +67,12 @@ public class CharacterDataManager : MonoBehaviour
             SwordWoman.Parse(node);
 
             _Array[i] = SwordWoman;
+        }
+
+        player = GetComponent<Unit>();
+        if (TryGetComponent<CharacterBase>(out CharacterBase characterBase))
+        {
+            this.characterBase = characterBase;
         }
 
         //firstArray = _Array[0]; // Init
@@ -107,7 +124,36 @@ public class CharacterDataManager : MonoBehaviour
         return m_hp;
     }
 
+    public void Damage()
+    {
+        characterBase.Calc_Attack(this, AttackActionSystem.Instance.GetMonsterDataManager());
 
+        if (m_hp <= 0)
+        {
+            OnPlayerDie?.Invoke(this, EventArgs.Empty);
+            player.GetAnyUnitDead();
+
+            LevelGrid.Instance.RemoveUnitAtGridPosition(player.GetGridPosition(), player);
+
+            Destroy(gameObject, 4.0f);
+
+        }
+        else
+        {
+            OnPlayerDamage?.Invoke(this, EventArgs.Empty);
+
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.tag == "EnemyMelee")
+        {
+            Debug.Log(other.gameObject.name);
+            ScreenShake.Instance.Shake();
+            Damage();
+        }
+    }
 }
 
 #region 정보 디버그

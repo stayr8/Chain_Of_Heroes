@@ -103,21 +103,31 @@ public class ReadyAction : BaseAction
                 }
                 ActionCameraStart();
                 AttackCameraComplete();
-                float afterHitStateTime_1 = 2.0f;
+                float afterHitStateTime_1 = 1.0f;
                 stateTimer = afterHitStateTime_1;
                 state = State.SwingingArcherAiming;
 
                 break;
             case State.SwingingArcherAiming:
                
-                float afterHitStateTime_2 = 1.5f;
                 if (canShootBullet)
                 {
                     Shoot();
                     canShootBullet = false;
+                    AttackActionSystem.Instance.SetIsAtk(false);
                 }
-                stateTimer = afterHitStateTime_2;
-                state = State.SwingingArcherShooting;
+
+                if (!AttackActionSystem.Instance.GetIsChainAtk())
+                {
+                    float afterHitStateTime_2 = 1.0f;
+                    stateTimer = afterHitStateTime_2;
+                    state = State.SwingingArcherShooting;
+                }
+                else
+                {
+                    float afterHitStateTime_2 = 0.1f;
+                    stateTimer = afterHitStateTime_2;
+                }
 
                 break;
             case State.SwingingArcherShooting:
@@ -232,6 +242,10 @@ public class ReadyAction : BaseAction
         stateTimer = aimingStateTime;
 
         canShootBullet = true;
+        if(!unit.IsEnemy())
+        {
+            AttackActionSystem.Instance.SetIsAtk(true);
+        }
 
         ActionStart(onActionComplete);
     }

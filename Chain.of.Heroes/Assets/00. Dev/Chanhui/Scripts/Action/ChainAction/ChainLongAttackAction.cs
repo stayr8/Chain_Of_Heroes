@@ -5,17 +5,21 @@ using UnityEngine;
 
 public class ChainLongAttackAction : BaseAction
 {
-    public event EventHandler OnChainAttackSwordSlash;
-    public event EventHandler OnChainAttackStartMoving;
-    public event EventHandler OnChainAttackStopMoving;
+    public event EventHandler<OnChainShootEventArgs> OnChainShoot;
+
+    public class OnChainShootEventArgs : EventArgs
+    {
+        public Unit targetUnit;
+        public Unit shootingUnit;
+    }
 
     private enum State
     {
         SwingingChainAttackStart,
         SwingingChainAttackOnLocationMove,
-        SwingingChainAttackMoveOn,
-        SwingingChainAttackMoving,
-        SwingingChainAttackSlash,
+        SwingingChainAttackWait,
+        SwingingChainAttackAiming,
+        SwingingChainAttackShooting,
         SwingingChainAttackOffLocationMove,
         SwingingChainAttackComplete,
     }
@@ -24,6 +28,7 @@ public class ChainLongAttackAction : BaseAction
     private State state;
     private float stateTimer;
     private Unit targetUnit;
+    private bool canShootBullet;
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
     {
@@ -55,33 +60,10 @@ public class ChainLongAttackAction : BaseAction
             case State.SwingingChainAttackOnLocationMove:
 
                 break;
-            case State.SwingingChainAttackMoveOn:
-                if (!AttackActionSystem.Instance.GetIsAtk())
-                {
-                    state = State.SwingingChainAttackMoving;
-                }
+            case State.SwingingChainAttackWait:
 
                 break;
-            case State.SwingingChainAttackMoving:
-                Vector3 targetDirection2 = targetUnit.transform.position;
-                Vector3 aimDir2 = (targetDirection2 - transform.position).normalized;
-                float rotateSpeed2 = 20f;
-                transform.forward = Vector3.Lerp(transform.forward, aimDir2, Time.deltaTime * rotateSpeed2);
-
-                float stoppingDistance1 = 1.5f;
-                if (Vector3.Distance(transform.position, targetDirection2) > stoppingDistance1)
-                {
-                    float moveSpeed = 6f;
-                    transform.position += aimDir2 * moveSpeed * Time.deltaTime;
-                }
-                else
-                {
-                    OnChainAttackStopMoving?.Invoke(this, EventArgs.Empty);
-                    state = State.SwingingChainAttackSlash;
-                }
-
-                break;
-            case State.SwingingChainAttackSlash:
+            case State.SwingingChainAttackShooting:
 
                 break;
             case State.SwingingChainAttackOffLocationMove:
@@ -110,34 +92,49 @@ public class ChainLongAttackAction : BaseAction
 
                 break;
             case State.SwingingChainAttackOnLocationMove:
-                AttackActionSystem.Instance.OnAtChainLocationMove(unit);
-                float afterHitStateTime_0 = 0.5f;
-                stateTimer = afterHitStateTime_0;
-                state = State.SwingingChainAttackMoveOn;
-
-                break;
-            case State.SwingingChainAttackMoveOn:
-                if (!AttackActionSystem.Instance.GetIsAtk())
+                if (unit.GetChainfirst())
                 {
-                    OnChainAttackStartMoving?.Invoke(this, EventArgs.Empty);
+                    AttackActionSystem.Instance.OnAtChainLocationMove_1(unit);
                 }
+                else if (unit.GetChaintwo())
+                {
+                    AttackActionSystem.Instance.OnAtChainLocationMove_2(unit);
+                }
+                float afterHitStateTime_0 = 1.0f;
+                stateTimer = afterHitStateTime_0;
+                state = State.SwingingChainAttackWait;
 
                 break;
-            case State.SwingingChainAttackMoving:
+            case State.SwingingChainAttackWait:
+                float afterHitStateTime_1 = 1.5f;
+                stateTimer = afterHitStateTime_1;
+                AttackActionSystem.Instance.SetCharacterDataManager(unit.GetCharacterDataManager());
+                state = State.SwingingChainAttackShooting;
 
                 break;
-            case State.SwingingChainAttackSlash:
-                OnChainAttackSwordSlash?.Invoke(this, EventArgs.Empty);
-                AttackActionSystem.Instance.SetIsChainAtk(false);
+            case State.SwingingChainAttackShooting:
+                if (canShootBullet)
+                {
+                    Shoot();
+                    canShootBullet = false;
+                    AttackActionSystem.Instance.SetIsChainAtk(false);
+                }
+                
 
-                float afterHitStateTime_2 = 2.0f;
+                float afterHitStateTime_2 = 1.0f;
                 stateTimer = afterHitStateTime_2;
                 state = State.SwingingChainAttackOffLocationMove;
 
                 break;
             case State.SwingingChainAttackOffLocationMove:
-
-                AttackActionSystem.Instance.OffAtChainLocationMove(unit);
+                if (unit.GetChainfirst())
+                {
+                    AttackActionSystem.Instance.OffAtChainLocationMove_1(unit);
+                }
+                else if (unit.GetChaintwo())
+                {
+                    AttackActionSystem.Instance.OffAtChainLocationMove_2(unit);
+                }
                 float afterHitStateTime_3 = 0.5f;
                 stateTimer = afterHitStateTime_3;
                 state = State.SwingingChainAttackComplete;
@@ -150,6 +147,15 @@ public class ChainLongAttackAction : BaseAction
                 break;
         }
 
+    }
+
+    private void Shoot()
+    {
+        OnChainShoot?.Invoke(this, new OnChainShootEventArgs
+        {
+            targetUnit = targetUnit,
+            shootingUnit = unit
+        });
     }
 
     public override List<GridPosition> GetValidActionGridPositionList()
@@ -167,12 +173,14 @@ public class ChainLongAttackAction : BaseAction
         float beforeHitStateTime = 0.7f;
         stateTimer = beforeHitStateTime;
 
+        canShootBullet = true;
+
         ActionStart(onActionComplete);
     }
 
     public override string GetActionName()
     {
-        return "체인 근거리 공격";
+        return "체인 원거리 공격";
     }
 
     public override int GetActionPointsCost()

@@ -11,10 +11,12 @@ public class AttackActionSystem : MonoBehaviour
 
     private Vector3 unitpos;
     private Vector3 targetpos;
-    private Vector3 chainpos;
+    private Vector3 chainpos_1;
+    private Vector3 chainpos_2;
     private Quaternion unitrotation;
     private Quaternion targetrotation;
-    private Quaternion chainrotation;
+    private Quaternion chainrotation_1;
+    private Quaternion chainrotation_2;
 
     private CharacterDataManager characterDataManager;
     private MonsterDataManager monsterDataManager;
@@ -74,6 +76,8 @@ public class AttackActionSystem : MonoBehaviour
         player = unit;
         enemy = target;
 
+        unit.SetIsGrid(true);
+        target.SetIsGrid(true);
 
         OnAttackAtGround = true;
 
@@ -99,7 +103,8 @@ public class AttackActionSystem : MonoBehaviour
 
     public void OffAtLocationMove(Unit unit, Unit target)
     {
-        if(unit != null)
+
+        if (unit != null)
         {
             unit.SetPosition(unitpos);
         }
@@ -120,31 +125,70 @@ public class AttackActionSystem : MonoBehaviour
             LevelGrid.Instance.AddUnitAtGridPosition(target.GetGridPosition(), target);
             target.transform.rotation = targetrotation;
         }
+
+        unit.SetIsGrid(false);
+        target.SetIsGrid(false);
+
         OnAttackAtGround = false;
+
     }
 
-    public void OnAtChainLocationMove(Unit chainunit)
+    public void OnAtChainLocationMove_1(Unit chainunit)
     {
         characterDataManager = chainunit.GetCharacterDataManager();
 
-        chainpos = chainunit.GetWorldPosition();
-        chainrotation = chainunit.transform.rotation;
+        chainunit.SetIsGrid(true);
+
+        chainpos_1 = chainunit.GetWorldPosition();
+        chainrotation_1 = chainunit.transform.rotation;
 
         LevelGrid.Instance.RemoveUnitAtGridPosition(chainunit.GetGridPosition(), chainunit);
 
-        Vector3 chainlocationMove = new Vector3(-2.5f, 150, 3.2f);
+        Vector3 chainlocationMove = new Vector3(-5f, 150, 3.2f);
         chainunit.SetPosition(chainlocationMove);
 
 
         chainunit.transform.rotation = Quaternion.Euler(0, 90, 0);
     }
 
-    public void OffAtChainLocationMove(Unit chainunit)
+    public void OffAtChainLocationMove_1(Unit chainunit)
     {
-        chainunit.SetPosition(chainpos);
+        chainunit.SetPosition(chainpos_1);
 
         LevelGrid.Instance.AddUnitAtGridPosition(chainunit.GetGridPosition(), chainunit);
-        chainunit.transform.rotation = chainrotation;
+        chainunit.transform.rotation = chainrotation_1;
+
+        chainunit.SetIsGrid(false);
+        chainunit.SetChainfirst(false);
+    }
+
+    public void OnAtChainLocationMove_2(Unit chainunit)
+    {
+        characterDataManager = chainunit.GetCharacterDataManager();
+
+        chainunit.SetIsGrid(true);
+
+        chainpos_2 = chainunit.GetWorldPosition();
+        chainrotation_2 = chainunit.transform.rotation;
+
+        LevelGrid.Instance.RemoveUnitAtGridPosition(chainunit.GetGridPosition(), chainunit);
+
+        Vector3 chainlocationMove = new Vector3(1.9f, 150, 4.4f);
+        chainunit.SetPosition(chainlocationMove);
+
+
+        chainunit.transform.rotation = Quaternion.Euler(0, -140, 0);
+    }
+
+    public void OffAtChainLocationMove_2(Unit chainunit)
+    {
+        chainunit.SetPosition(chainpos_2);
+
+        LevelGrid.Instance.AddUnitAtGridPosition(chainunit.GetGridPosition(), chainunit);
+        chainunit.transform.rotation = chainrotation_2;
+
+        chainunit.SetIsGrid(false);
+        chainunit.SetChaintwo(false);
     }
 
     public bool OnAttackGroundCheck()

@@ -8,24 +8,75 @@ public class ChainAction : BaseAction
     [SerializeField] private int maxChainDistance = 1;
 
     private Unit targetUnit;
+    private Unit targetUnit2;
 
+    private List<GridPosition> validGridPositionList;
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
         // 발견 된 체인 플레이어가 Action을 시작하는 곳
-        targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
+        if(validGridPositionList.Count > 1)
+        {
+            targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(validGridPositionList[0]);
+            targetUnit2 = LevelGrid.Instance.GetUnitAtGridPosition(validGridPositionList[1]);
 
-        Debug.Log(targetUnit.GetUnitName());
-        BaseAction bestBaseAction = targetUnit.GetAction<ChainLongAttackAction>();
+            Debug.Log(targetUnit.GetUnitName());
+            Debug.Log(targetUnit2.GetUnitName());
+            BaseAction bestBaseAction = null;
+            BaseAction bestBaseAction2 = null;
+            if (targetUnit.GetIsAttackDistance())
+            {
+                bestBaseAction = targetUnit.GetAction<ChainLongAttackAction>();
+                targetUnit.SetChainfirst(true);
+            }
+            else
+            {
+                bestBaseAction = targetUnit.GetAction<ChainAttackAction>();
+                targetUnit.SetChainfirst(true);
+            }
 
-        bestBaseAction.TakeAction(targetUnit.GetGridPosition(), onActionComplete);
+            if (targetUnit2.GetIsAttackDistance())
+            {
+                bestBaseAction2 = targetUnit2.GetAction<ChainLongAttackAction>();
+                targetUnit2.SetChaintwo(true);
+            }
+            else
+            {
+                bestBaseAction2 = targetUnit2.GetAction<ChainAttackAction>();
+                targetUnit2.SetChaintwo(true);
+            }
+
+            bestBaseAction.TakeAction(unit.GetGridPosition(), onActionComplete);
+            bestBaseAction2.TakeAction(unit.GetGridPosition(), onActionComplete);
+        }
+        else
+        {
+            targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
+
+            Debug.Log(targetUnit.GetUnitName());
+            BaseAction bestBaseAction = null;
+            if (targetUnit.GetIsAttackDistance())
+            {
+                bestBaseAction = targetUnit.GetAction<ChainLongAttackAction>();
+                targetUnit.SetChainfirst(true);
+            }
+            else
+            {
+                bestBaseAction = targetUnit.GetAction<ChainAttackAction>();
+                targetUnit.SetChainfirst(true);
+            }
+
+
+            bestBaseAction.TakeAction(unit.GetGridPosition(), onActionComplete);
+        }
+        
     }
     
 
     // 이동 범위 선정
     public override List<GridPosition> GetValidActionGridPositionList()
     {
-        List<GridPosition> validGridPositionList = new List<GridPosition>();
+        validGridPositionList = new List<GridPosition>();
 
         GridPosition unitGridPosition = unit.GetGridPosition();
 
@@ -47,6 +98,11 @@ public class ChainAction : BaseAction
                     continue;
                 }
 
+                Unit targetUnit = UnitActionSystem.Instance.GetSelecterdUnit();
+                if (targetUnit == LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition))
+                {
+                    continue;
+                }
                 /*
                 Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
                 if (AttackActionSystem.Instance.GetPlayer() == targetUnit)
@@ -85,11 +141,11 @@ public class ChainAction : BaseAction
                     // Path length is too long
                     continue;
                 }
-
+                Debug.Log(LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition).GetUnitName());
                 validGridPositionList.Add(testGridPosition);
             }
         }
-        Debug.Log("몬스터 체인 발동");
+        
         return validGridPositionList;
     }
 

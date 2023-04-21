@@ -221,7 +221,7 @@ MonoBehaviour:
   SoloEnemyActionPoints: 0
   enemyType: 0
   UnitName: "\uAD81\uC218"
-  IsLongdistance: 0
+  IsLongdistance: 1
 --- !u!114 &6796246865143457865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,7 +235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 8934991884634520614}
-  bulletProjectilePrefab: {fileID: 8732296480811401870, guid: ed38717c6af161c4ab4f619260be292a, type: 3}
+  bulletProjectilePrefab: {fileID: 8732296480811401870, guid: a68ba26ac9425034b8d224551ed6fa8b, type: 3}
   shootPointTransform: {fileID: 3905382890455222643}
 --- !u!114 &3500579739310478914
 MonoBehaviour:

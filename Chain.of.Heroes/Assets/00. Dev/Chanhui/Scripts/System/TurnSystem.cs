@@ -160,7 +160,6 @@ public partial class TurnSystem : MonoBehaviour
     public void NextTurn()
     {
         Property.TurnNumber++;
-        Debug.Log(Property.TurnNumber);
     }
 
     private void OnTurnChanged()

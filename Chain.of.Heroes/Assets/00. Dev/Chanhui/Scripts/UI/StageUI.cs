@@ -47,13 +47,11 @@ public class StageUI : MonoBehaviour
         {
             if (TurnSystem.Property.IsPlayerTurn)
             {
-                //Debug.Log("Player");
                 PlayerShow();
                 EnemyHide();
             }
             else
             {
-                Debug.Log("Enemy");
                 EnemyShow();
                 PlayerHide();
             }
