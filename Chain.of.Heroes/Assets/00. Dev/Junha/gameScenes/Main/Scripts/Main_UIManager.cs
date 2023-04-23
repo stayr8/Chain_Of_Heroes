@@ -71,14 +71,12 @@ public class Main_UIManager : MonoBehaviour
                 break;
 
             case STATE.CREDIT:
+                if (Input.GetKeyDown(KeyCode.Escape))
                 {
-                    if (Input.GetKeyDown(KeyCode.Escape))
-                    {
-                        Credit.SetActive(false);
-                        Menu.SetActive(true);
+                    Credit.SetActive(false);
+                    Menu.SetActive(true);
 
-                        state = STATE.MENU;
-                    }
+                    state = STATE.MENU;
                 }
 
                 break;
@@ -133,6 +131,8 @@ public class Main_UIManager : MonoBehaviour
     #region ===== FadeIn =====
     private IEnumerator ImageFadeIn()
     {
+        _image.gameObject.SetActive(true);
+
         float time = 1f; // FadeIn에 걸리는 시간
         float alphaValue = 0f; // 알파값
 

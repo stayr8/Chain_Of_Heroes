@@ -10,6 +10,7 @@ public class BattleReady_MenuSelectCursor : CursorBase
 {
     private RectTransform rt;
     private GameObject currentSelected;
+
     private void Awake()
     {
         rt = GetComponent<RectTransform>();
@@ -21,7 +22,7 @@ public class BattleReady_MenuSelectCursor : CursorBase
     private const float INIT_Y = 200f;
     private void OnEnable()
     {
-        
+
     }
 
     public static bool isBattleStart = false;
@@ -33,7 +34,7 @@ public class BattleReady_MenuSelectCursor : CursorBase
     {
         if (!isBattleStart || !isBack)
         {
-            Movement_forWorld(rt, ref currentSelected, MOVE_DISTANCE, MIN_POSITION_X, MAX_POSITION_X, MIN_POSITION_Y, MAX_POSITION_Y);
+            Movement(rt, ref currentSelected, MOVE_DISTANCE, MIN_POSITION_X, MAX_POSITION_X, MIN_POSITION_Y, MAX_POSITION_Y);
         }
 
         MenuFunction();
@@ -45,7 +46,6 @@ public class BattleReady_MenuSelectCursor : CursorBase
 
     [SerializeField, Header("nextButton")] private GameObject nextButton;
     [SerializeField, Header("nextButton Text")] private TextMeshProUGUI text_nextButton;
-
     private void MenuFunction()
     {
         if (Input.GetKeyDown(KeyCode.Return))
@@ -65,7 +65,6 @@ public class BattleReady_MenuSelectCursor : CursorBase
 
                     break;
 
-                #region 미구현
                 case "_Maintenance":
                     Debug.Log("정비");
                     BattleReady_UIManager.instance.OnMaintenance();
@@ -83,19 +82,27 @@ public class BattleReady_MenuSelectCursor : CursorBase
                     BattleReady_UIManager.instance.OnSave();
 
                     break;
-                #endregion
-                                  
+
                 case "_Back":
                     isBack = true;
                     NextButton(true, "_Yes");
                     text_nextButton.text = "월드 맵으로 돌아가시겠습니까?";
 
                     break;
+
                 case "_Yes":
-                    MapManager.Instance.stageNum = 0;
-                    SceneManager.LoadScene("Ch_01");
+                    if (isBattleStart)
+                    {
+                        MapManager.Instance.stageNum = 0;
+                        SceneManager.LoadScene("Ch_01");
+                    }
+                    else if (isBack)
+                    {
+                        SceneManager.LoadScene("WorldMapScene");
+                    }
 
                     break;
+
                 case "_No":
                     if (isBattleStart)
                     {
@@ -113,8 +120,6 @@ public class BattleReady_MenuSelectCursor : CursorBase
             }
         }
     }
-
-
 
     private void NextButton(bool isCheck, string name)
     {
@@ -137,7 +142,7 @@ public class BattleReady_MenuSelectCursor : CursorBase
     {
         if (currentSelected.name == "_BattleStart")
         {
-            rt.anchoredPosition = new Vector2(-800f, MAX_POSITION_Y);
+            rt.anchoredPosition = new Vector2(-860f, MAX_POSITION_Y);
         }
         else if (currentSelected.name == "_Back")
         {
