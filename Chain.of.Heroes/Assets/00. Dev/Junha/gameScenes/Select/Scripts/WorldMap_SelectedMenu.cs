@@ -20,7 +20,7 @@ public class WorldMap_SelectedMenu : MonoBehaviour, ISelectHandler, IDeselectHan
 
     private void OnEnable()
     {
-        if(gameObject.name == "_ChapterStart")
+        if (gameObject.name == "_ChapterStart")
         {
             Select();
         }

@@ -31,7 +31,7 @@ public class WorldMap_MenuSelectCursor : CursorBase
     {
         if (!isChapterStart || !isBaseCamp)
         {
-            Movement_forWorld(rt, ref currentSelected, MOVE_DISTANCE, MIN_POSITION_X, MAX_POSITION_X, MIN_POSITION_Y, MAX_POSITION_Y);
+            Movement(rt, ref currentSelected, MOVE_DISTANCE, MIN_POSITION_X, MAX_POSITION_X, MIN_POSITION_Y, MAX_POSITION_Y);
         }
 
         MenuFunction();
