@@ -4,34 +4,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Reflection;
 
 public class TurnSystemUI : MonoBehaviour
 {
 
     [SerializeField] private TextMeshProUGUI turnNumberText;
 
+    private List<Binding> Binds = new List<Binding>();
 
     private void Start()
     {
-        BindingManager.Bind(TurnSystem.Property, "TurnNumber", (object value) =>
+        Binding Bind = BindingManager.Bind(TurnSystem.Property, "IsPlayerTurn", (object value) =>
         {
             turnNumberText.text = "TURN " + TurnSystem.Property.TurnNumber;
         });
+        Binds.Add(Bind);
 
-        /*
-        BindingManager.Bind(TurnSystem.Property, "IsPlayerTurn", (object value) =>
-        {
-            UpdateEnemyTurnvisual();
-        });*/
 
     }
 
 
-    /*
-    private void UpdateEnemyTurnvisual()
-    {
-        enemyTurnVisualGameObject.SetActive(!TurnSystem.Property.IsPlayerTurn);
-    }*/
 
+
+    private void OnDisable()
+    {
+        foreach (var bind in Binds)
+        {
+            BindingManager.Unbind(TurnSystem.Property, bind);
+        }
+    }
 
 }

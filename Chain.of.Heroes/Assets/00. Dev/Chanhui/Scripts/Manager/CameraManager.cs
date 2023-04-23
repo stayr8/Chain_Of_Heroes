@@ -20,7 +20,7 @@ public class CameraManager : MonoBehaviour
         HideActionCamera();
     }
 
-
+    // Attack 장면에 있는 카메라
     private void ShowActionCamera()
     {
         actionCameraGameObject.SetActive(true);
@@ -31,6 +31,7 @@ public class CameraManager : MonoBehaviour
         actionCameraGameObject.SetActive(false);
     }
 
+    // Attack 전에 들어가는 효과 카메라
     private void ShowAttackActionCamera()
     {
         AttackBeforeCameraGameObject.SetActive(true);

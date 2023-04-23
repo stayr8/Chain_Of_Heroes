@@ -304,6 +304,12 @@ public class GridSystemVisual : MonoBehaviour
                 ShowGridPositionKingRange(selectedUnit.GetGridPosition(), knightAction.GetMaxKnightDistance(), GridVisualType.RedSoft);
                 ShowGridPositionKnightRange(selectedUnit.GetGridPosition(), knightAction.GetMaxKnightDistance(), GridVisualType.RedMiddle);
                 break;
+
+            case ChainAction chainAction:
+                gridVisualType = GridVisualType.Red;
+
+                ShowGridPositionRange(selectedUnit.GetGridPosition(), chainAction.GetMaxChainDistance(), GridVisualType.RedSoft);
+                break;
         }
 
         ShowGridPositionList(selectedAction.GetValidActionGridPositionList(), gridVisualType);

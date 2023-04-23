@@ -11,18 +11,22 @@ public class AttackActionSystem : MonoBehaviour
 
     private Vector3 unitpos;
     private Vector3 targetpos;
+    private Vector3 chainpos_1;
+    private Vector3 chainpos_2;
     private Quaternion unitrotation;
     private Quaternion targetrotation;
+    private Quaternion chainrotation_1;
+    private Quaternion chainrotation_2;
 
     private CharacterDataManager characterDataManager;
-
+    private MonsterDataManager monsterDataManager;
     private Unit player;
     private Unit enemy;
 
-    private bool playerfing;
-    public bool OnAttackAtGround = false;
-    public bool EnemyAttacking = false;
-    public bool PlayerAttacking = false;
+    private bool OnAttackAtGround;
+    private bool isAtk;
+    private bool isChainAtk;
+
 
     public Slider player_bar;
     public Slider enemy_bar;
@@ -40,12 +44,10 @@ public class AttackActionSystem : MonoBehaviour
             return;
         }
         Instance = this;
-    }
 
-    private void Start()
-    {
-        playerfing = false;
         OnAttackAtGround = false;
+        isAtk = false;
+        isChainAtk = false;
     }
 
     private void Update()
@@ -68,22 +70,14 @@ public class AttackActionSystem : MonoBehaviour
 
     public void OnAtLocationMove(Unit unit, Unit target)
     {
-        if(!unit.IsEnemy())
-        {
-            characterDataManager = unit.GetCharacterDataManager();
-            player = unit;
-            enemy = target;
-        }
-        else
-        {
-            player = target;
-            enemy = unit;
-        }
-        
-        if(!target.IsEnemy())
-        {
-            characterDataManager = unit.GetCharacterDataManager();
-        }
+
+        characterDataManager = unit.GetCharacterDataManager();
+        monsterDataManager = target.GetMonsterDataManager();
+        player = unit;
+        enemy = target;
+
+        unit.SetIsGrid(true);
+        target.SetIsGrid(true);
 
         OnAttackAtGround = true;
 
@@ -109,7 +103,8 @@ public class AttackActionSystem : MonoBehaviour
 
     public void OffAtLocationMove(Unit unit, Unit target)
     {
-        if(unit != null)
+
+        if (unit != null)
         {
             unit.SetPosition(unitpos);
         }
@@ -130,41 +125,119 @@ public class AttackActionSystem : MonoBehaviour
             LevelGrid.Instance.AddUnitAtGridPosition(target.GetGridPosition(), target);
             target.transform.rotation = targetrotation;
         }
+
+        unit.SetIsGrid(false);
+        target.SetIsGrid(false);
+
         OnAttackAtGround = false;
+
     }
 
-    public void OnEnemyAtking()
+    public void OnAtChainLocationMove_1(Unit chainunit)
     {
-        EnemyAttacking = true;
+        characterDataManager = chainunit.GetCharacterDataManager();
+
+        chainunit.SetIsGrid(true);
+
+        chainpos_1 = chainunit.GetWorldPosition();
+        chainrotation_1 = chainunit.transform.rotation;
+
+        LevelGrid.Instance.RemoveUnitAtGridPosition(chainunit.GetGridPosition(), chainunit);
+
+        Vector3 chainlocationMove = new Vector3(-5f, 150, 3.2f);
+        chainunit.SetPosition(chainlocationMove);
+
+
+        chainunit.transform.rotation = Quaternion.Euler(0, 90, 0);
     }
 
-    public void OffEnemyAtking()
+    public void OffAtChainLocationMove_1(Unit chainunit)
     {
-        EnemyAttacking = false;
+        chainunit.SetPosition(chainpos_1);
+
+        LevelGrid.Instance.AddUnitAtGridPosition(chainunit.GetGridPosition(), chainunit);
+        chainunit.transform.rotation = chainrotation_1;
+
+        chainunit.SetIsGrid(false);
+        chainunit.SetChainfirst(false);
     }
 
-    public void OnPlayerAtking()
+    public void OnAtChainLocationMove_2(Unit chainunit)
     {
-        PlayerAttacking = true;
+        characterDataManager = chainunit.GetCharacterDataManager();
+
+        chainunit.SetIsGrid(true);
+
+        chainpos_2 = chainunit.GetWorldPosition();
+        chainrotation_2 = chainunit.transform.rotation;
+
+        LevelGrid.Instance.RemoveUnitAtGridPosition(chainunit.GetGridPosition(), chainunit);
+
+        Vector3 chainlocationMove = new Vector3(1.9f, 150, 4.4f);
+        chainunit.SetPosition(chainlocationMove);
+
+
+        chainunit.transform.rotation = Quaternion.Euler(0, -140, 0);
     }
 
-    public void OffPlayerAtking()
+    public void OffAtChainLocationMove_2(Unit chainunit)
     {
-        PlayerAttacking = false;
+        chainunit.SetPosition(chainpos_2);
+
+        LevelGrid.Instance.AddUnitAtGridPosition(chainunit.GetGridPosition(), chainunit);
+        chainunit.transform.rotation = chainrotation_2;
+
+        chainunit.SetIsGrid(false);
+        chainunit.SetChaintwo(false);
     }
 
-    public bool GetFindPlayer()
+    public bool OnAttackGroundCheck()
     {
-        return playerfing;
-    }
-
-    public bool SetFindPlayer(bool playerfing)
-    {
-        return this.playerfing = playerfing;
+        return OnAttackAtGround;
     }
 
     public CharacterDataManager GetCharacterDataManager()
     {
         return characterDataManager;
+    }
+
+    public void SetCharacterDataManager(CharacterDataManager characterDataManager)
+    {
+        this.characterDataManager = characterDataManager;
+    }
+
+    public MonsterDataManager GetMonsterDataManager()
+    {
+        return monsterDataManager;
+    }
+
+    public Unit GetPlayer()
+    {
+        return player;
+    }
+
+    public Unit GetEnemy()
+    {
+        return enemy;
+    }
+
+    public bool GetIsAtk()
+    {
+        return isAtk;
+    }
+
+    public void SetIsAtk(bool isAtk)
+    {
+        this.isAtk = isAtk;
+    }
+
+    public bool GetIsChainAtk()
+    {
+        return isChainAtk;
+    }
+
+    public void SetIsChainAtk(bool isChainAtk)
+    {
+        this.isChainAtk = isChainAtk;
     }
 }

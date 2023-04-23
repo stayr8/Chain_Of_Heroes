@@ -7,8 +7,9 @@ public class QueenAction : BaseAction
 {
     public event EventHandler OnQueenStartMoving;
     public event EventHandler OnQueenStopMoving;
-    public event EventHandler OnQueenActionStarted;
-    public event EventHandler OnQueenActionCompleted;
+    public event EventHandler OnQueenSwordSlash;
+    //public event EventHandler OnQueenDash;
+
 
     private List<Vector3> positionList;
     private int currentPositionIndex;
@@ -17,8 +18,10 @@ public class QueenAction : BaseAction
     {
         SwingingQueenBeforeMoving,
         SwingingQueenMoving,
-        SwingingQueenAfterMoving,
         SwingingQueenBeforeCamera,
+        SwingingQueenAttackStand,
+        SwingingQueenAfterMoving,
+        SwingingQueenAttackMoving,
         SwingingQueenBeforeHit,
         SwingingQueenAfterCamera,
         SwingingQueenAfterHit,
@@ -95,10 +98,32 @@ public class QueenAction : BaseAction
             case State.SwingingQueenBeforeCamera:
 
                 break;
+            case State.SwingingQueenAttackStand:
+
+                break;
             case State.SwingingQueenAfterMoving:
 
                 break;
-            case State.SwingingQueenBeforeHit:
+            case State.SwingingQueenAttackMoving:
+                Vector3 targetDirection2 = targetUnit.transform.position;
+                Vector3 aimDir2 = (targetDirection2 - transform.position).normalized;
+                float rotateSpeed2 = 20f;
+                transform.forward = Vector3.Lerp(transform.forward, aimDir2, Time.deltaTime * rotateSpeed2);
+
+                float stoppingDistance1 = 1.5f;
+                if (Vector3.Distance(transform.position, targetDirection2) > stoppingDistance1)
+                {
+                    float moveSpeed = 15f;
+                    transform.position += aimDir2 * moveSpeed * Time.deltaTime;
+                }
+                else
+                {
+                    OnQueenStopMoving?.Invoke(this, EventArgs.Empty);
+                    state = State.SwingingQueenBeforeHit;
+                }
+
+                break;
+            case State.SwingingQueenBeforeHit:         
 
                 break;
             case State.SwingingQueenAfterCamera:
@@ -133,26 +158,49 @@ public class QueenAction : BaseAction
                 StageUI.Instance.Fade();
                 float afterHitStateTime_0 = 0.5f;
                 stateTimer = afterHitStateTime_0;
+                state = State.SwingingQueenAttackStand;
+
+                break;
+            case State.SwingingQueenAttackStand:
+                AttackActionSystem.Instance.OnAtLocationMove(unit, targetUnit);
+                ActionCameraStart();
+                AttackCameraComplete();
+                stateTimer = 0.8f;
                 state = State.SwingingQueenAfterMoving;
 
                 break;
             case State.SwingingQueenAfterMoving:
-                AttackActionSystem.Instance.OnAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
-                ActionCameraStart();
-                AttackCameraComplete();
-                float afterHitStateTime_1 = 2.0f;
+                //OnQueenDash?.Invoke(this, EventArgs.Empty);
+                OnQueenStartMoving?.Invoke(this, EventArgs.Empty);
+
+                float afterHitStateTime_1 = 1.0f;
                 stateTimer = afterHitStateTime_1;
-                state = State.SwingingQueenBeforeHit;
+                state = State.SwingingQueenAttackMoving;
+
+                break;
+            case State.SwingingQueenAttackMoving:
 
                 break;
             case State.SwingingQueenBeforeHit:
-                float afterHitStateTime_2 = 1.5f;
-                stateTimer = afterHitStateTime_2;
-                OnQueenActionStarted?.Invoke(this, EventArgs.Empty);
-                state = State.SwingingQueenAfterCamera;
-                //targetUnit.Damage(100);
-                AttackActionSystem.Instance.OnPlayerAtking();
-                targetUnit.GetMonsterDataManager().Damage();
+                if (!isAtk)
+                {
+                    OnQueenSwordSlash?.Invoke(this, EventArgs.Empty);
+                    AttackActionSystem.Instance.SetIsAtk(false);
+                    isAtk = true;
+                }
+                
+                
+                if (!AttackActionSystem.Instance.GetIsChainAtk())
+                {
+                    float afterHitStateTime_2 = 1.0f;
+                    stateTimer = afterHitStateTime_2;
+                    state = State.SwingingQueenAfterCamera;
+                }
+                else
+                {
+                    float afterHitStateTime_2 = 0.1f;
+                    stateTimer = afterHitStateTime_2;
+                }
 
                 break;
             case State.SwingingQueenAfterCamera:
@@ -164,10 +212,9 @@ public class QueenAction : BaseAction
                 break;
             case State.SwingingQueenAfterHit:
                 ActionCameraComplete();
-                AttackActionSystem.Instance.OffPlayerAtking();
-                AttackActionSystem.Instance.OffAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
-                OnQueenActionCompleted?.Invoke(this, EventArgs.Empty);
+                AttackActionSystem.Instance.OffAtLocationMove(unit, targetUnit);
                 ActionComplete();
+                isAtk = false;
 
                 break;
         }
@@ -270,6 +317,7 @@ public class QueenAction : BaseAction
         }
 
         OnQueenStartMoving?.Invoke(this, EventArgs.Empty);
+        AttackActionSystem.Instance.SetIsAtk(true);
 
         ActionStart(onActionComplete);
     }

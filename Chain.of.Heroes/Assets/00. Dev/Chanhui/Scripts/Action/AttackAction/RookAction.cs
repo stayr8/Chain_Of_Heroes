@@ -7,8 +7,8 @@ public class RookAction : BaseAction
 {
     public event EventHandler OnRookStartMoving;
     public event EventHandler OnRookStopMoving;
-    public event EventHandler OnRookActionStarted;
-    public event EventHandler OnRookActionCompleted;
+    public event EventHandler OnRookSwordSlash;
+
 
     private List<Vector3> positionList;
     private int currentPositionIndex;
@@ -19,6 +19,7 @@ public class RookAction : BaseAction
         SwingingRookMoving,
         SwingingRookAfterMoving,
         SwingingRookBeforeCamera,
+        SwingingRookAttackMoving,
         SwingingRookBeforeHit,
         SwingingRookAfterCamera,
         SwingingRookAfterHit,
@@ -99,6 +100,25 @@ public class RookAction : BaseAction
             case State.SwingingRookAfterMoving:
 
                 break;
+            case State.SwingingRookAttackMoving:
+                Vector3 targetDirection2 = targetUnit.transform.position;
+                Vector3 aimDir2 = (targetDirection2 - transform.position).normalized;
+                float rotateSpeed2 = 20f;
+                transform.forward = Vector3.Lerp(transform.forward, aimDir2, Time.deltaTime * rotateSpeed2);
+
+                float stoppingDistance1 = 1.5f;
+                if (Vector3.Distance(transform.position, targetDirection2) > stoppingDistance1)
+                {
+                    float moveSpeed = 6f;
+                    transform.position += aimDir2 * moveSpeed * Time.deltaTime;
+                }
+                else
+                {
+                    OnRookStopMoving?.Invoke(this, EventArgs.Empty);
+                    state = State.SwingingRookBeforeHit;
+                }
+
+                break;
             case State.SwingingRookBeforeHit:
 
                 break;
@@ -141,17 +161,21 @@ public class RookAction : BaseAction
                 AttackActionSystem.Instance.OnAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
                 ActionCameraStart();
                 AttackCameraComplete();
-                float afterHitStateTime_1 = 2.0f;
+                OnRookStartMoving?.Invoke(this, EventArgs.Empty);
+
+                float afterHitStateTime_1 = 1.0f;
                 stateTimer = afterHitStateTime_1;
-                state = State.SwingingRookBeforeHit;
+                state = State.SwingingRookAttackMoving;
+
+                break;
+            case State.SwingingRookAttackMoving:
 
                 break;
             case State.SwingingRookBeforeHit:
                 float afterHitStateTime_2 = 1.5f;
                 stateTimer = afterHitStateTime_2;
-                OnRookActionStarted?.Invoke(this, EventArgs.Empty);
+                OnRookSwordSlash?.Invoke(this, EventArgs.Empty);
                 state = State.SwingingRookAfterCamera;
-                AttackActionSystem.Instance.OnEnemyAtking();
 
                 break;
             case State.SwingingRookAfterCamera:
@@ -163,9 +187,8 @@ public class RookAction : BaseAction
                 break;
             case State.SwingingRookAfterHit:
                 ActionCameraComplete();
-                AttackActionSystem.Instance.OffEnemyAtking();
                 AttackActionSystem.Instance.OffAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
-                OnRookActionCompleted?.Invoke(this, EventArgs.Empty);
+
                 ActionComplete();
 
                 break;

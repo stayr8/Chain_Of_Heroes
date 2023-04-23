@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class CharacterDataManager : MonoBehaviour
 {
-    public event EventHandler OnDead;
-    public event EventHandler OnDamage;
 
     [SerializeField, Header("어떤 Json 파일을 불러올 것인가?")] private string CharacterName;
 
@@ -26,6 +24,16 @@ public class CharacterDataManager : MonoBehaviour
 
     private SwordWoman[] _Array;
     private SwordWoman firstArray;
+
+
+    public event EventHandler OnPlayerDamage;
+    public event EventHandler OnPlayerDie;
+
+
+    private CharacterBase characterBase;
+    private Unit player;
+
+
     private void Awake()
     {
         var data = Resources.Load<TextAsset>(CharacterName);
@@ -61,6 +69,12 @@ public class CharacterDataManager : MonoBehaviour
             _Array[i] = SwordWoman;
         }
 
+        player = GetComponent<Unit>();
+        if (TryGetComponent<CharacterBase>(out CharacterBase characterBase))
+        {
+            this.characterBase = characterBase;
+        }
+
         //firstArray = _Array[0]; // Init
         initInfo();
     }
@@ -75,10 +89,9 @@ public class CharacterDataManager : MonoBehaviour
             Debug.Log("레벨 업! 현재 레벨은: " + m_level);
         }
 
-        if(m_hp < 0)
+        if(m_hp <= 0)
         {
             m_hp = 0;
-            Die();
         }
     }
 
@@ -111,14 +124,35 @@ public class CharacterDataManager : MonoBehaviour
         return m_hp;
     }
 
-    private void Die()
-    {
-        OnDead?.Invoke(this, EventArgs.Empty);
-    }
-
     public void Damage()
     {
-        OnDamage?.Invoke(this, EventArgs.Empty);
+        characterBase.Calc_Attack(this, AttackActionSystem.Instance.GetMonsterDataManager());
+
+        if (m_hp <= 0)
+        {
+            OnPlayerDie?.Invoke(this, EventArgs.Empty);
+            player.GetAnyUnitDead();
+
+            LevelGrid.Instance.RemoveUnitAtGridPosition(player.GetGridPosition(), player);
+
+            Destroy(gameObject, 4.0f);
+
+        }
+        else
+        {
+            OnPlayerDamage?.Invoke(this, EventArgs.Empty);
+
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.tag == "EnemyMelee")
+        {
+            Debug.Log(other.gameObject.name);
+            ScreenShake.Instance.Shake();
+            Damage();
+        }
     }
 }
 

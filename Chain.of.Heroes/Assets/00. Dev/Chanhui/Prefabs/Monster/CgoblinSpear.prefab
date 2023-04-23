@@ -493,7 +493,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2683695925613920059}
   - component: {fileID: 3437588250481934916}
-  - component: {fileID: -3744877039526808341}
   m_Layer: 0
   m_Name: CgoblinSpear
   m_TagString: Untagged
@@ -538,21 +537,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
---- !u!114 &-3744877039526808341
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3347783749165196673}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 707c25f93a6a1a245953758f3ee3f48f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 0
-  currentX: 0
-  currentY: 0
 --- !u!1 &3411073116644680324
 GameObject:
   m_ObjectHideFlags: 0

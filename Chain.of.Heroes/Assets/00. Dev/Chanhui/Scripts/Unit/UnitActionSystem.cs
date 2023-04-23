@@ -47,8 +47,6 @@ public class UnitActionSystem : MonoBehaviour
 
     private void Update()
     {
-        
-        TryHandleEnemySelection();
         TryHandleUnitEnemySelection();
         if (isBusy)
         {
@@ -163,27 +161,6 @@ public class UnitActionSystem : MonoBehaviour
         return false;
     }
 
-    public bool TryHandleEnemySelection()
-    {
-        if (InputManager.Instance.IsMouseButtonDown())
-        {
-            Ray ray = Camera.main.ScreenPointToRay(InputManager.Instance.GetMouseScreenPosition());
-            if (Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, EnemyLayerMask))
-            {
-                if (raycastHit.transform.TryGetComponent<MonsterDataManager>(out MonsterDataManager unit))
-                {
-                    Debug.Log("클릭");
-                    
-
-                    SetSelectedEnemy(unit);
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
     private void SetSelectedUnit(Unit unit)
     {
         selectedUnit = unit;
@@ -195,10 +172,6 @@ public class UnitActionSystem : MonoBehaviour
         OnSelectedUnitChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    private void SetSelectedEnemy(MonsterDataManager unit)
-    {
-        selectedEnemy = unit;
-    }
 
     private void SetSelectedUnityEnemy(Unit unit)
     {
@@ -208,7 +181,7 @@ public class UnitActionSystem : MonoBehaviour
 
     public void OutSelectedUnit(Unit unit)
     {
-        selectedUnit = unit;
+        //selectedUnit = unit;
         DoubleSelectedUnit = true;
 
         SetSelectedAction(unit.GetAction<EmptyAction>());
@@ -239,12 +212,6 @@ public class UnitActionSystem : MonoBehaviour
         return selectedAction;
     }
 
-    // MonsterBase 값을 받아오는 구간.
-    // 클릭 전에는 호출 하지 않기. (빈 값을 가져가 오류가 생길 수 있기 때문에)
-    public MonsterDataManager GetSelectedEnemy()
-    { 
-        return selectedEnemy;
-    }
 
     public bool GetDoubleSelUnit()
     {

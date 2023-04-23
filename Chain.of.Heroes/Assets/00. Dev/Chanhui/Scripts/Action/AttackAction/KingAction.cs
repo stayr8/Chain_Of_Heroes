@@ -6,14 +6,16 @@ using UnityEngine;
 public class KingAction : BaseAction
 {
 
-    public event EventHandler OnKingActionStarted;
-    public event EventHandler OnKingActionCompleted;
+    public event EventHandler OnKingSwordSlash;
+    public event EventHandler OnKingStartMoving;
+    public event EventHandler OnKingStopMoving;
 
     private enum State
     {
         SwingingKingAttackCameraStart,
         SwingingKingBeforeCamera,
         SwingingKingAttackCameraEnd,
+        SwingingKingAttackMoving,
         SwingingKingBeforeHit,
         SwingingKingAfterCamera,
         SwingingKingAfterHit,
@@ -58,6 +60,25 @@ public class KingAction : BaseAction
             case State.SwingingKingAttackCameraEnd:
 
                 break;
+            case State.SwingingKingAttackMoving:
+                Vector3 targetDirection2 = targetUnit.transform.position;
+                Vector3 aimDir2 = (targetDirection2 - transform.position).normalized;
+                float rotateSpeed2 = 20f;
+                transform.forward = Vector3.Lerp(transform.forward, aimDir2, Time.deltaTime * rotateSpeed2);
+
+                float stoppingDistance1 = 1.5f;
+                if (Vector3.Distance(transform.position, targetDirection2) > stoppingDistance1)
+                {
+                    float moveSpeed = 6f;
+                    transform.position += aimDir2 * moveSpeed * Time.deltaTime;
+                }
+                else
+                {
+                    OnKingStopMoving?.Invoke(this, EventArgs.Empty);
+                    state = State.SwingingKingBeforeHit;
+                }
+
+                break;
             case State.SwingingKingBeforeHit:
                 
                 break;
@@ -100,28 +121,26 @@ public class KingAction : BaseAction
                 }
                 else
                 {
-                    AttackActionSystem.Instance.OnAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
+                    AttackActionSystem.Instance.OnAtLocationMove(unit, targetUnit);
                 }
                 ActionCameraStart();
                 AttackCameraComplete();
-                float afterHitStateTime_1 = 2.0f;
+                OnKingStartMoving?.Invoke(this, EventArgs.Empty);
+
+                float afterHitStateTime_1 = 1.0f;
                 stateTimer = afterHitStateTime_1;
-                state = State.SwingingKingBeforeHit;
+                state = State.SwingingKingAttackMoving;
+
+                break;
+            case State.SwingingKingAttackMoving:
 
                 break;
             case State.SwingingKingBeforeHit:
                 float afterHitStateTime_2 = 1.5f;
                 stateTimer = afterHitStateTime_2;
-                OnKingActionStarted?.Invoke(this, EventArgs.Empty);
+                OnKingSwordSlash?.Invoke(this, EventArgs.Empty);
                 state = State.SwingingKingAfterCamera;
-                if (unit.IsEnemy())
-                {
-                    AttackActionSystem.Instance.OnEnemyAtking();
-                }
-                else
-                {
-                    AttackActionSystem.Instance.OnPlayerAtking();
-                }
+                
 
                 break;
             case State.SwingingKingAfterCamera:
@@ -133,18 +152,16 @@ public class KingAction : BaseAction
                 break;
             case State.SwingingKingAfterHit:
                 ActionCameraComplete();
-                AttackActionSystem.Instance.OffEnemyAtking();
+
                 if (unit.IsEnemy())
                 {
                     AttackActionSystem.Instance.OffAtLocationMove(targetUnit, unit);
-                    AttackActionSystem.Instance.OffEnemyAtking();
                 }
                 else
                 {
-                    AttackActionSystem.Instance.OffAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
-                    AttackActionSystem.Instance.OffPlayerAtking();
+                    AttackActionSystem.Instance.OffAtLocationMove(unit, targetUnit);
                 }
-                OnKingActionCompleted?.Invoke(this, EventArgs.Empty);
+
                 ActionComplete();
 
                 break;

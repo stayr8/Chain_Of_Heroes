@@ -39,7 +39,7 @@ public class EnemyMoveAction : BaseAction
         else
         {
             int Distance = minMoveDistance > positionList.Count ? positionList.Count : minMoveDistance;
-            if (currentPositionIndex >= Distance)
+            if (currentPositionIndex >= Distance - 1)
             {
                 OnStopMoving?.Invoke(this, EventArgs.Empty);
 
@@ -169,7 +169,7 @@ public class EnemyMoveAction : BaseAction
     {
         if (unit.GetEnemyVisualType() == Unit.EnemyType.Archer)
         {
-            return 1;
+            return 2;
         }
         else if (unit.GetEnemyVisualType() == Unit.EnemyType.Sword)
         {

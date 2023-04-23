@@ -10,8 +10,19 @@ public class Unit : MonoBehaviour
     public static event EventHandler OnAnyUnitSpawned;
     public static event EventHandler OnAnyUnitDead;
 
+    [SerializeField] private Transform CameraPos;
+    [SerializeField] private Transform CameraFollow;
 
+    private GridPosition gridPosition;
+    private BaseAction[] baseActionArray;
+    [SerializeField] private bool IsGrid;
+
+    [Header("Monster Information")]
     [SerializeField] private bool isEnemy;
+    [SerializeField] private int newEnemyActionPoints = 2;
+    [SerializeField] private int SoloEnemyActionPoints = 0;
+
+    private MonsterDataManager monsterDataManager;
 
     public enum EnemyType
     {
@@ -20,17 +31,15 @@ public class Unit : MonoBehaviour
         Sword,
     }
 
-    private GridPosition gridPosition;
-    private BaseAction[] baseActionArray;
-    private CharacterDataManager characterDataManager;
-    private MonsterDataManager monsterDataManager;
-
-    [SerializeField] private int newEnemyActionPoints = 2;
-    [SerializeField] private int SoloEnemyActionPoints = 0;
-
     [SerializeField] private EnemyType enemyType;
 
+    [Header("Player Information")]
+    private CharacterDataManager characterDataManager;
+    private bool isChainfirst;
+    private bool isChaintwo;
+
     [SerializeField] private String UnitName;
+    [SerializeField] private bool IsLongdistance;
 
     private void Awake()
     {
@@ -38,14 +47,12 @@ public class Unit : MonoBehaviour
         if (TryGetComponent<CharacterDataManager>(out CharacterDataManager characterdatamanager))
         {
             this.characterDataManager = characterdatamanager;
-            characterDataManager.OnDead += CharacterDataManager_OnDead;
         }
-        if (TryGetComponent<MonsterDataManager>(out MonsterDataManager monsterdatamanager))
+        else if (TryGetComponent<MonsterDataManager>(out MonsterDataManager monsterdatamanager))
         {
             this.monsterDataManager = monsterdatamanager;
-            monsterDataManager.OnDead += CharacterDataManager_OnDead;
         }
-
+        
     }
 
     private void Start()
@@ -75,12 +82,13 @@ public class Unit : MonoBehaviour
         LevelGrid.Instance.AddUnitAtGridPosition(gridPosition, this);
 
         SoloEnemyActionPoints = newEnemyActionPoints;
+        IsGrid = false;
 
     }
 
     private void Update()
     {
-        if (!AttackActionSystem.Instance.OnAttackAtGround)
+        if (!IsGrid)
         {
             GridPosition newGridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
             if (newGridPosition != gridPosition)
@@ -207,17 +215,39 @@ public class Unit : MonoBehaviour
     {
         return newEnemyActionPoints += action;
     }
-   
-    
-    // 몬스터, 플레이어 죽음 및 확인
-    private void CharacterDataManager_OnDead(object sender, EventArgs e)
+    // 몬스터 타입
+    public EnemyType GetEnemyVisualType()
     {
-        LevelGrid.Instance.RemoveUnitAtGridPosition(gridPosition, this);
+        return enemyType;
+    }
 
-        OnAnyUnitDead?.Invoke(this, EventArgs.Empty);
-       
+    public CharacterDataManager GetCharacterDataManager()
+    {
+        return characterDataManager;
+    }
 
-        Destroy(gameObject, 4.0f);
+    public MonsterDataManager GetMonsterDataManager()
+    {
+        return monsterDataManager;
+    }
+
+    public String GetUnitName()
+    {
+        return UnitName;
+    }
+
+    public Transform GetCameraPos()
+    {
+        return CameraPos;
+    }
+    public Transform GetCameraFollow()
+    {
+        return CameraFollow;
+    }
+
+    public bool GetIsAttackDistance()
+    {
+        return IsLongdistance;
     }
 
     // 피 표준화
@@ -236,38 +266,39 @@ public class Unit : MonoBehaviour
             return monsterDataManager.GetHealth();
         }
     }
-   
-    // 몬스터 타입
-    public EnemyType GetEnemyVisualType()
+
+    public void GetAnyUnitDead()
     {
-        return enemyType;
-    }
-    
-    public CharacterDataManager GetCharacterDataManager()
-    {
-        return characterDataManager;
+        OnAnyUnitDead?.Invoke(this, EventArgs.Empty);
     }
 
-    public MonsterDataManager GetMonsterDataManager()
+    public bool GetIsGrid()
     {
-        return monsterDataManager;
+        return IsGrid;
     }
 
-    public String GetUnitName()
+    public void SetIsGrid(bool IsGrid)
     {
-        return UnitName;
+        this.IsGrid = IsGrid;
     }
 
-
-    private void OnDisable()
+    public bool GetChainfirst()
     {
-        if (TryGetComponent<CharacterDataManager>(out CharacterDataManager characterdatamanager))
-        {
-            characterDataManager.OnDead -= CharacterDataManager_OnDead;
-        }
-        if (TryGetComponent<MonsterDataManager>(out MonsterDataManager monsterdatamanager))
-        {
-            monsterDataManager.OnDead -= CharacterDataManager_OnDead;
-        }
+        return isChainfirst;
+    }
+
+    public bool GetChaintwo()
+    {
+        return isChaintwo;
+    }
+
+    public void SetChainfirst(bool isChainfirst)
+    {
+        this.isChainfirst = isChainfirst;
+    }
+
+    public void SetChaintwo(bool isChaintwo)
+    {
+        this.isChaintwo = isChaintwo;
     }
 }

@@ -13,6 +13,7 @@ public abstract class BaseAction : MonoBehaviour
 
     protected Unit unit;
     protected bool isActive;
+    protected bool isAtk;
     protected Action onActionComplete;
 
 
@@ -43,23 +44,21 @@ public abstract class BaseAction : MonoBehaviour
     {
         isActive = true;
         this.onActionComplete = onActionComplete;
-        //OnAnyActionStarted?.Invoke(this, EventArgs.Empty);
 
         if (!unit.IsEnemy())
+        {
             UnitActionSystem.Instance.OutSelectedUnit(unit);
-
-        AttackActionSystem.Instance.SetFindPlayer(true);
+        }
     }
 
     protected void ActionComplete()
     {
         isActive = false;
         onActionComplete();
-        //OnAnyActionCompleted?.Invoke(this, EventArgs.Empty);
 
         if (!TurnSystem.Property.IsTurnEnd && (TurnSystem.Property.IsPlayerTurn && (TurnSystem.Property.ActionPoints < 1)))
         {
-            // 여기 문제 있음@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+            Debug.Log("턴 교체");
             TurnSystem.Property.IsPlayerTurn = false;
 
         }
@@ -74,7 +73,11 @@ public abstract class BaseAction : MonoBehaviour
             TurnSystem.Property.IsTurnEnd = true;
         }
 
-        AttackActionSystem.Instance.SetFindPlayer(false);
+        if (!unit.IsEnemy())
+        {
+            ChainSystem.Instance.SetChain(false);
+        }
+
     }
 
     protected void ActionCameraStart()

@@ -19,7 +19,7 @@ public class StageUI : MonoBehaviour
     private float time = 0f;
 
     private float F_time = 0.2f;
-    private float F_time2 = 1.0f;
+    private float F_time2 = 1f;
 
 
     private bool IsMenu;
@@ -39,7 +39,7 @@ public class StageUI : MonoBehaviour
 
     private void Start()
     {
-        SoundManager.instance.Sound_Battle();
+        //SoundManager.instance.Sound_Battle();
 
         IsMenu = false;
 
@@ -47,13 +47,11 @@ public class StageUI : MonoBehaviour
         {
             if (TurnSystem.Property.IsPlayerTurn)
             {
-                //Debug.Log("Player");
                 PlayerShow();
                 EnemyHide();
             }
             else
             {
-                Debug.Log("Enemy");
                 EnemyShow();
                 PlayerHide();
             }
@@ -63,7 +61,7 @@ public class StageUI : MonoBehaviour
 
         PlayerHide();
         EnemyHide();
-        //ConditionShow();
+
     }
 
     private void Update()
@@ -226,11 +224,6 @@ public class StageUI : MonoBehaviour
 
     public void OnExitButton()
     {
-        foreach(var bind in Binds)
-        {
-            BindingManager.Unbind(TurnSystem.Property, bind);
-        }
-
         // UI
         MenuUI.SetActive(false);
         
@@ -240,6 +233,14 @@ public class StageUI : MonoBehaviour
         UnitManager.Instance.enemypos = 0;
 
         SceneManager.LoadScene("ChoiceScene");
+    }
+
+    private void OnDisable()
+    {
+        foreach (var bind in Binds)
+        {
+            BindingManager.Unbind(TurnSystem.Property, bind);
+        }
     }
 
 }

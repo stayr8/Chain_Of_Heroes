@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class MonsterDataManager : MonoBehaviour
 {
-    public event EventHandler OnDead;
-    public event EventHandler OnDamage;
 
     [SerializeField, Header("어떤 Json 파일을 불러올 것인가?")] private string CharacterName;
 
@@ -25,6 +23,13 @@ public class MonsterDataManager : MonoBehaviour
 
     private GoblinWarrior[] _Array;
     private GoblinWarrior firstArray;
+
+    public event EventHandler OnEnemyDamage;
+    public event EventHandler OnEnemyDie;
+
+    private Unit monster;
+    private MonsterBase monsterBase;
+
     private void Awake()
     {
         var data = Resources.Load<TextAsset>(CharacterName);
@@ -43,18 +48,20 @@ public class MonsterDataManager : MonoBehaviour
             _Array[i] = GoblinWarrior;
         }
 
-        //firstArray = _Array[0];
+        monster = GetComponent<Unit>();
+        monsterBase = GetComponent<MonsterBase>();
+
         initInfo();
     }
 
     private void Update()
     {
-        if (m_hp < 0)
+        if (m_hp <= 0)
         {
             m_hp = 0;
-            Die();
         }
     }
+
 
     private int StageLevel = 0;
     private void initInfo()
@@ -84,13 +91,34 @@ public class MonsterDataManager : MonoBehaviour
         return m_hp;
     }
 
-    private void Die()
-    {
-        OnDead?.Invoke(this, EventArgs.Empty);
-    }
-
     public void Damage()
     {
-        OnDamage?.Invoke(this, EventArgs.Empty);
+        monsterBase.Calc_Attack(AttackActionSystem.Instance.GetCharacterDataManager(), this);
+
+        if (m_hp <= 0)
+        {
+            OnEnemyDie?.Invoke(this, EventArgs.Empty);
+            monster.GetAnyUnitDead();
+
+            LevelGrid.Instance.RemoveUnitAtGridPosition(monster.GetGridPosition(), monster);
+
+            Destroy(gameObject, 4.0f);
+
+        }
+        else
+        {
+            OnEnemyDamage?.Invoke(this, EventArgs.Empty);
+
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.tag == "Melee")
+        {
+            Debug.Log(other.gameObject.name);
+            ScreenShake.Instance.Shake();
+            Damage();
+        }
     }
 }
