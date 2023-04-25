@@ -135,7 +135,7 @@ public partial class TurnSystem : MonoBehaviour
         });
         Binds.Add(Bind);
 
-        Bind = BindingManager.Bind(TurnSystem.Property, "IsTurnEnd", (object value) =>
+        Binding Binded = BindingManager.Bind(TurnSystem.Property, "IsTurnEnd", (object value) =>
         {
             if (UnitManager.Instance.VictoryPlayer())
             {
@@ -151,7 +151,7 @@ public partial class TurnSystem : MonoBehaviour
             }
 
         },false);
-        Binds.Add(Bind);
+        Binds.Add(Binded);
 
         Property.ActionPoints = Property.AllPlayerPoint;
 

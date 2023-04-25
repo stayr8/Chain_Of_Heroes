@@ -4915,6 +4915,7 @@ MonoBehaviour:
   TurnSystemUI: {fileID: 1870389722}
   GameCondition: {fileID: 1835539128}
   Panel: {fileID: 983189645}
+  turnNumberText: {fileID: 1202720909}
 --- !u!114 &644765797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16778,7 +16779,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1870389723}
-  - component: {fileID: 1870389724}
   m_Layer: 5
   m_Name: TurnSystemUI
   m_TagString: Untagged
@@ -16809,19 +16809,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1870389724
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1870389722}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0969519b9d1b544db99e62b98fb6189, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  turnNumberText: {fileID: 1202720909}
 --- !u!1001 &1883181169
 PrefabInstance:
   m_ObjectHideFlags: 0

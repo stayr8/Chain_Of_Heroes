@@ -116,7 +116,7 @@ public class MonsterDataManager : MonoBehaviour
     {
         if (other.transform.tag == "Melee")
         {
-            Debug.Log(other.gameObject.name);
+            //Debug.Log(other.gameObject.name);
             ScreenShake.Instance.Shake();
             Damage();
         }
