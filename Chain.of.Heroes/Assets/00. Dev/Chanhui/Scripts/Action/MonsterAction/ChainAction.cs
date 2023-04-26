@@ -46,6 +46,9 @@ public class ChainAction : BaseAction
                 targetUnit2.SetChaintwo(true);
             }
 
+            AttackActionSystem.Instance.SetChainStart(true);
+            AttackActionSystem.Instance.SetTripleChain(true);
+
             bestBaseAction.TakeAction(unit.GetGridPosition(), onActionComplete);
             bestBaseAction2.TakeAction(unit.GetGridPosition(), onActionComplete);
         }
@@ -66,6 +69,7 @@ public class ChainAction : BaseAction
                 targetUnit.SetChainfirst(true);
             }
 
+            AttackActionSystem.Instance.SetChainStart(true);
 
             bestBaseAction.TakeAction(unit.GetGridPosition(), onActionComplete);
         }

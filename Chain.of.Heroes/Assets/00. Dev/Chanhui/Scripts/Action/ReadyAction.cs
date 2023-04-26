@@ -117,17 +117,30 @@ public class ReadyAction : BaseAction
                     AttackActionSystem.Instance.SetIsAtk(false);
                 }
 
-                if (!AttackActionSystem.Instance.GetIsChainAtk())
+                float afterHitStateTime_2 = 1.0f;
+                stateTimer = afterHitStateTime_2;
+                state = State.SwingingArcherShooting;
+                /*
+                if (AttackActionSystem.Instance.GetChainStart())
+                {
+                    if (!AttackActionSystem.Instance.GetIsChainAtk())
+                    {
+                        float afterHitStateTime_2 = 1.0f;
+                        stateTimer = afterHitStateTime_2;
+                        state = State.SwingingArcherShooting;
+                    }
+                    else
+                    {
+                        float afterHitStateTime_2 = 0.1f;
+                        stateTimer = afterHitStateTime_2;
+                    }
+                }
+                else
                 {
                     float afterHitStateTime_2 = 1.0f;
                     stateTimer = afterHitStateTime_2;
                     state = State.SwingingArcherShooting;
-                }
-                else
-                {
-                    float afterHitStateTime_2 = 0.1f;
-                    stateTimer = afterHitStateTime_2;
-                }
+                }*/
 
                 break;
             case State.SwingingArcherShooting:

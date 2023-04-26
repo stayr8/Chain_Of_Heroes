@@ -8,6 +8,7 @@ public class CameraManager : MonoBehaviour
 {
 
     [SerializeField] private GameObject actionCameraGameObject;
+    [SerializeField] private GameObject actionCameraGameObject_2;
     [SerializeField] private GameObject AttackBeforeCameraGameObject;
 
     private void Start()
@@ -16,6 +17,9 @@ public class CameraManager : MonoBehaviour
         BaseAction.OnAnyActionCompleted += BaseAction_OnAnyActionCompleted;
         BaseAction.OnAnyAttackStarted += BaseAction_OnAnyAttackStarted;
         BaseAction.OnAnyAttackCompleted += BaseAction_OnAnyAttackCompleted;
+
+        BaseAction.OnAnyActionStarted_1 += BaseAction_OnAnyActionStarted_1;
+        BaseAction.OnAnyActionCompleted_1 += BaseAction_OnAnyActionCompleted_1;
 
         HideActionCamera();
     }
@@ -29,6 +33,17 @@ public class CameraManager : MonoBehaviour
     private void HideActionCamera()
     {
         actionCameraGameObject.SetActive(false);
+    }
+
+    // Attack 장면에 있는 카메라
+    private void ShowActionCamera_1()
+    {
+        actionCameraGameObject_2.SetActive(true);
+    }
+
+    private void HideActionCamera_1()
+    {
+        actionCameraGameObject_2.SetActive(false);
     }
 
     // Attack 전에 들어가는 효과 카메라
@@ -53,6 +68,18 @@ public class CameraManager : MonoBehaviour
     {
         HideActionCamera();
         
+    }
+
+    private void BaseAction_OnAnyActionStarted_1(object sender, EventArgs e)
+    {
+        ShowActionCamera_1();
+
+    }
+
+    private void BaseAction_OnAnyActionCompleted_1(object sender, EventArgs e)
+    {
+        HideActionCamera_1();
+
     }
 
     private void BaseAction_OnAnyAttackStarted(object sender, EventArgs e)

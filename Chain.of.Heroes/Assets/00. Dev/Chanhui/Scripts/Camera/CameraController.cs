@@ -6,11 +6,10 @@ using Cinemachine;
 public class CameraController : MonoBehaviour
 {
     private const float MIN_FOLLOW_Y_OFFSET = 2f;
-    private const float MAX_FOLLOW_Y_OFFSET = 25f;
+    private const float MAX_FOLLOW_Y_OFFSET = 12f;
 
     [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
     [SerializeField] private CinemachineVirtualCamera cinemachineVirtualingCamera;
-    [SerializeField] private CinemachineVirtualCamera ActionVirtualCamera;
     [SerializeField] private GameObject TopViewVirtualingCamera;
 
     private CinemachineTransposer cinemachineTransposer;
@@ -43,20 +42,9 @@ public class CameraController : MonoBehaviour
         else
         {
             cinemachineVirtualingCamera.LookAt = UnitActionSystem.Instance.GetSelecterdUnitEnemy().transform;
-            //ActionVirtualCamera.Follow = UnitActionSystem.Instance.GetSelecterdUnit().GetCameraFollow();
-            //ActionVirtualCamera.LookAt = UnitActionSystem.Instance.GetSelecterdUnit().GetCameraPos();
         }
 
-        if(AttackActionSystem.Instance.OnAttackGroundCheck())
-        {
-            ActionVirtualCamera.Follow = AttackActionSystem.Instance.GetPlayer().GetCameraFollow();
-            ActionVirtualCamera.LookAt = AttackActionSystem.Instance.GetPlayer().GetCameraPos();
-        }
-        else
-        {
-            ActionVirtualCamera.Follow = null;
-            ActionVirtualCamera.LookAt = null;
-        }
+        
         
     }
 
@@ -112,6 +100,8 @@ public class CameraController : MonoBehaviour
             }
         }
     }
+
+   
 
     void Trem()
     {

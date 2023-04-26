@@ -165,6 +165,7 @@ public class QueenAction : BaseAction
                 AttackActionSystem.Instance.OnAtLocationMove(unit, targetUnit);
                 ActionCameraStart();
                 AttackCameraComplete();
+
                 stateTimer = 0.8f;
                 state = State.SwingingQueenAfterMoving;
 
@@ -182,14 +183,13 @@ public class QueenAction : BaseAction
 
                 break;
             case State.SwingingQueenBeforeHit:
-                if (!isAtk)
-                {
-                    OnQueenSwordSlash?.Invoke(this, EventArgs.Empty);
-                    AttackActionSystem.Instance.SetIsAtk(false);
-                    isAtk = true;
-                }
+                OnQueenSwordSlash?.Invoke(this, EventArgs.Empty);
                 
-                
+
+                float afterHitStateTime_2 = 1.0f;
+                stateTimer = afterHitStateTime_2;
+                state = State.SwingingQueenAfterCamera;
+                /*
                 if (!AttackActionSystem.Instance.GetIsChainAtk())
                 {
                     float afterHitStateTime_2 = 1.0f;
@@ -200,21 +200,30 @@ public class QueenAction : BaseAction
                 {
                     float afterHitStateTime_2 = 0.1f;
                     stateTimer = afterHitStateTime_2;
-                }
+                }*/
 
                 break;
             case State.SwingingQueenAfterCamera:
-                StageUI.Instance.Fade();
+                if (!AttackActionSystem.Instance.GetChainStart())
+                {
+                    StageUI.Instance.Fade();
+                }
+                AttackActionSystem.Instance.SetIsAtk(false);
+
                 float afterHitStateTime_3 = 0.5f;
                 stateTimer = afterHitStateTime_3;
                 state = State.SwingingQueenAfterHit;
 
                 break;
             case State.SwingingQueenAfterHit:
-                ActionCameraComplete();
+                AttackActionSystem.Instance.SetIsChainAtk_1(true);
+                if (!AttackActionSystem.Instance.GetChainStart())
+                {
+                    ActionCameraComplete();
+                }
                 AttackActionSystem.Instance.OffAtLocationMove(unit, targetUnit);
+
                 ActionComplete();
-                isAtk = false;
 
                 break;
         }

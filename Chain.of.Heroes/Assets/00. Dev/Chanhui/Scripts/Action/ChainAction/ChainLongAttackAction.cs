@@ -85,7 +85,7 @@ public class ChainLongAttackAction : BaseAction
         switch (state)
         {
             case State.SwingingChainAttackStart:
-                AttackActionSystem.Instance.SetIsChainAtk(true);
+                AttackActionSystem.Instance.SetIsChainAtk_1(true);
                 float afterHitStateTime = 1.0f;
                 stateTimer = afterHitStateTime;
                 state = State.SwingingChainAttackOnLocationMove;
@@ -117,7 +117,7 @@ public class ChainLongAttackAction : BaseAction
                 {
                     Shoot();
                     canShootBullet = false;
-                    AttackActionSystem.Instance.SetIsChainAtk(false);
+                    AttackActionSystem.Instance.SetIsChainAtk_1(false);
                 }
                 
 
@@ -129,11 +129,11 @@ public class ChainLongAttackAction : BaseAction
             case State.SwingingChainAttackOffLocationMove:
                 if (unit.GetChainfirst())
                 {
-                    AttackActionSystem.Instance.OffAtChainLocationMove_1(unit);
+                    AttackActionSystem.Instance.OffAtChainLocationMove_1(unit, targetUnit);
                 }
                 else if (unit.GetChaintwo())
                 {
-                    AttackActionSystem.Instance.OffAtChainLocationMove_2(unit);
+                    AttackActionSystem.Instance.OffAtChainLocationMove_2(unit, targetUnit);
                 }
                 float afterHitStateTime_3 = 0.5f;
                 stateTimer = afterHitStateTime_3;

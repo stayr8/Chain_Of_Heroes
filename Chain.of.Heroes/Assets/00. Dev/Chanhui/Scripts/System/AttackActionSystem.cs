@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Cinemachine;
 using UnityEngine.UI;
 
 
@@ -10,23 +11,38 @@ public class AttackActionSystem : MonoBehaviour
     public static AttackActionSystem Instance { get; private set; }
 
     private Vector3 unitpos;
-    private Vector3 targetpos;
+    private Vector3 enemypos;
     private Vector3 chainpos_1;
     private Vector3 chainpos_2;
     private Quaternion unitrotation;
-    private Quaternion targetrotation;
+    private Quaternion enemyrotation;
     private Quaternion chainrotation_1;
     private Quaternion chainrotation_2;
 
     private CharacterDataManager characterDataManager;
     private MonsterDataManager monsterDataManager;
     private Unit player;
+    private Unit chainplayer_1;
+    private Unit chainplayer_2;
     private Unit enemy;
 
-    private bool OnAttackAtGround;
-    private bool isAtk;
-    private bool isChainAtk;
+    [SerializeField] private CinemachineVirtualCamera ActionVirtualCamera;
+    [SerializeField] private CinemachineVirtualCamera ActionVirtualCamera2;
 
+    [Tooltip("체인 공격 시작 체크")]
+    private bool ChainStart;
+    [Tooltip("공격 장소 이동 체크")]
+    private bool OnAttackAtGround;
+    [Tooltip("일반 공격")]
+    private bool isAtk;
+    [Tooltip("체인 공격_1")]
+    private bool isChainAtk_1;
+    [Tooltip("체인 공격_2")]
+    private bool isChainAtk_2;
+    [Tooltip("세명 체인 공격 체크")]
+    private bool TripleChain;
+    [Tooltip("카메라 이동")]
+    private bool CameraMove;
 
     public Slider player_bar;
     public Slider enemy_bar;
@@ -45,9 +61,13 @@ public class AttackActionSystem : MonoBehaviour
         }
         Instance = this;
 
+        ChainStart = false;
         OnAttackAtGround = false;
         isAtk = false;
-        isChainAtk = false;
+        isChainAtk_1 = false;
+        isChainAtk_2 = false;
+        TripleChain = false;
+        CameraMove = false;
     }
 
     private void Update()
@@ -65,53 +85,44 @@ public class AttackActionSystem : MonoBehaviour
             EnemyHPText.text = "" + (int)enemy.GetMonsterDataManager().m_hp;
             EnemyName.text = "" + enemy.GetUnitName();
         }
+
+        AttackView();
     }
 
 
     public void OnAtLocationMove(Unit unit, Unit target)
     {
-
         characterDataManager = unit.GetCharacterDataManager();
-        monsterDataManager = target.GetMonsterDataManager();
         player = unit;
-        enemy = target;
+
+        OnEnemyLocationMove(target);
 
         unit.SetIsGrid(true);
-        target.SetIsGrid(true);
 
         OnAttackAtGround = true;
 
         unitpos = unit.GetWorldPosition();
-        targetpos = target.GetWorldPosition();
         unitrotation = unit.transform.rotation;
-        targetrotation = target.transform.rotation;
 
         Vector3 playerlocationMove = new Vector3(0, 150, -3);
 
-        Vector3 enemylocationMove = new Vector3(0, 150, 3);
-
-       
         LevelGrid.Instance.RemoveUnitAtGridPosition(unit.GetGridPosition(), unit);
-        LevelGrid.Instance.RemoveUnitAtGridPosition(target.GetGridPosition(), target);
 
         unit.SetPosition(playerlocationMove);
-        target.SetPosition(enemylocationMove);
 
         unit.transform.rotation = Quaternion.Euler(0, 0, 0);
-        target.transform.rotation = Quaternion.Euler(0, 180, 0);
     }
 
     public void OffAtLocationMove(Unit unit, Unit target)
     {
-
         if (unit != null)
         {
             unit.SetPosition(unitpos);
         }
 
-        if (target != null)
+        if(!ChainStart)
         {
-            target.SetPosition(targetpos);
+            OffEnemyLocationMove(target);
         }
 
         if (unit.GetHealth() > 0)
@@ -120,22 +131,19 @@ public class AttackActionSystem : MonoBehaviour
             unit.transform.rotation = unitrotation;
         }
         
-        if (target.GetHealth() > 0)
-        {
-            LevelGrid.Instance.AddUnitAtGridPosition(target.GetGridPosition(), target);
-            target.transform.rotation = targetrotation;
-        }
-
         unit.SetIsGrid(false);
-        target.SetIsGrid(false);
 
-        OnAttackAtGround = false;
-
+        if (!ChainStart)
+        {
+            OnAttackAtGround = false;
+        }
     }
 
     public void OnAtChainLocationMove_1(Unit chainunit)
     {
-        characterDataManager = chainunit.GetCharacterDataManager();
+        chainplayer_1 = chainunit;
+
+        //characterDataManager = chainunit.GetCharacterDataManager();
 
         chainunit.SetIsGrid(true);
 
@@ -144,51 +152,170 @@ public class AttackActionSystem : MonoBehaviour
 
         LevelGrid.Instance.RemoveUnitAtGridPosition(chainunit.GetGridPosition(), chainunit);
 
-        Vector3 chainlocationMove = new Vector3(-5f, 150, 3.2f);
+        Vector3 chainlocationMove = new Vector3(0f, 150f, -4.5f);
         chainunit.SetPosition(chainlocationMove);
 
-
-        chainunit.transform.rotation = Quaternion.Euler(0, 90, 0);
+        chainunit.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
-    public void OffAtChainLocationMove_1(Unit chainunit)
+    public void OffAtChainLocationMove_1(Unit chainunit, Unit target)
     {
         chainunit.SetPosition(chainpos_1);
+
+        if(!TripleChain)
+        {
+            OffEnemyLocationMove(target);
+        }
 
         LevelGrid.Instance.AddUnitAtGridPosition(chainunit.GetGridPosition(), chainunit);
         chainunit.transform.rotation = chainrotation_1;
 
         chainunit.SetIsGrid(false);
         chainunit.SetChainfirst(false);
+
+        if (!CameraMove)
+        {
+            OnAttackAtGround = false;
+        }
     }
 
     public void OnAtChainLocationMove_2(Unit chainunit)
     {
-        characterDataManager = chainunit.GetCharacterDataManager();
+        chainplayer_2 = chainunit;
+
+        //characterDataManager = chainunit.GetCharacterDataManager();
 
         chainunit.SetIsGrid(true);
+        CameraMove = true;
 
         chainpos_2 = chainunit.GetWorldPosition();
         chainrotation_2 = chainunit.transform.rotation;
 
         LevelGrid.Instance.RemoveUnitAtGridPosition(chainunit.GetGridPosition(), chainunit);
 
-        Vector3 chainlocationMove = new Vector3(1.9f, 150, 4.4f);
+        Vector3 chainlocationMove = new Vector3(0f, 150, -6f);
         chainunit.SetPosition(chainlocationMove);
 
 
-        chainunit.transform.rotation = Quaternion.Euler(0, -140, 0);
+        chainunit.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
-    public void OffAtChainLocationMove_2(Unit chainunit)
+    public void OffAtChainLocationMove_2(Unit chainunit, Unit target)
     {
         chainunit.SetPosition(chainpos_2);
+
+        OffEnemyLocationMove(target);
 
         LevelGrid.Instance.AddUnitAtGridPosition(chainunit.GetGridPosition(), chainunit);
         chainunit.transform.rotation = chainrotation_2;
 
         chainunit.SetIsGrid(false);
         chainunit.SetChaintwo(false);
+
+        OnAttackAtGround = false;
+        CameraMove = false;
+    }
+
+    private void OnEnemyLocationMove(Unit enemy)
+    {
+        monsterDataManager = enemy.GetMonsterDataManager();
+        this.enemy = enemy;
+
+        enemy.SetIsGrid(true);
+
+        enemypos = enemy.GetWorldPosition();
+        enemyrotation = enemy.transform.rotation;
+
+        Vector3 enemylocationMove = new Vector3(0, 150, 3);
+
+        LevelGrid.Instance.RemoveUnitAtGridPosition(enemy.GetGridPosition(), enemy);
+
+        enemy.SetPosition(enemylocationMove);
+
+        enemy.transform.rotation = Quaternion.Euler(0, 180, 0);
+    }
+
+    private void OffEnemyLocationMove(Unit enemy)
+    {
+        if (enemy != null)
+        {
+            enemy.SetPosition(enemypos);
+        }
+
+        if (enemy.GetHealth() > 0)
+        {
+            LevelGrid.Instance.AddUnitAtGridPosition(enemy.GetGridPosition(), enemy);
+            enemy.transform.rotation = enemyrotation;
+        }
+
+        enemy.SetIsGrid(false);
+    }
+
+    private void AttackView()
+    {
+        // 체인 공격이 아닌 일반 공격일 경우 액션 카메라
+        if (!ChainStart)
+        {
+            if (OnAttackAtGround)
+            {
+                ActionVirtualCamera.Follow = player.GetCameraFollow();
+                ActionVirtualCamera.LookAt = player.GetCameraPos();
+            }
+            else
+            {
+                ActionVirtualCamera.Follow = null;
+                ActionVirtualCamera.LookAt = null;
+            }
+        }
+        else
+        {
+            if (OnAttackAtGround)
+            {
+                if (isChainAtk_2) 
+                {
+                    //ActionVirtualCamera.Follow = chainplayer_2.GetCameraFollow();
+                    //ActionVirtualCamera.LookAt = chainplayer_2.GetCameraPos();
+                    ActionVirtualCamera2.Follow = chainplayer_2.GetCameraFollow();
+                    ActionVirtualCamera2.LookAt = chainplayer_2.GetCameraPos2();
+                    Invoke("Camera2", 0.5f);
+                }
+                else if (isChainAtk_1)
+                {
+                    ActionVirtualCamera2.Follow = chainplayer_1.GetCameraFollow();
+                    ActionVirtualCamera2.LookAt = chainplayer_1.GetCameraPos2();
+                    Invoke("Camera", 0.5f);
+                    //ActionVirtualCamera.Follow = chainplayer_1.GetCameraFollow();
+                    //ActionVirtualCamera.LookAt = chainplayer_1.GetCameraPos();
+                   
+                }
+                else if(isAtk)
+                {
+                    ActionVirtualCamera.Follow = player.GetCameraFollow();
+                    ActionVirtualCamera.LookAt = player.GetCameraPos();
+
+                }
+                else
+                {
+                    ActionVirtualCamera.Follow = null;
+                    ActionVirtualCamera.LookAt = null;
+                    ActionVirtualCamera2.Follow = null;
+                    ActionVirtualCamera2.LookAt = null;
+                }
+
+            }
+        }
+    }
+
+    void Camera()
+    {
+        ActionVirtualCamera.Follow = chainplayer_1.GetCameraFollow();
+        ActionVirtualCamera.LookAt = chainplayer_1.GetCameraPos();
+    }
+
+    void Camera2()
+    {
+        ActionVirtualCamera.Follow = chainplayer_2.GetCameraFollow();
+        ActionVirtualCamera.LookAt = chainplayer_2.GetCameraPos();
     }
 
     public bool OnAttackGroundCheck()
@@ -216,9 +343,14 @@ public class AttackActionSystem : MonoBehaviour
         return player;
     }
 
-    public Unit GetEnemy()
+    public Unit GetChainPlayer_1()
     {
-        return enemy;
+        return chainplayer_1;
+    }
+
+    public Unit GetChainPlayer_2()
+    {
+        return chainplayer_2;
     }
 
     public bool GetIsAtk()
@@ -231,13 +363,43 @@ public class AttackActionSystem : MonoBehaviour
         this.isAtk = isAtk;
     }
 
-    public bool GetIsChainAtk()
+    public bool GetIsChainAtk_1()
     {
-        return isChainAtk;
+        return isChainAtk_1;
     }
 
-    public void SetIsChainAtk(bool isChainAtk)
+    public void SetIsChainAtk_1(bool isChainAtk)
     {
-        this.isChainAtk = isChainAtk;
+        this.isChainAtk_1 = isChainAtk;
+    }
+
+    public bool GetIsChainAtk_2()
+    {
+        return isChainAtk_2;
+    }
+
+    public void SetIsChainAtk_2(bool isChainAtk)
+    {
+        this.isChainAtk_2 = isChainAtk;
+    }
+
+    public bool GetTripleChain()
+    {
+        return TripleChain;
+    }
+
+    public void SetTripleChain(bool TripleChain)
+    {
+        this.TripleChain = TripleChain;
+    }
+
+    public bool GetChainStart()
+    {
+        return ChainStart;
+    }
+
+    public void SetChainStart(bool ChainStart)
+    {
+        this.ChainStart = ChainStart;
     }
 }
