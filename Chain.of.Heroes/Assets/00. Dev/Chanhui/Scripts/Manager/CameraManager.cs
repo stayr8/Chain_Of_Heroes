@@ -21,6 +21,8 @@ public class CameraManager : MonoBehaviour
         BaseAction.OnAnyActionStarted_1 += BaseAction_OnAnyActionStarted_1;
         BaseAction.OnAnyActionCompleted_1 += BaseAction_OnAnyActionCompleted_1;
 
+        AttackActionSystem.OnActionStarted += BaseAction_OnAnyActionStarted;
+
         HideActionCamera();
     }
 
@@ -54,6 +56,7 @@ public class CameraManager : MonoBehaviour
 
     private void HideAttackActionCamera()
     {
+        ScreenManager._instance._LoadScreenTextuer();
         AttackBeforeCameraGameObject.SetActive(false);
     }
 

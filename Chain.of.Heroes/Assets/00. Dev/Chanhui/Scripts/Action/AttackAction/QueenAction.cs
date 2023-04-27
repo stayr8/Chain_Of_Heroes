@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class QueenAction : BaseAction
 {
     public event EventHandler OnQueenStartMoving;
@@ -152,25 +153,27 @@ public class QueenAction : BaseAction
                 float afterHitStateTime = 0.5f;
                 stateTimer = afterHitStateTime;
                 state = State.SwingingQueenBeforeCamera;
-
+                //ScreenManager._instance._LoadScreenTextuer();
                 break;
             case State.SwingingQueenBeforeCamera:
-                StageUI.Instance.Fade();
-                float afterHitStateTime_0 = 0.5f;
+                ScreenManager._instance._LoadScreenTextuer();
+                //StageUI.Instance.Fade();
+                float afterHitStateTime_0 = 0.1f;
                 stateTimer = afterHitStateTime_0;
                 state = State.SwingingQueenAttackStand;
 
                 break;
             case State.SwingingQueenAttackStand:
                 AttackActionSystem.Instance.OnAtLocationMove(unit, targetUnit);
-                ActionCameraStart();
-                AttackCameraComplete();
+                //ActionCameraStart();
 
-                stateTimer = 0.8f;
+                stateTimer = 1.0f;
                 state = State.SwingingQueenAfterMoving;
 
                 break;
             case State.SwingingQueenAfterMoving:
+                AttackCameraComplete();
+                ScreenManager._instance.OffRawScreen();
                 //OnQueenDash?.Invoke(this, EventArgs.Empty);
                 OnQueenStartMoving?.Invoke(this, EventArgs.Empty);
 

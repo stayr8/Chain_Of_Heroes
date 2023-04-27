@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,8 @@ using UnityEngine.UI;
 public class AttackActionSystem : MonoBehaviour
 {
     public static AttackActionSystem Instance { get; private set; }
+
+    public static event EventHandler OnActionStarted;
 
     private Vector3 unitpos;
     private Vector3 enemypos;
@@ -111,6 +114,10 @@ public class AttackActionSystem : MonoBehaviour
         unit.SetPosition(playerlocationMove);
 
         unit.transform.rotation = Quaternion.Euler(0, 0, 0);
+
+        OnActionStarted?.Invoke(this, EventArgs.Empty);
+        ActionVirtualCamera.Follow = player.GetCameraFollow();
+        ActionVirtualCamera.LookAt = player.GetCameraPos();
     }
 
     public void OffAtLocationMove(Unit unit, Unit target)
@@ -287,12 +294,6 @@ public class AttackActionSystem : MonoBehaviour
                     //ActionVirtualCamera.Follow = chainplayer_1.GetCameraFollow();
                     //ActionVirtualCamera.LookAt = chainplayer_1.GetCameraPos();
                    
-                }
-                else if(isAtk)
-                {
-                    ActionVirtualCamera.Follow = player.GetCameraFollow();
-                    ActionVirtualCamera.LookAt = player.GetCameraPos();
-
                 }
                 else
                 {
