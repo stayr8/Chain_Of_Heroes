@@ -178,6 +178,7 @@ GameObject:
   - component: {fileID: -4719305747903997168}
   - component: {fileID: 1024481362807706275}
   - component: {fileID: 5087397555020784552}
+  - component: {fileID: 3717338641236975944}
   m_Layer: 16
   m_Name: SwordWoman
   m_TagString: Player
@@ -248,6 +249,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CameraPos: {fileID: 1778157605652513913}
   CameraFollow: {fileID: 1408171976}
+  CameraPos2: {fileID: 0}
   IsGrid: 0
   isEnemy: 0
   newEnemyActionPoints: 2
@@ -358,6 +360,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c32281ad8c536534ab79952b0a84d685, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3717338641236975944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7963473072988374339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c4323a8e22cec84b98e3864daf8e54a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8173412459981235173

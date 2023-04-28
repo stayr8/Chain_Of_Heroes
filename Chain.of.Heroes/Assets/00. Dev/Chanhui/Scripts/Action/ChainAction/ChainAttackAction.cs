@@ -107,8 +107,7 @@ public class ChainAttackAction : BaseAction
         switch (state)
         {
             case State.SwingingChainAttackStart:
-                float afterHitStateTime = 1.0f;
-                stateTimer = afterHitStateTime;
+                TimeAttack(1.0f);
                 state = State.SwingingChainAttackOnLocationMove;
 
                 break;
@@ -122,8 +121,7 @@ public class ChainAttackAction : BaseAction
                 {
                     AttackActionSystem.Instance.OnAtChainLocationMove_2(unit);
                 }
-                float afterHitStateTime_0 = 0.5f;
-                stateTimer = afterHitStateTime_0;
+                TimeAttack(0.5f);
                 state = State.SwingingChainAttackWait;
 
                 break;
@@ -132,30 +130,42 @@ public class ChainAttackAction : BaseAction
                 {
                     if (AttackActionSystem.Instance.GetIsChainAtk_1())
                     {
-                        ActionCameraStart_1();
-                        float afterHitStateTime_1 = 0.8f;
-                        stateTimer = afterHitStateTime_1;
-                        state = State.SwingingChainAttackMoveOn;
+                        if(targetUnit.GetHealth() <= 0)
+                        {
+                            state = State.SwingingChainAttackFade;
+                        }
+                        else
+                        {
+                            ActionCameraStart_1();
+                            TimeAttack(0.8f);
+                            state = State.SwingingChainAttackMoveOn;
+                        }
+                        
                     }
                     else
                     {
-                        float afterHitStateTime_1 = 0.2f;
-                        stateTimer = afterHitStateTime_1;
+                        TimeAttack(0.2f);
                     }
                 }
                 else if (unit.GetChaintwo())
                 {
                     if (AttackActionSystem.Instance.GetIsChainAtk_2())
                     {
-                        ActionCameraStart_1();
-                        float afterHitStateTime_1 = 0.8f;
-                        stateTimer = afterHitStateTime_1;
-                        state = State.SwingingChainAttackMoveOn;
+                        if (targetUnit.GetHealth() <= 0)
+                        {
+                            state = State.SwingingChainAttackFade;
+                        }
+                        else
+                        {
+                            ActionCameraStart_1();
+
+                            TimeAttack(0.8f);
+                            state = State.SwingingChainAttackMoveOn;
+                        }
                     }
                     else
                     {
-                        float afterHitStateTime_1 = 0.2f;
-                        stateTimer = afterHitStateTime_1;
+                        TimeAttack(0.2f);
                     }
                 }
 
@@ -177,6 +187,10 @@ public class ChainAttackAction : BaseAction
                 if (unit.GetChainfirst())
                 {
                     OnChainAttackSwordSlash?.Invoke(this, EventArgs.Empty);
+                    if (AttackActionSystem.Instance.GetTripleChain())
+                    {
+                        AttackActionSystem.Instance.SetTripleChainPosition();
+                    }
                 }
                 else if (unit.GetChaintwo())
                 {
@@ -184,8 +198,7 @@ public class ChainAttackAction : BaseAction
                     AttackActionSystem.Instance.SetIsChainAtk_2(false);
                 }
 
-                float afterHitStateTime_2 = 1.0f;
-                stateTimer = afterHitStateTime_2;
+                TimeAttack(1.0f);
                 state = State.SwingingChainAttackFade;
 
                 break;
@@ -196,21 +209,27 @@ public class ChainAttackAction : BaseAction
 
                     if (!AttackActionSystem.Instance.GetTripleChain())
                     {
-                        StageUI.Instance.Fade();
+                        ScreenManager._instance._LoadScreenTextuer();
+
+                        TimeAttack(0.1f);
+                        state = State.SwingingChainAttackOffLocationMove;
                     }
-                    if (AttackActionSystem.Instance.GetTripleChain())
+                    else
                     {
                         AttackActionSystem.Instance.SetIsChainAtk_2(true);
+
+                        TimeAttack(0.5f);
+                        state = State.SwingingChainAttackOffLocationMove;
                     }
                 }
                 else if (unit.GetChaintwo())
                 {
-                    StageUI.Instance.Fade();
+                    ScreenManager._instance._LoadScreenTextuer();
+
+                    TimeAttack(0.1f);
+                    state = State.SwingingChainAttackOffLocationMove;
                 }
 
-                float afterHitStateTime_3 = 0.5f;
-                stateTimer = afterHitStateTime_3;
-                state = State.SwingingChainAttackOffLocationMove;
                 break;
             case State.SwingingChainAttackOffLocationMove:
                 if (unit.GetChainfirst())
@@ -229,9 +248,8 @@ public class ChainAttackAction : BaseAction
                     AttackActionSystem.Instance.SetChainStart(false);
                     ActionCameraComplete();
                 }
-                
-                float afterHitStateTime_4 = 0.2f;
-                stateTimer = afterHitStateTime_4;
+
+                TimeAttack(0.2f);
                 state = State.SwingingChainAttackComplete;
 
                 break;
@@ -242,6 +260,11 @@ public class ChainAttackAction : BaseAction
                 break;
         }
 
+    }
+    void TimeAttack(float StateTime)
+    {
+        float afterHitStateTime = StateTime;
+        stateTimer = afterHitStateTime;
     }
 
     public override List<GridPosition> GetValidActionGridPositionList()
@@ -256,8 +279,7 @@ public class ChainAttackAction : BaseAction
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
 
         state = State.SwingingChainAttackStart;
-        float beforeHitStateTime = 0.7f;
-        stateTimer = beforeHitStateTime;
+        TimeAttack(0.7f);
 
         ActionStart(onActionComplete);
     }

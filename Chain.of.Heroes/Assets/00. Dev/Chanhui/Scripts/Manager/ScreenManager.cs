@@ -27,6 +27,7 @@ public class ScreenManager : MonoBehaviour
 
     IEnumerator CaptuerScreen()
     {
+        Debug.Log("디졸브 발동");
         // 텍스쳐 자료형 변수를 생성
         Texture2D textuer = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
         yield return new WaitForEndOfFrame();

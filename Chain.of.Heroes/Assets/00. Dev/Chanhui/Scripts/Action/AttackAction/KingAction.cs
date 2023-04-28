@@ -15,6 +15,7 @@ public class KingAction : BaseAction
         SwingingKingAttackCameraStart,
         SwingingKingBeforeCamera,
         SwingingKingAttackCameraEnd,
+        SwingingKingAttackStand,
         SwingingKingAttackMoving,
         SwingingKingBeforeHit,
         SwingingKingAfterCamera,
@@ -57,6 +58,9 @@ public class KingAction : BaseAction
             case State.SwingingKingBeforeCamera:
 
                 break;
+            case State.SwingingKingAttackStand:
+
+                break;
             case State.SwingingKingAttackCameraEnd:
 
                 break;
@@ -69,7 +73,7 @@ public class KingAction : BaseAction
                 float stoppingDistance1 = 1.5f;
                 if (Vector3.Distance(transform.position, targetDirection2) > stoppingDistance1)
                 {
-                    float moveSpeed = 6f;
+                    float moveSpeed = 15f;
                     transform.position += aimDir2 * moveSpeed * Time.deltaTime;
                 }
                 else
@@ -102,19 +106,17 @@ public class KingAction : BaseAction
         {
             case State.SwingingKingAttackCameraStart:
                 AttackCameraStart();
-                float afterHitStateTime = 0.5f;
-                stateTimer = afterHitStateTime;
+                TimeAttack(0.5f);
                 state = State.SwingingKingBeforeCamera;
 
                 break;
             case State.SwingingKingBeforeCamera:
-                StageUI.Instance.Fade();
-                float afterHitStateTime_0 = 0.5f;
-                stateTimer = afterHitStateTime_0;
-                state = State.SwingingKingAttackCameraEnd;
+                ScreenManager._instance._LoadScreenTextuer();
+                TimeAttack(0.1f);
+                state = State.SwingingKingAttackStand;
 
                 break;
-            case State.SwingingKingAttackCameraEnd:
+            case State.SwingingKingAttackStand:
                 if (unit.IsEnemy())
                 {
                     AttackActionSystem.Instance.OnAtLocationMove(targetUnit, unit);
@@ -124,11 +126,16 @@ public class KingAction : BaseAction
                     AttackActionSystem.Instance.OnAtLocationMove(unit, targetUnit);
                 }
                 ActionCameraStart();
+
+                TimeAttack(1.0f);
+                state = State.SwingingKingAttackCameraEnd;
+
+                break;
+            case State.SwingingKingAttackCameraEnd:
                 AttackCameraComplete();
                 OnKingStartMoving?.Invoke(this, EventArgs.Empty);
 
-                float afterHitStateTime_1 = 1.0f;
-                stateTimer = afterHitStateTime_1;
+                TimeAttack(1.0f);
                 state = State.SwingingKingAttackMoving;
 
                 break;
@@ -136,22 +143,38 @@ public class KingAction : BaseAction
 
                 break;
             case State.SwingingKingBeforeHit:
-                float afterHitStateTime_2 = 1.5f;
-                stateTimer = afterHitStateTime_2;
                 OnKingSwordSlash?.Invoke(this, EventArgs.Empty);
+
+                TimeAttack(1.0f);
                 state = State.SwingingKingAfterCamera;
-                
 
                 break;
             case State.SwingingKingAfterCamera:
-                StageUI.Instance.Fade();
-                float afterHitStateTime_3 = 0.5f;
-                stateTimer = afterHitStateTime_3;
-                state = State.SwingingKingAfterHit;
+                if (unit.IsEnemy())
+                {
+                    ScreenManager._instance._LoadScreenTextuer();
+                    TimeAttack(0.1f);
+                    state = State.SwingingKingAfterHit;
+                }
+                else
+                {
+                    if (!AttackActionSystem.Instance.GetChainStart())
+                    {
+                        ScreenManager._instance._LoadScreenTextuer();
+                        TimeAttack(0.1f);
+                        state = State.SwingingKingAfterHit;
+                    }
+                    else
+                    {
+                        AttackActionSystem.Instance.SetIsChainAtk_1(true);
+                        TimeAttack(0.5f);
+                        state = State.SwingingKingAfterHit;
+                    }
+                    AttackActionSystem.Instance.SetIsAtk(false);
+                }
 
                 break;
             case State.SwingingKingAfterHit:
-                ActionCameraComplete();
 
                 if (unit.IsEnemy())
                 {
@@ -159,6 +182,10 @@ public class KingAction : BaseAction
                 }
                 else
                 {
+                    if (!AttackActionSystem.Instance.GetChainStart())
+                    {
+                        ActionCameraComplete();
+                    }
                     AttackActionSystem.Instance.OffAtLocationMove(unit, targetUnit);
                 }
 
@@ -167,6 +194,11 @@ public class KingAction : BaseAction
                 break;
         }
 
+    }
+    void TimeAttack(float StateTime)
+    {
+        float afterHitStateTime = StateTime;
+        stateTimer = afterHitStateTime;
     }
 
     public override List<GridPosition> GetValidActionGridPositionList()
@@ -229,8 +261,9 @@ public class KingAction : BaseAction
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
 
         state = State.SwingingKingAttackCameraStart;
-        float beforeHitStateTime = 0.7f;
-        stateTimer = beforeHitStateTime;
+        TimeAttack(0.7f);
+
+        AttackActionSystem.Instance.SetIsAtk(true);
 
         ActionStart(onActionComplete);
     }

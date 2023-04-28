@@ -8,20 +8,19 @@ public class CameraManager : MonoBehaviour
 {
 
     [SerializeField] private GameObject actionCameraGameObject;
-    [SerializeField] private GameObject actionCameraGameObject_2;
+    [SerializeField] private GameObject actionCameraGameObject_1;
     [SerializeField] private GameObject AttackBeforeCameraGameObject;
 
     private void Start()
     {
-        BaseAction.OnAnyActionStarted += BaseAction_OnAnyActionStarted;
-        BaseAction.OnAnyActionCompleted += BaseAction_OnAnyActionCompleted;
         BaseAction.OnAnyAttackStarted += BaseAction_OnAnyAttackStarted;
         BaseAction.OnAnyAttackCompleted += BaseAction_OnAnyAttackCompleted;
 
         BaseAction.OnAnyActionStarted_1 += BaseAction_OnAnyActionStarted_1;
         BaseAction.OnAnyActionCompleted_1 += BaseAction_OnAnyActionCompleted_1;
 
-        AttackActionSystem.OnActionStarted += BaseAction_OnAnyActionStarted;
+        AttackActionSystem.OnActionStarted += AttackActionSystem_OnActionStarted;
+        AttackActionSystem.OnActionCompleted += AttackActionSystem_OnActionCompleted;
 
         HideActionCamera();
     }
@@ -37,15 +36,15 @@ public class CameraManager : MonoBehaviour
         actionCameraGameObject.SetActive(false);
     }
 
-    // Attack 장면에 있는 카메라
+    // Chain Attack 카메라 효과
     private void ShowActionCamera_1()
     {
-        actionCameraGameObject_2.SetActive(true);
+        actionCameraGameObject_1.SetActive(true);
     }
 
     private void HideActionCamera_1()
     {
-        actionCameraGameObject_2.SetActive(false);
+        actionCameraGameObject_1.SetActive(false);
     }
 
     // Attack 전에 들어가는 효과 카메라
@@ -56,18 +55,17 @@ public class CameraManager : MonoBehaviour
 
     private void HideAttackActionCamera()
     {
-        ScreenManager._instance._LoadScreenTextuer();
         AttackBeforeCameraGameObject.SetActive(false);
     }
 
 
-    private void BaseAction_OnAnyActionStarted(object sender, EventArgs e)
+    private void AttackActionSystem_OnActionStarted(object sender, EventArgs e)
     {
         ShowActionCamera();
         
     }
 
-    private void BaseAction_OnAnyActionCompleted(object sender, EventArgs e)
+    private void AttackActionSystem_OnActionCompleted(object sender, EventArgs e)
     {
         HideActionCamera();
         
@@ -98,9 +96,13 @@ public class CameraManager : MonoBehaviour
 
     private void OnDisable()
     {
-        BaseAction.OnAnyActionStarted -= BaseAction_OnAnyActionStarted;
-        BaseAction.OnAnyActionCompleted -= BaseAction_OnAnyActionCompleted;
         BaseAction.OnAnyAttackStarted -= BaseAction_OnAnyAttackStarted;
         BaseAction.OnAnyAttackCompleted -= BaseAction_OnAnyAttackCompleted;
+
+        BaseAction.OnAnyActionStarted_1 -= BaseAction_OnAnyActionStarted_1;
+        BaseAction.OnAnyActionCompleted_1 -= BaseAction_OnAnyActionCompleted_1;
+
+        AttackActionSystem.OnActionStarted -= AttackActionSystem_OnActionStarted;
+        AttackActionSystem.OnActionCompleted -= AttackActionSystem_OnActionCompleted;
     }
 }

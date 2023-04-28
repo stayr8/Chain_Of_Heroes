@@ -12,6 +12,7 @@ public class AttackActionSystem : MonoBehaviour
     public static AttackActionSystem Instance { get; private set; }
 
     public static event EventHandler OnActionStarted;
+    public static event EventHandler OnActionCompleted;
 
     private Vector3 unitpos;
     private Vector3 enemypos;
@@ -44,8 +45,7 @@ public class AttackActionSystem : MonoBehaviour
     private bool isChainAtk_2;
     [Tooltip("세명 체인 공격 체크")]
     private bool TripleChain;
-    [Tooltip("카메라 이동")]
-    private bool CameraMove;
+
 
     public Slider player_bar;
     public Slider enemy_bar;
@@ -70,7 +70,6 @@ public class AttackActionSystem : MonoBehaviour
         isChainAtk_1 = false;
         isChainAtk_2 = false;
         TripleChain = false;
-        CameraMove = false;
     }
 
     private void Update()
@@ -92,7 +91,7 @@ public class AttackActionSystem : MonoBehaviour
         AttackView();
     }
 
-
+    #region 싱글 공격 이동
     public void OnAtLocationMove(Unit unit, Unit target)
     {
         characterDataManager = unit.GetCharacterDataManager();
@@ -143,14 +142,15 @@ public class AttackActionSystem : MonoBehaviour
         if (!ChainStart)
         {
             OnAttackAtGround = false;
+            OnActionCompleted?.Invoke(this, EventArgs.Empty);
         }
     }
+    #endregion
 
+    #region 더블 체인 공격 이동
     public void OnAtChainLocationMove_1(Unit chainunit)
     {
         chainplayer_1 = chainunit;
-
-        //characterDataManager = chainunit.GetCharacterDataManager();
 
         chainunit.SetIsGrid(true);
 
@@ -180,12 +180,15 @@ public class AttackActionSystem : MonoBehaviour
         chainunit.SetIsGrid(false);
         chainunit.SetChainfirst(false);
 
-        if (!CameraMove)
+        if (!TripleChain)
         {
             OnAttackAtGround = false;
+            OnActionCompleted?.Invoke(this, EventArgs.Empty);
         }
     }
+    #endregion
 
+    #region 트리플 체인 공격
     public void OnAtChainLocationMove_2(Unit chainunit)
     {
         chainplayer_2 = chainunit;
@@ -193,18 +196,22 @@ public class AttackActionSystem : MonoBehaviour
         //characterDataManager = chainunit.GetCharacterDataManager();
 
         chainunit.SetIsGrid(true);
-        CameraMove = true;
 
         chainpos_2 = chainunit.GetWorldPosition();
         chainrotation_2 = chainunit.transform.rotation;
 
         LevelGrid.Instance.RemoveUnitAtGridPosition(chainunit.GetGridPosition(), chainunit);
 
-        Vector3 chainlocationMove = new Vector3(0f, 150, -6f);
+        Vector3 chainlocationMove = new Vector3(2f, 150, -6f);
         chainunit.SetPosition(chainlocationMove);
 
 
         chainunit.transform.rotation = Quaternion.Euler(0, 0, 0);
+    }
+    public void SetTripleChainPosition()
+    {
+        Vector3 chainlocationMove = new Vector3(0f, 150, -6f);
+        chainplayer_2.SetPosition(chainlocationMove);
     }
 
     public void OffAtChainLocationMove_2(Unit chainunit, Unit target)
@@ -219,10 +226,12 @@ public class AttackActionSystem : MonoBehaviour
         chainunit.SetIsGrid(false);
         chainunit.SetChaintwo(false);
 
+        OnActionCompleted?.Invoke(this, EventArgs.Empty);
         OnAttackAtGround = false;
-        CameraMove = false;
     }
+    #endregion
 
+    #region 몬스터 이동
     private void OnEnemyLocationMove(Unit enemy)
     {
         monsterDataManager = enemy.GetMonsterDataManager();
@@ -257,7 +266,9 @@ public class AttackActionSystem : MonoBehaviour
 
         enemy.SetIsGrid(false);
     }
+    #endregion
 
+    #region 카메라 시점 이동 및 변경
     private void AttackView()
     {
         // 체인 공격이 아닌 일반 공격일 경우 액션 카메라
@@ -270,18 +281,15 @@ public class AttackActionSystem : MonoBehaviour
             }
             else
             {
-                ActionVirtualCamera.Follow = null;
-                ActionVirtualCamera.LookAt = null;
+                return;
             }
         }
         else
         {
             if (OnAttackAtGround)
             {
-                if (isChainAtk_2) 
+                if (isChainAtk_2)
                 {
-                    //ActionVirtualCamera.Follow = chainplayer_2.GetCameraFollow();
-                    //ActionVirtualCamera.LookAt = chainplayer_2.GetCameraPos();
                     ActionVirtualCamera2.Follow = chainplayer_2.GetCameraFollow();
                     ActionVirtualCamera2.LookAt = chainplayer_2.GetCameraPos2();
                     Invoke("Camera2", 0.5f);
@@ -291,37 +299,27 @@ public class AttackActionSystem : MonoBehaviour
                     ActionVirtualCamera2.Follow = chainplayer_1.GetCameraFollow();
                     ActionVirtualCamera2.LookAt = chainplayer_1.GetCameraPos2();
                     Invoke("Camera", 0.5f);
-                    //ActionVirtualCamera.Follow = chainplayer_1.GetCameraFollow();
-                    //ActionVirtualCamera.LookAt = chainplayer_1.GetCameraPos();
-                   
                 }
                 else
                 {
-                    ActionVirtualCamera.Follow = null;
-                    ActionVirtualCamera.LookAt = null;
-                    ActionVirtualCamera2.Follow = null;
-                    ActionVirtualCamera2.LookAt = null;
+                    return;
                 }
-
             }
         }
     }
+    #endregion
 
-    void Camera()
+    #region 변수 관리 및 변환
+    public void Camera()
     {
         ActionVirtualCamera.Follow = chainplayer_1.GetCameraFollow();
         ActionVirtualCamera.LookAt = chainplayer_1.GetCameraPos();
     }
 
-    void Camera2()
+    public void Camera2()
     {
         ActionVirtualCamera.Follow = chainplayer_2.GetCameraFollow();
         ActionVirtualCamera.LookAt = chainplayer_2.GetCameraPos();
-    }
-
-    public bool OnAttackGroundCheck()
-    {
-        return OnAttackAtGround;
     }
 
     public CharacterDataManager GetCharacterDataManager()
@@ -337,21 +335,6 @@ public class AttackActionSystem : MonoBehaviour
     public MonsterDataManager GetMonsterDataManager()
     {
         return monsterDataManager;
-    }
-
-    public Unit GetPlayer()
-    {
-        return player;
-    }
-
-    public Unit GetChainPlayer_1()
-    {
-        return chainplayer_1;
-    }
-
-    public Unit GetChainPlayer_2()
-    {
-        return chainplayer_2;
     }
 
     public bool GetIsAtk()
@@ -403,4 +386,5 @@ public class AttackActionSystem : MonoBehaviour
     {
         this.ChainStart = ChainStart;
     }
+    #endregion
 }

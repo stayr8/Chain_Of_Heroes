@@ -5,8 +5,6 @@ using UnityEngine;
 
 public abstract class BaseAction : MonoBehaviour
 {
-    public static event EventHandler OnAnyActionStarted;
-    public static event EventHandler OnAnyActionCompleted;
     public static event EventHandler OnAnyAttackStarted;
     public static event EventHandler OnAnyAttackCompleted;
 
@@ -84,14 +82,12 @@ public abstract class BaseAction : MonoBehaviour
 
     protected void ActionCameraStart()
     {
-        OnAnyActionStarted?.Invoke(this, EventArgs.Empty);
         StageUI.Instance.TurnSystemHide();
         StageUI.Instance.AttackShow();
     }
 
     protected void ActionCameraComplete()
     {
-        OnAnyActionCompleted?.Invoke(this, EventArgs.Empty);
         StageUI.Instance.AttackHide();
         StageUI.Instance.TurnSystemShow();
     }
