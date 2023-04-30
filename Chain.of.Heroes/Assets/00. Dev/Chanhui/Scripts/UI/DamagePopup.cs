@@ -18,12 +18,14 @@ public class DamagePopup : MonoBehaviour
 
     private static int sortingOrder;
 
-    private const float DISAPPEAR_TIMER_MAX = 0.6f;
+    [SerializeField] private float MaxdisappearTime;
 
     private TextMeshPro textMesh;
     private Color textColor;
     private float disappearTimer;
+    [Header("올라가는 속도")]
     [SerializeField] private float moveYSpeed;
+    [SerializeField] private float disappearSpeed;
 
     private void Awake()
     {
@@ -47,7 +49,7 @@ public class DamagePopup : MonoBehaviour
         }
         
         textMesh.color = textColor;
-        disappearTimer = DISAPPEAR_TIMER_MAX;
+        disappearTimer = MaxdisappearTime;
 
         sortingOrder++;
         textMesh.sortingOrder = sortingOrder;
@@ -55,11 +57,10 @@ public class DamagePopup : MonoBehaviour
 
     private void Update()
     {
-        moveYSpeed = 2f;
         transform.position += new Vector3(0, moveYSpeed) * Time.deltaTime;
        
 
-        if (disappearTimer > DISAPPEAR_TIMER_MAX * 0.5f)
+        if (disappearTimer > MaxdisappearTime * 0.5f)
         {
             float increaseScaleAmount = 1f;
             transform.localScale += Vector3.one * increaseScaleAmount * Time.deltaTime;
@@ -69,10 +70,9 @@ public class DamagePopup : MonoBehaviour
             transform.localScale -= Vector3.one * decreaseScaleAmount * Time.deltaTime;
         }
 
-        disappearTimer -= Time.deltaTime;
+        disappearTimer -= 2 * Time.deltaTime;
         if(disappearTimer < 0)
         {
-            float disappearSpeed = 10f;
             textColor.a -= disappearSpeed * Time.deltaTime;
             textMesh.color = textColor;
             if(textColor.a < 0)

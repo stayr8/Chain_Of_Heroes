@@ -59,7 +59,7 @@ public class MonsterBase : MonoBehaviour
             //Debug.Log("크리티컬 미발동!");
 
             // 최종 데미지 결정
-            finalDamage = characterAP * (100 / (100 + monsterDP));
+            finalDamage = characterAP * (100 / (100 + (monsterDP / 10)));
         }
         else if (isCritical)
         {
@@ -69,7 +69,7 @@ public class MonsterBase : MonoBehaviour
             //Debug.Log("크리티컬 피해 증가량" + characterCD);
 
             // 크리티컬 최종 데미지 결정
-            finalDamage = (characterAP * (100 / (100 + monsterDP))) * (1.3f + characterCD);
+            finalDamage = (characterAP * (100 / (100 + (monsterDP / 10)))) * (1.3f + characterCD);
         }
         //Debug.Log("최종 데미지: " + (int)finalDamage);
 
