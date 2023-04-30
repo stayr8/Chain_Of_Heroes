@@ -27,7 +27,7 @@ public class ChainSystem : MonoBehaviour
     {
         if (AttackActionSystem.Instance.GetIsAtk() && !IsChain)
         {
-            Debug.Log("체인 시스템 온?");
+            Debug.Log("체인 시스템 온");
             IsChain = true;
             TryTakeEnemyAIAction(Chain);
         }
@@ -74,7 +74,6 @@ public class ChainSystem : MonoBehaviour
 
         if (bestEnemyAIAction != null && enemyUnit.TrySpendActionPointsToTakeAction(bestBaseAction))
         {
-            Debug.Log("몬스터 인식");
             bestBaseAction.TakeAction(bestEnemyAIAction.gridPosition, onEnemyAIActionComplete);
             return true;
         }

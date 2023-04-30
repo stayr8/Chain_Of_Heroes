@@ -63,7 +63,7 @@ public class EnemyAI : MonoBehaviour
                         if (!TurnSystem.Property.IsTurnEnd)
                         {
                             // NO more enemies have actions they can take, end enemy turn
-                            TurnSystem.Property.IsPlayerTurn = !TurnSystem.Property.IsPlayerTurn;
+                            TurnSystem.Property.IsPlayerTurn = true;
                         }
                     }
                 }

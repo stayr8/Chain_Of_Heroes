@@ -13,9 +13,11 @@ public class ChainAttackAction : BaseAction
     {
         SwingingChainAttackStart,
         SwingingChainAttackOnLocationMove,
+        SwingingChainAttackWait,
         SwingingChainAttackMoveOn,
         SwingingChainAttackMoving,
         SwingingChainAttackSlash,
+        SwingingChainAttackFade,
         SwingingChainAttackOffLocationMove,
         SwingingChainAttackComplete,
     }
@@ -55,6 +57,9 @@ public class ChainAttackAction : BaseAction
             case State.SwingingChainAttackOnLocationMove:
 
                 break;
+            case State.SwingingChainAttackWait:
+
+                break;
             case State.SwingingChainAttackMoveOn:
                 
                 break;
@@ -80,6 +85,9 @@ public class ChainAttackAction : BaseAction
             case State.SwingingChainAttackSlash:
 
                 break;
+            case State.SwingingChainAttackFade:
+
+                break;
             case State.SwingingChainAttackOffLocationMove:
 
                 break;
@@ -99,13 +107,12 @@ public class ChainAttackAction : BaseAction
         switch (state)
         {
             case State.SwingingChainAttackStart:
-                AttackActionSystem.Instance.SetIsChainAtk(true);
-                float afterHitStateTime = 1.0f;
-                stateTimer = afterHitStateTime;
+                TimeAttack(1.0f);
                 state = State.SwingingChainAttackOnLocationMove;
 
                 break;
             case State.SwingingChainAttackOnLocationMove:
+
                 if (unit.GetChainfirst())
                 {
                     AttackActionSystem.Instance.OnAtChainLocationMove_1(unit);
@@ -114,13 +121,58 @@ public class ChainAttackAction : BaseAction
                 {
                     AttackActionSystem.Instance.OnAtChainLocationMove_2(unit);
                 }
-                float afterHitStateTime_0 = 0.5f;
-                stateTimer = afterHitStateTime_0;
-                state = State.SwingingChainAttackMoveOn;
+                TimeAttack(0.5f);
+                state = State.SwingingChainAttackWait;
+
+                break;
+            case State.SwingingChainAttackWait:
+                if (unit.GetChainfirst())
+                {
+                    if (AttackActionSystem.Instance.GetIsChainAtk_1())
+                    {
+                        if(targetUnit.GetHealth() <= 0)
+                        {
+                            state = State.SwingingChainAttackFade;
+                        }
+                        else
+                        {
+                            ActionCameraStart_1();
+                            TimeAttack(0.8f);
+                            state = State.SwingingChainAttackMoveOn;
+                        }
+                        
+                    }
+                    else
+                    {
+                        TimeAttack(0.2f);
+                    }
+                }
+                else if (unit.GetChaintwo())
+                {
+                    if (AttackActionSystem.Instance.GetIsChainAtk_2())
+                    {
+                        if (targetUnit.GetHealth() <= 0)
+                        {
+                            state = State.SwingingChainAttackFade;
+                        }
+                        else
+                        {
+                            ActionCameraStart_1();
+
+                            TimeAttack(0.8f);
+                            state = State.SwingingChainAttackMoveOn;
+                        }
+                    }
+                    else
+                    {
+                        TimeAttack(0.2f);
+                    }
+                }
 
                 break;
             case State.SwingingChainAttackMoveOn:
-                if(!AttackActionSystem.Instance.GetIsAtk())
+                ActionCameraComplete_1();
+                if (!AttackActionSystem.Instance.GetIsAtk())
                 {
                     OnChainAttackStartMoving?.Invoke(this, EventArgs.Empty);
                     state = State.SwingingChainAttackMoving;
@@ -132,35 +184,87 @@ public class ChainAttackAction : BaseAction
 
                 break;
             case State.SwingingChainAttackSlash:
-                OnChainAttackSwordSlash?.Invoke(this, EventArgs.Empty);
-                AttackActionSystem.Instance.SetIsChainAtk(false);
+                if (unit.GetChainfirst())
+                {
+                    OnChainAttackSwordSlash?.Invoke(this, EventArgs.Empty);
+                    if (AttackActionSystem.Instance.GetTripleChain())
+                    {
+                        AttackActionSystem.Instance.SetTripleChainPosition();
+                    }
+                }
+                else if (unit.GetChaintwo())
+                {
+                    OnChainAttackSwordSlash?.Invoke(this, EventArgs.Empty);
+                    AttackActionSystem.Instance.SetIsChainAtk_2(false);
+                }
 
-                float afterHitStateTime_2 = 1.0f;
-                stateTimer = afterHitStateTime_2;
-                state = State.SwingingChainAttackOffLocationMove;
+                TimeAttack(1.0f);
+                state = State.SwingingChainAttackFade;
+
+                break;
+            case State.SwingingChainAttackFade:
+                if (unit.GetChainfirst())
+                {
+                    AttackActionSystem.Instance.SetIsChainAtk_1(false);
+
+                    if (!AttackActionSystem.Instance.GetTripleChain())
+                    {
+                        ScreenManager._instance._LoadScreenTextuer();
+
+                        TimeAttack(0.1f);
+                        state = State.SwingingChainAttackOffLocationMove;
+                    }
+                    else
+                    {
+                        AttackActionSystem.Instance.SetIsChainAtk_2(true);
+
+                        TimeAttack(0.5f);
+                        state = State.SwingingChainAttackOffLocationMove;
+                    }
+                }
+                else if (unit.GetChaintwo())
+                {
+                    ScreenManager._instance._LoadScreenTextuer();
+
+                    TimeAttack(0.1f);
+                    state = State.SwingingChainAttackOffLocationMove;
+                }
 
                 break;
             case State.SwingingChainAttackOffLocationMove:
                 if (unit.GetChainfirst())
                 {
-                    AttackActionSystem.Instance.OffAtChainLocationMove_1(unit);
+                    AttackActionSystem.Instance.OffAtChainLocationMove_1(unit, targetUnit);
+                    if (!AttackActionSystem.Instance.GetTripleChain())
+                    {
+                        AttackActionSystem.Instance.SetChainStart(false);
+                        ActionCameraComplete();
+                    }
                 }
                 else if (unit.GetChaintwo())
                 {
-                    AttackActionSystem.Instance.OffAtChainLocationMove_2(unit);
+                    AttackActionSystem.Instance.OffAtChainLocationMove_2(unit, targetUnit);
+                    AttackActionSystem.Instance.SetTripleChain(false);
+                    AttackActionSystem.Instance.SetChainStart(false);
+                    ActionCameraComplete();
                 }
-                
-                float afterHitStateTime_3 = 0.5f;
-                stateTimer = afterHitStateTime_3;
+
+                TimeAttack(0.2f);
                 state = State.SwingingChainAttackComplete;
 
                 break;
             case State.SwingingChainAttackComplete:
+
                 ActionComplete();
 
                 break;
         }
 
+    }
+    void TimeAttack(float StateTime)
+    {
+        float afterHitStateTime = StateTime;
+        stateTimer = afterHitStateTime;
     }
 
     public override List<GridPosition> GetValidActionGridPositionList()
@@ -175,8 +279,7 @@ public class ChainAttackAction : BaseAction
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
 
         state = State.SwingingChainAttackStart;
-        float beforeHitStateTime = 0.7f;
-        stateTimer = beforeHitStateTime;
+        TimeAttack(0.7f);
 
         ActionStart(onActionComplete);
     }

@@ -76,6 +76,9 @@ public class MonsterBase : MonoBehaviour
         // 데미지 넣기
         // Attack((int)finalDamage);
         MDM.m_hp -= (int)finalDamage;
+
+        Vector3 pos = new Vector3(this.transform.position.x + 1f, this.transform.position.y + 1f, this.transform.position.z);
+        DamagePopup.Create(pos, (int)finalDamage, isCritical);
         //MDM.Damage();
         //Debug.Log("몬스터 피격! 몬스터의 남은 체력은: " + MDM.m_hp);
     }

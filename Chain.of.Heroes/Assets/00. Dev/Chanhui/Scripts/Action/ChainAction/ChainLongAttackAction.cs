@@ -6,6 +6,8 @@ using UnityEngine;
 public class ChainLongAttackAction : BaseAction
 {
     public event EventHandler<OnChainShootEventArgs> OnChainShoot;
+    //public event EventHandler OnChainLongAttackStartMoving;
+    //public event EventHandler OnChainLongAttackStopMoving;
 
     public class OnChainShootEventArgs : EventArgs
     {
@@ -15,13 +17,14 @@ public class ChainLongAttackAction : BaseAction
 
     private enum State
     {
-        SwingingChainAttackStart,
-        SwingingChainAttackOnLocationMove,
-        SwingingChainAttackWait,
-        SwingingChainAttackAiming,
-        SwingingChainAttackShooting,
-        SwingingChainAttackOffLocationMove,
-        SwingingChainAttackComplete,
+        SwingingChainLongAttackStart,
+        SwingingChainLongAttackOnLocationMove,
+        SwingingChainLongAttackWait,
+        SwingingChainLongAttackAiming,
+        SwingingChainLongAttackShooting,
+        SwingingChainLongAttackFade,
+        SwingingChainLongAttackOffLocationMove,
+        SwingingChainLongAttackComplete,
     }
 
 
@@ -51,25 +54,31 @@ public class ChainLongAttackAction : BaseAction
 
         switch (state)
         {
-            case State.SwingingChainAttackStart:
+            case State.SwingingChainLongAttackStart:
                 Vector3 aimDir = (targetUnit.GetWorldPosition() - unit.GetWorldPosition()).normalized;
                 float rotateSpeed = 20f;
                 transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateSpeed);
 
                 break;
-            case State.SwingingChainAttackOnLocationMove:
+            case State.SwingingChainLongAttackOnLocationMove:
 
                 break;
-            case State.SwingingChainAttackWait:
+            case State.SwingingChainLongAttackWait:
 
                 break;
-            case State.SwingingChainAttackShooting:
+            case State.SwingingChainLongAttackAiming:
 
                 break;
-            case State.SwingingChainAttackOffLocationMove:
+            case State.SwingingChainLongAttackShooting:
 
                 break;
-            case State.SwingingChainAttackComplete:
+            case State.SwingingChainLongAttackFade:
+
+                break;
+            case State.SwingingChainLongAttackOffLocationMove:
+
+                break;
+            case State.SwingingChainLongAttackComplete:
 
                 break;
         }
@@ -84,14 +93,14 @@ public class ChainLongAttackAction : BaseAction
     {
         switch (state)
         {
-            case State.SwingingChainAttackStart:
-                AttackActionSystem.Instance.SetIsChainAtk(true);
-                float afterHitStateTime = 1.0f;
-                stateTimer = afterHitStateTime;
-                state = State.SwingingChainAttackOnLocationMove;
+            case State.SwingingChainLongAttackStart:
+
+                TimeAttack(1.0f);
+                state = State.SwingingChainLongAttackOnLocationMove;
 
                 break;
-            case State.SwingingChainAttackOnLocationMove:
+            case State.SwingingChainLongAttackOnLocationMove:
+
                 if (unit.GetChainfirst())
                 {
                     AttackActionSystem.Instance.OnAtChainLocationMove_1(unit);
@@ -100,53 +109,164 @@ public class ChainLongAttackAction : BaseAction
                 {
                     AttackActionSystem.Instance.OnAtChainLocationMove_2(unit);
                 }
-                float afterHitStateTime_0 = 1.0f;
-                stateTimer = afterHitStateTime_0;
-                state = State.SwingingChainAttackWait;
+
+                TimeAttack(0.5f);
+                state = State.SwingingChainLongAttackWait;
 
                 break;
-            case State.SwingingChainAttackWait:
-                float afterHitStateTime_1 = 1.5f;
-                stateTimer = afterHitStateTime_1;
-                AttackActionSystem.Instance.SetCharacterDataManager(unit.GetCharacterDataManager());
-                state = State.SwingingChainAttackShooting;
-
-                break;
-            case State.SwingingChainAttackShooting:
-                if (canShootBullet)
-                {
-                    Shoot();
-                    canShootBullet = false;
-                    AttackActionSystem.Instance.SetIsChainAtk(false);
-                }
-                
-
-                float afterHitStateTime_2 = 1.0f;
-                stateTimer = afterHitStateTime_2;
-                state = State.SwingingChainAttackOffLocationMove;
-
-                break;
-            case State.SwingingChainAttackOffLocationMove:
+            case State.SwingingChainLongAttackWait:
                 if (unit.GetChainfirst())
                 {
-                    AttackActionSystem.Instance.OffAtChainLocationMove_1(unit);
+                    if (AttackActionSystem.Instance.GetIsChainAtk_1())
+                    {
+                        AttackActionSystem.Instance.SetCharacterDataManager(unit.GetCharacterDataManager());
+                        ActionCameraComplete_1();
+
+                        if (targetUnit.GetHealth() <= 0)
+                        {
+                            state = State.SwingingChainLongAttackFade;
+                        }
+                        else
+                        {
+                            ActionCameraStart_1();
+                            TimeAttack(0.8f);
+                            state = State.SwingingChainLongAttackAiming;
+                        }
+
+                    }
+                    else
+                    {
+                        TimeAttack(0.2f);
+                    }
                 }
                 else if (unit.GetChaintwo())
                 {
-                    AttackActionSystem.Instance.OffAtChainLocationMove_2(unit);
+                    if (AttackActionSystem.Instance.GetIsChainAtk_2())
+                    {
+                        AttackActionSystem.Instance.SetCharacterDataManager(unit.GetCharacterDataManager());
+                        ActionCameraComplete_1();
+
+                        if (targetUnit.GetHealth() <= 0)
+                        {
+                            state = State.SwingingChainLongAttackFade;
+                        }
+                        else
+                        {
+                            ActionCameraStart_1();
+                            TimeAttack(0.8f);
+                            state = State.SwingingChainLongAttackAiming;
+                        }
+                    }
+                    else
+                    {
+                        TimeAttack(0.2f);
+                    }
                 }
-                float afterHitStateTime_3 = 0.5f;
-                stateTimer = afterHitStateTime_3;
-                state = State.SwingingChainAttackComplete;
 
                 break;
-            case State.SwingingChainAttackComplete:
+            case State.SwingingChainLongAttackAiming:
+                ActionCameraComplete_1();
+
+                TimeAttack(0.3f);
+                state = State.SwingingChainLongAttackShooting;
+
+                break;
+            case State.SwingingChainLongAttackShooting:
+                
+                if (unit.GetChainfirst())
+                {
+                    //AttackActionSystem.Instance.Camera();
+                    if (canShootBullet)
+                    {
+                        Shoot();
+                        canShootBullet = false;
+                    }
+
+                    if (AttackActionSystem.Instance.GetTripleChain())
+                    {
+                        AttackActionSystem.Instance.SetTripleChainPosition();
+                    }
+                }
+                else if (unit.GetChaintwo())
+                {
+                    //AttackActionSystem.Instance.Camera2();
+                    if (canShootBullet)
+                    {
+                        Shoot();
+                        canShootBullet = false;
+                    }
+
+                    AttackActionSystem.Instance.SetIsChainAtk_2(false);
+                }
+
+                TimeAttack(0.7f);
+                state = State.SwingingChainLongAttackFade;
+
+                break;
+            case State.SwingingChainLongAttackFade:
+                if (unit.GetChainfirst())
+                {
+                    AttackActionSystem.Instance.SetIsChainAtk_1(false);
+
+                    if (!AttackActionSystem.Instance.GetTripleChain())
+                    {
+                        ScreenManager._instance._LoadScreenTextuer();
+
+                        TimeAttack(0.1f);
+                        state = State.SwingingChainLongAttackOffLocationMove;
+                    }
+                    else
+                    {
+                        AttackActionSystem.Instance.Camera2();
+                        AttackActionSystem.Instance.SetIsChainAtk_2(true);
+
+                        TimeAttack(0.5f);
+                        state = State.SwingingChainLongAttackOffLocationMove;
+                    }
+                }
+                else if (unit.GetChaintwo())
+                {
+                    ScreenManager._instance._LoadScreenTextuer();
+
+                    TimeAttack(0.1f);
+                    state = State.SwingingChainLongAttackOffLocationMove;
+                }
+
+                break;
+            case State.SwingingChainLongAttackOffLocationMove:
+                if (unit.GetChainfirst())
+                {
+                    AttackActionSystem.Instance.OffAtChainLocationMove_1(unit, targetUnit);
+                    if (!AttackActionSystem.Instance.GetTripleChain())
+                    {
+                        AttackActionSystem.Instance.SetChainStart(false);
+                        ActionCameraComplete();
+                    }
+                }
+                else if (unit.GetChaintwo())
+                {
+                    AttackActionSystem.Instance.OffAtChainLocationMove_2(unit, targetUnit);
+                    AttackActionSystem.Instance.SetTripleChain(false);
+                    AttackActionSystem.Instance.SetChainStart(false);
+                    ActionCameraComplete();
+                }
+
+                TimeAttack(0.2f);
+                state = State.SwingingChainLongAttackComplete;
+
+                break;
+            case State.SwingingChainLongAttackComplete:
 
                 ActionComplete();
 
                 break;
         }
 
+    }
+    void TimeAttack(float StateTime)
+    {
+        float afterHitStateTime = StateTime;
+        stateTimer = afterHitStateTime;
     }
 
     private void Shoot()
@@ -169,9 +289,8 @@ public class ChainLongAttackAction : BaseAction
     {
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
 
-        state = State.SwingingChainAttackStart;
-        float beforeHitStateTime = 0.7f;
-        stateTimer = beforeHitStateTime;
+        TimeAttack(0.7f);
+        state = State.SwingingChainLongAttackStart;
 
         canShootBullet = true;
 

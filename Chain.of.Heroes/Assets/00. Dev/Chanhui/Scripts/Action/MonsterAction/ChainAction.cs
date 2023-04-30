@@ -20,8 +20,8 @@ public class ChainAction : BaseAction
             targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(validGridPositionList[0]);
             targetUnit2 = LevelGrid.Instance.GetUnitAtGridPosition(validGridPositionList[1]);
 
-            Debug.Log(targetUnit.GetUnitName());
-            Debug.Log(targetUnit2.GetUnitName());
+            //Debug.Log(targetUnit.GetUnitName());
+            //Debug.Log(targetUnit2.GetUnitName());
             BaseAction bestBaseAction = null;
             BaseAction bestBaseAction2 = null;
             if (targetUnit.GetIsAttackDistance())
@@ -46,6 +46,9 @@ public class ChainAction : BaseAction
                 targetUnit2.SetChaintwo(true);
             }
 
+            AttackActionSystem.Instance.SetChainStart(true);
+            AttackActionSystem.Instance.SetTripleChain(true);
+
             bestBaseAction.TakeAction(unit.GetGridPosition(), onActionComplete);
             bestBaseAction2.TakeAction(unit.GetGridPosition(), onActionComplete);
         }
@@ -53,7 +56,7 @@ public class ChainAction : BaseAction
         {
             targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
 
-            Debug.Log(targetUnit.GetUnitName());
+            //Debug.Log(targetUnit.GetUnitName());
             BaseAction bestBaseAction = null;
             if (targetUnit.GetIsAttackDistance())
             {
@@ -66,6 +69,7 @@ public class ChainAction : BaseAction
                 targetUnit.SetChainfirst(true);
             }
 
+            AttackActionSystem.Instance.SetChainStart(true);
 
             bestBaseAction.TakeAction(unit.GetGridPosition(), onActionComplete);
         }
@@ -141,7 +145,6 @@ public class ChainAction : BaseAction
                     // Path length is too long
                     continue;
                 }
-                Debug.Log(LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition).GetUnitName());
                 validGridPositionList.Add(testGridPosition);
             }
         }

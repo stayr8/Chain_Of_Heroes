@@ -17,8 +17,9 @@ public class RookAction : BaseAction
     {
         SwingingRookBeforeMoving,
         SwingingRookMoving,
-        SwingingRookAfterMoving,
         SwingingRookBeforeCamera,
+        SwingingRookAttackStand,
+        SwingingRookAfterMoving,
         SwingingRookAttackMoving,
         SwingingRookBeforeHit,
         SwingingRookAfterCamera,
@@ -97,6 +98,9 @@ public class RookAction : BaseAction
             case State.SwingingRookBeforeCamera:
 
                 break;
+            case State.SwingingRookAttackStand:
+
+                break;
             case State.SwingingRookAfterMoving:
 
                 break;
@@ -109,7 +113,7 @@ public class RookAction : BaseAction
                 float stoppingDistance1 = 1.5f;
                 if (Vector3.Distance(transform.position, targetDirection2) > stoppingDistance1)
                 {
-                    float moveSpeed = 6f;
+                    float moveSpeed = 15f;
                     transform.position += aimDir2 * moveSpeed * Time.deltaTime;
                 }
                 else
@@ -145,26 +149,31 @@ public class RookAction : BaseAction
                 break;
             case State.SwingingRookMoving:
                 AttackCameraStart();
-                float afterHitStateTime = 0.5f;
-                stateTimer = afterHitStateTime;
+
+                TimeAttack(0.5f);
                 state = State.SwingingRookBeforeCamera;
 
                 break;
             case State.SwingingRookBeforeCamera:
-                StageUI.Instance.Fade();
-                float afterHitStateTime_0 = 0.5f;
-                stateTimer = afterHitStateTime_0;
+                ScreenManager._instance._LoadScreenTextuer();
+
+                TimeAttack(0.1f);
+                state = State.SwingingRookAttackStand;
+
+                break;
+            case State.SwingingRookAttackStand:
+                AttackActionSystem.Instance.OnAtLocationMove(unit, targetUnit);
+                ActionCameraStart();
+
+                TimeAttack(1.0f);
                 state = State.SwingingRookAfterMoving;
 
                 break;
             case State.SwingingRookAfterMoving:
-                AttackActionSystem.Instance.OnAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
-                ActionCameraStart();
                 AttackCameraComplete();
                 OnRookStartMoving?.Invoke(this, EventArgs.Empty);
 
-                float afterHitStateTime_1 = 1.0f;
-                stateTimer = afterHitStateTime_1;
+                TimeAttack(1.0f);
                 state = State.SwingingRookAttackMoving;
 
                 break;
@@ -172,27 +181,45 @@ public class RookAction : BaseAction
 
                 break;
             case State.SwingingRookBeforeHit:
-                float afterHitStateTime_2 = 1.5f;
-                stateTimer = afterHitStateTime_2;
                 OnRookSwordSlash?.Invoke(this, EventArgs.Empty);
+
+                TimeAttack(1.0f);
                 state = State.SwingingRookAfterCamera;
 
                 break;
             case State.SwingingRookAfterCamera:
-                StageUI.Instance.Fade();
-                float afterHitStateTime_3 = 0.5f;
-                stateTimer = afterHitStateTime_3;
-                state = State.SwingingRookAfterHit;
+                if (!AttackActionSystem.Instance.GetChainStart())
+                {
+                    ScreenManager._instance._LoadScreenTextuer();
+                    TimeAttack(0.1f);
+                    state = State.SwingingRookAfterHit;
+                }
+                else
+                {
+                    AttackActionSystem.Instance.SetIsChainAtk_1(true);
+                    TimeAttack(0.5f);
+                    state = State.SwingingRookAfterHit;
+                }
+                AttackActionSystem.Instance.SetIsAtk(false);
 
                 break;
             case State.SwingingRookAfterHit:
-                ActionCameraComplete();
-                AttackActionSystem.Instance.OffAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
+                if (!AttackActionSystem.Instance.GetChainStart())
+                {
+                    ActionCameraComplete();
+                }
+                AttackActionSystem.Instance.OffAtLocationMove(unit, targetUnit);
 
                 ActionComplete();
 
                 break;
         }
+    }
+
+    void TimeAttack(float StateTime)
+    {
+        float afterHitStateTime = StateTime;
+        stateTimer = afterHitStateTime;
     }
 
     public override List<GridPosition> GetValidActionGridPositionList()
@@ -276,9 +303,8 @@ public class RookAction : BaseAction
     {
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
 
+        TimeAttack(0.7f);
         state = State.SwingingRookBeforeMoving;
-        float beforeHitStateTime = 0.7f;
-        stateTimer = beforeHitStateTime;
 
         List<GridPosition> pathgridPositionList = Pathfinding.Instance.AttackFindPath(unit.GetGridPosition(), gridPosition, out int pathLength);
 
@@ -291,6 +317,7 @@ public class RookAction : BaseAction
         }
 
         OnRookStartMoving?.Invoke(this, EventArgs.Empty);
+        AttackActionSystem.Instance.SetIsAtk(true);
 
         ActionStart(onActionComplete);
     }

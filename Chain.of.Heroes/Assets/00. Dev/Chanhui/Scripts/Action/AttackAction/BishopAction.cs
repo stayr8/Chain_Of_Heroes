@@ -17,8 +17,9 @@ public class BishopAction : BaseAction
     {
         SwingingBishopBeforeMoving,
         SwingingBishopMoving,
-        SwingingBishopAfterMoving,
         SwingingBishopBeforeCamera,
+        SwingingBishopAttackStand,
+        SwingingBishopAfterMoving,
         SwingingBishopAttackMoving,
         SwingingBishopBeforeHit,
         SwingingBishopAfterCamera,
@@ -95,6 +96,9 @@ public class BishopAction : BaseAction
             case State.SwingingBishopBeforeCamera:
 
                 break;
+            case State.SwingingBishopAttackStand:
+
+                break;
             case State.SwingingBishopAfterMoving:
 
                 break;
@@ -107,7 +111,7 @@ public class BishopAction : BaseAction
                 float stoppingDistance1 = 1.5f;
                 if (Vector3.Distance(transform.position, targetDirection2) > stoppingDistance1)
                 {
-                    float moveSpeed = 6f;
+                    float moveSpeed = 15f;
                     transform.position += aimDir2 * moveSpeed * Time.deltaTime;
                 }
                 else
@@ -143,26 +147,32 @@ public class BishopAction : BaseAction
                 break;
             case State.SwingingBishopMoving:
                 AttackCameraStart();
-                float afterHitStateTime = 0.5f;
-                stateTimer = afterHitStateTime;
+
+                TimeAttack(0.5f);
                 state = State.SwingingBishopBeforeCamera;
 
                 break;
             case State.SwingingBishopBeforeCamera:
-                StageUI.Instance.Fade();
-                float afterHitStateTime_0 = 0.5f;
-                stateTimer = afterHitStateTime_0;
+                ScreenManager._instance._LoadScreenTextuer();
+
+                TimeAttack(0.1f);
+                state = State.SwingingBishopAttackStand;
+
+                break;
+
+            case State.SwingingBishopAttackStand:
+                AttackActionSystem.Instance.OnAtLocationMove(unit, targetUnit);
+                ActionCameraStart();
+
+                TimeAttack(1.0f);
                 state = State.SwingingBishopAfterMoving;
 
                 break;
             case State.SwingingBishopAfterMoving:
-                AttackActionSystem.Instance.OnAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
-                ActionCameraStart();
                 AttackCameraComplete();
                 OnBishopStartMoving?.Invoke(this, EventArgs.Empty);
 
-                float afterHitStateTime_1 = 1.0f;
-                stateTimer = afterHitStateTime_1;
+                TimeAttack(1.0f);
                 state = State.SwingingBishopAttackMoving;
 
                 break;
@@ -170,30 +180,46 @@ public class BishopAction : BaseAction
 
                 break;
             case State.SwingingBishopBeforeHit:
-                float afterHitStateTime_2 = 1.5f;
-                stateTimer = afterHitStateTime_2;
                 OnBishopSwordSlash?.Invoke(this, EventArgs.Empty);
+
+                TimeAttack(1.0f);
                 state = State.SwingingBishopAfterCamera;
 
 
                 break;
             case State.SwingingBishopAfterCamera:
-                StageUI.Instance.Fade();
-                float afterHitStateTime_3 = 0.5f;
-                stateTimer = afterHitStateTime_3;
-                state = State.SwingingBishopAfterHit;
+                if (!AttackActionSystem.Instance.GetChainStart())
+                {
+                    ScreenManager._instance._LoadScreenTextuer();
+                    TimeAttack(0.1f);
+                    state = State.SwingingBishopAfterHit;
+                }
+                else
+                {
+                    AttackActionSystem.Instance.SetIsChainAtk_1(true);
+                    TimeAttack(0.5f);
+                    state = State.SwingingBishopAfterHit;
+                }
+                AttackActionSystem.Instance.SetIsAtk(false);
 
                 break;
             case State.SwingingBishopAfterHit:
-                ActionCameraComplete();
-                AttackActionSystem.Instance.OffAtLocationMove(UnitActionSystem.Instance.GetSelecterdUnit(), targetUnit);
+                if (!AttackActionSystem.Instance.GetChainStart())
+                {
+                    ActionCameraComplete();
+                }
+                AttackActionSystem.Instance.OffAtLocationMove(unit, targetUnit);
 
                 ActionComplete();
 
                 break;
         }
     }
-
+    void TimeAttack(float StateTime)
+    {
+        float afterHitStateTime = StateTime;
+        stateTimer = afterHitStateTime;
+    }
     public override List<GridPosition> GetValidActionGridPositionList()
     {
         GridPosition unitGridPosition = unit.GetGridPosition();
@@ -275,9 +301,8 @@ public class BishopAction : BaseAction
     {
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
 
-        state = State.SwingingBishopBeforeMoving;
-        float beforeHitStateTime = 0.7f;
-        stateTimer = beforeHitStateTime;
+        TimeAttack(0.7f);
+        state = State.SwingingBishopBeforeMoving; 
 
         List<GridPosition> pathgridPositionList = Pathfinding.Instance.AttackFindPath(unit.GetGridPosition(), gridPosition, out int pathLength);
 
@@ -290,6 +315,7 @@ public class BishopAction : BaseAction
         }
 
         OnBishopStartMoving?.Invoke(this, EventArgs.Empty);
+        AttackActionSystem.Instance.SetIsAtk(true);
 
         ActionStart(onActionComplete);
     }

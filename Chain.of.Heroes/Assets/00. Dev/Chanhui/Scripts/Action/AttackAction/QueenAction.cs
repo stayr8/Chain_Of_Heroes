@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class QueenAction : BaseAction
 {
     public event EventHandler OnQueenStartMoving;
@@ -149,32 +150,32 @@ public class QueenAction : BaseAction
                 break;
             case State.SwingingQueenMoving:
                 AttackCameraStart();
-                float afterHitStateTime = 0.5f;
-                stateTimer = afterHitStateTime;
+
+                TimeAttack(0.5f);
                 state = State.SwingingQueenBeforeCamera;
 
                 break;
             case State.SwingingQueenBeforeCamera:
-                StageUI.Instance.Fade();
-                float afterHitStateTime_0 = 0.5f;
-                stateTimer = afterHitStateTime_0;
+                ScreenManager._instance._LoadScreenTextuer();
+
+                TimeAttack(0.1f);
                 state = State.SwingingQueenAttackStand;
 
                 break;
             case State.SwingingQueenAttackStand:
                 AttackActionSystem.Instance.OnAtLocationMove(unit, targetUnit);
                 ActionCameraStart();
-                AttackCameraComplete();
-                stateTimer = 0.8f;
+
+                TimeAttack(1.0f);
                 state = State.SwingingQueenAfterMoving;
 
                 break;
             case State.SwingingQueenAfterMoving:
+                AttackCameraComplete();
                 //OnQueenDash?.Invoke(this, EventArgs.Empty);
                 OnQueenStartMoving?.Invoke(this, EventArgs.Empty);
 
-                float afterHitStateTime_1 = 1.0f;
-                stateTimer = afterHitStateTime_1;
+                TimeAttack(1.0f);
                 state = State.SwingingQueenAttackMoving;
 
                 break;
@@ -182,42 +183,45 @@ public class QueenAction : BaseAction
 
                 break;
             case State.SwingingQueenBeforeHit:
-                if (!isAtk)
-                {
-                    OnQueenSwordSlash?.Invoke(this, EventArgs.Empty);
-                    AttackActionSystem.Instance.SetIsAtk(false);
-                    isAtk = true;
-                }
+                OnQueenSwordSlash?.Invoke(this, EventArgs.Empty);
+
+                TimeAttack(1.0f);
+                state = State.SwingingQueenAfterCamera;
                 
-                
-                if (!AttackActionSystem.Instance.GetIsChainAtk())
-                {
-                    float afterHitStateTime_2 = 1.0f;
-                    stateTimer = afterHitStateTime_2;
-                    state = State.SwingingQueenAfterCamera;
-                }
-                else
-                {
-                    float afterHitStateTime_2 = 0.1f;
-                    stateTimer = afterHitStateTime_2;
-                }
 
                 break;
             case State.SwingingQueenAfterCamera:
-                StageUI.Instance.Fade();
-                float afterHitStateTime_3 = 0.5f;
-                stateTimer = afterHitStateTime_3;
-                state = State.SwingingQueenAfterHit;
+                if (!AttackActionSystem.Instance.GetChainStart())
+                {
+                    ScreenManager._instance._LoadScreenTextuer();
+                    TimeAttack(0.1f);
+                    state = State.SwingingQueenAfterHit;
+                }
+                else
+                {
+                    AttackActionSystem.Instance.SetIsChainAtk_1(true);
+                    TimeAttack(0.5f);
+                    state = State.SwingingQueenAfterHit;
+                }
+                AttackActionSystem.Instance.SetIsAtk(false);
 
                 break;
             case State.SwingingQueenAfterHit:
-                ActionCameraComplete();
+                if (!AttackActionSystem.Instance.GetChainStart())
+                {
+                    ActionCameraComplete();
+                }
                 AttackActionSystem.Instance.OffAtLocationMove(unit, targetUnit);
+
                 ActionComplete();
-                isAtk = false;
 
                 break;
         }
+    }
+    void TimeAttack(float StateTime)
+    {
+        float afterHitStateTime = StateTime;
+        stateTimer = afterHitStateTime;
     }
 
     public override List<GridPosition> GetValidActionGridPositionList()
@@ -303,8 +307,7 @@ public class QueenAction : BaseAction
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
 
         state = State.SwingingQueenBeforeMoving;
-        float beforeHitStateTime = 0.7f;
-        stateTimer = beforeHitStateTime;
+        TimeAttack(0.7f);
 
         List<GridPosition> pathgridPositionList = Pathfinding.Instance.AttackFindPath(unit.GetGridPosition(), gridPosition, out int pathLength);
 

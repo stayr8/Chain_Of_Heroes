@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class StageUI : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class StageUI : MonoBehaviour
     [SerializeField] private GameObject TurnSystemUI;
     [SerializeField] private GameObject GameCondition;
     [SerializeField] private Image Panel;
+
+    [SerializeField] private TextMeshProUGUI turnNumberText;
 
     private float time = 0f;
 
@@ -49,11 +52,13 @@ public class StageUI : MonoBehaviour
             {
                 PlayerShow();
                 EnemyHide();
+                turnNumberText.text = "TURN " + TurnSystem.Property.TurnNumber;
             }
             else
             {
                 EnemyShow();
                 PlayerHide();
+                turnNumberText.text = "TURN " + TurnSystem.Property.TurnNumber;
             }
 
         },false);
@@ -61,7 +66,7 @@ public class StageUI : MonoBehaviour
 
         PlayerHide();
         EnemyHide();
-
+        turnNumberText.text = "TURN " + TurnSystem.Property.TurnNumber;
     }
 
     private void Update()

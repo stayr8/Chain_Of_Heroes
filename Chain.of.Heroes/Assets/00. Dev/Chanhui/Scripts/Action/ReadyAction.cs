@@ -20,6 +20,7 @@ public class ReadyAction : BaseAction
         SwingingArcherAttackCameraStart,
         SwingingArcherBeforeCamera,
         SwingingArcherAttackCameraEnd,
+        SwingingArcherAttackStand,
         SwingingArcherAiming,
         SwingingArcherShooting,
         SwingingArcherCooloff,
@@ -56,6 +57,9 @@ public class ReadyAction : BaseAction
             case State.SwingingArcherAttackCameraEnd:
 
                 break;
+            case State.SwingingArcherAttackStand:
+
+                break;
             case State.SwingingArcherAiming:
                 
 
@@ -80,15 +84,15 @@ public class ReadyAction : BaseAction
         {
             case State.SwingingArcherAttackCameraStart:
                 AttackCameraStart();
-                float afterHitStateTime = 0.5f;
-                stateTimer = afterHitStateTime;
+
+                TimeAttack(0.5f);
                 state = State.SwingingArcherBeforeCamera;
 
                 break;
             case State.SwingingArcherBeforeCamera:
-                StageUI.Instance.Fade();
-                float afterHitStateTime_0 = 0.5f;
-                stateTimer = afterHitStateTime_0;
+                ScreenManager._instance._LoadScreenTextuer();
+
+                TimeAttack(0.1f);
                 state = State.SwingingArcherAttackCameraEnd;
 
                 break;
@@ -102,9 +106,15 @@ public class ReadyAction : BaseAction
                     AttackActionSystem.Instance.OnAtLocationMove(unit, targetUnit);
                 }
                 ActionCameraStart();
+
+                TimeAttack(1.0f);
+                state = State.SwingingArcherAttackStand;
+
+                break;
+            case State.SwingingArcherAttackStand:
                 AttackCameraComplete();
-                float afterHitStateTime_1 = 1.0f;
-                stateTimer = afterHitStateTime_1;
+
+                TimeAttack(0.3f);
                 state = State.SwingingArcherAiming;
 
                 break;
@@ -114,44 +124,66 @@ public class ReadyAction : BaseAction
                 {
                     Shoot();
                     canShootBullet = false;
-                    AttackActionSystem.Instance.SetIsAtk(false);
+                    //AttackActionSystem.Instance.SetIsAtk(false);
                 }
 
-                if (!AttackActionSystem.Instance.GetIsChainAtk())
-                {
-                    float afterHitStateTime_2 = 1.0f;
-                    stateTimer = afterHitStateTime_2;
-                    state = State.SwingingArcherShooting;
-                }
-                else
-                {
-                    float afterHitStateTime_2 = 0.1f;
-                    stateTimer = afterHitStateTime_2;
-                }
+                TimeAttack(1.0f);
+                state = State.SwingingArcherShooting;
 
                 break;
             case State.SwingingArcherShooting:
-                StageUI.Instance.Fade();
-                float afterHitStateTime_3 = 0.5f;
-                stateTimer = afterHitStateTime_3;
-                state = State.SwingingArcherCooloff;
+                if (unit.IsEnemy())
+                {
+                    ScreenManager._instance._LoadScreenTextuer();
+                    TimeAttack(0.1f);
+                    state = State.SwingingArcherCooloff;
+                }
+                else
+                {
+                    if (!AttackActionSystem.Instance.GetChainStart())
+                    {
+                        ScreenManager._instance._LoadScreenTextuer();
+
+                        TimeAttack(0.1f);
+                        state = State.SwingingArcherCooloff;
+                    }
+                    else
+                    {
+                        AttackActionSystem.Instance.SetIsChainAtk_1(true);
+                        AttackActionSystem.Instance.Camera();
+                        AttackActionSystem.Instance.OffAtLocationMove(unit, targetUnit);
+
+                        TimeAttack(0.5f);
+                        state = State.SwingingArcherCooloff;
+                    }
+                    AttackActionSystem.Instance.SetIsAtk(false);
+                }
 
                 break;
             case State.SwingingArcherCooloff:
-                ActionCameraComplete();
+
                 if (unit.IsEnemy())
                 {
                     AttackActionSystem.Instance.OffAtLocationMove(targetUnit, unit);
                 }
                 else
                 {
-                    AttackActionSystem.Instance.OffAtLocationMove(unit, targetUnit);
+                    if (!AttackActionSystem.Instance.GetChainStart())
+                    {
+                        ActionCameraComplete();
+                    }
+                    //AttackActionSystem.Instance.OffAtLocationMove(unit, targetUnit);
                 }
 
                 ActionComplete();
                 break;
         }
 
+    }
+    void TimeAttack(float StateTime)
+    {
+        float afterHitStateTime = StateTime;
+        stateTimer = afterHitStateTime;
     }
 
     private void Shoot()
@@ -237,12 +269,12 @@ public class ReadyAction : BaseAction
     {
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
 
+        TimeAttack(0.7f);
         state = State.SwingingArcherAttackCameraStart;
-        float aimingStateTime = 0.7f;
-        stateTimer = aimingStateTime;
 
         canShootBullet = true;
-        if(!unit.IsEnemy())
+
+        if (!unit.IsEnemy())
         {
             AttackActionSystem.Instance.SetIsAtk(true);
         }

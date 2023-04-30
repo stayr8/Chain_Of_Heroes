@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3658850564820125977}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.161, y: 0, z: -1.29}
+  m_LocalPosition: {x: 0.16278532, y: -0.35851234, z: -1.2154534}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -114,13 +114,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4a417cd945847f4cbac5553b3a2861f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnemy: 1
   CameraPos: {fileID: 0}
   CameraFollow: {fileID: 0}
+  IsGrid: 0
+  isEnemy: 1
   newEnemyActionPoints: 2
   SoloEnemyActionPoints: 0
   enemyType: 1
   UnitName: "\uAD81\uC218\uACE0\uBE14\uB9B0"
+  IsLongdistance: 0
 --- !u!114 &1212361113084644278
 MonoBehaviour:
   m_ObjectHideFlags: 0

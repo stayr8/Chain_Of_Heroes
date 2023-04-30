@@ -5,11 +5,11 @@ using UnityEngine;
 
 public abstract class BaseAction : MonoBehaviour
 {
-    public static event EventHandler OnAnyActionStarted;
-    public static event EventHandler OnAnyActionCompleted;
     public static event EventHandler OnAnyAttackStarted;
     public static event EventHandler OnAnyAttackCompleted;
 
+    public static event EventHandler OnAnyActionStarted_1;
+    public static event EventHandler OnAnyActionCompleted_1;
 
     protected Unit unit;
     protected bool isActive;
@@ -82,16 +82,24 @@ public abstract class BaseAction : MonoBehaviour
 
     protected void ActionCameraStart()
     {
-        OnAnyActionStarted?.Invoke(this, EventArgs.Empty);
         StageUI.Instance.TurnSystemHide();
         StageUI.Instance.AttackShow();
     }
 
     protected void ActionCameraComplete()
     {
-        OnAnyActionCompleted?.Invoke(this, EventArgs.Empty);
         StageUI.Instance.AttackHide();
         StageUI.Instance.TurnSystemShow();
+    }
+
+    protected void ActionCameraStart_1()
+    {
+        OnAnyActionStarted_1?.Invoke(this, EventArgs.Empty);
+    }
+
+    protected void ActionCameraComplete_1()
+    {
+        OnAnyActionCompleted_1?.Invoke(this, EventArgs.Empty);
     }
 
     protected void AttackCameraStart()
