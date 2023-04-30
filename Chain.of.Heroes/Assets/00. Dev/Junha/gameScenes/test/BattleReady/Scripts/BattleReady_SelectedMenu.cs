@@ -51,22 +51,19 @@ public class BattleReady_SelectedMenu : MonoBehaviour, ISelectHandler, IDeselect
         {
             setPos(45f, rt.anchoredPosition.y);
         }
-        else if (gameObject.name == "_Maintenance")
+        else if (gameObject.name == "_ChangeFormation")
         {
             setPos(35f, rt.anchoredPosition.y);
         }
-        else if (gameObject.name == "_ChangeFormation")
+        else if (gameObject.name == "_Save")
         {
             setPos(25f, rt.anchoredPosition.y);
         }
-        else if (gameObject.name == "_Save")
+        else if (gameObject.name == "_Back")
         {
             setPos(15f, rt.anchoredPosition.y);
         }
-        else if (gameObject.name == "_Back")
-        {
-            setPos(5f, rt.anchoredPosition.y);
-        }
+
         rt.sizeDelta = new Vector2(557f, rt.sizeDelta.y);
     }
     private void notSelect()
@@ -81,22 +78,19 @@ public class BattleReady_SelectedMenu : MonoBehaviour, ISelectHandler, IDeselect
         {
             setPos(-55f, rt.anchoredPosition.y);
         }
-        else if (gameObject.name == "_Maintenance")
+        else if (gameObject.name == "_ChangeFormation")
         {
             setPos(-65f, rt.anchoredPosition.y);
         }
-        else if (gameObject.name == "_ChangeFormation")
+        else if (gameObject.name == "_Save")
         {
             setPos(-75f, rt.anchoredPosition.y);
         }
-        else if (gameObject.name == "_Save")
+        else if (gameObject.name == "_Back")
         {
             setPos(-85f, rt.anchoredPosition.y);
         }
-        else if (gameObject.name == "_Back")
-        {
-            setPos(-95f, rt.anchoredPosition.y);
-        }
+
         rt.sizeDelta = new Vector2(335f, rt.sizeDelta.y);
     }
 

@@ -95,6 +95,7 @@ public class CursorBase : MonoBehaviour
 
     /// <summary>
     /// BattleReady_UnitFormationCursor 사용
+    /// BattleReady_ChangeFormationCursor 사용
     /// </summary>
     protected virtual void Movement(RectTransform _rt, ref GameObject _currentSelected, float _moveDistance_X, float _moveDistance_Y, float _minX, float _maxX, float _minY, float _maxY)
     {
@@ -154,6 +155,24 @@ public class CursorBase : MonoBehaviour
             {
                 _rt.anchoredPosition = new Vector2(_rt.anchoredPosition.x, _maxY);
             }
+        }
+    }
+
+    protected virtual void Movement(ref GameObject _currentSelected)
+    {
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            SoundManager.instance.Sound_SelectMenu();
+
+            _currentSelected = _currentSelected.GetComponent<Selectable>().FindSelectableOnUp().gameObject;
+            _currentSelected.GetComponent<Selectable>().Select();
+        }
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            SoundManager.instance.Sound_SelectMenu();
+
+            _currentSelected = _currentSelected.GetComponent<Selectable>().FindSelectableOnDown().gameObject;
+            _currentSelected.GetComponent<Selectable>().Select();
         }
     }
 }

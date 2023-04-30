@@ -11,6 +11,8 @@ public class BattleReady_MenuSelectCursor : CursorBase
     private RectTransform rt;
     private GameObject currentSelected;
 
+    private const float INIT_X = -860f;
+    private const float INIT_Y = 200f;
     private void Awake()
     {
         rt = GetComponent<RectTransform>();
@@ -18,18 +20,11 @@ public class BattleReady_MenuSelectCursor : CursorBase
         Init(rt, INIT_X, INIT_Y, ref currentSelected, "_BattleStart");
     }
 
-    private const float INIT_X = -860f;
-    private const float INIT_Y = 200f;
-    private void OnEnable()
-    {
-
-    }
-
     public static bool isBattleStart = false;
     public static bool isBack = false;
     private const float MOVE_DISTANCE = 100f;
     private const float MAX_POSITION_X = -860f; private const float MAX_POSITION_Y = 200f;
-    private const float MIN_POSITION_X = -910f; private const float MIN_POSITION_Y = -300f;
+    private const float MIN_POSITION_X = -900f; private const float MIN_POSITION_Y = -200f;
     private void Update()
     {
         if (!isBattleStart || !isBack)
@@ -62,23 +57,13 @@ public class BattleReady_MenuSelectCursor : CursorBase
 
                 case "_UnitFormation":
                     BattleReady_UIManager.instance.OnUnitFormation();
-
-                    break;
-
-                case "_Maintenance":
-                    Debug.Log("정비");
-                    BattleReady_UIManager.instance.OnMaintenance();
-
                     break;
 
                 case "_ChangeFormation":
-                    Debug.Log("배치 변경");
                     BattleReady_UIManager.instance.OnChangeFormation();
-
                     break;
 
                 case "_Save":
-                    Debug.Log("저장");
                     BattleReady_UIManager.instance.OnSave();
 
                     break;
