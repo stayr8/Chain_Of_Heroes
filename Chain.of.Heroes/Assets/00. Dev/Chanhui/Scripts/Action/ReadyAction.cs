@@ -274,7 +274,10 @@ public class ReadyAction : BaseAction
 
         canShootBullet = true;
 
-        AttackActionSystem.Instance.SetIsAtk(true);
+        if (!unit.IsEnemy())
+        {
+            AttackActionSystem.Instance.SetIsAtk(true);
+        }
 
         ActionStart(onActionComplete);
     }

@@ -33,6 +33,9 @@ public class CharacterBase : MonoBehaviour
         // 데미지 넣기
         // Attack(monsterDamage);
         CDM.m_hp -= (int)monsterDamage;
+
+        Vector3 pos = new Vector3(this.transform.position.x + 1f, this.transform.position.y + 1f, this.transform.position.z);
+        DamagePopup.Create(pos, (int)monsterDamage, false);
         //CDM.Damage();
         //Debug.Log("캐릭터 피격! 캐릭터의 남은 체력은: " + CDM.m_hp);
     }

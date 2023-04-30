@@ -263,7 +263,10 @@ public class KingAction : BaseAction
         state = State.SwingingKingAttackCameraStart;
         TimeAttack(0.7f);
 
-        AttackActionSystem.Instance.SetIsAtk(true);
+        if (!unit.IsEnemy())
+        {
+            AttackActionSystem.Instance.SetIsAtk(true);
+        }
 
         ActionStart(onActionComplete);
     }
