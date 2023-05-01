@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class CursorBase : MonoBehaviour
 {
+    /// <summary>
+    /// 처음 커서의 포지션과 현재 선택된 버튼을 초기화
+    /// </summary>
     protected virtual void Init(RectTransform _rt, float _x, float _y, ref GameObject _currentSelected, string Object_Name)
     {
         _rt.anchoredPosition = new Vector2(_x, _y);
@@ -158,6 +161,9 @@ public class CursorBase : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// BattleReady_UnitFormationCursor 사용
+    /// </summary>
     protected virtual void Movement(ref GameObject _currentSelected)
     {
         if (Input.GetKeyDown(KeyCode.UpArrow))

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 using UnityEngine.UI;
@@ -26,11 +27,11 @@ public class BattleReady_UnitFormationCursor : CursorBase
     private const float MIN_POSITION_X = -790f; private const float MIN_POSITION_Y = -125f;
     private void Update()
     {
-        if(!isOnMenuSelect)
+        if (!isOnMenuSelect)
         {
             Movement(rt, ref currentSelected, MOVE_DISTANCE_X, MOVE_DISTANCE_Y, MIN_POSITION_X, MAX_POSITION_X, MIN_POSITION_Y, MAX_POSITION_Y);
         }
-        else if(isOnMenuSelect)
+        else if (isOnMenuSelect)
         {
             Movement(ref currentSelected);
         }
@@ -38,8 +39,10 @@ public class BattleReady_UnitFormationCursor : CursorBase
         MenuFunction();
     }
 
+    private GameObject temp;
     private void MenuFunction()
     {
+        // 유닛 편성 창에서 유닛을 선택했을 경우
         if (Input.GetKeyDown(KeyCode.Return))
         {
             isOnMenuSelect = true;
@@ -47,93 +50,145 @@ public class BattleReady_UnitFormationCursor : CursorBase
             switch (currentSelected.name)
             {
                 case "_1":
-                    Debug.Log("1번 슬롯 선택");
-                    NextButton();
+                    temp = currentSelected.gameObject;
+                    NextButton(temp);
 
                     break;
                 case "_2":
-                    Debug.Log("2번 슬롯 선택");
-                    NextButton();
+                    temp = currentSelected.gameObject;
+                    NextButton(temp);
 
                     break;
                 case "_3":
-                    Debug.Log("3번 슬롯 선택");
-                    NextButton();
+                    temp = currentSelected.gameObject;
+                    NextButton(temp);
 
                     break;
                 case "_4":
-                    Debug.Log("4번 슬롯 선택");
-                    NextButton();
+                    temp = currentSelected.gameObject;
+                    NextButton(temp);
 
                     break;
                 case "_5":
-                    Debug.Log("5번 슬롯 선택");
-                    NextButton();
+                    temp = currentSelected.gameObject;
+                    NextButton(temp);
 
                     break;
                 case "_6":
-                    Debug.Log("6번 슬롯 선택");
-                    NextButton();
+                    temp = currentSelected.gameObject;
+                    NextButton(temp);
 
                     break;
                 case "_7":
-                    Debug.Log("7번 슬롯 선택");
-                    NextButton();
+                    temp = currentSelected.gameObject;
+                    NextButton(temp);
 
                     break;
                 case "_8":
-                    Debug.Log("8번 슬롯 선택");
-                    NextButton();
+                    temp = currentSelected.gameObject;
+                    NextButton(temp);
 
                     break;
                 case "_9":
-                    Debug.Log("9번 슬롯 선택");
-                    NextButton();
+                    temp = currentSelected.gameObject;
+                    NextButton(temp);
 
                     break;
                 case "_10":
-                    Debug.Log("10번 슬롯 선택");
-                    NextButton();
+                    temp = currentSelected.gameObject;
+                    NextButton(temp);
 
                     break;
-
-
 
                 case "_Formation":
                     Formation();
 
                     break;
-
                 case "_Skill":
                     Skill();
 
                     break;
             }
         }
+
+        // 편성, 스킬 확인 창 상태에서 ESC 버튼을 누를 경우
+        if (isOnMenuSelect && Input.GetKeyDown(KeyCode.Escape))
+        {
+            isOnMenuSelect = false;
+            NextButton();
+        }
     }
 
     private void NextButton()
     {
-        if(isOnMenuSelect)
+        if (isOnMenuSelect)
         {
             BattleReady_UIManager.instance.OnMenuSelected();
 
             currentSelected = GameObject.Find("_Formation");
             currentSelected.GetComponent<Selectable>().Select();
         }
-        else if(!isOnMenuSelect)
+        else if (!isOnMenuSelect)
         {
             BattleReady_UIManager.instance.OffMenuSelected();
 
-            currentSelected = GameObject.Find("");
+            currentSelected = temp;
             currentSelected.GetComponent<Selectable>().Select();
         }
     }
 
-    private void Formation()
+    #region 편성 관련 함수
+    BattleReady_FormationState formationState;
+    private bool isState;
+    private void NextButton(GameObject obj)
     {
-        Debug.Log("편성");
+        formationState = obj.GetComponent<BattleReady_FormationState>();
+        isState = formationState.isFormationState;
+        if(!isState)
+        {
+            tmp.text = "편성";
+        }
+        else if(isState)
+        {
+            tmp.text = "편성 해제";
+        }
+
+        if (isOnMenuSelect)
+        {
+            BattleReady_UIManager.instance.OnMenuSelected();
+
+            currentSelected = GameObject.Find("_Formation");
+            currentSelected.GetComponent<Selectable>().Select();
+        }
+        else if (!isOnMenuSelect)
+        {
+            BattleReady_UIManager.instance.OffMenuSelected();
+
+            currentSelected = temp;
+            currentSelected.GetComponent<Selectable>().Select();
+        }
     }
+    [SerializeField, Header("[편성 / 편성 해제] 텍스트")] private TextMeshProUGUI tmp;
+    private void Formation()
+    { 
+        if (!isState)
+        {
+            formationState.isFormationState = true;
+
+            isOnMenuSelect = false;
+            NextButton();
+        }
+        else if (isState)
+        {
+            formationState.isFormationState = false;
+
+            isOnMenuSelect = false;
+            NextButton();
+        }
+
+        BattleReady_UIManager.instance.OffMenuSelected();
+    }
+    #endregion
 
     private void Skill()
     {
