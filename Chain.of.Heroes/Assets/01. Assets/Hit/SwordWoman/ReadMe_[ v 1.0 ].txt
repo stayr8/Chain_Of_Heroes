@@ -2,7 +2,7 @@
 
 =====================================================
 
-ArcherA [3D Model]   < Ver 1.0 >
+GuardianK [3D Model]   < Ver 1.0 >
 
 =====================================================
 
@@ -12,7 +12,7 @@ ArcherA [3D Model]   < Ver 1.0 >
 
 
 ----------------------------------------------------
-Includes 15 Animations
+Includes 11 Animations
 ----------------------------------------------------
 
 
@@ -20,11 +20,9 @@ Includes 15 Animations
 
 > Idle02
 
-> Idle03
-
-
 
 > Run
+
 
 > Dash
 
@@ -37,14 +35,6 @@ Includes 15 Animations
 > Skill01
 
 > Skill02
-
-> Skill03
-
-> Skill04
-
-> Skill05
-
-
 
 
 > Stun
@@ -69,7 +59,7 @@ instructions
 ===================================================
 
 
-1.click to the  [File] > [Open Project] > [ArcherA] folder
+1.click to the  [File] > [Open Project] > [GuardianK] folder
 
 2.Dubble click [Demo_scene] and Use Prefap file in the [Prefaps] folder
 
