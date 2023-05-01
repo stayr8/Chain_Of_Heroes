@@ -179,6 +179,7 @@ public class KingAction : BaseAction
                 if (unit.IsEnemy())
                 {
                     AttackActionSystem.Instance.OffAtLocationMove(targetUnit, unit);
+                    ActionCameraComplete();
                 }
                 else
                 {

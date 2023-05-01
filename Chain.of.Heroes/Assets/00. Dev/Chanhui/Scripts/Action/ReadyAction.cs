@@ -165,6 +165,7 @@ public class ReadyAction : BaseAction
                 if (unit.IsEnemy())
                 {
                     AttackActionSystem.Instance.OffAtLocationMove(targetUnit, unit);
+                    ActionCameraComplete();
                 }
                 else
                 {

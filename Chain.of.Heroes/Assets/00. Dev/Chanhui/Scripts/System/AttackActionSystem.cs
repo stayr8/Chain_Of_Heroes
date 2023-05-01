@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class AttackActionSystem : MonoBehaviour
 {
-    public static AttackActionSystem Instance { get; private set; }
+    public static AttackActionSystem Instance { get; set; }
 
     public static event EventHandler OnActionStarted;
     public static event EventHandler OnActionCompleted;
