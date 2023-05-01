@@ -5,17 +5,22 @@ using UnityEngine;
 public class BattleReady_ChangeFormationCursor : CursorBase
 {
     private RectTransform rt;
-    private GameObject currentSelected;
+    private GameObject BeforeCurrentSelected;
+    [SerializeField] private GameObject AfterCurrentSelect;
+
+    private bool _seleted;
+
     private void Awake()
     {
         rt = GetComponent<RectTransform>();
+        _seleted = false;
     }
 
     private const float INIT_X = 50f;
     private const float INIT_Y = -50f;
     private void OnEnable()
     {
-        Init(rt, INIT_X, INIT_Y, ref currentSelected, "_04");
+        Init(rt, INIT_X, INIT_Y, ref BeforeCurrentSelected, "_04");
     }
 
     private const float MOVE_DISTANCE_X = 125f; private const float MOVE_DISTANCE_Y = 125f;
@@ -23,7 +28,7 @@ public class BattleReady_ChangeFormationCursor : CursorBase
     private const float MIN_POSITION_X = 50f; private const float MIN_POSITION_Y = -300f;
     private void Update()
     {
-        Movement(rt, ref currentSelected, MOVE_DISTANCE_X, MOVE_DISTANCE_Y, MIN_POSITION_X, MAX_POSITION_X, MIN_POSITION_Y, MAX_POSITION_Y);
+        Movement(rt, ref BeforeCurrentSelected, MOVE_DISTANCE_X, MOVE_DISTANCE_Y, MIN_POSITION_X, MAX_POSITION_X, MIN_POSITION_Y, MAX_POSITION_Y);
 
         MenuFunction();
     }
@@ -32,7 +37,18 @@ public class BattleReady_ChangeFormationCursor : CursorBase
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            switch (currentSelected.name)
+            if(_seleted)
+            {
+                _seleted = false;
+                cursorSeleted();
+            }
+            else
+            {
+                _seleted = true;
+                cursorSeleted();
+            }
+
+            switch (BeforeCurrentSelected.name)
             {
                 case "_04":
                     Debug.Log("x: 0, y: 4 ΩΩ∑‘ º±≈√");
@@ -85,6 +101,30 @@ public class BattleReady_ChangeFormationCursor : CursorBase
 
                     break;
             }
+        }
+    }
+
+    private void ChangePosAtSeleted(float x, float y)
+    {
+        if(_seleted)
+        {
+            
+        }
+        else
+        {
+
+        }
+    }
+
+    private void cursorSeleted()
+    {
+        if (_seleted)
+        {
+            AfterCurrentSelect.SetActive(_seleted);
+        }
+        else
+        {
+            AfterCurrentSelect.SetActive(_seleted);
         }
     }
 }
