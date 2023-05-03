@@ -8,16 +8,18 @@ using UnityEngine.UI;
 
 public class Main_UIManager : MonoBehaviour
 {
-    [SerializeField, Header("메인 화면")] private GameObject Main;
-    [SerializeField, Header("메뉴 화면")] private GameObject Menu;
-    [SerializeField, Header("이어서 시작 화면")] private GameObject Continue;
-    [SerializeField, Header("크레딧 화면")] private GameObject Credit;
+    [SerializeField, Header("[메인 화면] 오브젝트")] private GameObject Main;
+    [SerializeField, Header("[메뉴 화면] 오브젝트")] private GameObject Menu;
+    [SerializeField, Header("[이어서 시작 화면] 오브젝트")] private GameObject Continue;
+    [SerializeField, Header("[크레딧 화면] 오브젝트")] private GameObject Credit;
 
+    #region instance화 :: Awake()함수 포함
     public static Main_UIManager instance;
     private void Awake()
     {
         instance = this;
     }
+    #endregion
 
     private void Start()
     {
@@ -127,8 +129,9 @@ public class Main_UIManager : MonoBehaviour
     }
     #endregion
 
-    [SerializeField, Header("===============\n페이드 인/아웃")] private Image _image;
-    #region ===== FadeIn =====
+    [SerializeField, Header("===============\n\n[페이드 인/아웃] 이미지")] private Image _image;
+    [SerializeField, Header("[배경 음악] 오디오 소스")] private AudioSource _background;
+    #region FadeIn / FadeOut
     private IEnumerator ImageFadeIn()
     {
         _image.gameObject.SetActive(true);
@@ -144,9 +147,8 @@ public class Main_UIManager : MonoBehaviour
         }
 
         yield return new WaitForSeconds(1f);
-        LoadingSceneController.LoadScene("WorldMapScene");
+        LoadingSceneController.LoadScene("WorldMapScene"); // [05.02] 나중에 호진이가 튜토리얼 씬 만들어주면 해당 씬으로 가도록 하기.
     }
-    [SerializeField, Header("배경 음악")] private AudioSource _background;
     private IEnumerator SoundFadeIn()
     {
         float time = 0f; // time부터 value까지
@@ -161,12 +163,9 @@ public class Main_UIManager : MonoBehaviour
             yield return null;
         }
 
-        // @@@@@ 이건 필요한 부분인가? @@@@@
-        _background.Stop();
+        _background.Stop(); // @@@@@ 이건 필요한 부분인가? @@@@@
     }
-    #endregion
 
-    #region FadeOut
     private IEnumerator ImageFadeOut()
     {
         float time = 0f; // FadeOut에 걸리는 시간
@@ -193,8 +192,7 @@ public class Main_UIManager : MonoBehaviour
             yield return null;
         }
 
-        // @@@@@ 이건 필요한 부분인가? @@@@@
-        _background.Stop();
+        _background.Stop(); // @@@@@ 이건 필요한 부분인가? @@@@@
     }
     #endregion
 }
