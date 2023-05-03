@@ -8,6 +8,8 @@ public class BattleReady_ChangeFormationCursor : CursorBase
     private GameObject BeforeCurrentSelected;
     [SerializeField] private GameObject AfterCurrentSelect;
 
+    [SerializeField] private bool _seletedImageMove;
+    [SerializeField] private CharacterTypeManager.CharacterType SelectedType;
     private bool _seleted;
 
     private void Awake()
@@ -52,67 +54,83 @@ public class BattleReady_ChangeFormationCursor : CursorBase
             {
                 case "_04":
                     Debug.Log("x: 0, y: 4 ΩΩ∑‘ º±≈√");
+                    ChangePosAtSeleted(8);
 
                     break;
                 case "_24":
                     Debug.Log("x: 2, y: 4 ΩΩ∑‘ º±≈√");
-
+                    ChangePosAtSeleted(9);
                     break;
                 case "_44":
                     Debug.Log("x: 4, y: 4 ΩΩ∑‘ º±≈√");
-
+                    ChangePosAtSeleted(10);
                     break;
                 case "_64":
                     Debug.Log("x: 6, y: 4 ΩΩ∑‘ º±≈√");
-
+                    ChangePosAtSeleted(11);
                     break;
 
                 case "_02":
                     Debug.Log("x: 0, y: 2 ΩΩ∑‘ º±≈√");
-
+                    ChangePosAtSeleted(4);
                     break;
                 case "_22":
                     Debug.Log("x: 2, y: 2 ΩΩ∑‘ º±≈√");
-
+                    ChangePosAtSeleted(5);
                     break;
                 case "_42":
                     Debug.Log("x: 4, y: 2 ΩΩ∑‘ º±≈√");
-
+                    ChangePosAtSeleted(6);
                     break;
                 case "_62":
                     Debug.Log("x: 6, y: 2 ΩΩ∑‘ º±≈√");
-
+                    ChangePosAtSeleted(7);
                     break;
 
                 case "_00":
                     Debug.Log("x: 0, y: 0 ΩΩ∑‘ º±≈√");
-
+                    ChangePosAtSeleted(0);
                     break;
                 case "_20":
                     Debug.Log("x: 2, y: 0 ΩΩ∑‘ º±≈√");
-
+                    ChangePosAtSeleted(1);
                     break;
                 case "_40":
                     Debug.Log("x: 4, y: 0 ΩΩ∑‘ º±≈√");
-
+                    ChangePosAtSeleted(2);
                     break;
                 case "_60":
                     Debug.Log("x: 6, y: 0 ΩΩ∑‘ º±≈√");
-
+                    ChangePosAtSeleted(3);
                     break;
             }
         }
     }
 
-    private void ChangePosAtSeleted(float x, float y)
+    private void ChangePosAtSeleted(int pos)
     {
-        if(_seleted)
+        if(!_seleted)
         {
-            
+            if (_seletedImageMove)
+            {
+                Debug.Log(SelectedType);
+                ChangeFormationSystem.Instance.SingleDestroyCharacterUI(SelectedType);
+                ChangeFormationSystem.Instance.CreateCharacterUI((int)SelectedType, pos);
+                _seletedImageMove = false;
+                
+            }
         }
         else
         {
-
+            if(!_seletedImageMove && )
+            {
+                _seletedImageMove = true;
+                SelectedType = BeforeCurrentSelected.transform.GetChild(0).GetComponent<CharacterUI>().ImageType();
+            }
+            else
+            {
+                return;
+            }
         }
     }
 

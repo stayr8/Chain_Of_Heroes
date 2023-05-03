@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Reflection;
 
 public class GameAssets : MonoBehaviour
@@ -21,4 +22,5 @@ public class GameAssets : MonoBehaviour
 
 
     public Transform pfDamagePopup;
+    public Sprite[] characterUI;
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,8 @@ using UnityEngine.UI;
 
 public class BattleReady_UIManager : MonoBehaviour
 {
+     public event EventHandler OnCharacterChangeFormation;
+
     [SerializeField, Header("[메뉴] 오브젝트")] private GameObject UI_Menu;
     [SerializeField, Header("[유닛 편성] 오브젝트")] private GameObject UI_UnitFormation;
     [SerializeField, Header("[배치 변경] 오브젝트")] private GameObject UI_ChangeFormation;
@@ -50,6 +53,7 @@ public class BattleReady_UIManager : MonoBehaviour
                 {
                     UI_ChangeFormation.SetActive(false);
                     UI_Menu.SetActive(true);
+                    //ChangeFormationSystem.Instance.DestroyCharacterUI();
 
                     state = STATE.MENU;
                 }
@@ -83,6 +87,8 @@ public class BattleReady_UIManager : MonoBehaviour
 
         UI_Menu.SetActive(false);
         UI_ChangeFormation.SetActive(true);
+        Debug.Log("여기는 들어오지");
+        OnCharacterChangeFormation?.Invoke(this, EventArgs.Empty);
     }
 
     public void OnSave()
