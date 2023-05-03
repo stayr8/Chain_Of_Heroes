@@ -122,7 +122,7 @@ public class BattleReady_ChangeFormationCursor : CursorBase
         }
         else
         {
-            if(!_seletedImageMove && )
+            if(!_seletedImageMove)
             {
                 _seletedImageMove = true;
                 SelectedType = BeforeCurrentSelected.transform.GetChild(0).GetComponent<CharacterUI>().ImageType();
