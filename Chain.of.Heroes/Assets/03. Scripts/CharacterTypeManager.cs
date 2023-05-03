@@ -9,7 +9,6 @@ public class CharacterTypeManager : MonoBehaviour
     // ItemType enum Á¤ÀÇ
     public enum CharacterType
     {
-        Empty,
         Womanknight,
         Night,
         samurai,
@@ -35,19 +34,15 @@ public class CharacterTypeManager : MonoBehaviour
         }
     }
 
-    private void Start()
+
+    public bool[] GetIsCharacter()
     {
-        for(int i = 0; i < 10; i++)
-        {
-            bool uncharacter = false;
-            isCharacter[i] = uncharacter;
-        }
+        return isCharacter;
     }
 
-
-    public bool GetIsCharacter(int number)
+    public void SetIsCharacter(int number)
     {
-        return isCharacter[number];
+        this.isCharacter[number] = isCharacter[number];
     }
 
 

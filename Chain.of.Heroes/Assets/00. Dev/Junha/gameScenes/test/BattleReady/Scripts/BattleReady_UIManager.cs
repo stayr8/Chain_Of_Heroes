@@ -53,6 +53,7 @@ public class BattleReady_UIManager : MonoBehaviour
                 {
                     UI_ChangeFormation.SetActive(false);
                     UI_Menu.SetActive(true);
+                    //ChangeFormationSystem.Instance.DestroyCharacterUI();
 
                     state = STATE.MENU;
                 }
