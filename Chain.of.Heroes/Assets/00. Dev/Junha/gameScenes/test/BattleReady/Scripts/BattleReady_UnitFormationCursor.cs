@@ -52,61 +52,57 @@ public class BattleReady_UnitFormationCursor : CursorBase
                 case "_1":
                     temp = currentSelected.gameObject;
                     NextButton(temp);
-
                     break;
+
                 case "_2":
                     temp = currentSelected.gameObject;
                     NextButton(temp);
-
                     break;
+
                 case "_3":
                     temp = currentSelected.gameObject;
                     NextButton(temp);
-
                     break;
+
                 case "_4":
                     temp = currentSelected.gameObject;
                     NextButton(temp);
-
                     break;
+
                 case "_5":
                     temp = currentSelected.gameObject;
                     NextButton(temp);
-
                     break;
+
                 case "_6":
                     temp = currentSelected.gameObject;
                     NextButton(temp);
-
                     break;
+
                 case "_7":
                     temp = currentSelected.gameObject;
                     NextButton(temp);
-
                     break;
+
                 case "_8":
                     temp = currentSelected.gameObject;
                     NextButton(temp);
-
                     break;
+
                 case "_9":
                     temp = currentSelected.gameObject;
                     NextButton(temp);
-
                     break;
-                case "_10":
-                    temp = currentSelected.gameObject;
-                    NextButton(temp);
 
+                case "_10":
                     break;
 
                 case "_Formation":
                     Formation();
-
                     break;
+
                 case "_Skill":
                     Skill();
-
                     break;
             }
         }
