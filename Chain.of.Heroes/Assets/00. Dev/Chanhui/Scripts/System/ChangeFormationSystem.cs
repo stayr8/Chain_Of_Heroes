@@ -10,12 +10,18 @@ public class ChangeFormationSystem : MonoBehaviour
 
 
     private List<CharacterUI> characterUIList;
-    [SerializeField] private Transform CharacterUIPrefab;
+    private bool[] isImage;
+
     [SerializeField] private Transform[] Characterpos;
+    [SerializeField] private Vector3[] CharacterMovePos;
+    private bool[] isGround;
+
+    [SerializeField] private Transform CharacterUIPrefab;
+    
 
     //[SerializeField] private int number;
 
-    private bool[] isImage;
+    
 
     private void Awake()
     {
@@ -27,20 +33,17 @@ public class ChangeFormationSystem : MonoBehaviour
         {
             Instance = this;
         }
+
         characterUIList = new List<CharacterUI>();
 
         isImage = new bool[9];
-        for(int i = 0; i < 9; i++)
-        {
-            isImage[i] = false;
-        }
+        isGround = new bool[12];
     }
 
     private void Start()
     {
-
         BattleReady_UIManager.instance.OnCharacterChangeFormation += BattleReady_UIManager_OnCharacterChangeFormation;
-        //CreateCharacterUI(number, 8);
+
     }
 
     public void CreateCharacterUI(int Charnumber, int pos)
@@ -49,10 +52,14 @@ public class ChangeFormationSystem : MonoBehaviour
         Transform CharacterTransform = Instantiate(CharacterUIPrefab, Characterpos[pos]);
         CharacterUI CharacterUI = CharacterTransform.GetComponent<CharacterUI>();
         CharacterUI.SelectedImage(Charnumber);
+        CharacterUI.SetCharUIpos(pos);
+        CharacterUI.SetCharacterUIMovePos(CharacterMovePos[pos]);
+        Debug.Log(CharacterMovePos[pos]);
         CharacterUI.GetComponent<Image>().SetNativeSize();
 
         characterUIList.Add(CharacterUI);
 
+        isGround[pos] = true;
         isImage[Charnumber] = true;
     }
 
@@ -67,15 +74,20 @@ public class ChangeFormationSystem : MonoBehaviour
         {
             isImage[i] = false;
         }
+        for (int i = 0; i < isGround.Length; i++)
+        {
+            isGround[i] = false;
+        }
 
         characterUIList.Clear();
     }
 
-    public void SingleDestroyCharacterUI(CharacterTypeManager.CharacterType type)
+
+    public void SingleDestroyCharacterUI(CharacterUI charui, int type, int pos)
     {
         foreach (CharacterUI buttonTransform in characterUIList)
         {
-            if (buttonTransform.ImageType() == type)
+            if ((int)buttonTransform.ImageType() == type)
             {
                 Debug.Log(type);
                 Destroy(buttonTransform.gameObject);
@@ -83,8 +95,10 @@ public class ChangeFormationSystem : MonoBehaviour
             }
         }
 
-        characterUIList.Clear();
         isImage[(int)type] = false;
+        isGround[pos] = false;
+
+        characterUIList.Remove(charui);
     }
 
     public void BattleReady_UIManager_OnCharacterChangeFormation(object sender, EventArgs e)
@@ -151,9 +165,19 @@ public class ChangeFormationSystem : MonoBehaviour
         return characterUIList;
     }
 
+    public Transform[] GetCharacterpos()
+    {
+        return Characterpos;
+    }
+
     public bool[] GetIsImage()
     {
         return isImage;
+    }
+
+    public bool[] GetIsGround()
+    {
+        return isGround;
     }
 
 }

@@ -8,6 +8,8 @@ public class CharacterUI : MonoBehaviour
 
     private Image Image;
     [SerializeField] private CharacterTypeManager.CharacterType characterType;
+    [SerializeField] private int UIPosNumber;
+    [SerializeField] private Vector3 characterUimovepos;
 
     private void Awake()
     {
@@ -51,4 +53,23 @@ public class CharacterUI : MonoBehaviour
         return characterType;
     }
 
+    public int GetCharUIpos()
+    {
+        return UIPosNumber;
+    }
+
+    public void SetCharUIpos(int UIPosNumber)
+    {
+        this.UIPosNumber = UIPosNumber;
+    }
+
+    public Vector3 GetCharacterUIMovePos()
+    {
+        return characterUimovepos;
+    }
+
+    public void SetCharacterUIMovePos(Vector3 characterUimovepos)
+    {
+        this.characterUimovepos = characterUimovepos;
+    }
 }

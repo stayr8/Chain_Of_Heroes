@@ -11,8 +11,11 @@ public class UnitManager : MonoBehaviour
     private List<Unit> unitList;
     private List<Unit> friendlyUnitList;
     private List<Unit> enemyUnitList;
+    private List<CharacterUI> characterUiList;
 
     public MapData mapData;
+
+    [SerializeField] private GameObject[] Character;
 
     public int playerpos = 0;
     public int enemypos = 0;
@@ -30,14 +33,18 @@ public class UnitManager : MonoBehaviour
         unitList = new List<Unit>();
         friendlyUnitList = new List<Unit>();
         enemyUnitList = new List<Unit>();
+        characterUiList = new List<CharacterUI>();
     }
 
     private void Start()
     {
-        mapData = MapManager.Instance.mapData[MapManager.Instance.stageNum];
+        // 임시로 저장
+        mapData = MapManager.Instance.mapData[0];
 
         playerpos = 0;
         enemypos = 0;
+
+        characterUiList = ChangeFormationSystem.Instance.GetCharacterUIList();
 
         SpawnAllPlayer();
         SpawnAllEnemy();
@@ -64,7 +71,8 @@ public class UnitManager : MonoBehaviour
         else
         {
             friendlyUnitList.Add(unit);
-            unit.SetPosition(mapData.PlayerXY[playerpos]);
+            Debug.Log(characterUiList[playerpos].GetCharacterUIMovePos());
+            unit.SetPosition(characterUiList[playerpos].GetCharacterUIMovePos());
             playerpos++;
 
         }
@@ -91,9 +99,17 @@ public class UnitManager : MonoBehaviour
 
     private void SpawnAllPlayer()
     {
+        /*
         for (int i = 0; i < mapData.Player_pf.Length; i++)
         {
             if (mapData.Player_pf[i] != null)
+            {
+                SpawnSinglePlayer(i);
+            }
+        }*/
+        for (int i = 0; i < 9; i++)
+        {
+            if (CharacterTypeManager.Instance.GetIsCharacter()[i] == true)
             {
                 SpawnSinglePlayer(i);
             }
@@ -102,7 +118,7 @@ public class UnitManager : MonoBehaviour
 
     private Unit SpawnSinglePlayer(int i)
     {
-        Unit cp = Instantiate(mapData.Player_pf[i], transform).GetComponent<Unit>();
+        Unit cp = Instantiate(Character[i], transform).GetComponent<Unit>();
 
         return cp;
     }

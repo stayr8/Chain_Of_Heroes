@@ -87,7 +87,6 @@ public class BattleReady_UIManager : MonoBehaviour
 
         UI_Menu.SetActive(false);
         UI_ChangeFormation.SetActive(true);
-        Debug.Log("여기는 들어오지");
         OnCharacterChangeFormation?.Invoke(this, EventArgs.Empty);
     }
 
@@ -119,7 +118,7 @@ public class BattleReady_UIManager : MonoBehaviour
     public void OffFormation(GameObject obj)
     {
         // 스프라이트 변경
-        GameObject child = obj.transform.GetChild(0).gameObject;
+        GameObject child = obj.transform.GetChild(1).gameObject;
         Image img = child.GetComponent<Image>();
         img.sprite = Img_OffFormation;
 
@@ -132,7 +131,7 @@ public class BattleReady_UIManager : MonoBehaviour
     public void OnFormation(GameObject obj)
     {
         // 스프라이트 변경
-        GameObject child = obj.transform.GetChild(0).gameObject;
+        GameObject child = obj.transform.GetChild(1).gameObject;
         Image img = child.GetComponent<Image>();
         img.sprite = Img_OnFormation;
 
