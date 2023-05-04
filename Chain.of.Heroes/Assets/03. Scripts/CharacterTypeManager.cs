@@ -10,8 +10,8 @@ public class CharacterTypeManager : MonoBehaviour
     public enum CharacterType
     {
         Womanknight,
-        Night,
-        samurai,
+        Knight,
+        Samurai,
         Archer,
         Guardian,
         Manknight,

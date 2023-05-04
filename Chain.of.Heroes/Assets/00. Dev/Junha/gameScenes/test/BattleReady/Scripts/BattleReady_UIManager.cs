@@ -77,6 +77,11 @@ public class BattleReady_UIManager : MonoBehaviour
         OnCharacterChangeFormation?.Invoke(this, EventArgs.Empty);
     }
 
+    public void OnChangeUICreate()
+    {
+        OnCharacterChangeFormation?.Invoke(this, EventArgs.Empty);
+    }
+
     #region 편성 / 스킬 확인
     [SerializeField, Header("[편성 / 스킬 확인] 오브젝트")] private GameObject menuSelected;
     public void OnMenuSelected()
