@@ -2,7 +2,7 @@
 
 =====================================================
 
-GuardianK [3D Model]   < Ver 1.0 >
+StoneGolem [3D Model]   < Ver 1.0 >
 
 =====================================================
 
@@ -12,7 +12,7 @@ GuardianK [3D Model]   < Ver 1.0 >
 
 
 ----------------------------------------------------
-Includes 11 Animations
+Includes 12 Animations
 ----------------------------------------------------
 
 
@@ -21,8 +21,8 @@ Includes 11 Animations
 > Idle02
 
 
-> Run
 
+> Run
 
 > Dash
 
@@ -35,6 +35,10 @@ Includes 11 Animations
 > Skill01
 
 > Skill02
+
+> Skill03
+
+
 
 
 > Stun
@@ -59,7 +63,7 @@ instructions
 ===================================================
 
 
-1.click to the  [File] > [Open Project] > [GuardianK] folder
+1.click to the  [File] > [Open Project] > [StoneGolem] folder
 
 2.Dubble click [Demo_scene] and Use Prefap file in the [Prefaps] folder
 
