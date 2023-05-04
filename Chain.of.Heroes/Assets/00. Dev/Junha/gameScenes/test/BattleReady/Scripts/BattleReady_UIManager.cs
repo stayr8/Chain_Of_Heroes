@@ -48,7 +48,7 @@ public class BattleReady_UIManager : MonoBehaviour
                 break;
 
             case STATE.CHANGE_FORMATION:
-                if (!BattleReady_UnitFormationCursor.isOnMenuSelect && Input.GetKeyDown(KeyCode.Escape))
+                if (Input.GetKeyDown(KeyCode.Escape))
                 {
                     UI_ChangeFormation.SetActive(false);
                     UI_Menu.SetActive(true);
@@ -126,6 +126,7 @@ public class BattleReady_UIManager : MonoBehaviour
     }
     #endregion
 
+    #region 유닛 편성: 캐릭터 정보 갱신
     [Header("[캐릭터 정보] 텍스트")]
     [SerializeField] private TextMeshProUGUI character_Name;
     [SerializeField] private TextMeshProUGUI character_Class;
@@ -152,4 +153,18 @@ public class BattleReady_UIManager : MonoBehaviour
         character_ChainAttackPower.text = data.m_chainAttackPower.ToString();
         character_DefensePower.text = data.m_defensePower.ToString();
     }
+    #endregion
+
+    #region 유닛 편성: 스킬 확인
+    [SerializeField, Header("[편성 커서] 오브젝트")] private GameObject UnitFormation_Cursor;
+    [SerializeField, Header("[스킬 커서] 오브젝트")] private GameObject Skill_Cursor;
+    public void OnSkillCursor()
+    {
+        Skill_Cursor.SetActive(true);
+    }
+    public void OffSkillCursor()
+    {
+        Skill_Cursor.SetActive(false);
+    }
+    #endregion
 }

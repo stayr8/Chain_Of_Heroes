@@ -14,14 +14,22 @@ public class BattleReady_UnitFormationCursor : CursorBase
         rt = GetComponent<RectTransform>();
     }
 
-    private const float INIT_X = -790f;
-    private const float INIT_Y = 375f;
+    private bool isInitStart = false;
+    private const float INIT_X = -790f; private const float INIT_Y = 375f;
     private void OnEnable()
     {
-        Init(rt, INIT_X, INIT_Y, ref currentSelected, "_1");
+        if(!isInitStart)
+        {
+            Init(rt, INIT_X, INIT_Y, ref currentSelected, "_1");
+            isInitStart = true;
+        }
+        else
+        {
+            return;
+        }
     }
 
-    public static bool isOnMenuSelect = false;
+    public static bool isOnMenuSelect = false; public bool isOnSkill = false;
     private const float MOVE_DISTANCE_X = 313.5f; private const float MOVE_DISTANCE_Y = 125f;
     private const float MAX_POSITION_X = -476.5f; private const float MAX_POSITION_Y = 375f;
     private const float MIN_POSITION_X = -790f; private const float MIN_POSITION_Y = -125f;
@@ -33,17 +41,24 @@ public class BattleReady_UnitFormationCursor : CursorBase
         }
         else if (isOnMenuSelect)
         {
-            Movement(ref currentSelected);
+            if(!isOnSkill)
+            {
+                Movement(ref currentSelected);
+            }
+            else
+            {
+                return;
+            }
         }
 
         MenuFunction();
     }
 
-    public static GameObject temp;
+    private GameObject temp;
     private void MenuFunction()
     {
         // 유닛 편성 창에서 유닛을 선택했을 경우
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (currentSelected.name != "_10" && Input.GetKeyDown(KeyCode.Return))
         {
             isOnMenuSelect = true;
 
@@ -94,14 +109,15 @@ public class BattleReady_UnitFormationCursor : CursorBase
                     NextButton(temp);
                     break;
 
-                case "_10":
-                    break;
+                //case "_10":
+                //    break;
 
                 case "_Formation":
                     Formation();
                     break;
 
                 case "_Skill":
+                    //isOnSkill = true;
                     Skill();
                     break;
             }
@@ -113,18 +129,39 @@ public class BattleReady_UnitFormationCursor : CursorBase
             isOnMenuSelect = false;
             NextButton();
         }
+
+        //// 스킬 확인 창 상태에서 ESC 버튼을 누를 경우
+        //if(isOnSkill && Input.GetKeyDown(KeyCode.Escape))
+        //{
+        //    isOnSkill = false;
+        //    NextButton();
+        //}
     }
 
     private void NextButton()
     {
         if (isOnMenuSelect)
         {
+            //if(isOnSkill)
+            //{
+            //    BattleReady_UIManager.instance.OffMenuSelected();
+            //}
+            //else if(!isOnSkill)
+            //{
+            //    BattleReady_UIManager.instance.OffSkillCursor();
+
+            //    BattleReady_UIManager.instance.OnMenuSelected();
+
+            //    currentSelected = GameObject.Find("_Formation");
+            //    currentSelected.GetComponent<Selectable>().Select();
+            //}
+
             BattleReady_UIManager.instance.OnMenuSelected();
 
             currentSelected = GameObject.Find("_Formation");
             currentSelected.GetComponent<Selectable>().Select();
         }
-        else if (!isOnMenuSelect)
+        else if (!isOnMenuSelect && !isOnSkill)
         {
             BattleReady_UIManager.instance.OffMenuSelected();
 
@@ -186,8 +223,18 @@ public class BattleReady_UnitFormationCursor : CursorBase
     }
     #endregion
 
+    #region 스킬 확인 관련 함수
     private void Skill()
     {
+        //if(isOnSkill)
+        //{
+        //    BattleReady_UIManager.instance.OnSkillCursor();
+        //}
+        //else if(!isOnSkill)
+        //{
+        //    BattleReady_UIManager.instance.OffSkillCursor();
+        //}
         Debug.Log("스킬 확인");
     }
+    #endregion
 }
