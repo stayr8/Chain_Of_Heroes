@@ -71,13 +71,12 @@ public class BattleReady_MenuSelectCursor : CursorBase
                 case "_Yes":
                     if (isBattleStart)
                     {
-                        MapManager.Instance.stageNum = 0;
-                        //SceneManager.LoadScene("Ch_01");
                         ScenesManager.Instance.ScenesChange();
+                        UnitManager.Instance.SpawnAllPlayer();
                     }
                     else if (isBack)
                     {
-                        //SceneManager.LoadScene("WorldMapScene");
+                        SceneManager.LoadScene("WorldMapScene");
                     }
                     break;
 

@@ -47,7 +47,8 @@ public class UnitActionSystem : MonoBehaviour
 
     private void Update()
     {
-        TryHandleUnitEnemySelection();
+        
+       
         if (isBusy)
         {
             return;
@@ -65,11 +66,13 @@ public class UnitActionSystem : MonoBehaviour
             return;
         }
 
+
         if (TryHandleUnitSelection())
         { 
             return; 
         }
 
+        TryHandleUnitEnemySelection();
         HandleSelectedAction();
 
     }

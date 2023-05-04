@@ -46,7 +46,7 @@ public class UnitManager : MonoBehaviour
 
         characterUiList = ChangeFormationSystem.Instance.GetCharacterUIList();
 
-        SpawnAllPlayer();
+        //SpawnAllPlayer();
         SpawnAllEnemy();
 
         Unit.OnAnyUnitSpawned += Unit_OnAnyUnitSpawned;
@@ -97,16 +97,8 @@ public class UnitManager : MonoBehaviour
     }
 
 
-    private void SpawnAllPlayer()
+    public void SpawnAllPlayer()
     {
-        /*
-        for (int i = 0; i < mapData.Player_pf.Length; i++)
-        {
-            if (mapData.Player_pf[i] != null)
-            {
-                SpawnSinglePlayer(i);
-            }
-        }*/
         for (int i = 0; i < 9; i++)
         {
             if (CharacterTypeManager.Instance.GetIsCharacter()[i] == true)

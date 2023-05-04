@@ -16,6 +16,7 @@ public class CharacterUI : MonoBehaviour
         Image = GetComponent<Image>();
     }
 
+
     public void SelectedImage(int number)
     {
         switch(number)
@@ -26,11 +27,11 @@ public class CharacterUI : MonoBehaviour
                 break;
             case 1:
                 Image.sprite = GameAssets.i.characterUI[1];
-                characterType = CharacterTypeManager.CharacterType.Night;
+                characterType = CharacterTypeManager.CharacterType.Knight;
                 break;
             case 2:
                 Image.sprite = GameAssets.i.characterUI[2];
-                characterType = CharacterTypeManager.CharacterType.samurai;
+                characterType = CharacterTypeManager.CharacterType.Samurai;
                 break;
             case 3:
                 Image.sprite = GameAssets.i.characterUI[3];
