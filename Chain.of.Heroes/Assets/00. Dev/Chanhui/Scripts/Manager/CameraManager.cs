@@ -11,6 +11,8 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private GameObject actionCameraGameObject_1;
     [SerializeField] private GameObject AttackBeforeCameraGameObject;
 
+    [SerializeField] private GameObject ChainAttackui;
+
     private void Start()
     {
         BaseAction.OnAnyAttackStarted += BaseAction_OnAnyAttackStarted;
@@ -40,11 +42,13 @@ public class CameraManager : MonoBehaviour
     private void ShowActionCamera_1()
     {
         actionCameraGameObject_1.SetActive(true);
+        ChainAttackui.SetActive(true);
     }
 
     private void HideActionCamera_1()
     {
         actionCameraGameObject_1.SetActive(false);
+        ChainAttackui.SetActive(false);
     }
 
     // Attack 전에 들어가는 효과 카메라
