@@ -12,7 +12,7 @@ public class GameAssets : MonoBehaviour
     {
         get
         {
-            if(_i == null)
+            if (_i == null)
             {
                 _i = Instantiate(Resources.Load<GameAssets>("GameAssets"));
             }
@@ -22,5 +22,8 @@ public class GameAssets : MonoBehaviour
 
 
     public Transform pfDamagePopup;
+    //[SerializeField] private GameObject[] Character;
     public Sprite[] characterUI;
+
+   
 }
