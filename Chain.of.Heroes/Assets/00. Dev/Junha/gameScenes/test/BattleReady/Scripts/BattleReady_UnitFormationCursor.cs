@@ -39,7 +39,7 @@ public class BattleReady_UnitFormationCursor : CursorBase
         MenuFunction();
     }
 
-    private GameObject temp;
+    public static GameObject temp;
     private void MenuFunction()
     {
         // 유닛 편성 창에서 유닛을 선택했을 경우

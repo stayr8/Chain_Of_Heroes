@@ -5827,7 +5827,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AfterCurrentSelect: {fileID: 770243514}
   _seletedImageMove: 0
-  SelectedType: 0
+  _characterUi: {fileID: 0}
+  _characterUiChange: {fileID: 0}
 --- !u!114 &789661967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6834,8 +6835,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66d47996a8016ae4aa8082f18f5e0d8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterUIPrefab: {fileID: 0}
   Characterpos: []
+  CharacterMovePos: []
+  CharacterUIPrefab: {fileID: 0}
 --- !u!4 &883209117
 Transform:
   m_ObjectHideFlags: 0

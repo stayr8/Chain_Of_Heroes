@@ -133,7 +133,7 @@ public class BattleReady_UIManager : MonoBehaviour
     private void UpdateData()
     {
         GameObject obj = BattleReady_UnitFormationCursor.currentSelected;
-        if(obj.name == "_10")
+        if (obj.GetComponentInChildren<CharacterDataManager>() == null)
         {
             return;
         }
