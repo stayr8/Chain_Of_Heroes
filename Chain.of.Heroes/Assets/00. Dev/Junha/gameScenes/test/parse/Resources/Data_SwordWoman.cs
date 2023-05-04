@@ -16,6 +16,7 @@ public class SwordWoman
 	public float Hp;
 	public float CriticalRate;
 	public float CriticalDamage;
+	//public  Class;
 	public bool Parse(SimpleJSON.JSONNode Data)
 	{
 		ID = Data["ID"].AsInt;
@@ -30,6 +31,7 @@ public class SwordWoman
 		Hp = Data["Hp"].AsFloat;
 		CriticalRate = Data["CriticalRate"].AsFloat;
 		CriticalDamage = Data["CriticalDamage"].AsFloat;
+		//Class = Data["Class"].AsFloat;
 		return true;
 	}
 }

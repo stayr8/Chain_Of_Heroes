@@ -24,7 +24,7 @@ public class BattleReady_MenuSelectCursor : CursorBase
     public static bool isBack = false;
     private const float MOVE_DISTANCE = 100f;
     private const float MAX_POSITION_X = -860f; private const float MAX_POSITION_Y = 200f;
-    private const float MIN_POSITION_X = -900f; private const float MIN_POSITION_Y = -200f;
+    private const float MIN_POSITION_X = -890f; private const float MIN_POSITION_Y = -100f;
     private void Update()
     {
         if (!isBattleStart || !isBack)
@@ -52,7 +52,6 @@ public class BattleReady_MenuSelectCursor : CursorBase
                     isBattleStart = true;
                     NextButton(true, "_Yes");
                     text_nextButton.text = "전투를 진행하시겠습니까?";
-
                     break;
 
                 case "_UnitFormation":
@@ -63,16 +62,10 @@ public class BattleReady_MenuSelectCursor : CursorBase
                     BattleReady_UIManager.instance.OnChangeFormation();
                     break;
 
-                case "_Save":
-                    BattleReady_UIManager.instance.OnSave();
-
-                    break;
-
                 case "_Back":
                     isBack = true;
                     NextButton(true, "_Yes");
                     text_nextButton.text = "월드 맵으로 돌아가시겠습니까?";
-
                     break;
 
                 case "_Yes":
@@ -85,7 +78,6 @@ public class BattleReady_MenuSelectCursor : CursorBase
                     {
                         SceneManager.LoadScene("WorldMapScene");
                     }
-
                     break;
 
                 case "_No":
@@ -100,7 +92,6 @@ public class BattleReady_MenuSelectCursor : CursorBase
                         NextButton(false, "_Back");
                     }
                     ResetCursorPosition();
-
                     break;
             }
         }
@@ -131,7 +122,7 @@ public class BattleReady_MenuSelectCursor : CursorBase
         }
         else if (currentSelected.name == "_Back")
         {
-            rt.anchoredPosition = new Vector2(-910f, MIN_POSITION_Y);
+            rt.anchoredPosition = new Vector2(-900f, MIN_POSITION_Y);
         }
     }
 }

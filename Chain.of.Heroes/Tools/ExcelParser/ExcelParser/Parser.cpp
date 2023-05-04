@@ -5,12 +5,9 @@ std::string path =
 "../../../Assets/00. Dev/Junha/gameScenes/test/parse/Resources/";
 
 const std::string& pathAndfileName =
-"../Data/NormalMonaster_Goblin.xlsx";
+"../Data/NormalMonster_GoblinWarrior.xlsx";
 
-void Parser::Initialize()
-{
-
-}
+void Parser::Initialize() {}
 
 void Parser::Parse(ParseMode mode)
 {
@@ -32,8 +29,9 @@ void Parser::JsonParse()
 	/* 엑셀 파일을 로드 한다. */
 	/* TODO: 폴더내에 있는 모든 파일을 읽어오도록 변경 */
 	xlnt::workbook wb;
-	wb.load(pathAndfileName);
+
 	//wb.load("F:\ExcelParser\Data\Test.xlsx");
+	wb.load(pathAndfileName);
 
 	/* 엑셀 파일안에 있는 0번째 시트를 사용한다. */
 	/* TODO: 모든 시트를 사용하게끔 변경 */
@@ -98,11 +96,11 @@ void Parser::CreateJsonValue(Json::Value& Data, xlnt::cell Cell, int CellCount)
 	{
 		Data[CellNames[CellCount]] = Cell.value<int>();
 	}
-	else if (Type == "String"/* || Type == "Enum"*/)
+	else if (Type == "String")
 	{
 		Data[CellNames[CellCount]] = Cell.value<std::string>();
 	}
-	else if (Type == "Float")
+	else if (Type == "Float" || Type == "Enum")
 	{
 		Data[CellNames[CellCount]] = Cell.value<double>();
 	}

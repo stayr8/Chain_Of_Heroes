@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 using UnityEngine.UI;
@@ -12,7 +13,6 @@ public class BattleReady_UIManager : MonoBehaviour
     [SerializeField, Header("[메뉴] 오브젝트")] private GameObject UI_Menu;
     [SerializeField, Header("[유닛 편성] 오브젝트")] private GameObject UI_UnitFormation;
     [SerializeField, Header("[배치 변경] 오브젝트")] private GameObject UI_ChangeFormation;
-    [SerializeField, Header("[저장] 오브젝트")] private GameObject UI_Save;
 
     #region instance화 :: Awake()함수 포함
     public static BattleReady_UIManager instance;
@@ -27,14 +27,13 @@ public class BattleReady_UIManager : MonoBehaviour
         UI_STATE();
     }
 
-    private enum STATE { MENU, UNIT_FORMATION, CHANGE_FORMATION, SAVE }
+    private enum STATE { MENU, UNIT_FORMATION, CHANGE_FORMATION }
     private STATE state = STATE.MENU;
     private void UI_STATE()
     {
         switch (state)
         {
             case STATE.MENU:
-
                 break;
 
             case STATE.UNIT_FORMATION:
@@ -45,7 +44,7 @@ public class BattleReady_UIManager : MonoBehaviour
 
                     state = STATE.MENU;
                 }
-
+                UpdateData();
                 break;
 
             case STATE.CHANGE_FORMATION:
@@ -57,18 +56,6 @@ public class BattleReady_UIManager : MonoBehaviour
 
                     state = STATE.MENU;
                 }
-
-                break;
-
-            case STATE.SAVE:
-                if (!BattleReady_UnitFormationCursor.isOnMenuSelect && Input.GetKeyDown(KeyCode.Escape))
-                {
-                    UI_Save.SetActive(false);
-                    UI_Menu.SetActive(true);
-
-                    state = STATE.MENU;
-                }
-
                 break;
         }
     }
@@ -87,16 +74,7 @@ public class BattleReady_UIManager : MonoBehaviour
 
         UI_Menu.SetActive(false);
         UI_ChangeFormation.SetActive(true);
-        Debug.Log("여기는 들어오지");
         OnCharacterChangeFormation?.Invoke(this, EventArgs.Empty);
-    }
-
-    public void OnSave()
-    {
-        state = STATE.SAVE;
-
-        UI_Menu.SetActive(false);
-        UI_Save.SetActive(true);
     }
 
     #region 편성 / 스킬 확인
@@ -119,7 +97,7 @@ public class BattleReady_UIManager : MonoBehaviour
     public void OffFormation(GameObject obj)
     {
         // 스프라이트 변경
-        GameObject child = obj.transform.GetChild(0).gameObject;
+        GameObject child = obj.transform.GetChild(1).gameObject;
         Image img = child.GetComponent<Image>();
         img.sprite = Img_OffFormation;
 
@@ -132,7 +110,7 @@ public class BattleReady_UIManager : MonoBehaviour
     public void OnFormation(GameObject obj)
     {
         // 스프라이트 변경
-        GameObject child = obj.transform.GetChild(0).gameObject;
+        GameObject child = obj.transform.GetChild(1).gameObject;
         Image img = child.GetComponent<Image>();
         img.sprite = Img_OnFormation;
 
@@ -142,4 +120,31 @@ public class BattleReady_UIManager : MonoBehaviour
         childRT.sizeDelta = new Vector2(119f, 38f);
     }
     #endregion
+
+    [Header("[캐릭터 정보] 텍스트")]
+    [SerializeField] private TextMeshProUGUI character_Name;
+    [SerializeField] private TextMeshProUGUI character_Class;
+    [SerializeField] private TextMeshProUGUI character_Level;
+    [SerializeField] private TextMeshProUGUI character_HP;
+    [SerializeField] private TextMeshProUGUI character_AttackPower;
+    [SerializeField] private TextMeshProUGUI character_ChainAttackPower;
+    [SerializeField] private TextMeshProUGUI character_DefensePower;
+    private CharacterDataManager data;
+    private void UpdateData()
+    {
+        GameObject obj = BattleReady_UnitFormationCursor.currentSelected;
+        if(obj.name == "_10")
+        {
+            return;
+        }
+        data = obj.GetComponentInChildren<CharacterDataManager>();
+
+        character_Name.text = data.m_name;
+        //character_Class.text = data.m_class.ToString();
+        character_Level.text = "Lv. " + data.m_level.ToString();
+        character_HP.text = data.m_hp.ToString();
+        character_AttackPower.text = data.m_attackPower.ToString();
+        character_ChainAttackPower.text = data.m_chainAttackPower.ToString();
+        character_DefensePower.text = data.m_defensePower.ToString();
+    }
 }

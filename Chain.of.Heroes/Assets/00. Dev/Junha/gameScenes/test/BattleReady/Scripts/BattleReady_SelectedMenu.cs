@@ -55,16 +55,13 @@ public class BattleReady_SelectedMenu : MonoBehaviour, ISelectHandler, IDeselect
         {
             setPos(35f, rt.anchoredPosition.y);
         }
-        else if (gameObject.name == "_Save")
+        else if (gameObject.name == "_Back")
         {
             setPos(25f, rt.anchoredPosition.y);
         }
-        else if (gameObject.name == "_Back")
-        {
-            setPos(15f, rt.anchoredPosition.y);
-        }
 
-        rt.sizeDelta = new Vector2(557f, rt.sizeDelta.y);
+        //rt.sizeDelta = new Vector2(557f, rt.sizeDelta.y);
+        image.SetNativeSize();
     }
     private void notSelect()
     {
@@ -82,16 +79,13 @@ public class BattleReady_SelectedMenu : MonoBehaviour, ISelectHandler, IDeselect
         {
             setPos(-65f, rt.anchoredPosition.y);
         }
-        else if (gameObject.name == "_Save")
+        else if (gameObject.name == "_Back")
         {
             setPos(-75f, rt.anchoredPosition.y);
         }
-        else if (gameObject.name == "_Back")
-        {
-            setPos(-85f, rt.anchoredPosition.y);
-        }
 
-        rt.sizeDelta = new Vector2(335f, rt.sizeDelta.y);
+        //rt.sizeDelta = new Vector2(335f, rt.sizeDelta.y);
+        image.SetNativeSize();
     }
 
     private void setPos(float posX, float posY)

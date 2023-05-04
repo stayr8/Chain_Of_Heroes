@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using SimpleJSON;
 
-public class GoblinWarrior
+public class GoblinArcher
 {
 	public int ID;
 	public string Monster_Name;
@@ -10,6 +10,8 @@ public class GoblinWarrior
 	public float AttackPower;
 	public float Monster_DefensePower;
 	public float Monster_Hp;
+	public float CriticalRate;
+	public float CriticalDamage;
 	public int Monster_ActionPoint;
 	public float Monster_Speed;
 	public int Monster_MovementRange;
@@ -23,6 +25,8 @@ public class GoblinWarrior
 		AttackPower = Data["AttackPower"].AsFloat;
 		Monster_DefensePower = Data["Monster_DefensePower"].AsFloat;
 		Monster_Hp = Data["Monster_Hp"].AsFloat;
+		CriticalRate = Data["CriticalRate"].AsFloat;
+		CriticalDamage = Data["CriticalDamage"].AsFloat;
 		Monster_ActionPoint = Data["Monster_ActionPoint"].AsInt;
 		Monster_Speed = Data["Monster_Speed"].AsFloat;
 		Monster_MovementRange = Data["Monster_MovementRange"].AsInt;

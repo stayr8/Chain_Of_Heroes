@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
+using TMPro;
 using UnityEngine.UI;
 
 public class BattleReady_UnitFormationCursor : CursorBase
 {
     private RectTransform rt;
-    private GameObject currentSelected;
+    public static GameObject currentSelected;
     private void Awake()
     {
         rt = GetComponent<RectTransform>();
