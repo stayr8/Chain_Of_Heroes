@@ -2,7 +2,7 @@
 
 =====================================================
 
-GuardianK [3D Model]   < Ver 1.0 >
+SamuraiZ [3D Model]   < Ver 1.0 >
 
 =====================================================
 
@@ -12,13 +12,16 @@ GuardianK [3D Model]   < Ver 1.0 >
 
 
 ----------------------------------------------------
-Includes 11 Animations
+Includes 14 Animations
 ----------------------------------------------------
 
 
 > Idle01
 
 > Idle02
+
+> Idle03
+
 
 
 > Run
@@ -27,14 +30,21 @@ Includes 11 Animations
 > Dash
 
 
+
 > Attack01
 
 > Attack02
 
 
+
 > Skill01
 
 > Skill02
+
+> Skill03
+
+> Skill04
+
 
 
 > Stun
@@ -59,7 +69,7 @@ instructions
 ===================================================
 
 
-1.click to the  [File] > [Open Project] > [GuardianK] folder
+1.click to the  [File] > [Open Project] > [SamuraiZ] folder
 
 2.Dubble click [Demo_scene] and Use Prefap file in the [Prefaps] folder
 
