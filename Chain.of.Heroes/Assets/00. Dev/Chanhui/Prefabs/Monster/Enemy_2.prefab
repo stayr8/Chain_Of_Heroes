@@ -322,6 +322,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CameraPos: {fileID: 0}
   CameraFollow: {fileID: 0}
+  CameraPos2: {fileID: 0}
+  IsGrid: 0
   isEnemy: 1
   newEnemyActionPoints: 2
   SoloEnemyActionPoints: 0
@@ -369,6 +371,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxMoveDistance: 8
   minMoveDistance: 3
+  obstaclesLayerMask:
+    serializedVersion: 2
+    m_Bits: 32768
 --- !u!114 &-370482674512953063
 MonoBehaviour:
   m_ObjectHideFlags: 0

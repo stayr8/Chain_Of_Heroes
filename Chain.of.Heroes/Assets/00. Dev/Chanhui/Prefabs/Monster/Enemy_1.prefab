@@ -168,6 +168,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxMoveDistance: 8
   minMoveDistance: 3
+  obstaclesLayerMask:
+    serializedVersion: 2
+    m_Bits: 32768
 --- !u!114 &8681924711701863764
 MonoBehaviour:
   m_ObjectHideFlags: 0

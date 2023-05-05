@@ -6,7 +6,7 @@ public class CharacterTypeManager : MonoBehaviour
 {
     public static CharacterTypeManager Instance { get; private set; }
 
-    // ItemType enum 정의
+    // CharacterType enum 정의
     public enum CharacterType
     {
         Womanknight,

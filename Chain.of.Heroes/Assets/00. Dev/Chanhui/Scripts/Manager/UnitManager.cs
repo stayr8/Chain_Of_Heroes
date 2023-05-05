@@ -19,6 +19,7 @@ public class UnitManager : MonoBehaviour
 
     public int playerpos = 0;
     public int enemypos = 0;
+    private bool OnChangeFormation;
 
     private void Awake()
     {
@@ -34,6 +35,7 @@ public class UnitManager : MonoBehaviour
         friendlyUnitList = new List<Unit>();
         enemyUnitList = new List<Unit>();
         characterUiList = new List<CharacterUI>();
+        OnChangeFormation = false;
     }
 
     private void Start()
@@ -71,13 +73,19 @@ public class UnitManager : MonoBehaviour
         else
         {
             friendlyUnitList.Add(unit);
-            Debug.Log(characterUiList[playerpos].GetCharacterUIMovePos());
-            unit.SetPosition(characterUiList[playerpos].GetCharacterUIMovePos());
+            //Debug.Log(characterUiList);
+            if(!OnChangeFormation)
+            {
+                unit.SetPosition(ChangeFormationSystem.Instance.GetCharacterMovePos()[playerpos]);
+            }
+            else
+            {
+                unit.SetPosition(characterUiList[playerpos].GetCharacterUIMovePos());
+            }
+            
             playerpos++;
 
-        }
-        
-        
+        } 
     }
 
     private void Unit_OnAnyUnitDead(object sender, EventArgs e)
@@ -161,6 +169,11 @@ public class UnitManager : MonoBehaviour
     public bool VictoryEnemy()
     {
         return friendlyUnitList.Count <= 0;
+    }
+
+    public void SetOnChangeFormation(bool OnChangeFormation)
+    {
+        this.OnChangeFormation =  OnChangeFormation;
     }
 
     private void OnDisable()

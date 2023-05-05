@@ -14,14 +14,15 @@ public class ChainAction : BaseAction
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
+
         // 발견 된 체인 플레이어가 Action을 시작하는 곳
-        if(validGridPositionList.Count > 1)
+        if (validGridPositionList.Count > 1)
         {
             targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(validGridPositionList[0]);
             targetUnit2 = LevelGrid.Instance.GetUnitAtGridPosition(validGridPositionList[1]);
 
-            //Debug.Log(targetUnit.GetUnitName());
-            //Debug.Log(targetUnit2.GetUnitName());
+            Debug.Log(targetUnit.GetUnitName());
+            Debug.Log(targetUnit2.GetUnitName());
             BaseAction bestBaseAction = null;
             BaseAction bestBaseAction2 = null;
             if (targetUnit.GetIsAttackDistance())
@@ -103,22 +104,11 @@ public class ChainAction : BaseAction
                 }
 
                 Unit targetUnit = UnitActionSystem.Instance.GetSelecterdUnit();
-                if (targetUnit == LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition))
+                Unit targetUnit2 = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
+                if (targetUnit == targetUnit2)
                 {
                     continue;
                 }
-                /*
-                Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
-                if (AttackActionSystem.Instance.GetPlayer() == targetUnit)
-                {
-                    continue;
-                }*/
-                /*
-                if (targetUnit.IsEnemy() == unit.IsEnemy())
-                {
-                    // Both Units on same 'team'
-                    continue;
-                }*/
 
                 int testDistance = Mathf.Abs(x) + Mathf.Abs(z);
                 if (testDistance > maxChainDistance)
@@ -132,6 +122,11 @@ public class ChainAction : BaseAction
                     continue;
                 }
 
+                if (LevelGrid.Instance.HasAnyUnitAtEnemyGridPosition(testGridPosition))
+                {
+                    // Is the unit on the grid a monster
+                    continue;
+                }
 
                 if (!Pathfinding.Instance.IsWalkableGridPosition(testGridPosition))
                 {
