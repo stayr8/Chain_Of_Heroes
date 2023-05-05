@@ -17,9 +17,9 @@ public class ChangeFormationSystem : MonoBehaviour
     private bool[] isGround;
 
     [SerializeField] private Transform CharacterUIPrefab;
-    
 
-    //[SerializeField] private int number;
+
+    //private bool OnChangeFormation;
 
     
 
@@ -43,7 +43,6 @@ public class ChangeFormationSystem : MonoBehaviour
     private void Start()
     {
         BattleReady_UIManager.instance.OnCharacterChangeFormation += BattleReady_UIManager_OnCharacterChangeFormation;
-
     }
 
     public void CreateCharacterUI(int Charnumber, int pos)
@@ -58,7 +57,7 @@ public class ChangeFormationSystem : MonoBehaviour
         CharacterUI.GetComponent<Image>().SetNativeSize();
 
         characterUIList.Add(CharacterUI);
-
+        characterUIList.Sort(new CharacterTypeComparer());
         isGround[pos] = true;
         isImage[Charnumber] = true;
     }
@@ -109,7 +108,8 @@ public class ChangeFormationSystem : MonoBehaviour
 
     private void Unit_formation()
     {
-        for(int i = 0; i < CharacterTypeManager.Instance.GetIsCharacter().Length; i++)
+        UnitManager.Instance.SetOnChangeFormation(true);
+        for (int i = 0; i < CharacterTypeManager.Instance.GetIsCharacter().Length; i++)
         {
             if(!isImage[0] && CharacterTypeManager.Instance.GetIsCharacter()[0] == true)
             {
@@ -169,6 +169,11 @@ public class ChangeFormationSystem : MonoBehaviour
     {
         return Characterpos;
     }
+    
+    public Vector3[] GetCharacterMovePos()
+    {
+        return CharacterMovePos;
+    }
 
     public bool[] GetIsImage()
     {
@@ -178,6 +183,20 @@ public class ChangeFormationSystem : MonoBehaviour
     public bool[] GetIsGround()
     {
         return isGround;
+    }
+
+
+    private class CharacterTypeComparer : Comparer<CharacterUI>
+    {
+        public override int Compare(CharacterUI x, CharacterUI y)
+        {
+            if(x == null || y == null)
+            {
+                return 0;
+            }
+
+            return x.ImageType().CompareTo(y.ImageType());
+        }
     }
 
 }

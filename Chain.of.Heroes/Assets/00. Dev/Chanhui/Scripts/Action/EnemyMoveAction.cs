@@ -15,7 +15,6 @@ public class EnemyMoveAction : BaseAction
     private int currentPositionIndex = 0;
 
 
-
     private void Update()
     {
         if (!isActive)
@@ -104,6 +103,12 @@ public class EnemyMoveAction : BaseAction
                 {
                     continue;
                 }
+                /*
+                if (LevelGrid.Instance.HasAnyUnitAtEnemyGridPosition(testGridPosition))
+                {
+                    // Is the unit on the grid a monster
+                    continue;
+                }*/
 
                 if (LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition))
                 {
@@ -111,13 +116,11 @@ public class EnemyMoveAction : BaseAction
                     continue;
                 }
                 
-
                 if (!Pathfinding.Instance.IsWalkableGridPosition(testGridPosition))
                 {
                     continue;
                 }
 
-                
                 if (!Pathfinding.Instance.HasAtPath(unitGridPosition, testGridPosition))
                 {
                     continue;

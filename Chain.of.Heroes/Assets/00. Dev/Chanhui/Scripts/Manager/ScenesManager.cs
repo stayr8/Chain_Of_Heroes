@@ -37,7 +37,7 @@ public class ScenesManager : MonoBehaviour
     private void ScenesManager_OnScenesChange(object sender, EventArgs e)
     {
         ChanScene.SetActive(true);
-        Invoke("Time", 0.2f);
+        Invoke("Time", 0.5f);
     }
 
     void Time()

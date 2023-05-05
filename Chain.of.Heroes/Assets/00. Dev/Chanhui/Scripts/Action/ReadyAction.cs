@@ -173,7 +173,7 @@ public class ReadyAction : BaseAction
                     {
                         ActionCameraComplete();
                     }
-                    //AttackActionSystem.Instance.OffAtLocationMove(unit, targetUnit);
+                    AttackActionSystem.Instance.OffAtLocationMove(unit, targetUnit);
                 }
 
                 ActionComplete();
