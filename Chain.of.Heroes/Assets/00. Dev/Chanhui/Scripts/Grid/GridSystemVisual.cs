@@ -32,6 +32,7 @@ public class GridSystemVisual : MonoBehaviour
 
     private GridSystemVisualSingle[,] gridSystemVisualSingleArray;
 
+    private List<Binding> Binds = new List<Binding>();
 
     private void Awake()
     {
@@ -46,7 +47,15 @@ public class GridSystemVisual : MonoBehaviour
 
     private void Start()
     {
-        
+        Binding Bind = BindingManager.Bind(TurnSystem.Property, "IsPlayerTurn", (object value) =>
+        {
+            if (!TurnSystem.Property.IsPlayerTurn)
+            {
+                ShowAllGridPosition();
+            }
+        },false);
+        Binds.Add(Bind);
+
         gridSystemVisualSingleArray = new GridSystemVisualSingle[
             LevelGrid.Instance.GetWidth(),
             LevelGrid.Instance.GetHeight()
@@ -66,7 +75,6 @@ public class GridSystemVisual : MonoBehaviour
         UnitActionSystem.Instance.OnSelectedActionChanged += UnitActionSystem_OnSelectedActionChanged;
         UnitActionSystem.Instance.OffSelectedActionChanged += UnitActionSystem_OffSelectedActionChanged;
         LevelGrid.Instance.OnAnyUnitMovedGridPosition += LevelGrid_OnAnyUnitMovedGridPosition;
-        //TurnSystem.Instance.OffPlayerGrid += TurnSystem_OffPlayerGrid;
 
         //UpdateGridVisual();
     }
@@ -81,7 +89,16 @@ public class GridSystemVisual : MonoBehaviour
             }
         }
     }
-
+    public void ShowAllGridPosition()
+    {
+        for (int x = 0; x < LevelGrid.Instance.GetWidth(); x++)
+        {
+            for (int z = 0; z < LevelGrid.Instance.GetHeight(); z++)
+            {
+                gridSystemVisualSingleArray[x, z].Show(GetGridVisualMaterial());
+            }
+        }
+    }
     private void ShowGridPositionRange(GridPosition gridPosition, int range, GridVisualType gridVisualType)
     {
         List<GridPosition> gridPositionList = new List<GridPosition>();
@@ -345,8 +362,24 @@ public class GridSystemVisual : MonoBehaviour
         return null;
     }
 
+    private Material GetGridVisualMaterial()
+    {
+        foreach (GridVisualTypeMaterial gridVisualTypeMaterial in gridVisualTypeMaterialList)
+        {
+            return gridVisualTypeMaterial.material;
+        }
+
+        
+        return null;
+    }
+
     private void OnDisable()
     {
+        foreach (var bind in Binds)
+        {
+            BindingManager.Unbind(TurnSystem.Property, bind);
+        }
+
         UnitActionSystem.Instance.OnSelectedActionChanged -= UnitActionSystem_OnSelectedActionChanged;
         UnitActionSystem.Instance.OffSelectedActionChanged -= UnitActionSystem_OffSelectedActionChanged;
         LevelGrid.Instance.OnAnyUnitMovedGridPosition -= LevelGrid_OnAnyUnitMovedGridPosition;

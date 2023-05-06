@@ -24,11 +24,12 @@ public class MapData : ScriptableObject
     [SerializeField] private Vector3[] enemyXY;
     public Vector3[] EnemyXY { get { return enemyXY; } }
 
+    /*
     [Header("Player_Information")]
     [SerializeField] private GameObject[] player_pf;
     public GameObject[] Player_pf { get { return player_pf; } }
 
     [SerializeField] private Vector3[] playerXY;
     public Vector3[] PlayerXY { get { return playerXY; } }
-
+    */
 }

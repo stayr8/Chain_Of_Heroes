@@ -27,7 +27,7 @@ public class ReadyAction : BaseAction
     }
 
     [SerializeField] private LayerMask obstaclesLayerMask;
-    private int maxReadyDistance = 2;
+    [SerializeField] private int maxReadyDistance = 1;
 
     private State state;
     private float stateTimer;
@@ -124,7 +124,6 @@ public class ReadyAction : BaseAction
                 {
                     Shoot();
                     canShootBullet = false;
-                    //AttackActionSystem.Instance.SetIsAtk(false);
                 }
 
                 TimeAttack(1.0f);
@@ -220,8 +219,6 @@ public class ReadyAction : BaseAction
                     continue;
                 }
 
-                
-
                 int testDistance = Mathf.Abs(x) + Mathf.Abs(z);
                 if(testDistance > maxReadyDistance)
                 {
@@ -233,7 +230,6 @@ public class ReadyAction : BaseAction
                     // Grid Position is empty, no Unit
                     continue;
                 }
-
                 
                 Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
                 if(targetUnit.IsEnemy() == unit.IsEnemy())
@@ -278,6 +274,7 @@ public class ReadyAction : BaseAction
         if (!unit.IsEnemy())
         {
             AttackActionSystem.Instance.SetIsAtk(true);
+            AttackActionSystem.Instance.SetenemyChainFind(targetUnit);
         }
 
         ActionStart(onActionComplete);

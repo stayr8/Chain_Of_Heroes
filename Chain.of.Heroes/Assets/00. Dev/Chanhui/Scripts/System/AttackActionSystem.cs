@@ -337,6 +337,16 @@ public class AttackActionSystem : MonoBehaviour
         return monsterDataManager;
     }
 
+    public Unit GetenemyChainFind()
+    {
+        return enemy;
+    }
+
+    public void SetenemyChainFind(Unit enemy)
+    {
+        this.enemy = enemy;
+    }
+
     public bool GetIsAtk()
     {
         return isAtk;

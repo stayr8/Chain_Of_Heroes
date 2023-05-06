@@ -196,6 +196,21 @@ public class Pathfinding : MonoBehaviour
 
                 if (neighbourNode != endNode && LevelGrid.Instance.HasAnyUnitOnGridPosition(neighbourNode.GetGridPosition()))
                 {
+                    if (LevelGrid.Instance.GetUnitAtGridPosition(startGridPosition).GetEnemyVisualType() == Unit.EnemyType.RedStoneGolem 
+                        && LevelGrid.Instance.GetUnitAtGridPosition(startGridPosition).GetBossMonsterPosition().Contains(neighbourNode.GetGridPosition()))
+                    {
+
+                    }
+                    else
+                    {
+                        closedList.Add(neighbourNode);
+                        continue;
+                    }
+                }
+
+
+                if (neighbourNode != endNode && LevelGrid.Instance.HasAnyUnitAtEnemyGridPosition(neighbourNode.GetGridPosition()))
+                {
                     closedList.Add(neighbourNode);
                     continue;
                 }

@@ -51,10 +51,9 @@ public class ChainSystem : MonoBehaviour
 
     private bool TryTakeEnemyAIAction(Action onEnemyAIActionComplete)
     {
-
         foreach (Unit enemyUnit in UnitManager.Instance.GetEnemyUnitList())
         {
-            if (UnitActionSystem.Instance.GetSelecterdUnitEnemy() == enemyUnit) 
+            if (AttackActionSystem.Instance.GetenemyChainFind() == enemyUnit) 
             {
                 if (TryTakeEnemyAIAction(enemyUnit, onEnemyAIActionComplete))
                 {

@@ -20,7 +20,7 @@ public class UnitActionSystem : MonoBehaviour
     [SerializeField] private LayerMask UnitLayerMask;
     [SerializeField] private MonsterDataManager selectedEnemy;
     [SerializeField] private LayerMask EnemyLayerMask;
-    [SerializeField] private Unit selectedUnitEnemy;
+
 
     private BaseAction selectedAction;
     private bool isBusy;
@@ -47,8 +47,6 @@ public class UnitActionSystem : MonoBehaviour
 
     private void Update()
     {
-        TryHandleUnitEnemySelection();
-
         if (isBusy)
         {
             return;
@@ -146,24 +144,6 @@ public class UnitActionSystem : MonoBehaviour
         return false;
     }
 
-    private bool TryHandleUnitEnemySelection()
-    {
-        if (InputManager.Instance.IsMouseButtonDown())
-        {
-            Ray ray = Camera.main.ScreenPointToRay(InputManager.Instance.GetMouseScreenPosition());
-            if (Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, EnemyLayerMask))
-            {
-                if (raycastHit.transform.TryGetComponent<Unit>(out Unit unit))
-                {
-                    SetSelectedUnityEnemy(unit);
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
     private void SetSelectedUnit(Unit unit)
     {
         selectedUnit = unit;
@@ -173,13 +153,6 @@ public class UnitActionSystem : MonoBehaviour
         DoubleSelectedUnit = false;
 
         OnSelectedUnitChanged?.Invoke(this, EventArgs.Empty);
-    }
-
-
-    private void SetSelectedUnityEnemy(Unit unit)
-    {
-        selectedUnitEnemy = unit;
-        CameraSelectedUnit = false;
     }
 
     public void OutSelectedUnit(Unit unit)
@@ -203,11 +176,6 @@ public class UnitActionSystem : MonoBehaviour
     public Unit GetSelecterdUnit()
     {
         return selectedUnit;
-    }
-
-    public Unit GetSelecterdUnitEnemy()
-    {
-        return selectedUnitEnemy;
     }
 
     public BaseAction GetSelectedAction()
