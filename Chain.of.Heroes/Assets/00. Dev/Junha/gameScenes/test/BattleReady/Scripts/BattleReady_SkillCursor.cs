@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEngine.UI;
+
 public class BattleReady_SkillCursor : CursorBase
 {
     private RectTransform rt;
@@ -18,38 +20,57 @@ public class BattleReady_SkillCursor : CursorBase
         Init(rt, INIT_X, INIT_Y, ref currentSelected, "Skill_1");
     }
 
+    public static bool isOnDetail = false;
     private const float MOVE_DISTANCE = 92.5f;
     private const float MIN_POSITION_Y = -170f;
     private const float MAX_POSITION_Y = 107.5f;
     private void Update()
     {
-        Movement(rt, ref currentSelected, MOVE_DISTANCE, MIN_POSITION_Y, MAX_POSITION_Y);
-
         MenuFunction();
+
+        if (!isOnDetail)
+        {
+            Movement(rt, ref currentSelected, MOVE_DISTANCE, MIN_POSITION_Y, MAX_POSITION_Y);
+        }
+        else
+        {
+            return;
+        }
     }
 
     private void MenuFunction()
     {
-        if(Input.GetKeyDown(KeyCode.Return))
+        if (!isOnDetail && Input.GetKeyDown(KeyCode.Return))
         {
-            switch(currentSelected.name)
+            gameObject.GetComponent<Image>().enabled = false;
+            isOnDetail = true;
+
+            switch (currentSelected.name)
             {
                 case "Skill_1":
-                    Debug.Log("스킬1 확인");
+                    BattleReady_UIManager.instance.OnSkillDetail();
                     break;
 
                 case "Skill_2":
-                    Debug.Log("스킬2 확인");
+                    BattleReady_UIManager.instance.OnSkillDetail();
                     break;
 
                 case "Skill_3":
-                    Debug.Log("스킬3 확인");
+                    BattleReady_UIManager.instance.OnSkillDetail();
                     break;
 
                 case "Skill_4":
-                    Debug.Log("스킬4 확인");
+                    BattleReady_UIManager.instance.OnSkillDetail();
                     break;
             }
+        }
+
+        if (isOnDetail && Input.GetKeyDown(KeyCode.Escape))
+        {
+            isOnDetail = false;
+            BattleReady_UIManager.instance.OffSkillDetail();
+
+            gameObject.GetComponent<Image>().enabled = true;
         }
     }
 }

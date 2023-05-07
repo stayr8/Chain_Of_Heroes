@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using TMPro;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ using UnityEngine.UI;
 
 public class BattleReady_UIManager : MonoBehaviour
 {
-     public event EventHandler OnCharacterChangeFormation;
+    public event EventHandler OnCharacterChangeFormation;
 
     [SerializeField, Header("[메뉴] 오브젝트")] private GameObject UI_Menu;
     [SerializeField, Header("[유닛 편성] 오브젝트")] private GameObject UI_UnitFormation;
@@ -44,7 +45,8 @@ public class BattleReady_UIManager : MonoBehaviour
 
                     state = STATE.MENU;
                 }
-                UpdateData();
+                Update_Formation();
+                Update_Data();
                 break;
 
             case STATE.CHANGE_FORMATION:
@@ -127,6 +129,15 @@ public class BattleReady_UIManager : MonoBehaviour
     #endregion
 
     #region 유닛 편성: 캐릭터 정보 갱신
+    [Header("[유닛 편성 수] 텍스트")]
+    [SerializeField] private TextMeshProUGUI _Current; // "n"
+    [SerializeField] private TextMeshProUGUI _Max; // "/ n"
+    private void Update_Formation()
+    {
+        _Current.text = BattleReady_UnitFormationCursor.count.ToString();
+        _Max.text = "/ " + "9"; // 총 캐릭터 수가 9명임.
+    }
+
     [Header("[캐릭터 정보] 텍스트")]
     [SerializeField] private TextMeshProUGUI character_Name;
     [SerializeField] private TextMeshProUGUI character_Class;
@@ -135,8 +146,9 @@ public class BattleReady_UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI character_AttackPower;
     [SerializeField] private TextMeshProUGUI character_ChainAttackPower;
     [SerializeField] private TextMeshProUGUI character_DefensePower;
+    [SerializeField] private Image character_Image;
     private CharacterDataManager data;
-    private void UpdateData()
+    private void Update_Data()
     {
         GameObject obj = BattleReady_UnitFormationCursor.currentSelected;
         if (obj.GetComponentInChildren<CharacterDataManager>() == null)
@@ -145,7 +157,7 @@ public class BattleReady_UIManager : MonoBehaviour
         }
         data = obj.GetComponentInChildren<CharacterDataManager>();
 
-        character_Name.text = data.m_name;
+        Set_NameAndImage();
         //character_Class.text = data.m_class.ToString();
         character_Level.text = "Lv. " + data.m_level.ToString();
         character_HP.text = data.m_hp.ToString();
@@ -153,10 +165,63 @@ public class BattleReady_UIManager : MonoBehaviour
         character_ChainAttackPower.text = data.m_chainAttackPower.ToString();
         character_DefensePower.text = data.m_defensePower.ToString();
     }
+    private RectTransform rt;
+    private void Set_NameAndImage()
+    {
+        rt = character_Image.gameObject.GetComponent<RectTransform>();
+
+        switch (data.m_name)
+        {
+            case "Akame": // _1
+                character_Name.text = "아카메";
+                rt.anchoredPosition = new Vector2(480f, -415f);
+                break;
+
+            case "Kris": // _2
+                character_Name.text = "크리스";
+                rt.anchoredPosition = new Vector2(447f, -415f);
+                break;
+
+            case "Teo": // _3
+                character_Name.text = "태오";
+                rt.anchoredPosition = new Vector2(383f, -415f);
+                break;
+
+            case "Melia": // _4
+                character_Name.text = "멜리아";
+                rt.anchoredPosition = new Vector2(433f, -415f);
+                break;
+
+            case "Platin": // _5
+                character_Name.text = "플라틴";
+                //rt.anchoredPosition = new Vector2(433f, -415f);
+                break;
+
+            case "Raiden": // _6
+                character_Name.text = "라이덴";
+                //rt.anchoredPosition = new Vector2(433f, -415f);
+                break;
+
+            case "Eileene": // _7
+                character_Name.text = "아일린";
+                rt.anchoredPosition = new Vector2(408f, -415f);
+                break;
+
+            case "Jave": // _8
+                character_Name.text = "제이브";
+                //rt.anchoredPosition = new Vector2(433f, -415f);
+                break;
+
+            case "Vanessa": // _9
+                character_Name.text = "바네사";
+                rt.anchoredPosition = new Vector2(408f, -336f);
+                break;
+        }
+        character_Image.sprite = Resources.Load<Sprite>("Character/Illustration/" + data.m_name);
+    }
     #endregion
 
     #region 유닛 편성: 스킬 확인
-    [SerializeField, Header("[편성 커서] 오브젝트")] private GameObject UnitFormation_Cursor;
     [SerializeField, Header("[스킬 커서] 오브젝트")] private GameObject Skill_Cursor;
     public void OnSkillCursor()
     {
@@ -165,6 +230,16 @@ public class BattleReady_UIManager : MonoBehaviour
     public void OffSkillCursor()
     {
         Skill_Cursor.SetActive(false);
+    }
+
+    [SerializeField, Header("[스킬 설명] 오브젝트")] private GameObject Skill_Detail;
+    public void OnSkillDetail()
+    {
+        Skill_Detail.SetActive(true);
+    }
+    public void OffSkillDetail()
+    {
+        Skill_Detail.SetActive(false);
     }
     #endregion
 }

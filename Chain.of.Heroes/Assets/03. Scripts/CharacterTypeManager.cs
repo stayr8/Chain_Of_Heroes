@@ -34,10 +34,13 @@ public class CharacterTypeManager : MonoBehaviour
         }
     }
 
-
     public bool[] GetIsCharacter()
     {
         return isCharacter;
+    }
+    public void SetIsCharacter(int index, bool isCharacter)
+    {
+        this.isCharacter[index] = isCharacter;
     }
 
     public void SetIsCharacter(int number)

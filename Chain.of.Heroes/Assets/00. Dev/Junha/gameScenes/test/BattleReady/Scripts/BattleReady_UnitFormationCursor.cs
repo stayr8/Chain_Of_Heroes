@@ -42,13 +42,13 @@ public class BattleReady_UnitFormationCursor : CursorBase
         {
             Movement(rt, ref currentSelected, MOVE_DISTANCE_X, MOVE_DISTANCE_Y, MIN_POSITION_X, MAX_POSITION_X, MIN_POSITION_Y, MAX_POSITION_Y);
         }
-        else if (isOnMenuSelect)
+        else // isOnMenuSelect
         {
             if (!isOnSkill)
             {
                 Movement(ref currentSelected);
             }
-            else
+            else // isOnSkill
             {
                 return;
             }
@@ -97,7 +97,7 @@ public class BattleReady_UnitFormationCursor : CursorBase
         }
 
         // 스킬 확인 창 상태
-        if (isOnMenuSelect && isOnSkill && Input.GetKeyDown(KeyCode.Escape))
+        if (isOnMenuSelect && isOnSkill && !BattleReady_SkillCursor.isOnDetail && Input.GetKeyDown(KeyCode.Escape))
         {
             Off_SkillCheck();
         }
@@ -124,6 +124,7 @@ public class BattleReady_UnitFormationCursor : CursorBase
     #region 편성 관련 함수
     private BattleReady_FormationState formationState;
     private TextMeshProUGUI tmp;
+    public static int count = 0;
     private void NextButton_Menu(GameObject obj)
     {
         if (isOnMenuSelect)
@@ -143,6 +144,7 @@ public class BattleReady_UnitFormationCursor : CursorBase
     private void Formation()
     {
         formationState.isFormationState = !formationState.isFormationState;
+        count = formationState.isFormationState ? ++count : --count; // true : false
 
         isOnMenuSelect = false;
         Off_FormationSkillSelect();
