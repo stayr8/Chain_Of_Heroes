@@ -19,6 +19,7 @@ public class CharacterDataManager : MonoBehaviour
     public float m_chainAttackPower;
     public float m_defensePower;
     public float m_hp;
+    public float m_maxhp;
     public float m_criticalRate;
     public float m_criticalDamage;
 
@@ -82,6 +83,7 @@ public class CharacterDataManager : MonoBehaviour
 
         //firstArray = _Array[0]; // Init
         initInfo();
+        m_maxhp = m_hp;
     }
 
     private void Update()
@@ -121,7 +123,7 @@ public class CharacterDataManager : MonoBehaviour
 
     public float GetHealthNormalized()
     {
-        return (float)m_hp / 1000;
+        return (float)m_hp / m_maxhp;
     }
 
     public float GetHealth()

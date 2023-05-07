@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &496135096761212713
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 292987836240464246}
+  m_Layer: 16
+  m_Name: Action
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &292987836240464246
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 496135096761212713}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.1000061, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4007945315561742235}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1959829235143319844
 GameObject:
   m_ObjectHideFlags: 0
@@ -244,6 +275,7 @@ Transform:
   - {fileID: 2981438844502311686}
   - {fileID: 8868952552453640963}
   - {fileID: 6992718189361783821}
+  - {fileID: 292987836240464246}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -291,6 +323,7 @@ MonoBehaviour:
   CameraPos: {fileID: 8868952552453640963}
   CameraFollow: {fileID: 6992718189361783821}
   CameraPos2: {fileID: 0}
+  CameraPos3: {fileID: 292987836240464246}
   IsGrid: 0
   isEnemy: 0
   newEnemyActionPoints: 2
@@ -377,6 +410,7 @@ MonoBehaviour:
   m_chainAttackPower: 0
   m_defensePower: 0
   m_hp: 0
+  m_maxhp: 0
   m_criticalRate: 0
   m_criticalDamage: 0
 --- !u!114 &1498748467724084230

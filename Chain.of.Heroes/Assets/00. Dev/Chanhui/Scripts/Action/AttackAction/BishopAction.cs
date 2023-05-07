@@ -70,6 +70,7 @@ public class BishopAction : BaseAction
                 if (currentPositionIndex >= BeforepositionList)
                 {
                     OnBishopStopMoving?.Invoke(this, EventArgs.Empty);
+                    UnitActionSystem.Instance.SetCameraPointchange(true);
                     currentPositionIndex++;
                     state = State.SwingingBishopMoving;
                 }
@@ -316,7 +317,7 @@ public class BishopAction : BaseAction
 
         OnBishopStartMoving?.Invoke(this, EventArgs.Empty);
         AttackActionSystem.Instance.SetIsAtk(true);
-        AttackActionSystem.Instance.SetenemyChainFind(targetUnit);
+        AttackActionSystem.Instance.SetUnitChainFind(targetUnit, unit);
 
         ActionStart(onActionComplete);
     }

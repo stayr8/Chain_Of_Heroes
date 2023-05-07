@@ -73,6 +73,7 @@ public class QueenAction : BaseAction
                 if (currentPositionIndex >= BeforepositionList)
                 {
                     OnQueenStopMoving?.Invoke(this, EventArgs.Empty);
+                    UnitActionSystem.Instance.SetCameraPointchange(true);
                     currentPositionIndex++;
                     state = State.SwingingQueenMoving;
                 }
@@ -322,7 +323,7 @@ public class QueenAction : BaseAction
 
         OnQueenStartMoving?.Invoke(this, EventArgs.Empty);
         AttackActionSystem.Instance.SetIsAtk(true);
-        AttackActionSystem.Instance.SetenemyChainFind(targetUnit);
+        AttackActionSystem.Instance.SetUnitChainFind(targetUnit, unit);
 
         ActionStart(onActionComplete);
     }
