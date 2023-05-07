@@ -69,17 +69,21 @@ public class EnemyMoveAction : BaseAction
         ActionStart(onActionComplete);
     }
 
-    // 이동 범위 선정
     public override List<GridPosition> GetValidActionGridPositionList()
     {
-        List<GridPosition> validGridPositionList = new List<GridPosition>();
-
         GridPosition unitGridPosition = unit.GetGridPosition();
+        return GetValidActionGridPositionList(unitGridPosition);
+    }
+
+    // 이동 범위 선정
+    public List<GridPosition> GetValidActionGridPositionList(GridPosition unitGridPosition)
+    {
+         List<GridPosition> validGridPositionList = new List<GridPosition>();
 
         for (int x = -maxMoveDistance; x <= maxMoveDistance; x++)
         {
             for (int z = -maxMoveDistance; z <= maxMoveDistance; z++)
-            {
+             {
                 GridPosition offsetGridPosition = new GridPosition(x, z);
                 GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
 
@@ -87,7 +91,6 @@ public class EnemyMoveAction : BaseAction
                 {
                     continue;
                 }
-
                 
                 if (unitGridPosition == testGridPosition)
                 {
@@ -95,27 +98,35 @@ public class EnemyMoveAction : BaseAction
                     continue;
                 }
 
-
                 int testDistance = Mathf.Abs(x) + Mathf.Abs(z);
-                int maxMovevalue = (maxMoveDistance * 2) - 1;
-                
+                int maxMovevalue = (maxMoveDistance * 2) - 1;                
                 if (testDistance >= maxMovevalue)
                 {
                     continue;
                 }
-                /*
-                if (LevelGrid.Instance.HasAnyUnitAtEnemyGridPosition(testGridPosition))
+
+                
+                if (LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition))
                 {
-                    // Is the unit on the grid a monster
+                    if(unit.GetEnemyVisualType() == Unit.EnemyType.RedStoneGolem && unit.GetBossMonsterPosition().Contains(testGridPosition))
+                    {
+                        Debug.Log(LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition));
+                        
+                    }
+                    else 
+                    { 
+                        // Grid Position already occupied with another Character
+                        continue;
+                    }
+                }
+                /*
+                Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
+                if (targetUnit.IsEnemy() == unit.IsEnemy())
+                {
+                    // Both Units on same 'team'
                     continue;
                 }*/
 
-                if (LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition))
-                {
-                    // Grid Position already occupied with another Character
-                    continue;
-                }
-                
                 if (!Pathfinding.Instance.IsWalkableGridPosition(testGridPosition))
                 {
                     continue;
@@ -177,6 +188,10 @@ public class EnemyMoveAction : BaseAction
         else if (unit.GetEnemyVisualType() == Unit.EnemyType.Sword)
         {
             return 2;
+        }
+        else if (unit.GetEnemyVisualType() == Unit.EnemyType.RedStoneGolem)
+        {
+            return 4;
         }
         return 0;
     }

@@ -41,7 +41,7 @@ public class CameraController : MonoBehaviour
         }
         else
         {
-            cinemachineVirtualingCamera.LookAt = UnitActionSystem.Instance.GetSelecterdUnitEnemy().transform;
+            cinemachineVirtualingCamera.LookAt = AttackActionSystem.Instance.GetenemyChainFind().transform;
         }
 
         

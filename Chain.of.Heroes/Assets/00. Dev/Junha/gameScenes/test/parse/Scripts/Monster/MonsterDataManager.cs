@@ -101,7 +101,7 @@ public class MonsterDataManager : MonoBehaviour
             monster.GetAnyUnitDead();
 
             LevelGrid.Instance.RemoveUnitAtGridPosition(monster.GetGridPosition(), monster);
-
+            monster.MonsterGridPosition(monster.GetGridPosition(), false);
             Destroy(gameObject, 4.0f);
 
         }

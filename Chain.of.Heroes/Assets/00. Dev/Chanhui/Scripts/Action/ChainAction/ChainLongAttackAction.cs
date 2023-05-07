@@ -95,7 +95,7 @@ public class ChainLongAttackAction : BaseAction
         {
             case State.SwingingChainLongAttackStart:
 
-                TimeAttack(1.0f);
+                TimeAttack(0.6f);
                 state = State.SwingingChainLongAttackOnLocationMove;
 
                 break;

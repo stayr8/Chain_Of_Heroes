@@ -103,15 +103,15 @@ public class ChainAction : BaseAction
                     continue;
                 }
 
-                Unit targetUnit = UnitActionSystem.Instance.GetSelecterdUnit();
-                Unit targetUnit2 = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
-                if (targetUnit == targetUnit2)
+                int testDistance = Mathf.Abs(x) + Mathf.Abs(z);
+                if (testDistance > maxChainDistance)
                 {
                     continue;
                 }
 
-                int testDistance = Mathf.Abs(x) + Mathf.Abs(z);
-                if (testDistance > maxChainDistance)
+                Unit targetUnit = UnitActionSystem.Instance.GetSelecterdUnit();
+                Unit targetUnit2 = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
+                if (targetUnit == targetUnit2)
                 {
                     continue;
                 }

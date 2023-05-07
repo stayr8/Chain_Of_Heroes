@@ -277,11 +277,11 @@ public class KnightAction : BaseAction
                 {
                     continue;
                 }
-
+                /*
                 if (!Pathfinding.Instance.HasAtPath(unitGridPosition, testGridPosition))
                 {
                     continue;
-                }
+                }*/
 
                 Vector3 unitWorldPosition = LevelGrid.Instance.GetWorldPosition(unitGridPosition);
                 Vector3 shootDir = (targetUnit.GetWorldPosition() - unitWorldPosition).normalized;
@@ -321,6 +321,7 @@ public class KnightAction : BaseAction
 
         OnKnightStartMoving?.Invoke(this, EventArgs.Empty);
         AttackActionSystem.Instance.SetIsAtk(true);
+        AttackActionSystem.Instance.SetenemyChainFind(targetUnit);
 
         ActionStart(onActionComplete);
     }

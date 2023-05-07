@@ -22,7 +22,7 @@ public class KingAction : BaseAction
         SwingingKingAfterHit,
     }
 
-    private int maxKingDistance = 1;
+    [SerializeField] private int maxKingDistance = 1;
 
     private State state;
     private float stateTimer;
@@ -267,6 +267,7 @@ public class KingAction : BaseAction
         if (!unit.IsEnemy())
         {
             AttackActionSystem.Instance.SetIsAtk(true);
+            AttackActionSystem.Instance.SetenemyChainFind(targetUnit);
         }
 
         ActionStart(onActionComplete);
@@ -289,9 +290,13 @@ public class KingAction : BaseAction
 
     public override int GetActionPointsCost()
     {
-        if (unit.IsEnemy())
+        if (unit.GetEnemyVisualType() == Unit.EnemyType.Sword)
         {
             return 2;
+        }
+        else if (unit.GetEnemyVisualType() == Unit.EnemyType.RedStoneGolem)
+        {
+            return 4;
         }
         else
         {

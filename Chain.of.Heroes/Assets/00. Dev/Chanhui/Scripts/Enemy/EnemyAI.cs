@@ -31,7 +31,7 @@ public class EnemyAI : MonoBehaviour
             if (!TurnSystem.Property.IsPlayerTurn)
             {
                 state = State.TakingTurn;
-                timer = 2f;
+                timer = 3f;
             }
         });
         Binds.Add(Bind);
@@ -90,7 +90,6 @@ public class EnemyAI : MonoBehaviour
             {
                 return true;
             }
-            
         }
 
         return false;
@@ -122,14 +121,16 @@ public class EnemyAI : MonoBehaviour
             }
             else
             {
+                
                 EnemyAIAction testEnemyAIAction = baseAction.GetBestEnemyAIAction();
-                if(testEnemyAIAction != null && testEnemyAIAction.actionValue > bestEnemyAIAction.actionValue)
+                Debug.Log(bestEnemyAIAction.actionValue);
+                Debug.Log(testEnemyAIAction.actionValue);
+                if (testEnemyAIAction != null && testEnemyAIAction.actionValue > bestEnemyAIAction.actionValue)
                 {
                     bestEnemyAIAction = testEnemyAIAction;
                     bestBaseAction = baseAction;
                 }
             }
-
         }
 
         if(bestEnemyAIAction != null && enemyUnit.TrySpendActionPointsToTakeAction(bestBaseAction))

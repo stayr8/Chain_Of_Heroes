@@ -25,11 +25,14 @@ public class Unit : MonoBehaviour
 
     private MonsterDataManager monsterDataManager;
 
+    private List<GridPosition> BossMonsterGridPositionList;
+
     public enum EnemyType
     {
         Empty,
         Archer,
         Sword,
+        RedStoneGolem,
     }
 
     [SerializeField] private EnemyType enemyType;
@@ -82,6 +85,11 @@ public class Unit : MonoBehaviour
         gridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
         LevelGrid.Instance.AddUnitAtGridPosition(gridPosition, this);
 
+        if(enemyType == EnemyType.RedStoneGolem)
+        {
+            MonsterGridPosition(gridPosition, true);
+        }
+
         SoloEnemyActionPoints = newEnemyActionPoints;
         IsGrid = false;
 
@@ -94,11 +102,24 @@ public class Unit : MonoBehaviour
             GridPosition newGridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
             if (newGridPosition != gridPosition)
             {
-                // Character changed Grid Position
-                GridPosition oldGridPosition = gridPosition;
-                gridPosition = newGridPosition;
+                if (enemyType == EnemyType.RedStoneGolem)
+                {
+                    // Character changed Grid Position
+                    GridPosition oldGridPosition = gridPosition;
+                    gridPosition = newGridPosition;
 
-                LevelGrid.Instance.UnitMovedGridPosition(this, oldGridPosition, newGridPosition);
+                    MonsterGridPosition(oldGridPosition, false);
+                    LevelGrid.Instance.UnitMovedGridPosition(this, oldGridPosition, newGridPosition);
+                    MonsterGridPosition(newGridPosition, true);
+                }
+                else
+                {
+                    // Character changed Grid Position
+                    GridPosition oldGridPosition = gridPosition;
+                    gridPosition = newGridPosition;
+
+                    LevelGrid.Instance.UnitMovedGridPosition(this, oldGridPosition, newGridPosition);
+                }
             }
         }
     }
@@ -178,6 +199,38 @@ public class Unit : MonoBehaviour
         }
     }
 
+    public void MonsterGridPosition(GridPosition unitGridPosition, bool move)
+    {
+        int maxMonsterDistance = 1;
+        BossMonsterGridPositionList = new List<GridPosition>();
+
+        for (int x = -maxMonsterDistance; x <= maxMonsterDistance; x++)
+        {
+            for (int z = -maxMonsterDistance; z <= maxMonsterDistance; z++)
+            {
+                GridPosition offsetGridPosition = new GridPosition(x, z);
+                GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
+
+                if (unitGridPosition == testGridPosition)
+                {
+                    // Same Grid Position where the character is already at
+                    continue;
+                }
+
+                if (move)
+                {
+                    LevelGrid.Instance.AddUnitAtGridPosition(testGridPosition, this);
+                    BossMonsterGridPositionList.Add(testGridPosition);
+                }
+                else
+                {
+                    LevelGrid.Instance.RemoveUnitAtGridPosition(testGridPosition, this);
+                    BossMonsterGridPositionList.Remove(testGridPosition);
+                }
+            }
+        }
+    }
+
     // 플레이어 포인터 감소
     private void SpendActionPoints(int amount)
     {
@@ -200,7 +253,11 @@ public class Unit : MonoBehaviour
     public Vector3 SetPosition(Vector3 position)
     {
         return transform.position = position;
-    }    
+    }
+    public List<GridPosition> GetBossMonsterPosition()
+    {
+        return BossMonsterGridPositionList;
+    }
     // 몬스터인지 아닌지
     public bool IsEnemy()
     {
@@ -306,4 +363,6 @@ public class Unit : MonoBehaviour
     {
         this.isChaintwo = isChaintwo;
     }
+
+
 }
