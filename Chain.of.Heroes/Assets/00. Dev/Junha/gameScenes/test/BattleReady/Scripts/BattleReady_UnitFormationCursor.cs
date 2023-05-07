@@ -18,7 +18,7 @@ public class BattleReady_UnitFormationCursor : CursorBase
     private const float INIT_X = -790f; private const float INIT_Y = 375f;
     private void OnEnable()
     {
-        if(!isInitStart)
+        if (!isInitStart)
         {
             Init(rt, INIT_X, INIT_Y, ref currentSelected, "_1");
             isInitStart = true;
@@ -29,19 +29,22 @@ public class BattleReady_UnitFormationCursor : CursorBase
         }
     }
 
-    public static bool isOnMenuSelect = false; public bool isOnSkill = false;
+    public static bool isOnMenuSelect = false;
+    private bool isOnSkill = false;
     private const float MOVE_DISTANCE_X = 313.5f; private const float MOVE_DISTANCE_Y = 125f;
     private const float MAX_POSITION_X = -476.5f; private const float MAX_POSITION_Y = 375f;
     private const float MIN_POSITION_X = -790f; private const float MIN_POSITION_Y = -125f;
     private void Update()
     {
+        MenuFunction();
+
         if (!isOnMenuSelect)
         {
             Movement(rt, ref currentSelected, MOVE_DISTANCE_X, MOVE_DISTANCE_Y, MIN_POSITION_X, MAX_POSITION_X, MIN_POSITION_Y, MAX_POSITION_Y);
         }
         else if (isOnMenuSelect)
         {
-            if(!isOnSkill)
+            if (!isOnSkill)
             {
                 Movement(ref currentSelected);
             }
@@ -50,14 +53,11 @@ public class BattleReady_UnitFormationCursor : CursorBase
                 return;
             }
         }
-
-        MenuFunction();
     }
 
     private GameObject temp;
     private void MenuFunction()
     {
-        // 유닛 편성 창에서 유닛을 선택했을 경우
         if (currentSelected.name != "_10" && Input.GetKeyDown(KeyCode.Return))
         {
             isOnMenuSelect = true;
@@ -65,176 +65,108 @@ public class BattleReady_UnitFormationCursor : CursorBase
             switch (currentSelected.name)
             {
                 case "_1":
-                    temp = currentSelected.gameObject;
-                    NextButton(temp);
-                    break;
-
                 case "_2":
-                    temp = currentSelected.gameObject;
-                    NextButton(temp);
-                    break;
-
                 case "_3":
-                    temp = currentSelected.gameObject;
-                    NextButton(temp);
-                    break;
-
                 case "_4":
-                    temp = currentSelected.gameObject;
-                    NextButton(temp);
-                    break;
-
                 case "_5":
-                    temp = currentSelected.gameObject;
-                    NextButton(temp);
-                    break;
-
                 case "_6":
-                    temp = currentSelected.gameObject;
-                    NextButton(temp);
-                    break;
-
                 case "_7":
-                    temp = currentSelected.gameObject;
-                    NextButton(temp);
-                    break;
-
                 case "_8":
-                    temp = currentSelected.gameObject;
-                    NextButton(temp);
-                    break;
-
                 case "_9":
+                //case "_10": // 10번째 캐릭터가 나온다면,,, 언젠가 활성화 되겠지.
                     temp = currentSelected.gameObject;
-                    NextButton(temp);
+                    NextButton_Menu(temp);
                     break;
-
-                //case "_10":
-                //    break;
 
                 case "_Formation":
                     Formation();
                     break;
 
                 case "_Skill":
-                    //isOnSkill = true;
-                    Skill();
+                    On_SkillCheck();
                     break;
             }
         }
 
-        // 편성, 스킬 확인 창 상태에서 ESC 버튼을 누를 경우
-        if (isOnMenuSelect && Input.GetKeyDown(KeyCode.Escape))
+        #region ESC 키를 입력했을 경우
+        // 편성, 스킬 확인 창 상태
+        if (isOnMenuSelect && !isOnSkill && Input.GetKeyDown(KeyCode.Escape))
         {
             isOnMenuSelect = false;
-            NextButton();
+            Off_FormationSkillSelect();
         }
 
-        //// 스킬 확인 창 상태에서 ESC 버튼을 누를 경우
-        //if(isOnSkill && Input.GetKeyDown(KeyCode.Escape))
-        //{
-        //    isOnSkill = false;
-        //    NextButton();
-        //}
+        // 스킬 확인 창 상태
+        if (isOnMenuSelect && isOnSkill && Input.GetKeyDown(KeyCode.Escape))
+        {
+            Off_SkillCheck();
+        }
+        #endregion
     }
 
-    private void NextButton()
+    #region [편성 / 스킬 확인] 창 On / Off
+    private void On_FormationSkillSelect()
     {
-        if (isOnMenuSelect)
-        {
-            //if(isOnSkill)
-            //{
-            //    BattleReady_UIManager.instance.OffMenuSelected();
-            //}
-            //else if(!isOnSkill)
-            //{
-            //    BattleReady_UIManager.instance.OffSkillCursor();
+        BattleReady_UIManager.instance.OnMenuSelected();
 
-            //    BattleReady_UIManager.instance.OnMenuSelected();
-
-            //    currentSelected = GameObject.Find("_Formation");
-            //    currentSelected.GetComponent<Selectable>().Select();
-            //}
-
-            BattleReady_UIManager.instance.OnMenuSelected();
-
-            currentSelected = GameObject.Find("_Formation");
-            currentSelected.GetComponent<Selectable>().Select();
-        }
-        else if (!isOnMenuSelect && !isOnSkill)
-        {
-            BattleReady_UIManager.instance.OffMenuSelected();
-
-            currentSelected = temp;
-            currentSelected.GetComponent<Selectable>().Select();
-        }
+        currentSelected = GameObject.Find("_Formation");
+        currentSelected.GetComponent<Selectable>().Select();
     }
+    private void Off_FormationSkillSelect()
+    {
+        BattleReady_UIManager.instance.OffMenuSelected();
+
+        currentSelected = temp;
+        currentSelected.GetComponent<Selectable>().Select();
+    }
+    #endregion
 
     #region 편성 관련 함수
-    BattleReady_FormationState formationState;
-    private bool isState;
-    private void NextButton(GameObject obj)
+    private BattleReady_FormationState formationState;
+    private TextMeshProUGUI tmp;
+    private void NextButton_Menu(GameObject obj)
     {
-        formationState = obj.GetComponent<BattleReady_FormationState>();
-        isState = formationState.isFormationState;
-        if(!isState)
-        {
-            tmp.text = "편성";
-        }
-        else if(isState)
-        {
-            tmp.text = "편성 해제";
-        }
-
         if (isOnMenuSelect)
         {
-            BattleReady_UIManager.instance.OnMenuSelected();
-
-            currentSelected = GameObject.Find("_Formation");
-            currentSelected.GetComponent<Selectable>().Select();
+            On_FormationSkillSelect();
         }
-        else if (!isOnMenuSelect)
+        else // !isOnMenuSelect
         {
-            BattleReady_UIManager.instance.OffMenuSelected();
-
-            currentSelected = temp;
-            currentSelected.GetComponent<Selectable>().Select();
+            Off_FormationSkillSelect();
         }
+
+        tmp = GameObject.Find("_Formation").transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        formationState = obj.GetComponent<BattleReady_FormationState>();
+
+        tmp.text = formationState.isFormationState ? "편성 해제" : "편성"; // true : false
     }
-    [SerializeField, Header("[편성 / 편성 해제] 텍스트")] private TextMeshProUGUI tmp;
     private void Formation()
-    { 
-        if (!isState)
-        {
-            formationState.isFormationState = true;
+    {
+        formationState.isFormationState = !formationState.isFormationState;
 
-            isOnMenuSelect = false;
-            NextButton();
-        }
-        else if (isState)
-        {
-            formationState.isFormationState = false;
-
-            isOnMenuSelect = false;
-            NextButton();
-        }
-
-        BattleReady_UIManager.instance.OffMenuSelected();
+        isOnMenuSelect = false;
+        Off_FormationSkillSelect();
     }
     #endregion
 
     #region 스킬 확인 관련 함수
-    private void Skill()
+    private void On_SkillCheck()
     {
-        //if(isOnSkill)
-        //{
-        //    BattleReady_UIManager.instance.OnSkillCursor();
-        //}
-        //else if(!isOnSkill)
-        //{
-        //    BattleReady_UIManager.instance.OffSkillCursor();
-        //}
-        Debug.Log("스킬 확인");
+        BattleReady_UIManager.instance.OffMenuSelected();
+
+        isOnSkill = true;
+        BattleReady_UIManager.instance.OnSkillCursor();
+
+    }
+    private void Off_SkillCheck()
+    {
+        BattleReady_UIManager.instance.OffSkillCursor();
+        isOnSkill = false;
+
+        BattleReady_UIManager.instance.OnMenuSelected();
+
+        currentSelected = GameObject.Find("_Skill");
+        currentSelected.GetComponent<Selectable>().Select();
     }
     #endregion
 }

@@ -20,7 +20,7 @@ public class BattleReady_SelectedFormationMenu : MonoBehaviour, ISelectHandler, 
 
     private void OnEnable()
     {
-        if (gameObject.name == "_Formation")
+        if(gameObject.name == BattleReady_UnitFormationCursor.currentSelected.name)
         {
             Select();
         }
