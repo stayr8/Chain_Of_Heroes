@@ -208,12 +208,12 @@ public class Pathfinding : MonoBehaviour
                     }
                 }
 
-
+                /*
                 if (neighbourNode != endNode && LevelGrid.Instance.HasAnyUnitAtEnemyGridPosition(neighbourNode.GetGridPosition()))
                 {
                     closedList.Add(neighbourNode);
                     continue;
-                }
+                }*/
 
 
                 int tentativeGCost = currentNode.GetGCost() + CalculateDistance(currentNode.GetGridPosition(), neighbourNode.GetGridPosition());
