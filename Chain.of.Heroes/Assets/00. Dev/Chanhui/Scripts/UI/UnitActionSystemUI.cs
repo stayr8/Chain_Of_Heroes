@@ -10,6 +10,7 @@ public class UnitActionSystemUI : MonoBehaviour
 
     [SerializeField] private Transform actionButtonPrefab;
     [SerializeField] private Transform actionButtonContainerTransform;
+    [SerializeField] private GameObject actionButtionBackground;
     [SerializeField] private TextMeshProUGUI actionPointsText;
 
     private List<ActionButtonUI> actionButtonUIList;
@@ -43,10 +44,10 @@ public class UnitActionSystemUI : MonoBehaviour
         DestroyActionButton();
 
         Unit selectedUnit = UnitActionSystem.Instance.GetSelecterdUnit();
-
-        foreach(BaseAction baseAction in selectedUnit.GetBaseActionArray())
+        actionButtionBackground.SetActive(true);
+        foreach (BaseAction baseAction in selectedUnit.GetBaseActionArray())
         {
-            if(baseAction.GetActionName() == "Empty" || baseAction.GetActionName() == "체인 근거리 공격")
+            if(baseAction.GetActionName() == "Empty" || baseAction.GetActionName() == "체인 근거리 공격" || baseAction.GetActionName() == "체인 원거리 공격")
                 continue;
 
             Transform actionButtonTransform = Instantiate(actionButtonPrefab, actionButtonContainerTransform);
@@ -59,6 +60,7 @@ public class UnitActionSystemUI : MonoBehaviour
 
     private void DestroyActionButton()
     {
+        actionButtionBackground.SetActive(false);
         foreach (Transform buttonTransform in actionButtonContainerTransform)
         {
             Destroy(buttonTransform.gameObject);

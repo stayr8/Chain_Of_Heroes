@@ -317,7 +317,7 @@ public class ReadyAction : BaseAction
     }
     public override string GetActionName()
     {
-        return "Ready";
+        return "±Ã¼ö";
     }
 
     public override string GetSingleActionPoint()
