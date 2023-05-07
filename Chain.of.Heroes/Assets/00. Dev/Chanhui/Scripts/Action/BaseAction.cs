@@ -55,17 +55,19 @@ public abstract class BaseAction : MonoBehaviour
     {
         isActive = false;
         onActionComplete();
-
+        UnitActionSystem.Instance.SetCameraPointchange(false);
         if (!TurnSystem.Property.IsTurnEnd && (TurnSystem.Property.IsPlayerTurn && (TurnSystem.Property.ActionPoints < 1)))
         {
-            Debug.Log("턴 교체");
-            TurnSystem.Property.IsPlayerTurn = false;
+            if (!AttackActionSystem.Instance.GetIsChainAtk_1() && !AttackActionSystem.Instance.GetIsChainAtk_2())
+            {
+                Debug.Log("턴 교체");
+                TurnSystem.Property.IsPlayerTurn = false;
+            }
 
         }
         if (!unit.IsEnemy())
         {
             UnitActionSystem.Instance.SetDoubleSelUnit(true);
-            UnitActionSystem.Instance.SetCameraSelUnit(true);
         }
 
         if (UnitManager.Instance.VictoryPlayer() || UnitManager.Instance.VictoryEnemy())

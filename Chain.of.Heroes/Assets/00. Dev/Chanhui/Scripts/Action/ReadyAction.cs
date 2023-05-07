@@ -84,7 +84,7 @@ public class ReadyAction : BaseAction
         {
             case State.SwingingArcherAttackCameraStart:
                 AttackCameraStart();
-
+                UnitActionSystem.Instance.SetCameraPointchange(true);
                 TimeAttack(0.5f);
                 state = State.SwingingArcherBeforeCamera;
 
@@ -152,7 +152,7 @@ public class ReadyAction : BaseAction
                         AttackActionSystem.Instance.Camera();
                         AttackActionSystem.Instance.OffAtLocationMove(unit, targetUnit);
 
-                        TimeAttack(0.5f);
+                        TimeAttack(0.4f);
                         state = State.SwingingArcherCooloff;
                     }
                     AttackActionSystem.Instance.SetIsAtk(false);
@@ -274,8 +274,14 @@ public class ReadyAction : BaseAction
         if (!unit.IsEnemy())
         {
             AttackActionSystem.Instance.SetIsAtk(true);
-            AttackActionSystem.Instance.SetenemyChainFind(targetUnit);
+            AttackActionSystem.Instance.SetUnitChainFind(targetUnit, unit);
+
         }
+        else
+        {
+            AttackActionSystem.Instance.SetUnitChainFind(unit, targetUnit);
+        }
+
 
         ActionStart(onActionComplete);
     }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,13 +19,14 @@ public class CameraController : MonoBehaviour
     public Transform actiontr;
 
     public bool camerazoom = false;
-
+    private Vector3 mousepos;
 
     private void Start()
     {
         cinemachineTransposer = cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>();
         targetFollowOffset = cinemachineTransposer.m_FollowOffset;
 
+        UnitActionSystem.Instance.OnSelectedUnitChanged += UnitActionSystem_OnSelectedUnitChanged;
     }
 
     private void Update()
@@ -34,24 +36,42 @@ public class CameraController : MonoBehaviour
         HandleZoom();
         TopView();
 
-
-        if (UnitActionSystem.Instance.GetCameraSelUnit())
+        
+        if (UnitActionSystem.Instance.GetCameraPointchange())
         {
-            cinemachineVirtualingCamera.LookAt = this.transform;
+            if (cinemachineVirtualingCamera != null)
+            {
+                cinemachineVirtualingCamera.LookAt = AttackActionSystem.Instance.GetUnitAttackFind();
+            }
         }
         else
         {
-            cinemachineVirtualingCamera.LookAt = AttackActionSystem.Instance.GetenemyChainFind().transform;
+            cinemachineVirtualingCamera.LookAt = this.transform;
         }
 
-        
-        
+        if (UnitActionSystem.Instance.GetCameraSelUnit())
+        {
+            Vector3 moveDirection = (mousepos - transform.position).normalized;
+            if (Vector3.Distance(transform.position, mousepos) > 0.1f)
+            {
+                float moveSpeed = 10f;
+                transform.position += moveDirection * moveSpeed * Time.deltaTime;
+            }
+            else
+            {
+                UnitActionSystem.Instance.SetCameraSelUnit(false);
+            }
+        }
+    }
+
+    private void UnitActionSystem_OnSelectedUnitChanged(object sender, EventArgs empty)
+    {
+        mousepos = MouseWorld.GetPosition();
     }
 
     // 카메라 이동
     private void HandleMovement()
     {
-
         Vector2 inputMoveDir = InputManager.Instance.GetCameraMoveVector();
 
         float moveSpeed = 10f;
@@ -101,8 +121,6 @@ public class CameraController : MonoBehaviour
         }
     }
 
-   
-
     void Trem()
     {
         if(!camerazoom)
@@ -114,5 +132,8 @@ public class CameraController : MonoBehaviour
             camerazoom = false;
         }
     }
-
+    private void OnDestroy()
+    {
+        UnitActionSystem.Instance.OnSelectedUnitChanged -= UnitActionSystem_OnSelectedUnitChanged;
+    }
 }

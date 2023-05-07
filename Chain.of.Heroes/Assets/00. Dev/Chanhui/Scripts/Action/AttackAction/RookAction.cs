@@ -72,6 +72,7 @@ public class RookAction : BaseAction
                 if (currentPositionIndex >= BeforepositionList)
                 {
                     OnRookStopMoving?.Invoke(this, EventArgs.Empty);
+                    UnitActionSystem.Instance.SetCameraPointchange(true);
                     currentPositionIndex++;
                     state = State.SwingingRookMoving;
                 }
@@ -318,7 +319,7 @@ public class RookAction : BaseAction
 
         OnRookStartMoving?.Invoke(this, EventArgs.Empty);
         AttackActionSystem.Instance.SetIsAtk(true);
-        AttackActionSystem.Instance.SetenemyChainFind(targetUnit);
+        AttackActionSystem.Instance.SetUnitChainFind(targetUnit, unit);
 
         ActionStart(onActionComplete);
     }

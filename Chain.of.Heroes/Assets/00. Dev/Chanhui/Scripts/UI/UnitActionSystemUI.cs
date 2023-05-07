@@ -74,11 +74,13 @@ public class UnitActionSystemUI : MonoBehaviour
         CreateUnitActionButtons();
         UpdateSelectedVisual();
         UpdateActionPoints();
+        UpdateData();
     }
 
     private void UnitActionSystem_OffSelectedUnitChanged(object sender, EventArgs e)
     {
         DestroyActionButton();
+        UpdateData();
     }
 
     private void UnitActionSystem_OnSelectedActionChanged(object sender, EventArgs e)
@@ -120,6 +122,38 @@ public class UnitActionSystemUI : MonoBehaviour
     {
         UpdateActionPoints();
     }
+
+    #region 유닛 편성: 캐릭터 정보 갱신
+    [Header("[캐릭터 정보] 텍스트")]
+    [SerializeField] private TextMeshProUGUI character_Name;
+    [SerializeField] private TextMeshProUGUI character_Class;
+    [SerializeField] private TextMeshProUGUI character_Level;
+    [SerializeField] private TextMeshProUGUI character_HP;
+    [SerializeField] private TextMeshProUGUI character_MaxHP;
+    [SerializeField] private TextMeshProUGUI character_AttackPower;
+    [SerializeField] private TextMeshProUGUI character_ChainAttackPower;
+    [SerializeField] private TextMeshProUGUI character_DefensePower;
+    private CharacterDataManager data;
+    private void UpdateData()
+    {
+        Unit obj = UnitActionSystem.Instance.GetSelecterdUnit();
+        if (obj.gameObject.GetComponent<CharacterDataManager>() == null)
+        {
+            return;
+        }
+        data = obj.gameObject.GetComponent<CharacterDataManager>();
+
+        character_Name.text = data.m_name;
+        //character_Class.text = data.m_class.ToString();
+        character_Level.text = "Lv. " + data.m_level.ToString();
+        character_HP.text = data.m_hp.ToString();
+        character_MaxHP.text = data.m_maxhp.ToString();
+        character_AttackPower.text = data.m_attackPower.ToString();
+        character_ChainAttackPower.text = data.m_chainAttackPower.ToString();
+        character_DefensePower.text = data.m_defensePower.ToString();
+    }
+    #endregion
+
 
     private void OnDisable()
     {

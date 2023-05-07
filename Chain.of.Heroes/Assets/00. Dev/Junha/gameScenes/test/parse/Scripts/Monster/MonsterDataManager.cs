@@ -15,6 +15,7 @@ public class MonsterDataManager : MonoBehaviour
     public float m_attackPower;
     public float m_defensePower;
     public float m_hp;
+    public float m_maxhp;
     public int m_actionPoint;
     public float m_speed;
     public int m_movementRange;
@@ -52,6 +53,7 @@ public class MonsterDataManager : MonoBehaviour
         monsterBase = GetComponent<MonsterBase>();
 
         initInfo();
+        m_maxhp = m_hp;
     }
 
     private void Update()
@@ -83,7 +85,7 @@ public class MonsterDataManager : MonoBehaviour
 
     public float GetHealthNormalized()
     {
-        return (float)m_hp / 100;
+        return (float)m_hp / m_maxhp;
     }
 
     public float GetHealth()

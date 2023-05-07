@@ -26,6 +26,7 @@ public class UnitActionSystem : MonoBehaviour
     private bool isBusy;
     [SerializeField] private bool DoubleSelectedUnit;
     [SerializeField] private bool CameraSelectedUnit;
+    private bool cameraPointchange;
 
 
     private void Awake()
@@ -42,7 +43,8 @@ public class UnitActionSystem : MonoBehaviour
     private void Start()
     {
         DoubleSelectedUnit = true;
-        CameraSelectedUnit = true;
+        CameraSelectedUnit = false;
+        cameraPointchange = false;
     }
 
     private void Update()
@@ -94,7 +96,6 @@ public class UnitActionSystem : MonoBehaviour
 
             SetBusy();
             selectedAction.TakeAction(mouseGridPosition, ClearBusy);
-
             OnActionStarted?.Invoke(this, EventArgs.Empty);
         }
     }
@@ -151,7 +152,7 @@ public class UnitActionSystem : MonoBehaviour
         SetSelectedAction(unit.GetAction<MoveAction>());
 
         DoubleSelectedUnit = false;
-
+        CameraSelectedUnit = true;
         OnSelectedUnitChanged?.Invoke(this, EventArgs.Empty);
     }
 
@@ -201,5 +202,15 @@ public class UnitActionSystem : MonoBehaviour
     public void SetCameraSelUnit(bool CameraSelectedUnit)
     {
         this.CameraSelectedUnit = CameraSelectedUnit;
+    }
+
+    public bool GetCameraPointchange()
+    {
+        return cameraPointchange;
+    }
+
+    public void SetCameraPointchange(bool cameraPointchange)
+    {
+        this.cameraPointchange = cameraPointchange;
     }
 }

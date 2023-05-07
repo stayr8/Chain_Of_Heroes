@@ -73,6 +73,7 @@ public class KnightAction : BaseAction
                 if (currentPositionIndex >= BeforepositionList)
                 {
                     OnKnightStopMoving?.Invoke(this, EventArgs.Empty);
+                    UnitActionSystem.Instance.SetCameraPointchange(true);
                     currentPositionIndex++;
                     state = State.SwingingKnightMoving;
                 }
@@ -321,7 +322,7 @@ public class KnightAction : BaseAction
 
         OnKnightStartMoving?.Invoke(this, EventArgs.Empty);
         AttackActionSystem.Instance.SetIsAtk(true);
-        AttackActionSystem.Instance.SetenemyChainFind(targetUnit);
+        AttackActionSystem.Instance.SetUnitChainFind(targetUnit, unit);
 
         ActionStart(onActionComplete);
     }

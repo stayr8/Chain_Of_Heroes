@@ -56,7 +56,10 @@ public class StageUI : MonoBehaviour
             }
             else
             {
-                EnemyShow();
+                if (!UnitManager.Instance.VictoryPlayer())
+                {
+                    EnemyShow();
+                }
                 PlayerHide();
                 turnNumberText.text = "TURN " + TurnSystem.Property.TurnNumber;
             }

@@ -13,6 +13,7 @@ public class Unit : MonoBehaviour
     [SerializeField] private Transform CameraPos;
     [SerializeField] private Transform CameraFollow;
     [SerializeField] private Transform CameraPos2;
+    [SerializeField] private Transform CameraPos3;
 
     private GridPosition gridPosition;
     private BaseAction[] baseActionArray;
@@ -301,6 +302,10 @@ public class Unit : MonoBehaviour
     public Transform GetCameraPos2()
     {
         return CameraPos2;
+    }
+    public Transform GetCameraPos3()
+    {
+        return CameraPos3;
     }
     public Transform GetCameraFollow()
     {

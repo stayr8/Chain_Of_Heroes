@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class AttackActionSystem : MonoBehaviour
 {
-    public static AttackActionSystem Instance { get; set; }
+    public static AttackActionSystem Instance { get; private set; }
 
     public static event EventHandler OnActionStarted;
     public static event EventHandler OnActionCompleted;
@@ -63,7 +63,11 @@ public class AttackActionSystem : MonoBehaviour
             return;
         }
         Instance = this;
+ 
+    }
 
+    private void Start()
+    {
         ChainStart = false;
         OnAttackAtGround = false;
         isAtk = false;
@@ -76,14 +80,14 @@ public class AttackActionSystem : MonoBehaviour
     {
         if (OnAttackAtGround && player != null)
         {
-            player_bar.value = player.GetCharacterDataManager().m_hp / 1000;
+            player_bar.value = player.GetCharacterDataManager().m_hp / player.GetCharacterDataManager().m_maxhp;
             PlayerHPText.text = "" + (int)player.GetCharacterDataManager().m_hp;
             PlayerName.text = "" + player.GetUnitName();
         }
 
         if (OnAttackAtGround && enemy != null)
         {
-            enemy_bar.value = enemy.GetMonsterDataManager().m_hp / 100;
+            enemy_bar.value = enemy.GetMonsterDataManager().m_hp / enemy.GetMonsterDataManager().m_maxhp;
             EnemyHPText.text = "" + (int)enemy.GetMonsterDataManager().m_hp;
             EnemyName.text = "" + enemy.GetUnitName();
         }
@@ -342,9 +346,22 @@ public class AttackActionSystem : MonoBehaviour
         return enemy;
     }
 
-    public void SetenemyChainFind(Unit enemy)
+    public void SetUnitChainFind(Unit enemy, Unit player)
     {
         this.enemy = enemy;
+        this.player = player;
+    }
+
+    public Transform GetUnitAttackFind()
+    {
+        if(TurnSystem.Property.IsPlayerTurn)
+        {
+            return player.GetCameraPos3();
+        }
+        else
+        {
+            return enemy.transform;
+        }
     }
 
     public bool GetIsAtk()

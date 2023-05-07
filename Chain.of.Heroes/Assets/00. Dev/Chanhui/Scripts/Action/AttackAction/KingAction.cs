@@ -107,6 +107,7 @@ public class KingAction : BaseAction
             case State.SwingingKingAttackCameraStart:
                 AttackCameraStart();
                 TimeAttack(0.5f);
+                UnitActionSystem.Instance.SetCameraPointchange(true);
                 state = State.SwingingKingBeforeCamera;
 
                 break;
@@ -267,7 +268,11 @@ public class KingAction : BaseAction
         if (!unit.IsEnemy())
         {
             AttackActionSystem.Instance.SetIsAtk(true);
-            AttackActionSystem.Instance.SetenemyChainFind(targetUnit);
+            AttackActionSystem.Instance.SetUnitChainFind(targetUnit, unit);
+        }
+        else
+        {
+            AttackActionSystem.Instance.SetUnitChainFind(unit, targetUnit);
         }
 
         ActionStart(onActionComplete);
