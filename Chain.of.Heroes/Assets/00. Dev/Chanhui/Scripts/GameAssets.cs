@@ -22,7 +22,6 @@ public class GameAssets : MonoBehaviour
 
 
     public Transform pfDamagePopup;
-    //[SerializeField] private GameObject[] Character;
     public Sprite[] characterUI;
 
    

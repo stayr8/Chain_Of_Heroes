@@ -159,7 +159,7 @@ public class ChainAttackAction : BaseAction
                         {
                             ActionCameraStart_1();
 
-                            TimeAttack(0.8f);
+                            TimeAttack(1.8f);
                             state = State.SwingingChainAttackMoveOn;
                         }
                     }

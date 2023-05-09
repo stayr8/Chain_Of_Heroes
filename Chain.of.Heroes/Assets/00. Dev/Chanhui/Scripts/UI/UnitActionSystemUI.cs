@@ -133,6 +133,7 @@ public class UnitActionSystemUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI character_AttackPower;
     [SerializeField] private TextMeshProUGUI character_ChainAttackPower;
     [SerializeField] private TextMeshProUGUI character_DefensePower;
+    [SerializeField] private Image character_Image;
     private CharacterDataManager data;
     private void UpdateData()
     {
@@ -143,6 +144,7 @@ public class UnitActionSystemUI : MonoBehaviour
         }
         data = obj.gameObject.GetComponent<CharacterDataManager>();
 
+        Set_NameAndImage();
         character_Name.text = data.m_name;
         //character_Class.text = data.m_class.ToString();
         character_Level.text = "Lv. " + data.m_level.ToString();
@@ -151,6 +153,61 @@ public class UnitActionSystemUI : MonoBehaviour
         character_AttackPower.text = data.m_attackPower.ToString();
         character_ChainAttackPower.text = data.m_chainAttackPower.ToString();
         character_DefensePower.text = data.m_defensePower.ToString();
+    }
+
+    private RectTransform rt;
+    private void Set_NameAndImage()
+    {
+        rt = character_Image.gameObject.GetComponent<RectTransform>();
+
+        switch (data.m_name)
+        {
+            case "Akame": // _1
+                character_Name.text = "아카메";
+                rt.anchoredPosition = new Vector2(-710f, -341f);
+                break;
+
+            case "Kris": // _2
+                character_Name.text = "크리스";
+                rt.anchoredPosition = new Vector2(-601f, -341f);
+                break;
+
+            case "Teo": // _3
+                character_Name.text = "태오";
+                rt.anchoredPosition = new Vector2(-524f, -341f);
+                break;
+
+            case "Melia": // _4
+                character_Name.text = "멜리아";
+                rt.anchoredPosition = new Vector2(-710f, -341f);
+                break;
+
+            case "Platin": // _5
+                character_Name.text = "플라틴";
+                //rt.anchoredPosition = new Vector2(433f, -415f);
+                break;
+
+            case "Raiden": // _6
+                character_Name.text = "라이덴";
+                //rt.anchoredPosition = new Vector2(433f, -415f);
+                break;
+
+            case "Eileene": // _7
+                character_Name.text = "아일린";
+                rt.anchoredPosition = new Vector2(-524f, -341f);
+                break;
+
+            case "Jave": // _8
+                character_Name.text = "제이브";
+                //rt.anchoredPosition = new Vector2(433f, -415f);
+                break;
+
+            case "Vanessa": // _9
+                character_Name.text = "바네사";
+                rt.anchoredPosition = new Vector2(-620f, -222f);
+                break;
+        }
+        character_Image.sprite = Resources.Load<Sprite>("Character/Illustration/" + data.m_name);
     }
     #endregion
 

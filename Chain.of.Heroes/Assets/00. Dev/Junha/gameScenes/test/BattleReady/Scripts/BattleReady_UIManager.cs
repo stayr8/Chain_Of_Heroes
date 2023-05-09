@@ -79,11 +79,6 @@ public class BattleReady_UIManager : MonoBehaviour
         OnCharacterChangeFormation?.Invoke(this, EventArgs.Empty);
     }
 
-    public void OnChangeUICreate()
-    {
-        OnCharacterChangeFormation?.Invoke(this, EventArgs.Empty);
-    }
-
     #region 편성 / 스킬 확인
     [SerializeField, Header("[편성 / 스킬 확인] 오브젝트")] private GameObject menuSelected;
     public void OnMenuSelected()
@@ -112,6 +107,8 @@ public class BattleReady_UIManager : MonoBehaviour
         RectTransform childRT = child.GetComponent<RectTransform>();
         childRT.anchoredPosition = new Vector2(-41.5f, 18.5f);
         childRT.sizeDelta = new Vector2(83f, 37f);
+
+        ChangeFormationSystem.Instance.AnyDestroyCharacterUI();
     }
     [SerializeField, Header("[편성 완료] 스프라이트")] private Sprite Img_OnFormation;
     public void OnFormation(GameObject obj)
@@ -125,6 +122,8 @@ public class BattleReady_UIManager : MonoBehaviour
         RectTransform childRT = child.GetComponent<RectTransform>();
         childRT.anchoredPosition = new Vector2(-59.5f, 19f);
         childRT.sizeDelta = new Vector2(119f, 38f);
+
+        ChangeFormationSystem.Instance.AnyDestroyCharacterUI();
     }
     #endregion
 

@@ -153,7 +153,7 @@ public class ChainLongAttackAction : BaseAction
                         else
                         {
                             ActionCameraStart_1();
-                            TimeAttack(0.8f);
+                            TimeAttack(1.8f);
                             state = State.SwingingChainLongAttackAiming;
                         }
                     }
@@ -175,7 +175,6 @@ public class ChainLongAttackAction : BaseAction
                 
                 if (unit.GetChainfirst())
                 {
-                    //AttackActionSystem.Instance.Camera();
                     if (canShootBullet)
                     {
                         Shoot();
@@ -189,7 +188,6 @@ public class ChainLongAttackAction : BaseAction
                 }
                 else if (unit.GetChaintwo())
                 {
-                    //AttackActionSystem.Instance.Camera2();
                     if (canShootBullet)
                     {
                         Shoot();
