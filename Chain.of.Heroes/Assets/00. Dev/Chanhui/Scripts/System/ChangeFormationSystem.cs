@@ -50,6 +50,7 @@ public class ChangeFormationSystem : MonoBehaviour
         
         Transform CharacterTransform = Instantiate(CharacterUIPrefab, Characterpos[pos]);
         CharacterUI CharacterUI = CharacterTransform.GetComponent<CharacterUI>();
+        Debug.Log(Charnumber);
         CharacterUI.SelectedImage(Charnumber);
         CharacterUI.SetCharUIpos(pos);
         CharacterUI.SetCharacterUIMovePos(CharacterMovePos[pos]);

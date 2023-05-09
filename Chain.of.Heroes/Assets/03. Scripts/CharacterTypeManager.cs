@@ -43,10 +43,4 @@ public class CharacterTypeManager : MonoBehaviour
         this.isCharacter[index] = isCharacter;
     }
 
-    public void SetIsCharacter(int number)
-    {
-        this.isCharacter[number] = isCharacter[number];
-    }
-
-
 }

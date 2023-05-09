@@ -45,7 +45,18 @@ public class CharacterUI : MonoBehaviour
                 Image.sprite = GameAssets.i.characterUI[5];
                 characterType = CharacterTypeManager.CharacterType.Manknight;
                 break;
-
+            case 6:
+                Image.sprite = GameAssets.i.characterUI[6];
+                characterType = CharacterTypeManager.CharacterType.Priest;
+                break;
+            case 7:
+                Image.sprite = GameAssets.i.characterUI[7];
+                characterType = CharacterTypeManager.CharacterType.Wizard;
+                break;
+            case 8:
+                Image.sprite = GameAssets.i.characterUI[8];
+                characterType = CharacterTypeManager.CharacterType.Valkyrie;
+                break;
         }
     }
 
