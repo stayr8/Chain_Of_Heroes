@@ -2274,6 +2274,7 @@ MonoBehaviour:
   m_chainAttackPower: 0
   m_defensePower: 0
   m_hp: 0
+  m_maxhp: 0
   m_criticalRate: 0
   m_criticalDamage: 0
 --- !u!1 &359025348
@@ -3893,6 +3894,7 @@ MonoBehaviour:
   m_chainAttackPower: 0
   m_defensePower: 0
   m_hp: 0
+  m_maxhp: 0
   m_criticalRate: 0
   m_criticalDamage: 0
 --- !u!1 &495129692
@@ -4860,6 +4862,7 @@ MonoBehaviour:
   m_chainAttackPower: 0
   m_defensePower: 0
   m_hp: 0
+  m_maxhp: 0
   m_criticalRate: 0
   m_criticalDamage: 0
 --- !u!1 &665411544
@@ -5270,6 +5273,7 @@ MonoBehaviour:
   m_chainAttackPower: 0
   m_defensePower: 0
   m_hp: 0
+  m_maxhp: 0
   m_criticalRate: 0
   m_criticalDamage: 0
 --- !u!1 &732836784
@@ -5505,7 +5509,13 @@ MonoBehaviour:
   character_AttackPower: {fileID: 1325754152}
   character_ChainAttackPower: {fileID: 152877703}
   character_DefensePower: {fileID: 971766561}
+  character_Skill_1: {fileID: 1369731172}
+  character_Skill_2: {fileID: 2033150682}
+  character_Skill_3: {fileID: 780757807}
   character_Image: {fileID: 1373551387}
+  skill_Image: {fileID: 992028126}
+  skill_Name: {fileID: 1690488013}
+  skill_Content: {fileID: 895106361}
   Skill_Cursor: {fileID: 762203461}
   Skill_Detail: {fileID: 1609958410}
 --- !u!4 &754521718
@@ -6828,6 +6838,7 @@ MonoBehaviour:
   m_chainAttackPower: 0
   m_defensePower: 0
   m_hp: 0
+  m_maxhp: 0
   m_criticalRate: 0
   m_criticalDamage: 0
 --- !u!1 &875099156
@@ -6930,6 +6941,7 @@ MonoBehaviour:
   m_chainAttackPower: 0
   m_defensePower: 0
   m_hp: 0
+  m_maxhp: 0
   m_criticalRate: 0
   m_criticalDamage: 0
 --- !u!1 &882967876
@@ -11532,7 +11544,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 408, y: -336}
+  m_AnchoredPosition: {x: 480, y: -415}
   m_SizeDelta: {x: 1015, y: 1543}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1373551387
@@ -11555,7 +11567,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 59c8b1192e100f046bda057f3bd06b82, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 69b5965e8b0d8594594a116638e20b5d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -11890,6 +11902,7 @@ MonoBehaviour:
   m_chainAttackPower: 0
   m_defensePower: 0
   m_hp: 0
+  m_maxhp: 0
   m_criticalRate: 0
   m_criticalDamage: 0
 --- !u!1 &1407166756
@@ -12986,6 +12999,7 @@ MonoBehaviour:
   m_chainAttackPower: 0
   m_defensePower: 0
   m_hp: 0
+  m_maxhp: 0
   m_criticalRate: 0
   m_criticalDamage: 0
 --- !u!1 &1608440580
@@ -14171,6 +14185,7 @@ MonoBehaviour:
   m_chainAttackPower: 0
   m_defensePower: 0
   m_hp: 0
+  m_maxhp: 0
   m_criticalRate: 0
   m_criticalDamage: 0
 --- !u!1 &1764355309

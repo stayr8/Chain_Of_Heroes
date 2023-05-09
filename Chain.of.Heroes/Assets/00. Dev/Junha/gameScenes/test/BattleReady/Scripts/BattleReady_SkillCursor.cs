@@ -48,21 +48,15 @@ public class BattleReady_SkillCursor : CursorBase
             switch (currentSelected.name)
             {
                 case "Skill_1":
-                    BattleReady_UIManager.instance.OnSkillDetail();
-                    break;
-
                 case "Skill_2":
-                    BattleReady_UIManager.instance.OnSkillDetail();
-                    break;
-
                 case "Skill_3":
-                    BattleReady_UIManager.instance.OnSkillDetail();
-                    break;
-
                 case "Skill_4":
+                    BattleReady_UIManager.instance.Set_SkillContent(currentSelected.name);
                     BattleReady_UIManager.instance.OnSkillDetail();
+
                     break;
             }
+            
         }
 
         if (isOnDetail && Input.GetKeyDown(KeyCode.Escape))
