@@ -23,7 +23,7 @@ public class CharacterUI : MonoBehaviour
         {
             case 0:
                 Image.sprite = GameAssets.i.characterUI[0];
-                characterType = CharacterTypeManager.CharacterType.Womanknight;
+                characterType = CharacterTypeManager.CharacterType.SwordWoman;
                 break;
             case 1:
                 Image.sprite = GameAssets.i.characterUI[1];
@@ -43,7 +43,7 @@ public class CharacterUI : MonoBehaviour
                 break;
             case 5:
                 Image.sprite = GameAssets.i.characterUI[5];
-                characterType = CharacterTypeManager.CharacterType.Manknight;
+                characterType = CharacterTypeManager.CharacterType.SwordMan;
                 break;
             case 6:
                 Image.sprite = GameAssets.i.characterUI[6];

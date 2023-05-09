@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwordWomanPassive : MonoBehaviour
+public class SwordManPassive : MonoBehaviour
 {
-
     private CharacterDataManager _cdm;
 
     private void Awake()
     {
         _cdm = GetComponent<CharacterDataManager>();
     }
+
 
     private void Start()
     {
@@ -20,9 +20,8 @@ public class SwordWomanPassive : MonoBehaviour
 
     private void Passive()
     {
-        _cdm.m_criticalRate += 15;
-        _cdm.m_criticalDamage += 0.2f;
+        _cdm.m_criticalRate += 10;
+        _cdm.m_criticalDamage += 0.1f;
+        _cdm.m_attackPower *= 1.1f;
     }
-
-
 }
