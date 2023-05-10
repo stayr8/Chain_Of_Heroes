@@ -2,7 +2,7 @@
 
 =====================================================
 
-SamuraiZ [3D Model]   < Ver 1.0 >
+WizardGIN [3D Model]   < Ver 1.0 >
 
 =====================================================
 
@@ -12,7 +12,7 @@ SamuraiZ [3D Model]   < Ver 1.0 >
 
 
 ----------------------------------------------------
-Includes 14 Animations
+Includes 13 Animations
 ----------------------------------------------------
 
 
@@ -26,9 +26,7 @@ Includes 14 Animations
 
 > Run
 
-
 > Dash
-
 
 
 > Attack01
@@ -36,14 +34,11 @@ Includes 14 Animations
 > Attack02
 
 
-
 > Skill01
 
 > Skill02
 
 > Skill03
-
-> Skill04
 
 
 
@@ -69,9 +64,9 @@ instructions
 ===================================================
 
 
-1.click to the  [File] > [Open Project] > [SamuraiZ] folder
+1.click to the  [File] > [Open Project] > [WizardGIN] folder
 
-2.Dubble click [Demo_scene] and Use Prefap file in the [Prefaps] folder
+2.Dubble click [Demo_scene] and Use Prefab file in the [Prefabs] folder
 
 3.you can use the model file ~  Too easy~~~
 
