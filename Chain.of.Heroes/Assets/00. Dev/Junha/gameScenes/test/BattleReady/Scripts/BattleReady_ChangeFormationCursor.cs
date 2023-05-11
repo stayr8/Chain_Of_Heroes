@@ -21,7 +21,7 @@ public class BattleReady_ChangeFormationCursor : CursorBase
         _seleted = false;
     }
 
-    private const float INIT_X = 50f;
+    private const float INIT_X = 476f;
     private const float INIT_Y = -50f;
     private void OnEnable()
     {
@@ -29,8 +29,8 @@ public class BattleReady_ChangeFormationCursor : CursorBase
     }
 
     private const float MOVE_DISTANCE_X = 125f; private const float MOVE_DISTANCE_Y = 125f;
-    private const float MAX_POSITION_X = 375f; private const float MAX_POSITION_Y = 250f;
-    private const float MIN_POSITION_X = 0f; private const float MIN_POSITION_Y = 0f;
+    private const float MAX_POSITION_X = 851f; private const float MAX_POSITION_Y = -50;
+    private const float MIN_POSITION_X = 476f; private const float MIN_POSITION_Y = -300f;
     private void Update()
     {
         Movement(rt, ref BeforeCurrentSelected, MOVE_DISTANCE_X, MOVE_DISTANCE_Y, MIN_POSITION_X, MAX_POSITION_X, MIN_POSITION_Y, MAX_POSITION_Y);
