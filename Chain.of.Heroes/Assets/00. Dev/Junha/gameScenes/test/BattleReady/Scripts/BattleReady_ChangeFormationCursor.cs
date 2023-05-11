@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class BattleReady_ChangeFormationCursor : CursorBase
 {
@@ -28,8 +29,8 @@ public class BattleReady_ChangeFormationCursor : CursorBase
     }
 
     private const float MOVE_DISTANCE_X = 125f; private const float MOVE_DISTANCE_Y = 125f;
-    private const float MAX_POSITION_X = 425f; private const float MAX_POSITION_Y = -50f;
-    private const float MIN_POSITION_X = 50f; private const float MIN_POSITION_Y = -300f;
+    private const float MAX_POSITION_X = 375f; private const float MAX_POSITION_Y = 250f;
+    private const float MIN_POSITION_X = 0f; private const float MIN_POSITION_Y = 0f;
     private void Update()
     {
         Movement(rt, ref BeforeCurrentSelected, MOVE_DISTANCE_X, MOVE_DISTANCE_Y, MIN_POSITION_X, MAX_POSITION_X, MIN_POSITION_Y, MAX_POSITION_Y);
@@ -142,6 +143,7 @@ public class BattleReady_ChangeFormationCursor : CursorBase
         {
             if(!_seletedImageMove && ChangeFormationSystem.Instance.GetIsGround()[pos])
             {
+                Update_Data();
                 _seletedImageMove = true;
                 _characterUi = BeforeCurrentSelected.GetComponentInChildren<CharacterUI>();
             }
@@ -161,6 +163,84 @@ public class BattleReady_ChangeFormationCursor : CursorBase
         else
         {
             AfterCurrentSelect.SetActive(_seleted);
+        }
+    }
+
+    [Header("[캐릭터 정보] 텍스트")]
+    [SerializeField] private TextMeshProUGUI character_Name;
+    [SerializeField] private TextMeshProUGUI character_Class;
+    [SerializeField] private TextMeshProUGUI character_HP;
+    [SerializeField] private TextMeshProUGUI character_MaxHP;
+    [SerializeField] private TextMeshProUGUI character_AttackPower;
+    [SerializeField] private TextMeshProUGUI character_ChainAttackPower;
+    [SerializeField] private TextMeshProUGUI character_DefensePower;
+    private CharacterDataManager data;
+    private void Update_Data()
+    {
+        GameObject obj = BattleReady_UnitFormationCursor.currentSelected;
+        if (obj.GetComponentInChildren<CharacterDataManager>() == null)
+        {
+            return;
+        }
+        data = obj.GetComponentInChildren<CharacterDataManager>();
+
+        Set_NameAndImage();
+        character_HP.text = data.m_hp.ToString();
+        character_MaxHP.text = data.m_hp.ToString();
+        character_AttackPower.text = data.m_attackPower.ToString();
+        character_ChainAttackPower.text = data.m_chainAttackPower.ToString();
+        character_DefensePower.text = data.m_defensePower.ToString();
+    }
+
+    private void Set_NameAndImage()
+    {
+        switch (data.m_name)
+        {
+            case "Akame": // _1
+                character_Name.text = "아카메";
+                
+                break;
+
+            case "Kris": // _2
+                character_Name.text = "크리스";
+                
+                break;
+
+            case "Teo": // _3
+                character_Name.text = "태오";
+                
+                break;
+
+            case "Melia": // _4
+                character_Name.text = "멜리아";
+                
+                break;
+
+            case "Platin": // _5
+                character_Name.text = "플라틴";
+                
+                break;
+
+            case "Raiden": // _6
+                character_Name.text = "라이덴";
+                
+                break;
+
+            case "Eileene": // _7
+                character_Name.text = "아일린";
+                
+                break;
+
+            case "Jave": // _8
+                character_Name.text = "제이브";
+                
+
+                break;
+
+            case "Vanessa": // _9
+                character_Name.text = "바네사";
+                
+                break;
         }
     }
 }

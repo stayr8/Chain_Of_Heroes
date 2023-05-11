@@ -5,7 +5,7 @@ using UnityEngine;
 public class Sword : MonoBehaviour
 {
     public BoxCollider meleeArea;
-    public TrailRenderer trailEffect;
+    //public TrailRenderer trailEffect;
 
 
     public void Use()
@@ -18,13 +18,13 @@ public class Sword : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
         meleeArea.enabled = true;
-        trailEffect.enabled = true;
+        //trailEffect.enabled = true;
 
         yield return new WaitForSeconds(0.1f);
         meleeArea.enabled = false;
 
         yield return new WaitForSeconds(0.2f);
-        trailEffect.enabled = false;
+        //trailEffect.enabled = false;
 
         yield return null;
     }
