@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WizardPassive : MonoBehaviour
+public class WizardPassive : CharacterBase
 {
     private CharacterDataManager _cdm;
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GuardianPassive : MonoBehaviour
+public class GuardianPassive : CharacterBase
 {
     private CharacterDataManager _cdm;
 

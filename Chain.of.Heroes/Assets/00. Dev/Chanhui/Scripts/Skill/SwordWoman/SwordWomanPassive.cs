@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwordWomanPassive : MonoBehaviour
+public class SwordWomanPassive : CharacterBase
 {
 
     private CharacterDataManager _cdm;

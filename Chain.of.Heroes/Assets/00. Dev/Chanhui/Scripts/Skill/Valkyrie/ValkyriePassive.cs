@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ValkyriePassive : MonoBehaviour
+public class ValkyriePassive : CharacterBase
 {
     private CharacterDataManager _cdm;
 

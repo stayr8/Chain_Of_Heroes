@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArcherPassive : MonoBehaviour
+public class ArcherPassive : CharacterBase
 {
     private CharacterDataManager _cdm;
 

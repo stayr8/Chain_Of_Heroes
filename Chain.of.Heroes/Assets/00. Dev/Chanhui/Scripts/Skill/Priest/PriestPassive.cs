@@ -2,17 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PriestPassive : MonoBehaviour
+public class PriestPassive : CharacterBase
 {
-    // Start is called before the first frame update
-    void Start()
+    private CharacterDataManager _cdm;
+
+    private void Awake()
     {
-        
+        _cdm = GetComponent<CharacterDataManager>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

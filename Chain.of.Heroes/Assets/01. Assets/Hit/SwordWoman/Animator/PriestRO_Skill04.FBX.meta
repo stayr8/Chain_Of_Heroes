@@ -1,156 +1,446 @@
 fileFormatVersion: 2
 guid: e47884692d7979a46b3bfb8ce325ae71
 ModelImporter:
-  serializedVersion: 23
-  fileIDToRecycleName:
-    100000: Bip001
-    100002: Bip001 cap
-    100004: Bip001 cap02
-    100006: Bip001 cap03
-    100008: Bip001 capNub
-    100010: Bip001 eyes
-    100012: Bip001 eyesNub
-    100014: Bip001 Footsteps
-    100016: Bip001 Head
-    100018: Bip001 HeadNub
-    100020: Bip001 L Calf
-    100022: Bip001 L Clavicle
-    100024: Bip001 L Finger0
-    100026: Bip001 L Finger01
-    100028: Bip001 L Finger0Nub
-    100030: Bip001 L Finger1
-    100032: Bip001 L Finger11
-    100034: Bip001 L Finger1Nub
-    100036: Bip001 L Foot
-    100038: Bip001 L Forearm
-    100040: Bip001 L Hand
-    100042: Bip001 L Thigh
-    100044: Bip001 L Toe0
-    100046: Bip001 L Toe0Nub
-    100048: Bip001 L UpperArm
-    100050: Bip001 Neck
-    100052: Bip001 Pelvis
-    100054: Bip001 R Calf
-    100056: Bip001 R Clavicle
-    100058: Bip001 R Finger0
-    100060: Bip001 R Finger01
-    100062: Bip001 R Finger0Nub
-    100064: Bip001 R Finger1
-    100066: Bip001 R Finger11
-    100068: Bip001 R Finger1Nub
-    100070: Bip001 R Foot
-    100072: Bip001 R Forearm
-    100074: Bip001 R Hand
-    100076: Bip001 R Thigh
-    100078: Bip001 R Toe0
-    100080: Bip001 R Toe0Nub
-    100082: Bip001 R UpperArm
-    100084: Bip001 scarfL
-    100086: Bip001 scarfL02
-    100088: Bip001 scarfL03
-    100090: Bip001 scarfLNub
-    100092: Bip001 scarfR
-    100094: Bip001 scarfR02
-    100096: Bip001 scarfR03
-    100098: Bip001 scarfRNub
-    100100: Bip001 skirtBL
-    100102: Bip001 skirtBL02
-    100104: Bip001 skirtBLNub
-    100106: Bip001 skirtBR
-    100108: Bip001 skirtBR02
-    100110: Bip001 skirtBRNub
-    100112: Bip001 skirtFL
-    100114: Bip001 skirtFL02
-    100116: Bip001 skirtFLNub
-    100118: Bip001 skirtFR
-    100120: Bip001 skirtFR02
-    100122: Bip001 skirtFRNub
-    100124: Bip001 Spine
-    100126: Bip001 Spine1
-    100128: body
-    100130: Object07
-    100132: //RootNode
-    100134: weapon
-    400000: Bip001
-    400002: Bip001 cap
-    400004: Bip001 cap02
-    400006: Bip001 cap03
-    400008: Bip001 capNub
-    400010: Bip001 eyes
-    400012: Bip001 eyesNub
-    400014: Bip001 Footsteps
-    400016: Bip001 Head
-    400018: Bip001 HeadNub
-    400020: Bip001 L Calf
-    400022: Bip001 L Clavicle
-    400024: Bip001 L Finger0
-    400026: Bip001 L Finger01
-    400028: Bip001 L Finger0Nub
-    400030: Bip001 L Finger1
-    400032: Bip001 L Finger11
-    400034: Bip001 L Finger1Nub
-    400036: Bip001 L Foot
-    400038: Bip001 L Forearm
-    400040: Bip001 L Hand
-    400042: Bip001 L Thigh
-    400044: Bip001 L Toe0
-    400046: Bip001 L Toe0Nub
-    400048: Bip001 L UpperArm
-    400050: Bip001 Neck
-    400052: Bip001 Pelvis
-    400054: Bip001 R Calf
-    400056: Bip001 R Clavicle
-    400058: Bip001 R Finger0
-    400060: Bip001 R Finger01
-    400062: Bip001 R Finger0Nub
-    400064: Bip001 R Finger1
-    400066: Bip001 R Finger11
-    400068: Bip001 R Finger1Nub
-    400070: Bip001 R Foot
-    400072: Bip001 R Forearm
-    400074: Bip001 R Hand
-    400076: Bip001 R Thigh
-    400078: Bip001 R Toe0
-    400080: Bip001 R Toe0Nub
-    400082: Bip001 R UpperArm
-    400084: Bip001 scarfL
-    400086: Bip001 scarfL02
-    400088: Bip001 scarfL03
-    400090: Bip001 scarfLNub
-    400092: Bip001 scarfR
-    400094: Bip001 scarfR02
-    400096: Bip001 scarfR03
-    400098: Bip001 scarfRNub
-    400100: Bip001 skirtBL
-    400102: Bip001 skirtBL02
-    400104: Bip001 skirtBLNub
-    400106: Bip001 skirtBR
-    400108: Bip001 skirtBR02
-    400110: Bip001 skirtBRNub
-    400112: Bip001 skirtFL
-    400114: Bip001 skirtFL02
-    400116: Bip001 skirtFLNub
-    400118: Bip001 skirtFR
-    400120: Bip001 skirtFR02
-    400122: Bip001 skirtFRNub
-    400124: Bip001 Spine
-    400126: Bip001 Spine1
-    400128: body
-    400130: Object07
-    400132: //RootNode
-    400134: weapon
-    2100000: Standard_1
-    2100002: Standard_2
-    2300000: weapon
-    3300000: weapon
-    4300000: body
-    4300002: weapon
-    7400000: Skill04
-    9500000: //RootNode
-    13700000: body
+  serializedVersion: 21300
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: Bip001
+  - first:
+      1: 100002
+    second: Bip001 cap
+  - first:
+      1: 100004
+    second: Bip001 cap02
+  - first:
+      1: 100006
+    second: Bip001 cap03
+  - first:
+      1: 100008
+    second: Bip001 capNub
+  - first:
+      1: 100010
+    second: Bip001 eyes
+  - first:
+      1: 100012
+    second: Bip001 eyesNub
+  - first:
+      1: 100014
+    second: Bip001 Footsteps
+  - first:
+      1: 100016
+    second: Bip001 Head
+  - first:
+      1: 100018
+    second: Bip001 HeadNub
+  - first:
+      1: 100020
+    second: Bip001 L Calf
+  - first:
+      1: 100022
+    second: Bip001 L Clavicle
+  - first:
+      1: 100024
+    second: Bip001 L Finger0
+  - first:
+      1: 100026
+    second: Bip001 L Finger01
+  - first:
+      1: 100028
+    second: Bip001 L Finger0Nub
+  - first:
+      1: 100030
+    second: Bip001 L Finger1
+  - first:
+      1: 100032
+    second: Bip001 L Finger11
+  - first:
+      1: 100034
+    second: Bip001 L Finger1Nub
+  - first:
+      1: 100036
+    second: Bip001 L Foot
+  - first:
+      1: 100038
+    second: Bip001 L Forearm
+  - first:
+      1: 100040
+    second: Bip001 L Hand
+  - first:
+      1: 100042
+    second: Bip001 L Thigh
+  - first:
+      1: 100044
+    second: Bip001 L Toe0
+  - first:
+      1: 100046
+    second: Bip001 L Toe0Nub
+  - first:
+      1: 100048
+    second: Bip001 L UpperArm
+  - first:
+      1: 100050
+    second: Bip001 Neck
+  - first:
+      1: 100052
+    second: Bip001 Pelvis
+  - first:
+      1: 100054
+    second: Bip001 R Calf
+  - first:
+      1: 100056
+    second: Bip001 R Clavicle
+  - first:
+      1: 100058
+    second: Bip001 R Finger0
+  - first:
+      1: 100060
+    second: Bip001 R Finger01
+  - first:
+      1: 100062
+    second: Bip001 R Finger0Nub
+  - first:
+      1: 100064
+    second: Bip001 R Finger1
+  - first:
+      1: 100066
+    second: Bip001 R Finger11
+  - first:
+      1: 100068
+    second: Bip001 R Finger1Nub
+  - first:
+      1: 100070
+    second: Bip001 R Foot
+  - first:
+      1: 100072
+    second: Bip001 R Forearm
+  - first:
+      1: 100074
+    second: Bip001 R Hand
+  - first:
+      1: 100076
+    second: Bip001 R Thigh
+  - first:
+      1: 100078
+    second: Bip001 R Toe0
+  - first:
+      1: 100080
+    second: Bip001 R Toe0Nub
+  - first:
+      1: 100082
+    second: Bip001 R UpperArm
+  - first:
+      1: 100084
+    second: Bip001 scarfL
+  - first:
+      1: 100086
+    second: Bip001 scarfL02
+  - first:
+      1: 100088
+    second: Bip001 scarfL03
+  - first:
+      1: 100090
+    second: Bip001 scarfLNub
+  - first:
+      1: 100092
+    second: Bip001 scarfR
+  - first:
+      1: 100094
+    second: Bip001 scarfR02
+  - first:
+      1: 100096
+    second: Bip001 scarfR03
+  - first:
+      1: 100098
+    second: Bip001 scarfRNub
+  - first:
+      1: 100100
+    second: Bip001 skirtBL
+  - first:
+      1: 100102
+    second: Bip001 skirtBL02
+  - first:
+      1: 100104
+    second: Bip001 skirtBLNub
+  - first:
+      1: 100106
+    second: Bip001 skirtBR
+  - first:
+      1: 100108
+    second: Bip001 skirtBR02
+  - first:
+      1: 100110
+    second: Bip001 skirtBRNub
+  - first:
+      1: 100112
+    second: Bip001 skirtFL
+  - first:
+      1: 100114
+    second: Bip001 skirtFL02
+  - first:
+      1: 100116
+    second: Bip001 skirtFLNub
+  - first:
+      1: 100118
+    second: Bip001 skirtFR
+  - first:
+      1: 100120
+    second: Bip001 skirtFR02
+  - first:
+      1: 100122
+    second: Bip001 skirtFRNub
+  - first:
+      1: 100124
+    second: Bip001 Spine
+  - first:
+      1: 100126
+    second: Bip001 Spine1
+  - first:
+      1: 100128
+    second: body
+  - first:
+      1: 100130
+    second: Object07
+  - first:
+      1: 100132
+    second: //RootNode
+  - first:
+      1: 100134
+    second: weapon
+  - first:
+      4: 400000
+    second: Bip001
+  - first:
+      4: 400002
+    second: Bip001 cap
+  - first:
+      4: 400004
+    second: Bip001 cap02
+  - first:
+      4: 400006
+    second: Bip001 cap03
+  - first:
+      4: 400008
+    second: Bip001 capNub
+  - first:
+      4: 400010
+    second: Bip001 eyes
+  - first:
+      4: 400012
+    second: Bip001 eyesNub
+  - first:
+      4: 400014
+    second: Bip001 Footsteps
+  - first:
+      4: 400016
+    second: Bip001 Head
+  - first:
+      4: 400018
+    second: Bip001 HeadNub
+  - first:
+      4: 400020
+    second: Bip001 L Calf
+  - first:
+      4: 400022
+    second: Bip001 L Clavicle
+  - first:
+      4: 400024
+    second: Bip001 L Finger0
+  - first:
+      4: 400026
+    second: Bip001 L Finger01
+  - first:
+      4: 400028
+    second: Bip001 L Finger0Nub
+  - first:
+      4: 400030
+    second: Bip001 L Finger1
+  - first:
+      4: 400032
+    second: Bip001 L Finger11
+  - first:
+      4: 400034
+    second: Bip001 L Finger1Nub
+  - first:
+      4: 400036
+    second: Bip001 L Foot
+  - first:
+      4: 400038
+    second: Bip001 L Forearm
+  - first:
+      4: 400040
+    second: Bip001 L Hand
+  - first:
+      4: 400042
+    second: Bip001 L Thigh
+  - first:
+      4: 400044
+    second: Bip001 L Toe0
+  - first:
+      4: 400046
+    second: Bip001 L Toe0Nub
+  - first:
+      4: 400048
+    second: Bip001 L UpperArm
+  - first:
+      4: 400050
+    second: Bip001 Neck
+  - first:
+      4: 400052
+    second: Bip001 Pelvis
+  - first:
+      4: 400054
+    second: Bip001 R Calf
+  - first:
+      4: 400056
+    second: Bip001 R Clavicle
+  - first:
+      4: 400058
+    second: Bip001 R Finger0
+  - first:
+      4: 400060
+    second: Bip001 R Finger01
+  - first:
+      4: 400062
+    second: Bip001 R Finger0Nub
+  - first:
+      4: 400064
+    second: Bip001 R Finger1
+  - first:
+      4: 400066
+    second: Bip001 R Finger11
+  - first:
+      4: 400068
+    second: Bip001 R Finger1Nub
+  - first:
+      4: 400070
+    second: Bip001 R Foot
+  - first:
+      4: 400072
+    second: Bip001 R Forearm
+  - first:
+      4: 400074
+    second: Bip001 R Hand
+  - first:
+      4: 400076
+    second: Bip001 R Thigh
+  - first:
+      4: 400078
+    second: Bip001 R Toe0
+  - first:
+      4: 400080
+    second: Bip001 R Toe0Nub
+  - first:
+      4: 400082
+    second: Bip001 R UpperArm
+  - first:
+      4: 400084
+    second: Bip001 scarfL
+  - first:
+      4: 400086
+    second: Bip001 scarfL02
+  - first:
+      4: 400088
+    second: Bip001 scarfL03
+  - first:
+      4: 400090
+    second: Bip001 scarfLNub
+  - first:
+      4: 400092
+    second: Bip001 scarfR
+  - first:
+      4: 400094
+    second: Bip001 scarfR02
+  - first:
+      4: 400096
+    second: Bip001 scarfR03
+  - first:
+      4: 400098
+    second: Bip001 scarfRNub
+  - first:
+      4: 400100
+    second: Bip001 skirtBL
+  - first:
+      4: 400102
+    second: Bip001 skirtBL02
+  - first:
+      4: 400104
+    second: Bip001 skirtBLNub
+  - first:
+      4: 400106
+    second: Bip001 skirtBR
+  - first:
+      4: 400108
+    second: Bip001 skirtBR02
+  - first:
+      4: 400110
+    second: Bip001 skirtBRNub
+  - first:
+      4: 400112
+    second: Bip001 skirtFL
+  - first:
+      4: 400114
+    second: Bip001 skirtFL02
+  - first:
+      4: 400116
+    second: Bip001 skirtFLNub
+  - first:
+      4: 400118
+    second: Bip001 skirtFR
+  - first:
+      4: 400120
+    second: Bip001 skirtFR02
+  - first:
+      4: 400122
+    second: Bip001 skirtFRNub
+  - first:
+      4: 400124
+    second: Bip001 Spine
+  - first:
+      4: 400126
+    second: Bip001 Spine1
+  - first:
+      4: 400128
+    second: body
+  - first:
+      4: 400130
+    second: Object07
+  - first:
+      4: 400132
+    second: //RootNode
+  - first:
+      4: 400134
+    second: weapon
+  - first:
+      21: 2100000
+    second: Standard_1
+  - first:
+      21: 2100002
+    second: Standard_2
+  - first:
+      23: 2300000
+    second: weapon
+  - first:
+      33: 3300000
+    second: weapon
+  - first:
+      43: 4300000
+    second: body
+  - first:
+      43: 4300002
+    second: weapon
+  - first:
+      74: 7400000
+    second: Skill04
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: body
   externalObjects: {}
   materials:
-    importMaterials: 1
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -159,6 +449,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -179,6 +470,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Skill04
       takeName: Take 001
+      internalID: 0
       firstFrame: 0
       lastFrame: 25
       wrapMode: 0
@@ -187,7 +479,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -210,34 +502,47 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    nodeNameCollisionStrategy: 0
+    fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    bakeAxisConversion: 0
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
-  copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -247,14 +552,18 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

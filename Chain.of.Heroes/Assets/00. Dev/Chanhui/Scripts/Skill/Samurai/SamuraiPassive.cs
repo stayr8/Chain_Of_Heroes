@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SamuraiPassive : MonoBehaviour
+public class SamuraiPassive : CharacterBase
 {
     private CharacterDataManager _cdm;
 
