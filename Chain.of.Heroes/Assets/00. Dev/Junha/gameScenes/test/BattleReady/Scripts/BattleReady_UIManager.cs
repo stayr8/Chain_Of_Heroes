@@ -108,7 +108,7 @@ public class BattleReady_UIManager : MonoBehaviour
         childRT.anchoredPosition = new Vector2(-41.5f, 18.5f);
         childRT.sizeDelta = new Vector2(83f, 37f);
 
-        ChangeFormationSystem.Instance.AnyDestroyCharacterUI();
+        //        ChangeFormationSystem.Instance.AnyDestroyCharacterUI();
     }
     [SerializeField, Header("[편성 완료] 스프라이트")] private Sprite Img_OnFormation;
     public void OnFormation(GameObject obj)
@@ -185,10 +185,9 @@ public class BattleReady_UIManager : MonoBehaviour
                 rt.anchoredPosition = new Vector2(480f, -415f);
 
                 character_Skill_1.text = "신검합일";
-                skill_Content_1 = "검과 하나가 되어 치명적인\n" +
-                    "공격 능력을 향상시킨다.\n\n" +
-                    "치명타 확률 +<color=#ff7f00> 15</color>%\r\n" +
-                    "치명타 데미지 +<color=#ff7f00> 20</color>%";
+                skill_Content_1 = "검과 하나가 되어 치명적인 공격 능력을 향상시킨다.\n\n" +
+                    "치명타 확률 +<color=#ff7f00>15</color>%\n" +
+                    "치명타 데미지 +<color=#ff7f00>20</color>%";
                 skill_Image_1 = Resources.Load<Sprite>("");
 
                 character_Skill_2.text = "일섬";
@@ -196,8 +195,7 @@ public class BattleReady_UIManager : MonoBehaviour
                 skill_Image_2 = Resources.Load<Sprite>("");
 
                 character_Skill_3.text = "섬광";
-                skill_Content_3 = "전방을 향해 검기를 빠르게 날려 범위 내의 적을 캐릭터 공격력의 <color=#ff7f00>100</color>% 만큼의\n" +
-                                  "데미지로 4회 공격한다.";
+                skill_Content_3 = "전방을 향해 검기를 빠르게 날려 범위 내의 적을 캐릭터 공격력의 <color=#ff7f00>100</color>% 만큼의 데미지로 4회 공격한다.";
                 skill_Image_3 = Resources.Load<Sprite>("");
 
                 break;
@@ -207,13 +205,11 @@ public class BattleReady_UIManager : MonoBehaviour
                 rt.anchoredPosition = new Vector2(447f, -415f);
 
                 character_Skill_1.text = "신성의 힘";
-                skill_Content_1 = "신성한 힘을 통해\n" +
-                    "자신의 공격력을 <color=#ff7f00>15</color>% 만큼 증가시킨다.";
+                skill_Content_1 = "신성한 힘을 통해 자신의 공격력을 <color=#ff7f00>15</color>% 만큼 증가시킨다.";
                 skill_Image_1 = Resources.Load<Sprite>("");
 
                 character_Skill_2.text = "신성 강타";
-                skill_Content_2 = "신성의 힘이 깃든 검으로\n" +
-                    "대상을 강타하여 캐릭터 공격력의 <color=#ff7f00>100</color>% 만큼의 데미지로 1회 공격하고 대상을 2턴간 기절 상태로 만든다.";
+                skill_Content_2 = "신성의 힘이 깃든 검으로 대상을 강타하여 캐릭터 공격력의 <color=#ff7f00>100</color>% 만큼의 데미지로 1회 공격하고 대상을 2턴간 기절 상태로 만든다.";
                 skill_Image_2 = Resources.Load<Sprite>("");
 
                 character_Skill_3.text = "홀리 오라";
@@ -227,8 +223,7 @@ public class BattleReady_UIManager : MonoBehaviour
                 rt.anchoredPosition = new Vector2(383f, -415f);
 
                 character_Skill_1.text = "명경지수";
-                skill_Content_1 = "맑은 거울과 고요한 물과\n" +
-                    "같은 마음가짐을 통해 검의 경지에 다다랐다.";
+                skill_Content_1 = "맑은 거울과 고요한 물과 같은 마음가짐을 통해 검의 경지에 다다랐다.";
                 skill_Image_1 = Resources.Load<Sprite>("");
 
                 character_Skill_2.text = "제비참";
@@ -236,8 +231,7 @@ public class BattleReady_UIManager : MonoBehaviour
                 skill_Image_2 = Resources.Load<Sprite>("");
 
                 character_Skill_3.text = "반월섬";
-                skill_Content_3 = "회전하며 강한 힘으로 발도하여\n" +
-                    "전방의 대상을 캐릭터 공격력의 <color=#ff7f00>500</color>% 만큼의 데미지로 1회 공격한다.";
+                skill_Content_3 = "회전하며 강한 힘으로 발도하여 전방의 대상을 캐릭터 공격력의 <color=#ff7f00>500</color>% 만큼의 데미지로 1회 공격한다.";
                 skill_Image_3 = Resources.Load<Sprite>("");
 
                 break;
