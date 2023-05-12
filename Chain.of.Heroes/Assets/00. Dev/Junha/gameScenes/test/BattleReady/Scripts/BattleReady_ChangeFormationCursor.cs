@@ -35,7 +35,9 @@ public class BattleReady_ChangeFormationCursor : CursorBase
     {
         Movement(rt, ref BeforeCurrentSelected, MOVE_DISTANCE_X, MOVE_DISTANCE_Y, MIN_POSITION_X, MAX_POSITION_X, MIN_POSITION_Y, MAX_POSITION_Y);
 
+        Update_Data();
         MenuFunction();
+        
     }
 
     private void MenuFunction()
@@ -143,7 +145,7 @@ public class BattleReady_ChangeFormationCursor : CursorBase
         {
             if(!_seletedImageMove && ChangeFormationSystem.Instance.GetIsGround()[pos])
             {
-                Update_Data();
+                //Update_Data();
                 _seletedImageMove = true;
                 _characterUi = BeforeCurrentSelected.GetComponentInChildren<CharacterUI>();
             }
@@ -177,7 +179,7 @@ public class BattleReady_ChangeFormationCursor : CursorBase
     private CharacterDataManager data;
     private void Update_Data()
     {
-        GameObject obj = BattleReady_UnitFormationCursor.currentSelected;
+        GameObject obj = BeforeCurrentSelected;
         if (obj.GetComponentInChildren<CharacterDataManager>() == null)
         {
             return;

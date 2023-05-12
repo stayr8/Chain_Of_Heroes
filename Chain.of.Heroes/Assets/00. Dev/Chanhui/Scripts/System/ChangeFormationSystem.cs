@@ -16,7 +16,7 @@ public class ChangeFormationSystem : MonoBehaviour
     [SerializeField] private Vector3[] CharacterMovePos;
     private bool[] isGround;
 
-    [SerializeField] private Transform CharacterUIPrefab;
+    [SerializeField] private Transform[] CharacterUIPrefab;
 
 
     //private bool OnChangeFormation;
@@ -48,14 +48,14 @@ public class ChangeFormationSystem : MonoBehaviour
     public void CreateCharacterUI(int Charnumber, int pos)
     {
         
-        Transform CharacterTransform = Instantiate(CharacterUIPrefab, Characterpos[pos]);
+        Transform CharacterTransform = Instantiate(CharacterUIPrefab[Charnumber], Characterpos[pos]);
         CharacterUI CharacterUI = CharacterTransform.GetComponent<CharacterUI>();
         Debug.Log(Charnumber);
-        CharacterUI.SelectedImage(Charnumber);
+        //CharacterUI.SelectedImage(Charnumber);
         CharacterUI.SetCharUIpos(pos);
         CharacterUI.SetCharacterUIMovePos(CharacterMovePos[pos]);
         Debug.Log(CharacterMovePos[pos]);
-        CharacterUI.GetComponent<Image>().SetNativeSize();
+        //CharacterUI.GetComponent<Image>().SetNativeSize();
 
         characterUIList.Add(CharacterUI);
         characterUIList.Sort(new CharacterTypeComparer());

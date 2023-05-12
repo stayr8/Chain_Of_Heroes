@@ -18,7 +18,7 @@ public class CameraController : MonoBehaviour
 
     public Transform actiontr;
 
-    public bool camerazoom = false;
+    public bool camerazoom;
     private Vector3 mousepos;
 
     private void Start()
@@ -27,16 +27,28 @@ public class CameraController : MonoBehaviour
         targetFollowOffset = cinemachineTransposer.m_FollowOffset;
 
         UnitActionSystem.Instance.OnSelectedUnitChanged += UnitActionSystem_OnSelectedUnitChanged;
+        ScenesSystem.Instance.OnScenesChange += ScenesSystem_OnScenesChange;
     }
 
     private void Update()
     {
-        HandleMovement();
-        HandleRotation();
-        HandleZoom();
-        TopView();
+        if (BattleReady_UIManager.instance.GetChange_FormationCamera())
+        {
+            HandleMovement();
+        }
+        else if(!ScenesSystem.Instance.GetIsInGame())
+        {
+            return;
+        }
+        else
+        {
+            HandleMovement();
+            HandleRotation();
+            HandleZoom();
+            TopView();
+        }
 
-        
+
         if (UnitActionSystem.Instance.GetCameraPointchange())
         {
             if (cinemachineVirtualingCamera != null)
@@ -67,6 +79,13 @@ public class CameraController : MonoBehaviour
     private void UnitActionSystem_OnSelectedUnitChanged(object sender, EventArgs empty)
     {
         mousepos = MouseWorld.GetPosition();
+    }
+
+    private void ScenesSystem_OnScenesChange(object sender, EventArgs e)
+    {
+        camerazoom = false;
+        TopViewVirtualingCamera.SetActive(false);
+        transform.position = new Vector3(4.9f, 0.5f, 2.3f);
     }
 
     // Ä«¸Þ¶ó ÀÌµ¿
@@ -111,29 +130,21 @@ public class CameraController : MonoBehaviour
             if (!camerazoom)
             {
                 TopViewVirtualingCamera.SetActive(true);
-                Invoke("Trem", 2);
+                Debug.Log("ÄÑÁü");
+                camerazoom = true;
             }
             else
             {
                 TopViewVirtualingCamera.SetActive(false);
-                Invoke("Trem", 2);
+                Debug.Log("²¨Áü");
+                camerazoom = false;
             }
         }
     }
 
-    void Trem()
-    {
-        if(!camerazoom)
-        {
-            camerazoom = true;
-        }
-        else
-        {
-            camerazoom = false;
-        }
-    }
     private void OnDestroy()
     {
         UnitActionSystem.Instance.OnSelectedUnitChanged -= UnitActionSystem_OnSelectedUnitChanged;
+        ScenesSystem.Instance.OnScenesChange -= ScenesSystem_OnScenesChange;
     }
 }

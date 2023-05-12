@@ -15,6 +15,8 @@ public class BattleReady_UIManager : MonoBehaviour
     [SerializeField, Header("[유닛 편성] 오브젝트")] private GameObject UI_UnitFormation;
     [SerializeField, Header("[배치 변경] 오브젝트")] private GameObject UI_ChangeFormation;
 
+    [SerializeField] private bool ischange_formationCamera;
+
     #region instance화 :: Awake()함수 포함
     public static BattleReady_UIManager instance;
     private void Awake()
@@ -55,9 +57,15 @@ public class BattleReady_UIManager : MonoBehaviour
                     UI_ChangeFormation.SetActive(false);
                     UI_Menu.SetActive(true);
                     //ChangeFormationSystem.Instance.DestroyCharacterUI();
-
+                    ischange_formationCamera = false;
+                    Debug.Log(ischange_formationCamera);
                     state = STATE.MENU;
                 }
+                else
+                {
+                    ischange_formationCamera = true;
+                }
+
                 break;
         }
     }
@@ -411,4 +419,9 @@ public class BattleReady_UIManager : MonoBehaviour
         Skill_Detail.SetActive(false);
     }
     #endregion
+
+    public bool GetChange_FormationCamera()
+    {
+        return ischange_formationCamera;
+    }
 }
