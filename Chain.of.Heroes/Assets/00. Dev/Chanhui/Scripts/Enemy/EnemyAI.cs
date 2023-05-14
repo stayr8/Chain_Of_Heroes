@@ -135,7 +135,11 @@ public class EnemyAI : MonoBehaviour
 
         if(bestEnemyAIAction != null && enemyUnit.TrySpendActionPointsToTakeAction(bestBaseAction))
         {
-            UnitActionSystem.Instance.SetCameraPointchange(true);
+            if(!enemyUnit.GetAction<EnemyMoveAction>() == bestBaseAction)
+            {
+                UnitActionSystem.Instance.SetCameraPointchange(true);
+            }
+            
             bestBaseAction.TakeAction(bestEnemyAIAction.gridPosition, onEnemyAIActionComplete);
             return true;
         }

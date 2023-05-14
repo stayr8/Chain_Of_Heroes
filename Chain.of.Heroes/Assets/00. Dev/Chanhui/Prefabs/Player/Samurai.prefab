@@ -248,10 +248,10 @@ GameObject:
   - component: {fileID: 3225600073728653458}
   - component: {fileID: 7106906245678296809}
   - component: {fileID: 2327204576555912648}
-  - component: {fileID: 2121154907035054532}
   - component: {fileID: 3815655748853685492}
   - component: {fileID: 4753542210349233090}
   - component: {fileID: 7143406496573490957}
+  - component: {fileID: 6614666023822418627}
   m_Layer: 16
   m_Name: Samurai
   m_TagString: Player
@@ -371,22 +371,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxMoveDistance: 2
---- !u!114 &2121154907035054532
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8974077949075013416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e750ad8e9739ac4694de8e6db42d739, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  obstaclesLayerMask:
-    serializedVersion: 2
-    m_Bits: 262144
-  maxBishopDistance: 3
 --- !u!114 &3815655748853685492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -437,6 +421,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac27240ac87d80249a2c33495e9ffe39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6614666023822418627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8974077949075013416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d58dcd669f2855847ad973125ed575ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstaclesLayerMask:
+    serializedVersion: 2
+    m_Bits: 262144
+  maxKnightDistance: 2
 --- !u!1 &8996821249372366508
 GameObject:
   m_ObjectHideFlags: 0
@@ -981,7 +981,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meleeArea: {fileID: 5474087511429355977}
-  trailEffect: {fileID: 8804789526565642144}
 --- !u!4 &1167553170079965223 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5398969568810122974, guid: fc237aa1531a30b43acfbc780350a0ab, type: 3}

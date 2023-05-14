@@ -233,8 +233,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstaclesLayerMask:
     serializedVersion: 2
-    m_Bits: 0
-  maxRookDistance: 3
+    m_Bits: 262144
+  maxRookDistance: 2
 --- !u!1 &6233785707552106496
 GameObject:
   m_ObjectHideFlags: 0
@@ -1551,7 +1551,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meleeArea: {fileID: 5361581125109563535}
-  trailEffect: {fileID: 0}
 --- !u!1 &9151833138872638869 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 995975107071332716, guid: 5c3ffdd7d1b919a4dae87c6ae6137d7b, type: 3}

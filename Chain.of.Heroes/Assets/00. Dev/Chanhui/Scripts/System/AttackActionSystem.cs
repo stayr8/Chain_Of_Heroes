@@ -341,6 +341,11 @@ public class AttackActionSystem : MonoBehaviour
         return monsterDataManager;
     }
 
+    public void SetMonsterDataManager(MonsterDataManager monsterDataManager)
+    {
+        this.monsterDataManager = monsterDataManager;
+    }
+
     public Unit GetenemyChainFind()
     {
         return enemy;
@@ -351,6 +356,8 @@ public class AttackActionSystem : MonoBehaviour
         this.enemy = enemy;
         this.player = player;
     }
+
+
 
     public Transform GetUnitAttackFind()
     {

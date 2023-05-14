@@ -236,10 +236,10 @@ GameObject:
   - component: {fileID: 523425581823623685}
   - component: {fileID: 2431518821814102591}
   - component: {fileID: 3115081128243359923}
-  - component: {fileID: 295802903247653361}
   - component: {fileID: 3344890154929506122}
   - component: {fileID: 6228714327043162098}
   - component: {fileID: 2613050172599108831}
+  - component: {fileID: 3608487294155011375}
   m_Layer: 16
   m_Name: Priest
   m_TagString: Player
@@ -359,22 +359,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxMoveDistance: 2
---- !u!114 &295802903247653361
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9108872348708313369}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 118fad7f15dee8e4d8cef37b5e9c9cac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  obstaclesLayerMask:
-    serializedVersion: 2
-    m_Bits: 262144
-  maxQueenDistance: 2
 --- !u!114 &3344890154929506122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -425,6 +409,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c962b75666de364e97688159993d064, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3608487294155011375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9108872348708313369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e750ad8e9739ac4694de8e6db42d739, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstaclesLayerMask:
+    serializedVersion: 2
+    m_Bits: 262144
+  maxBishopDistance: 2
 --- !u!1001 &2003859914626563003
 PrefabInstance:
   m_ObjectHideFlags: 0

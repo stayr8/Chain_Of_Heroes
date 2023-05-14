@@ -175,9 +175,9 @@ GameObject:
   - component: {fileID: 3500579739310478914}
   - component: {fileID: 3283995920611689855}
   - component: {fileID: 7463024219010827146}
-  - component: {fileID: 3577625989455819543}
   - component: {fileID: -7359906639914301261}
   - component: {fileID: 8489390522679411732}
+  - component: {fileID: 3379717424261038898}
   m_Layer: 16
   m_Name: Archer
   m_TagString: Player
@@ -323,22 +323,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxMoveDistance: 2
---- !u!114 &3577625989455819543
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2752157034800633727}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23a8e64c32fff9740b3609ee3cb34945, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  obstaclesLayerMask:
-    serializedVersion: 2
-    m_Bits: 262144
-  maxReadyDistance: 2
 --- !u!114 &-7359906639914301261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,6 +347,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a106c051fec6d364187936b47d26c41f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3379717424261038898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2752157034800633727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2568840b113f0d4ca9fd234506f2edd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstaclesLayerMask:
+    serializedVersion: 2
+    m_Bits: 262144
+  maxArcherDistance: 2
 --- !u!1 &3421314353740475663
 GameObject:
   m_ObjectHideFlags: 0
