@@ -14,6 +14,7 @@ public class BattleReady_UIManager : MonoBehaviour
     [SerializeField, Header("[메뉴] 오브젝트")] private GameObject UI_Menu;
     [SerializeField, Header("[유닛 편성] 오브젝트")] private GameObject UI_UnitFormation;
     [SerializeField, Header("[배치 변경] 오브젝트")] private GameObject UI_ChangeFormation;
+    [Header("[캐릭터 슬롯] 오브젝트")] public GameObject[] slot;
 
     [SerializeField] private bool ischange_formationCamera;
 
@@ -105,6 +106,11 @@ public class BattleReady_UIManager : MonoBehaviour
     {
         // 캐릭터 언락 상태에 따른 캐릭터 스프라이트 명암 변경
         ChangeColor(obj, 0f, 0f, 0f, 255f);
+
+        if(!obj.GetComponent<BattleReady_FormationState>().isUnlock)
+        {
+
+        }
     }
     [SerializeField, Header("[미편성] 스프라이트")] private Sprite Img_OffFormation;
     public void OffFormation(GameObject obj)
@@ -237,7 +243,7 @@ public class BattleReady_UIManager : MonoBehaviour
         switch (data.m_name)
         {
             #region 아카메, SwordWoman
-            case "Akame": // _1,SwordWoman
+            case "Akame": // _1, SwordWoman
                 character_Name.text = "아카메";
                 rt.anchoredPosition = new Vector2(480f, -415f);
 
@@ -284,7 +290,10 @@ public class BattleReady_UIManager : MonoBehaviour
                 rt.anchoredPosition = new Vector2(383f, -415f);
 
                 character_Skill_Name[0].text = "명경지수";
-                skill_Content_1 = "맑은 거울과 고요한 물과 같은 마음가짐을 통해 검의 경지에 다다랐다.";
+                skill_Content_1 = "맑은 거울과 고요한 물과 같은 마음가짐을 통해 검의 경지에 다다랐다.\n\n" +
+                    "치명타 확률 +<color=#ff7f00>20</color>%\n" +
+                    "치명타 데미지 +<color=#ff7f00>30</color>%\n" +
+                    "스킬 행동력 소모값 -<color=#ff7f00>1</color>";
                 character_Skill_Image[0].sprite = Resources.Load<Sprite>(path + "Samurai/Skill01_Sam");
 
                 character_Skill_Name[1].text = "제비참";
@@ -341,31 +350,8 @@ public class BattleReady_UIManager : MonoBehaviour
                 break;
             #endregion
 
-            #region 라이덴, Swordman
-            case "Raiden": // _6, Swordman
-                character_Name.text = "라이덴";
-                //rt.anchoredPosition = new Vector2(433f, -415f);
-
-                character_Skill_Name[0].text = "이기어검술";
-                skill_Content_1 = "신검의 경지에 이르러 7자루의 검을 자유자재로 다룬다.\n\n" +
-                    "치명타 확률 + <color=#ff7f00>10</color>%\n" +
-                    "치명타 데미지 + <color=#ff7f00>10</color>%\n" +
-                    "캐릭터 공격력 + <color=#ff7f00>10</color>%";
-                character_Skill_Image[0].sprite = Resources.Load<Sprite>(path + "Swordman/Skill01_Swm");
-
-                character_Skill_Name[1].text = "어검 사출";
-                skill_Content_2 = "2자루의 검을 사출하여 캐릭터 공격력의 <color=#ff7f00>125</color>% 만큼의 데미지로 <color=#ff7f00>2</color>회 공격한다.";
-                character_Skill_Image[1].sprite = Resources.Load<Sprite>(path + "Swordman/Skill02_Swm");
-
-                character_Skill_Name[2].text = "섬단";
-                skill_Content_3 = "7자루의 검을 합쳐 캐릭터 공격력의 <color=#ff7f00>400</color>% 만큼의 데미지로 <color=#ff7f00>1</color>회 공격한다.";
-                character_Skill_Image[2].sprite = Resources.Load<Sprite>(path + "Swordman/Skill03_Swm");
-
-                break;
-            #endregion
-
             #region 아일린, Priest
-            case "Eileene": // _7, Priest
+            case "Eileene": // _6, Priest
                 character_Name.text = "아일린";
                 rt.anchoredPosition = new Vector2(408f, -415f);
 
@@ -385,7 +371,7 @@ public class BattleReady_UIManager : MonoBehaviour
             #endregion
 
             #region 제이브, Wizard
-            case "Jave": // _8, Wizard
+            case "Jave": // _7, Wizard
                 character_Name.text = "제이브";
                 //rt.anchoredPosition = new Vector2(433f, -415f);
 
@@ -408,7 +394,7 @@ public class BattleReady_UIManager : MonoBehaviour
             #endregion
 
             #region 바네사, Vanessa
-            case "Vanessa": // _9, Valkyrie
+            case "Vanessa": // _8, Valkyrie
                 character_Name.text = "바네사";
                 rt.anchoredPosition = new Vector2(408f, -336f);
 

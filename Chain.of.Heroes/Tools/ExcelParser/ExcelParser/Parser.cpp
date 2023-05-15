@@ -5,7 +5,7 @@ std::string path =
 "../../../Assets/00. Dev/Junha/gameScenes/test/parse/Resources/";
 
 const std::string& pathAndfileName =
-"../Data/NormalMonster_GoblinWarrior.xlsx";
+"../Data/TextData.xlsx";
 
 void Parser::Initialize() {}
 
@@ -100,7 +100,7 @@ void Parser::CreateJsonValue(Json::Value& Data, xlnt::cell Cell, int CellCount)
 	{
 		Data[CellNames[CellCount]] = Cell.value<std::string>();
 	}
-	else if (Type == "Float" || Type == "Enum")
+	else if (Type == "Float")
 	{
 		Data[CellNames[CellCount]] = Cell.value<double>();
 	}
