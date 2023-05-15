@@ -73,7 +73,7 @@ public class BattleReady_UnitFormationCursor : CursorBase
                 case "_7":
                 case "_8":
                 case "_9":
-                //case "_10": // 10번째 캐릭터가 나온다면,,, 언젠가 활성화 되겠지.
+                    //case "_10": // 10번째 캐릭터가 나온다면,,, 언젠가 활성화 되겠지.
                     temp = currentSelected.gameObject;
                     NextButton_Menu(temp);
                     break;

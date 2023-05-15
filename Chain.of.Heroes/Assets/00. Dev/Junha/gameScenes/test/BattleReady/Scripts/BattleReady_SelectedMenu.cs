@@ -18,11 +18,13 @@ public class BattleReady_SelectedMenu : MonoBehaviour, ISelectHandler, IDeselect
         image = GetComponent<Image>();
     }
 
+    private bool isInitStart = false;
     private void OnEnable()
     {
-        if (gameObject.name == "_BattleStart")
+        if (gameObject.name == "_BattleStart" && !isInitStart)
         {
             Select();
+            isInitStart = true;
         }
     }
     private void OnDisable()
@@ -60,7 +62,6 @@ public class BattleReady_SelectedMenu : MonoBehaviour, ISelectHandler, IDeselect
             setPos(25f, rt.anchoredPosition.y);
         }
 
-        //rt.sizeDelta = new Vector2(557f, rt.sizeDelta.y);
         image.SetNativeSize();
     }
     private void notSelect()
@@ -84,7 +85,6 @@ public class BattleReady_SelectedMenu : MonoBehaviour, ISelectHandler, IDeselect
             setPos(-75f, rt.anchoredPosition.y);
         }
 
-        //rt.sizeDelta = new Vector2(335f, rt.sizeDelta.y);
         image.SetNativeSize();
     }
 

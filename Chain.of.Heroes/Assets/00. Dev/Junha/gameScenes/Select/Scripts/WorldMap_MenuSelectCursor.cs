@@ -26,7 +26,7 @@ public class WorldMap_MenuSelectCursor : CursorBase
     public static bool isBaseCamp = false;
     private const float MOVE_DISTANCE = 100f;
     private const float MAX_POSITION_X = -860f; private const float MAX_POSITION_Y = 200f;
-    private const float MIN_POSITION_X = -900f; private const float MIN_POSITION_Y = -200f;
+    private const float MIN_POSITION_X = -890f; private const float MIN_POSITION_Y = -100f;
     private void Update()
     {
         if (!isChapterStart || !isBaseCamp)
@@ -58,10 +58,6 @@ public class WorldMap_MenuSelectCursor : CursorBase
                     break;
 
                 #region 미구현
-                case "_Inventory":
-                    Debug.Log("소지품");
-
-                    break;
                 case "_Party":
                     Debug.Log("동료");
 
@@ -121,7 +117,7 @@ public class WorldMap_MenuSelectCursor : CursorBase
     {
         if (currentSelected.name == "_ChapterStart")
         {
-            rt.anchoredPosition = new Vector2(-800f, MAX_POSITION_Y);
+            rt.anchoredPosition = new Vector2(-860f, MAX_POSITION_Y);
         }
         else if (currentSelected.name == "_BaseCamp")
         {

@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Net;
 using TMPro;
 using UnityEngine;
 
@@ -54,7 +53,6 @@ public class BattleReady_UIManager : MonoBehaviour
                 {
                     UI_ChangeFormation.SetActive(false);
                     UI_Menu.SetActive(true);
-                    //ChangeFormationSystem.Instance.DestroyCharacterUI();
 
                     state = STATE.MENU;
                 }
@@ -95,35 +93,51 @@ public class BattleReady_UIManager : MonoBehaviour
     #endregion
 
     #region 미편성 / 편성 완료
+    public void UnlockCharacter(GameObject obj)
+    {
+        // 캐릭터 언락 상태에 따른 캐릭터 스프라이트 명암 변경
+        ChangeColor(obj, 0f, 0f, 0f, 255f);
+    }
     [SerializeField, Header("[미편성] 스프라이트")] private Sprite Img_OffFormation;
     public void OffFormation(GameObject obj)
     {
-        // 스프라이트 변경
-        GameObject child = obj.transform.GetChild(1).gameObject;
-        Image img = child.GetComponent<Image>();
-        img.sprite = Img_OffFormation;
+        // 편성 상태에 따른 캐릭터 스프라이트 명암 변경
+        ChangeColor(obj, 48f, 48f, 48f, 255f);
 
-        // 스프라이트 변경에 따른 포지션 변경
-        RectTransform childRT = child.GetComponent<RectTransform>();
+        // 편성 스프라이트 변경
+        GameObject child2 = obj.transform.GetChild(1).gameObject;
+        Image img2 = child2.GetComponent<Image>();
+        img2.sprite = Img_OffFormation;
+        img2.SetNativeSize();
+
+        // 편성 스프라이트 변경에 따른 포지션 변경
+        RectTransform childRT = child2.GetComponent<RectTransform>();
         childRT.anchoredPosition = new Vector2(-41.5f, 18.5f);
-        childRT.sizeDelta = new Vector2(83f, 37f);
-
-        //        ChangeFormationSystem.Instance.AnyDestroyCharacterUI();
     }
     [SerializeField, Header("[편성 완료] 스프라이트")] private Sprite Img_OnFormation;
     public void OnFormation(GameObject obj)
     {
-        // 스프라이트 변경
-        GameObject child = obj.transform.GetChild(1).gameObject;
-        Image img = child.GetComponent<Image>();
-        img.sprite = Img_OnFormation;
+        // 편성 상태에 따른 캐릭터 스프라이트 명암 변경
+        ChangeColor(obj, 255f, 255f, 255f, 255f);
 
-        // 스프라이트 변경에 따른 포지션 변경
-        RectTransform childRT = child.GetComponent<RectTransform>();
+        // 편성 스프라이트 변경
+        GameObject child2 = obj.transform.GetChild(1).gameObject;
+        Image img2 = child2.GetComponent<Image>();
+        img2.sprite = Img_OnFormation;
+        img2.SetNativeSize();
+
+        // 편성 스프라이트 변경에 따른 포지션 변경
+        RectTransform childRT = child2.GetComponent<RectTransform>();
         childRT.anchoredPosition = new Vector2(-59.5f, 19f);
-        childRT.sizeDelta = new Vector2(119f, 38f);
 
         ChangeFormationSystem.Instance.AnyDestroyCharacterUI();
+    }
+
+    private void ChangeColor(GameObject obj, float r, float g, float b, float a)
+    {
+        GameObject child = obj.transform.GetChild(0).gameObject;
+        Image img = child.GetComponent<Image>();
+        img.color = new Color(r / 255f, g / 255f, b / 255f, a / 255f);
     }
     #endregion
 
@@ -131,10 +145,11 @@ public class BattleReady_UIManager : MonoBehaviour
     [Header("[유닛 편성 수] 텍스트")]
     [SerializeField] private TextMeshProUGUI _Current; // "n"
     [SerializeField] private TextMeshProUGUI _Max; // "/ n"
+    public int Max_Value = 0;
     private void Update_Formation()
     {
         _Current.text = BattleReady_UnitFormationCursor.count.ToString();
-        _Max.text = "/ " + "9"; // 총 캐릭터 수가 9명임.
+        _Max.text = "/ " + Max_Value; // 총 캐릭터 수가 9명임.
     }
 
     [Header("[캐릭터 정보] 텍스트")]
@@ -146,6 +161,16 @@ public class BattleReady_UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI character_ChainAttackPower;
     [SerializeField] private TextMeshProUGUI character_DefensePower;
     private CharacterDataManager data;
+    private BattleReady_FormationState form_State;
+    private const int skillNum = 3;
+    private Sprite no_Skill;
+    private RectTransform rt;
+    [Header("캐릭터 스킬 이미지")]
+    [SerializeField] private Image[] character_Skill_Image;
+    [Header("캐릭터 스킬 이름")]
+    [SerializeField] private TextMeshProUGUI[] character_Skill_Name;
+    [Header("캐릭터 이미지")]
+    [SerializeField] private Image character_Image;
     private void Update_Data()
     {
         GameObject obj = BattleReady_UnitFormationCursor.currentSelected;
@@ -155,207 +180,249 @@ public class BattleReady_UIManager : MonoBehaviour
         }
         data = obj.GetComponentInChildren<CharacterDataManager>();
 
-        Set_NameAndImage();
-        //character_Class.text = data.m_class.ToString();
-        character_Level.text = "Lv. " + data.m_level.ToString();
-        character_HP.text = data.m_hp.ToString();
-        character_AttackPower.text = data.m_attackPower.ToString();
-        character_ChainAttackPower.text = data.m_chainAttackPower.ToString();
-        character_DefensePower.text = data.m_defensePower.ToString();
+        form_State = obj.GetComponentInChildren<BattleReady_FormationState>();
+        no_Skill = Resources.Load<Sprite>("slot_image");
+        if (!form_State.isUnlock)
+        {
+            character_Name.text = "???";
+            character_Class.text = "???/???";
+            character_Level.text = "Lv. ???";
+            character_HP.text = "???";
+            character_AttackPower.text = "???";
+            character_ChainAttackPower.text = "???";
+            character_DefensePower.text = "???";
+
+            character_Image.sprite = Resources.Load<Sprite>("Character/Illustration/" + data.m_name);
+            character_Image.color = Color.black;
+
+            for (int i = 0; i < skillNum; ++i)
+            {
+                character_Skill_Image[i].sprite = no_Skill;
+                character_Skill_Name[i].text = "???";
+            }
+        }
+        else // form_State.isUnlock
+        {
+            Set_NameAndImage();
+            character_Image.color = Color.white;
+            //character_Class.text = data.m_class.ToString();
+            character_Level.text = "Lv. " + data.m_level.ToString();
+            character_HP.text = data.m_hp.ToString();
+            character_AttackPower.text = data.m_attackPower.ToString();
+            character_ChainAttackPower.text = data.m_chainAttackPower.ToString();
+            character_DefensePower.text = data.m_defensePower.ToString();
+        }
     }
-    private RectTransform rt;
-    [SerializeField] private TextMeshProUGUI character_Skill_1;
-    [SerializeField] private TextMeshProUGUI character_Skill_2;
-    [SerializeField] private TextMeshProUGUI character_Skill_3;
+    #endregion
+
+    #region 유닛 편성: 캐릭터 스킬 관련
+    private string path = "Character/Skill/";
     private string skill_Content_1;
     private string skill_Content_2;
     private string skill_Content_3;
-    private Sprite skill_Image_1;
-    private Sprite skill_Image_2;
-    private Sprite skill_Image_3;
-    [SerializeField] private Image character_Image;
     private void Set_NameAndImage()
     {
         rt = character_Image.gameObject.GetComponent<RectTransform>();
 
+        character_Image.sprite = Resources.Load<Sprite>("Character/Illustration/" + data.m_name);
+
         switch (data.m_name)
         {
-            case "Akame": // _1
+            #region 아카메, SwordWoman
+            case "Akame": // _1,SwordWoman
                 character_Name.text = "아카메";
                 rt.anchoredPosition = new Vector2(480f, -415f);
 
-                character_Skill_1.text = "신검합일";
+                character_Skill_Name[0].text = "신검합일";
                 skill_Content_1 = "검과 하나가 되어 치명적인 공격 능력을 향상시킨다.\n\n" +
                     "치명타 확률 +<color=#ff7f00>15</color>%\n" +
                     "치명타 데미지 +<color=#ff7f00>20</color>%";
-                skill_Image_1 = Resources.Load<Sprite>("");
+                character_Skill_Image[0].sprite = Resources.Load<Sprite>(path + "SwordWoman/Skill01_Sww");
 
-                character_Skill_2.text = "일섬";
-                skill_Content_2 = "빠른 속도로 전방의 적 한명을 캐릭터 공격력의 <color=#ff7f00>150</color>% 만큼의 데미지로 1회 벤다.";
-                skill_Image_2 = Resources.Load<Sprite>("");
+                character_Skill_Name[1].text = "일섬";
+                skill_Content_2 = "빠른 속도로 전방의 적 한명을 캐릭터 공격력의 <color=#ff7f00>150</color>% 만큼의 데미지로 <color=#ff7f00>1</color>회 벤다.";
+                character_Skill_Image[1].sprite = Resources.Load<Sprite>(path + "SwordWoman/Skill02_Sww");
 
-                character_Skill_3.text = "섬광";
-                skill_Content_3 = "전방을 향해 검기를 빠르게 날려 범위 내의 적을 캐릭터 공격력의 <color=#ff7f00>100</color>% 만큼의 데미지로 4회 공격한다.";
-                skill_Image_3 = Resources.Load<Sprite>("");
+                character_Skill_Name[2].text = "섬광";
+                skill_Content_3 = "전방을 향해 검기를 빠르게 날려 범위 내의 적을 캐릭터 공격력의 <color=#ff7f00>100</color>% 만큼의 데미지로 <color=#ff7f00>4</color>회 공격한다.";
+                character_Skill_Image[2].sprite = Resources.Load<Sprite>(path + "SwordWoman/Skill03_Sww");
 
                 break;
+            #endregion
 
-            case "Kris": // _2
+            #region 크리스, Knight
+            case "Kris": // _2, Knight
                 character_Name.text = "크리스";
                 rt.anchoredPosition = new Vector2(447f, -415f);
 
-                character_Skill_1.text = "신성의 힘";
+                character_Skill_Name[0].text = "신성의 힘";
                 skill_Content_1 = "신성한 힘을 통해 자신의 공격력을 <color=#ff7f00>15</color>% 만큼 증가시킨다.";
-                skill_Image_1 = Resources.Load<Sprite>("");
+                character_Skill_Image[0].sprite = Resources.Load<Sprite>(path + "Knight/Skill01_Kni");
 
-                character_Skill_2.text = "신성 강타";
-                skill_Content_2 = "신성의 힘이 깃든 검으로 대상을 강타하여 캐릭터 공격력의 <color=#ff7f00>100</color>% 만큼의 데미지로 1회 공격하고 대상을 2턴간 기절 상태로 만든다.";
-                skill_Image_2 = Resources.Load<Sprite>("");
+                character_Skill_Name[1].text = "신성 강타";
+                skill_Content_2 = "신성의 힘이 깃든 검으로 대상을 강타하여 캐릭터 공격력의 <color=#ff7f00>100</color>% 만큼의 데미지로 <color=#ff7f00>1</color>회 공격하고 대상을 <color=#ff7f00>2</color>턴간 기절 상태로 만든다.";
+                character_Skill_Image[1].sprite = Resources.Load<Sprite>(path + "Knight/Skill02_Kni");
 
-                character_Skill_3.text = "홀리 오라";
+                character_Skill_Name[2].text = "홀리 오라";
                 skill_Content_3 = "신성한 오라를 내뿜어 주변 아군의 공격력을 <color=#ff7f00>30</color>% 만큼 증가시킨다.";
-                skill_Image_3 = Resources.Load<Sprite>("");
+                character_Skill_Image[2].sprite = Resources.Load<Sprite>(path + "Knight/Skill03_Kni");
 
                 break;
+            #endregion
 
-            case "Teo": // _3
+            #region 태오, Samurai
+            case "Teo": // _3, Samurai
                 character_Name.text = "태오";
                 rt.anchoredPosition = new Vector2(383f, -415f);
 
-                character_Skill_1.text = "명경지수";
+                character_Skill_Name[0].text = "명경지수";
                 skill_Content_1 = "맑은 거울과 고요한 물과 같은 마음가짐을 통해 검의 경지에 다다랐다.";
-                skill_Image_1 = Resources.Load<Sprite>("");
+                character_Skill_Image[0].sprite = Resources.Load<Sprite>(path + "Samurai/Skill01_Sam");
 
-                character_Skill_2.text = "제비참";
-                skill_Content_2 = "섬전과 같은 속도로 전방의 대상을 캐릭터 공격력의 <color=#ff7f00>150</color>% 만큼의 데미지로 3회 공격한다.";
-                skill_Image_2 = Resources.Load<Sprite>("");
+                character_Skill_Name[1].text = "제비참";
+                skill_Content_2 = "섬전과 같은 속도로 전방의 대상을 캐릭터 공격력의 <color=#ff7f00>150</color>% 만큼의 데미지로 <color=#ff7f00>3</color>회 공격한다.";
+                character_Skill_Image[1].sprite = Resources.Load<Sprite>(path + "Samurai/Skill02_Sam");
 
-                character_Skill_3.text = "반월섬";
-                skill_Content_3 = "회전하며 강한 힘으로 발도하여 전방의 대상을 캐릭터 공격력의 <color=#ff7f00>500</color>% 만큼의 데미지로 1회 공격한다.";
-                skill_Image_3 = Resources.Load<Sprite>("");
+                character_Skill_Name[2].text = "반월섬";
+                skill_Content_3 = "회전하며 강한 힘으로 발도하여 전방의 대상을 캐릭터 공격력의 <color=#ff7f00>500</color>% 만큼의 데미지로 <color=#ff7f00>1</color>회 공격한다.";
+                character_Skill_Image[2].sprite = Resources.Load<Sprite>(path + "Samurai/Skill03_Sam");
 
                 break;
+            #endregion
 
-            case "Melia": // _4
+            #region 멜리아, Archer
+            case "Melia": // _4, Archer
                 character_Name.text = "멜리아";
                 rt.anchoredPosition = new Vector2(433f, -415f);
 
-                character_Skill_1.text = "약점 포착";
+                character_Skill_Name[0].text = "약점 포착";
                 skill_Content_1 = "상대의 약점을 포착해서 좀 더 치명적인 공격을 가할 수 있다.\n\n" +
                     "치명타 확률 + <color=#ff7f00>30</color>%\n" +
                     "치명타 데미지 + <color=#ff7f00>40</color>%";
-                skill_Image_1 = Resources.Load<Sprite>("");
+                character_Skill_Image[0].sprite = Resources.Load<Sprite>(path + "Archer/Skill01_Arc");
 
-                character_Skill_2.text = "애로우 블로우";
+                character_Skill_Name[1].text = "애로우 블로우";
                 skill_Content_2 = "한 명의 적에게 여러 발의\n" +
-                    "화살을 발사하여 캐릭터 공격력의 <color=#ff7f00>50</color>% 만큼의 데미지로 4회 공격한다.";
-                skill_Image_2 = Resources.Load<Sprite>("");
+                    "화살을 발사하여 캐릭터 공격력의 <color=#ff7f00>50</color>% 만큼의 데미지로 <color=#ff7f00>4</color>회 공격한다.";
+                character_Skill_Image[1].sprite = Resources.Load<Sprite>(path + "Archer/Skill02_Arc");
 
-                character_Skill_3.text = "스나이핑";
-                skill_Content_3 = "상대의 급소를 정확히 노리는 화살을 발사하여 캐릭터 공격력의 <color=#ff7f00>1000</color>% 만큼의 데미지로 1회 공격한다.";
-                skill_Image_3 = Resources.Load<Sprite>("");
+                character_Skill_Name[2].text = "스나이핑";
+                skill_Content_3 = "상대의 급소를 정확히 노리는 화살을 발사하여 캐릭터 공격력의 <color=#ff7f00>1000</color>% 만큼의 데미지로 <color=#ff7f00>1</color>회 공격한다.";
+                character_Skill_Image[2].sprite = Resources.Load<Sprite>(path + "Archer/Skill03_Arc");
 
                 break;
+            #endregion
 
-            case "Platin": // _5
+            #region 플라틴, Guardian
+            case "Platin": // _5, Guardian
                 character_Name.text = "플라틴";
                 //rt.anchoredPosition = new Vector2(433f, -415f);
 
-                character_Skill_1.text = "굳건한 의지";
+                character_Skill_Name[0].text = "굳건한 의지";
                 skill_Content_1 = "수호 기사단의 일원인 가디언의 의지는 단단하여 쉽게 깨트릴 수 없다. 자신이 받는 데미지를 <color=#ff7f00>15</color>% 감소시킨다.";
-                skill_Image_1 = Resources.Load<Sprite>("");
+                character_Skill_Image[0].sprite = Resources.Load<Sprite>(path + "Guardian/Skill01_Gur");
 
-                character_Skill_2.text = "파워 브레이크";
-                skill_Content_2 = "전방으로 대검을 휘둘러 캐릭터 공격력의 <color=#ff7f00>150</color>% 만큼의 데미지로 1회 공격한다.";
-                skill_Image_2 = Resources.Load<Sprite>("");
+                character_Skill_Name[1].text = "파워 브레이크";
+                skill_Content_2 = "전방으로 대검을 휘둘러 캐릭터 공격력의 <color=#ff7f00>150</color>% 만큼의 데미지로 <color=#ff7f00>1</color>회 공격한다.";
+                character_Skill_Image[1].sprite = Resources.Load<Sprite>(path + "Guardian/Skill02_Gur");
 
-                character_Skill_3.text = "증오의 함성";
-                skill_Content_3 = "강하게 포효하여 주변 범위 모든 적의 공격력을 2턴간 <color=#ff7f00>20</color>% 감소시키고 2턴간 도발한다.";
-                skill_Image_3 = Resources.Load<Sprite>("");
+                character_Skill_Name[2].text = "증오의 함성";
+                skill_Content_3 = "강하게 포효하여 주변 범위 모든 적의 공격력을 <color=#ff7f00>2</color>턴간 <color=#ff7f00>20</color>% 감소시키고 <color=#ff7f00>2</color>턴간 도발한다.";
+                character_Skill_Image[2].sprite = Resources.Load<Sprite>(path + "Guardian/Skill03_Gur");
 
                 break;
+            #endregion
 
-            case "Raiden": // _6
+            #region 라이덴, Swordman
+            case "Raiden": // _6, Swordman
                 character_Name.text = "라이덴";
                 //rt.anchoredPosition = new Vector2(433f, -415f);
 
-                character_Skill_1.text = "이기어검술";
+                character_Skill_Name[0].text = "이기어검술";
                 skill_Content_1 = "신검의 경지에 이르러 7자루의 검을 자유자재로 다룬다.\n\n" +
                     "치명타 확률 + <color=#ff7f00>10</color>%\n" +
                     "치명타 데미지 + <color=#ff7f00>10</color>%\n" +
                     "캐릭터 공격력 + <color=#ff7f00>10</color>%";
-                skill_Image_1 = Resources.Load<Sprite>("");
+                character_Skill_Image[0].sprite = Resources.Load<Sprite>(path + "Swordman/Skill01_Swm");
 
-                character_Skill_2.text = "어검 사출";
-                skill_Content_2 = "2자루의 검을 사출하여 캐릭터 공격력의 <color=#ff7f00>125</color>% 만큼의 데미지로 2회 공격한다.";
-                skill_Image_2 = Resources.Load<Sprite>("");
+                character_Skill_Name[1].text = "어검 사출";
+                skill_Content_2 = "2자루의 검을 사출하여 캐릭터 공격력의 <color=#ff7f00>125</color>% 만큼의 데미지로 <color=#ff7f00>2</color>회 공격한다.";
+                character_Skill_Image[1].sprite = Resources.Load<Sprite>(path + "Swordman/Skill02_Swm");
 
-                character_Skill_3.text = "섬단";
-                skill_Content_3 = "7자루의 검을 합쳐 캐릭터 공격력의 <color=#ff7f00>400</color>% 만큼의 데미지로 1회 공격한다.";
-                skill_Image_3 = Resources.Load<Sprite>("");
+                character_Skill_Name[2].text = "섬단";
+                skill_Content_3 = "7자루의 검을 합쳐 캐릭터 공격력의 <color=#ff7f00>400</color>% 만큼의 데미지로 <color=#ff7f00>1</color>회 공격한다.";
+                character_Skill_Image[2].sprite = Resources.Load<Sprite>(path + "Swordman/Skill03_Swm");
 
                 break;
+            #endregion
 
-            case "Eileene": // _7
+            #region 아일린, Priest
+            case "Eileene": // _7, Priest
                 character_Name.text = "아일린";
                 rt.anchoredPosition = new Vector2(408f, -415f);
 
-                character_Skill_1.text = "빛의 은총";
+                character_Skill_Name[0].text = "빛의 은총";
                 skill_Content_1 = "빛의 은총을 받아 회복 계열 스킬의 회복량이 <color=#ff7f00>20</color>% 증가한다.";
-                skill_Image_1 = Resources.Load<Sprite>("");
+                character_Skill_Image[0].sprite = Resources.Load<Sprite>(path + "Priest/Skill01_Pri");
 
-                character_Skill_2.text = "재생의 빛";
+                character_Skill_Name[1].text = "재생의 빛";
                 skill_Content_2 = "아군에게 재생의 빛을 쏘아 대상의 체력을 <color=#ff7f00>40</color>% 회복시킨다.";
-                skill_Image_2 = Resources.Load<Sprite>("");
+                character_Skill_Image[1].sprite = Resources.Load<Sprite>(path + "Priest/Skill02_Pri");
 
-                character_Skill_3.text = "대천사의 축복";
+                character_Skill_Name[2].text = "대천사의 축복";
                 skill_Content_3 = "대천사의 힘으로 범위 내 아군 유닛의 체력을 <color=#ff7f00>20</color>% 회복시킨다.";
-                skill_Image_3 = Resources.Load<Sprite>("");
+                character_Skill_Image[2].sprite = Resources.Load<Sprite>(path + "Priest/Skill03_Pri");
 
                 break;
+            #endregion
 
-            case "Jave": // _8
+            #region 제이브, Wizard
+            case "Jave": // _8, Wizard
                 character_Name.text = "제이브";
                 //rt.anchoredPosition = new Vector2(433f, -415f);
 
-                character_Skill_1.text = "마나 폭주";
+                character_Skill_Name[0].text = "마나 폭주";
                 skill_Content_1 = "마나의 흐름을 폭주시켜 낮은 확률로 매우 강력한 공격을 시전한다.\n\n" +
                     "치명타 확률 - <color=#ff7f00>12</color>%\n" +
                     "치명타 데미지 + <color=#ff7f00>300</color>%\n" +
                     "모든 행동력 소모값 -<color=#ff7f00>1</color>";
-                skill_Image_1 = Resources.Load<Sprite>("");
+                character_Skill_Image[0].sprite = Resources.Load<Sprite>(path + "Wizard/Skill01_Wiz");
 
-                character_Skill_2.text = "독병 투척";
-                skill_Content_2 = "전방으로 독약을 던져 범위 내 모든 적의 방어력을 2턴간 <color=#ff7f00>10</color>% 감소시킨다.";
-                skill_Image_2 = Resources.Load<Sprite>("");
+                character_Skill_Name[1].text = "독병 투척";
+                skill_Content_2 = "전방으로 독약을 던져 범위 내 모든 적의 방어력을 <color=#ff7f00>2</color>턴간 <color=#ff7f00>10</color>% 감소시킨다.";
+                character_Skill_Image[1].sprite = Resources.Load<Sprite>(path + "Wizard/Skill02_Wiz");
 
-                character_Skill_3.text = "메테오";
-                skill_Content_3 = "거대한 메테오를 소환하여 캐릭터 공격력의 <color=#ff7f00>300</color>% 만큼의 데미지로 범위 내 적을 2회 공격한다.";
-                skill_Image_3 = Resources.Load<Sprite>("");
+                character_Skill_Name[2].text = "메테오";
+                skill_Content_3 = "거대한 메테오를 소환하여 캐릭터 공격력의 <color=#ff7f00>300</color>% 만큼의 데미지로 범위 내 적을 <color=#ff7f00>2</color>회 공격한다.";
+                character_Skill_Image[2].sprite = Resources.Load<Sprite>(path + "Wizard/Skill03_Wiz");
 
                 break;
+            #endregion
 
-            case "Vanessa": // _9
+            #region 바네사, Vanessa
+            case "Vanessa": // _9, Valkyrie
                 character_Name.text = "바네사";
                 rt.anchoredPosition = new Vector2(408f, -336f);
 
-                character_Skill_1.text = "승리의 여신";
+                character_Skill_Name[0].text = "승리의 여신";
                 skill_Content_1 = "승리의 여신 발키리는 그 존재만으로도 아군의 사기를 진작합니다.\n\n" +
                     "인접한 주변 아군 공격력 + <color=#ff7f00>5</color>%";
-                skill_Image_1 = Resources.Load<Sprite>("");
+                character_Skill_Image[0].sprite = Resources.Load<Sprite>(path + "Valkyrie/Skill01_Val");
 
-                character_Skill_2.text = "찌르기";
-                skill_Content_2 = "전방의 적을 강하게 찔러 캐릭터 공격력의 <color=#ff7f00>200</color>% 만큼의 데미지로 1회 공격한다.";
-                skill_Image_2 = Resources.Load<Sprite>("");
+                character_Skill_Name[1].text = "찌르기";
+                skill_Content_2 = "전방의 적을 강하게 찔러 캐릭터 공격력의 <color=#ff7f00>200</color>% 만큼의 데미지로 1<color=#ff7f00>1</color>회 공격한다.";
+                character_Skill_Image[1].sprite = Resources.Load<Sprite>(path + "Valkyrie/Skill02_Val");
 
-                character_Skill_3.text = "심판";
-                skill_Content_3 = "신의 힘이 담긴 번개를 사용하여 캐릭터 공격력의 <color=#ff7f00>300</color>% 만큼의 데미지로 범위 내 적을 1회 공격하고 대상을 2턴간 기절 상태로 만든다.";
-                skill_Image_3 = Resources.Load<Sprite>("");
+                character_Skill_Name[2].text = "심판";
+                skill_Content_3 = "신의 힘이 담긴 번개를 사용하여 캐릭터 공격력의 <color=#ff7f00>300</color>% 만큼의 데미지로 범위 내 적을 <color=#ff7f00>1</color>회 공격하고 대상을 <color=#ff7f00>2</color>턴간 기절 상태로 만든다.";
+                character_Skill_Image[2].sprite = Resources.Load<Sprite>(path + "Valkyrie/Skill03_Val");
 
                 break;
+                #endregion
         }
-        character_Image.sprite = Resources.Load<Sprite>("Character/Illustration/" + data.m_name);
     }
+
+    [Header("스킬 확인 정보")]
     [SerializeField] private Image skill_Image;
     [SerializeField] private TextMeshProUGUI skill_Name;
     [SerializeField] private TextMeshProUGUI skill_Content;
@@ -364,20 +431,20 @@ public class BattleReady_UIManager : MonoBehaviour
         switch (_num)
         {
             case "Skill_1":
-                skill_Image.sprite = skill_Image_1;
-                skill_Name.text = character_Skill_1.text;
+                skill_Image.sprite = character_Skill_Image[0].sprite;
+                skill_Name.text = character_Skill_Name[0].text;
                 skill_Content.text = skill_Content_1;
                 break;
 
             case "Skill_2":
-                skill_Image.sprite = skill_Image_2;
-                skill_Name.text = character_Skill_2.text;
+                skill_Image.sprite = character_Skill_Image[1].sprite;
+                skill_Name.text = character_Skill_Name[1].text;
                 skill_Content.text = skill_Content_2;
                 break;
 
             case "Skill_3":
-                skill_Image.sprite = skill_Image_3;
-                skill_Name.text = character_Skill_3.text;
+                skill_Image.sprite = character_Skill_Image[2].sprite;
+                skill_Name.text = character_Skill_Name[2].text;
                 skill_Content.text = skill_Content_3;
                 break;
         }

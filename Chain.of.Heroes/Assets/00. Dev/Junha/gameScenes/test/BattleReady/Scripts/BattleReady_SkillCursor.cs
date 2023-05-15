@@ -14,7 +14,7 @@ public class BattleReady_SkillCursor : CursorBase
     }
 
     private const float INIT_X = -145f;
-    private const float INIT_Y = 107.5f;
+    private const float INIT_Y = 70f;
     private void OnEnable()
     {
         Init(rt, INIT_X, INIT_Y, ref currentSelected, "Skill_1");
@@ -22,8 +22,8 @@ public class BattleReady_SkillCursor : CursorBase
 
     public static bool isOnDetail = false;
     private const float MOVE_DISTANCE = 92.5f;
-    private const float MIN_POSITION_Y = -170f;
-    private const float MAX_POSITION_Y = 107.5f;
+    private const float MIN_POSITION_Y = -115f;
+    private const float MAX_POSITION_Y = 70f;
     private void Update()
     {
         MenuFunction();
