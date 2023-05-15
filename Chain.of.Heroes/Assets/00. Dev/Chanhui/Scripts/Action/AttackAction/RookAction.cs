@@ -331,7 +331,7 @@ public class RookAction : BaseAction
 
     public override string GetActionName()
     {
-        return "·Ï";
+        return "°ø°Ý";
     }
     public override string GetSingleActionPoint()
     {

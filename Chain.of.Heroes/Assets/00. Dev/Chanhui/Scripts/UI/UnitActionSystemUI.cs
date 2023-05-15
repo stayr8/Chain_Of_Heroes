@@ -99,6 +99,15 @@ public class UnitActionSystemUI : MonoBehaviour
         {
             actionButtonUI.UpdateSelectedVisual();
         }
+        SkillCoolTimeVisual();
+    }
+
+    private void SkillCoolTimeVisual()
+    {
+        foreach (ActionButtonUI actionButtonUI in actionButtonUIList)
+        {
+            actionButtonUI.SkillCoolTimeVisual();
+        }
     }
 
     private void UpdateActionPoints()

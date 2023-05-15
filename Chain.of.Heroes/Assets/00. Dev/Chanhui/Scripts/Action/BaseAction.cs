@@ -13,7 +13,9 @@ public abstract class BaseAction : MonoBehaviour
 
     protected Unit unit;
     protected bool isActive;
-    protected bool isAtk;
+    protected bool isSkill;
+    protected int isSkillCount;
+    protected int isMaxSkillCount;
     protected Action onActionComplete;
 
 
@@ -24,6 +26,12 @@ public abstract class BaseAction : MonoBehaviour
 
     public abstract string GetActionName();
     public abstract string GetSingleActionPoint();
+    public virtual int GetSkillCountPoint()
+    {
+        return 0;
+    }
+
+  
 
     public abstract void TakeAction(GridPosition gridPosition, Action onActionComplete);
 
@@ -119,6 +127,20 @@ public abstract class BaseAction : MonoBehaviour
         return unit;
     }
 
+    public bool GetIsSkill()
+    {
+        return isSkill;
+    }
+
+    public int GetIsSkillCount()
+    {
+        return isSkillCount;
+    }
+
+    public int GetMaxIsSkillCount()
+    {
+        return isMaxSkillCount;
+    }
 
     public EnemyAIAction GetBestEnemyAIAction()
     {

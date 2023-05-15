@@ -34,6 +34,8 @@ public class SwordWomanSkill1Action : BaseAction
     private float stateTimer;
     private Unit targetUnit;
 
+    private List<Binding> Binds = new List<Binding>();
+
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
     {
         return new EnemyAIAction
@@ -42,12 +44,35 @@ public class SwordWomanSkill1Action : BaseAction
             actionValue = 0,
         };
     }
+    private void Start()
+    {
+        Binding Bind = BindingManager.Bind(TurnSystem.Property, "IsPlayerTurn", (object value) =>
+        {
+            if (TurnSystem.Property.IsPlayerTurn)
+            {
+                if (isSkill && isSkillCount > 0)
+                {
+                    isSkillCount -= 1;
+                }
+            }
+        });
+
+        isSkillCount = 2;
+    }
+
     private void Update()
     {
         if (!isActive)
         {
             return;
         }
+
+        if (isSkillCount == 0)
+        {
+            isSkillCount = 2;
+            isSkill = false;
+        }
+
 
         stateTimer -= Time.deltaTime;
 
@@ -284,6 +309,7 @@ public class SwordWomanSkill1Action : BaseAction
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
+        isSkill = true;
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
 
         state = State.SwingingSWSkill_1_BeforeMoving;
@@ -323,5 +349,18 @@ public class SwordWomanSkill1Action : BaseAction
     public override int GetActionPointsCost()
     {
         return 3;
+    }
+
+    public override int GetSkillCountPoint()
+    {
+        return isSkillCount;
+    }
+
+    private void OnDisable()
+    {
+        foreach (var bind in Binds)
+        {
+            BindingManager.Unbind(TurnSystem.Property, bind);
+        }
     }
 }
