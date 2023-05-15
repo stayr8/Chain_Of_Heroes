@@ -29,11 +29,10 @@ public class BattleReady_UnitFormationCursor : CursorBase
         }
     }
 
-    public static bool isOnMenuSelect = false;
-    private bool isOnSkill = false;
-    private const float MOVE_DISTANCE_X = 313.5f; private const float MOVE_DISTANCE_Y = 125f;
-    private const float MAX_POSITION_X = -476.5f; private const float MAX_POSITION_Y = 375f;
-    private const float MIN_POSITION_X = -790f; private const float MIN_POSITION_Y = -125f;
+    public static bool isOnMenuSelect = false; private bool isOnSkill = false;
+    private const float MOVE_DISTANCE_X = 313.5f; private const float MAX_POSITION_X = -476.5f; private const float MIN_POSITION_X = -790f;
+    private const float MOVE_DISTANCE_Y = 125f; private const float MAX_POSITION_Y = 375f; private const float MIN_POSITION_Y = 0f;
+     
     private void Update()
     {
         MenuFunction();
@@ -56,10 +55,20 @@ public class BattleReady_UnitFormationCursor : CursorBase
     }
 
     private GameObject temp;
+    private const int characterNum = 8;
     private void MenuFunction()
     {
-        if (currentSelected.name != "_10" && Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return))
         {
+            for (int i = 0; i < characterNum; ++i)
+            {
+                if (currentSelected.name == BattleReady_UIManager.instance.slot[i].name && 
+                    !BattleReady_UIManager.instance.slot[i].GetComponent<BattleReady_FormationState>().isUnlock)
+                {
+                    return;
+                }
+            }
+
             isOnMenuSelect = true;
 
             switch (currentSelected.name)
@@ -72,8 +81,6 @@ public class BattleReady_UnitFormationCursor : CursorBase
                 case "_6":
                 case "_7":
                 case "_8":
-                case "_9":
-                    //case "_10": // 10번째 캐릭터가 나온다면,,, 언젠가 활성화 되겠지.
                     temp = currentSelected.gameObject;
                     NextButton_Menu(temp);
                     break;
