@@ -47,9 +47,9 @@ GameObject:
   - component: {fileID: 721457240170811511}
   - component: {fileID: 1658652682721706826}
   - component: {fileID: 6703137234260002239}
-  - component: {fileID: 806681795377247522}
   - component: {fileID: 2543395621240999558}
   - component: {fileID: 5237839359686719391}
+  - component: {fileID: 5022856026341374166}
   m_Layer: 16
   m_Name: Wizard
   m_TagString: Player
@@ -195,22 +195,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxMoveDistance: 2
---- !u!114 &806681795377247522
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2064354030354059594}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23a8e64c32fff9740b3609ee3cb34945, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  obstaclesLayerMask:
-    serializedVersion: 2
-    m_Bits: 262144
-  maxReadyDistance: 2
 --- !u!114 &2543395621240999558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,6 +217,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cf126c97e0a83e0408e594bc002864f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5022856026341374166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2064354030354059594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e8d82257a40aa747bd5d4f3d41b91c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2186868930828221455

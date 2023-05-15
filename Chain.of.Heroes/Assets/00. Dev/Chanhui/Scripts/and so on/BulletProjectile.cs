@@ -6,9 +6,10 @@ public class BulletProjectile : MonoBehaviour
 {
 
     [SerializeField] private TrailRenderer trailRenderer;
-    [SerializeField] private Transform bulletHitVfxPrefab;
-
+    //[SerializeField] private Transform bulletHitVfxPrefab;
     private Vector3 targetPosition;
+
+    
 
     public void Setup(Vector3 targetPosition)
     {
@@ -31,25 +32,13 @@ public class BulletProjectile : MonoBehaviour
             transform.position = targetPosition;
 
             trailRenderer.transform.parent = null;
-
             Destroy(gameObject);
 
-            Instantiate(bulletHitVfxPrefab, targetPosition, Quaternion.identity);
+            //Instantiate(bulletHitVfxPrefab, targetPosition, Quaternion.identity);
         }
     }
 
-    /*
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.transform.tag == "Enemy")
-        {
-            Debug.Log("왜 안들어오니?");
-            other.GetComponent<Unit>().Damage();
-        }
-        else if (other.transform.tag == "Player")
-        {
-            Debug.Log("왜 안들어오니?");
-            other.GetComponent<Unit>().Damage();
-        }
-    }*/
+   
+
+
 }

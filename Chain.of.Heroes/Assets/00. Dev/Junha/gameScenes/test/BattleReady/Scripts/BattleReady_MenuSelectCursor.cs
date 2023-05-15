@@ -71,7 +71,7 @@ public class BattleReady_MenuSelectCursor : CursorBase
                 case "_Yes":
                     if (isBattleStart)
                     {
-                        ScenesManager.Instance.ScenesChange();
+                        ScenesSystem.Instance.ScenesChange();
                         UnitManager.Instance.SpawnAllPlayer();
                     }
                     else if (isBack)

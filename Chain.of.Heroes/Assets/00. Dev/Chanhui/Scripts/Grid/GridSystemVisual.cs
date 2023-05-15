@@ -321,11 +321,34 @@ public class GridSystemVisual : MonoBehaviour
                 ShowGridPositionKingRange(selectedUnit.GetGridPosition(), knightAction.GetMaxKnightDistance(), GridVisualType.RedSoft);
                 ShowGridPositionKnightRange(selectedUnit.GetGridPosition(), knightAction.GetMaxKnightDistance(), GridVisualType.RedMiddle);
                 break;
+            case LongKnightAction longKnightAction:
+                gridVisualType = GridVisualType.Red;
 
+                ShowGridPositionKingRange(selectedUnit.GetGridPosition(), longKnightAction.GetMaxArcherDistance(), GridVisualType.RedSoft);
+                ShowGridPositionKnightRange(selectedUnit.GetGridPosition(), longKnightAction.GetMaxArcherDistance(), GridVisualType.RedMiddle);
+                break;
+            case LongBishopAction longBishopAction:
+                gridVisualType = GridVisualType.Red;
+
+                ShowGridPositionKingRange(selectedUnit.GetGridPosition(), longBishopAction.GetMaxWizardDistance(), GridVisualType.RedSoft);
+                ShowGridPositionBishopRange(selectedUnit.GetGridPosition(), longBishopAction.GetMaxWizardDistance(), GridVisualType.RedMiddle);
+                break;
             case ChainAction chainAction:
                 gridVisualType = GridVisualType.Red;
 
                 ShowGridPositionRange(selectedUnit.GetGridPosition(), chainAction.GetMaxChainDistance(), GridVisualType.RedSoft);
+                break;
+            case SwordWomanSkill1Action swordWomanSkill1Action:
+                gridVisualType = GridVisualType.Red;
+
+                ShowGridPositionRange(selectedUnit.GetGridPosition(), swordWomanSkill1Action.GetMaxSWSkill_1_Distance(), GridVisualType.RedSoft);
+                ShowGridPositionRookRange(selectedUnit.GetGridPosition(), swordWomanSkill1Action.GetMaxSWSkill_1_Distance(), GridVisualType.RedMiddle);
+                break;
+            case SwordWomanSkill2Action swordWomanSkill2Action:
+                gridVisualType = GridVisualType.Red;
+
+                ShowGridPositionRange(selectedUnit.GetGridPosition(), swordWomanSkill2Action.GetMaxSWSkill_2_Distance(), GridVisualType.RedSoft);
+                ShowGridPositionRookRange(selectedUnit.GetGridPosition(), swordWomanSkill2Action.GetMaxSWSkill_2_Distance(), GridVisualType.RedMiddle);
                 break;
         }
 

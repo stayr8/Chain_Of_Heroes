@@ -108,10 +108,10 @@ GameObject:
   - component: {fileID: 2663218170832813530}
   - component: {fileID: 146454294639285728}
   - component: {fileID: 616095758052888428}
-  - component: {fileID: 2858894298402977326}
   - component: {fileID: 999057789822154901}
   - component: {fileID: 8486722018696413229}
   - component: {fileID: 4663967214417398178}
+  - component: {fileID: 7873998132134429225}
   m_Layer: 16
   m_Name: Guardian
   m_TagString: Player
@@ -231,22 +231,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxMoveDistance: 2
---- !u!114 &2858894298402977326
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6764130903679231686}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 118fad7f15dee8e4d8cef37b5e9c9cac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  obstaclesLayerMask:
-    serializedVersion: 2
-    m_Bits: 262144
-  maxQueenDistance: 2
 --- !u!114 &999057789822154901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -297,6 +281,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db4b2871ca0ad6448654428bd45e3fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7873998132134429225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6764130903679231686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c4323a8e22cec84b98e3864daf8e54a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxKingDistance: 1
 --- !u!1 &7431582752401372534
 GameObject:
   m_ObjectHideFlags: 0
@@ -1413,7 +1410,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meleeArea: {fileID: 965585416297111461}
-  trailEffect: {fileID: 3262753564622323280}
 --- !u!4 &8245585332034865043 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4774756612184988014, guid: b8174346db617b94ebcc63958f21d18d, type: 3}
