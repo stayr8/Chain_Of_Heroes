@@ -11,26 +11,25 @@ public class FadeOut : MonoBehaviour
     [SerializeField] private float F_time = 0.2f;
     private float time = 0f;
 
-    IEnumerator Fadeout()
+    IEnumerator Fadein()
     {
         Panel.gameObject.SetActive(true);
         time = 0f;
         Color alpha = Panel.color;
 
-        while (alpha.a > 0f)
+        while (alpha.a < 1f)
         {
             time += Time.deltaTime / F_time;
-            alpha.a = Mathf.Lerp(1, 0, time);
+            alpha.a = Mathf.Lerp(0, 1, time);
             Panel.color = alpha;
             yield return null;
         }
-        Panel.gameObject.SetActive(false);
 
         yield return null;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        StartCoroutine(Fadeout());
+        StartCoroutine(Fadein());
     }
 }
