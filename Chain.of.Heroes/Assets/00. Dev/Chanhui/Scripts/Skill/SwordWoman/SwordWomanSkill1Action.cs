@@ -319,4 +319,9 @@ public class SwordWomanSkill1Action : BaseAction
     {
         return "3";
     }
+
+    public override int GetActionPointsCost()
+    {
+        return 3;
+    }
 }
