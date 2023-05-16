@@ -45,7 +45,6 @@ public class SwordWomanSkill1Action : BaseAction
         };
     }
 
-    //protected override void Awake() => isSkillCount = 2;
 
     private void Start()
     {

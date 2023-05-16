@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwordWomanPassive : CharacterBase
+public class SwordWomanPassive : BaseBuff
 {
 
     private CharacterDataManager _cdm;
@@ -14,7 +14,7 @@ public class SwordWomanPassive : CharacterBase
 
     private void Start()
     {
-        Passive();
+        //Passive();
     }
 
 
@@ -24,5 +24,8 @@ public class SwordWomanPassive : CharacterBase
         _cdm.m_criticalDamage += 0.2f;
     }
 
-
+    public override void TakeAction(GridPosition gridPosition)
+    {
+        Passive();
+    }
 }

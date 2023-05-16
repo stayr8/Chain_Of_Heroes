@@ -40,7 +40,6 @@ public class SwordWomanSkill2Action : BaseAction
         };
     }
 
-    //protected override void Awake() => isSkillCount = 3;
 
     private void Start()
     {
@@ -66,7 +65,6 @@ public class SwordWomanSkill2Action : BaseAction
 
     private void Update()
     {
-        
 
         if (!isActive)
         {

@@ -106,7 +106,7 @@ public class UnitAnimator : MonoBehaviour
         {
             swordWomanSkill1Action.OnSWSkill_1_StartMoving += MoveAction_OnStartMoving;
             swordWomanSkill1Action.OnSWSkill_1_StopMoving += MoveAction_OnStopMoving;
-            swordWomanSkill1Action.OnSWSkill_1_Slash += Action_OnSkill_1_Slash;
+            swordWomanSkill1Action.OnSWSkill_1_Slash += Action_OnSkill_1;
             swordWomanSkill1Action.OnSWSkill_1_Dash += Unit_OnUnitDash;
         }
 
@@ -114,6 +114,20 @@ public class UnitAnimator : MonoBehaviour
         {
             swordWomanSkill2Action.OnShoot += SwordWomanSkill2Action_OnShoot;
             
+        }
+
+        if (TryGetComponent<KnightSkill1Action>(out KnightSkill1Action knightSkill1Action))
+        {
+            knightSkill1Action.OnKnSkill_1_StartMoving += MoveAction_OnStartMoving;
+            knightSkill1Action.OnKnSkill_1_StopMoving += MoveAction_OnStopMoving;
+            knightSkill1Action.OnKnSkill_1_Stun += Action_OnSkill_1;
+
+        }
+
+        if (TryGetComponent<KnightSkill2Action>(out KnightSkill2Action knightSkill2Action))
+        {
+            knightSkill2Action.OnKnSkill_2_Buff += Action_OnSkill_2;
+
         }
 
     }
@@ -124,12 +138,12 @@ public class UnitAnimator : MonoBehaviour
         animator.SetTrigger("SwordSlash");
     }
 
-    private void Action_OnSkill_1_Slash(object sender, EventArgs e)
+    private void Action_OnSkill_1(object sender, EventArgs e)
     {
         animator.SetTrigger("IsSkill_1");
     }
 
-    private void Action_OnSkill_2_Slash(object sender, EventArgs e)
+    private void Action_OnSkill_2(object sender, EventArgs e)
     {
         animator.SetTrigger("IsSkill_2");
     }
