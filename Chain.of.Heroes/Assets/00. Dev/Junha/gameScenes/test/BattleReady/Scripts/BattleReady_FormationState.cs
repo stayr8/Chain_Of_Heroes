@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class BattleReady_FormationState : MonoBehaviour
@@ -23,16 +22,9 @@ public class BattleReady_FormationState : MonoBehaviour
 
     private void formationState()
     {
-        if(isUnlock)
+        if (isUnlock)
         {
-            if (!isFormationState)
-            {
-                BattleReady_UIManager.instance.OffFormation(gameObject);
-            }
-            else // isFormationState
-            {
-                BattleReady_UIManager.instance.OnFormation(gameObject);
-            }
+            BattleReady_UIManager.instance.Formation(gameObject);
         }
         else // !isUnlock
         {

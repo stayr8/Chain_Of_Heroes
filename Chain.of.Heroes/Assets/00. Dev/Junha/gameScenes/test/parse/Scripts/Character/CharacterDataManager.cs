@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class CharacterDataManager : MonoBehaviour
 {
-
     [Header("어떤 Json 파일을 불러올 것인가?")] public string CharacterName;
 
     [Header("캐릭터 데이터")]
@@ -19,21 +18,23 @@ public class CharacterDataManager : MonoBehaviour
     public float m_chainAttackPower;
     public float m_defensePower;
     public float m_hp;
+
     public float m_maxhp;
+
     public float m_criticalRate;
     public float m_criticalDamage;
+    public string m_class;
+    public string m_unitProperty;
+    public string m_resourcePath;
 
     private SwordWoman[] _Array;
     private SwordWoman firstArray;
 
-
     public event EventHandler OnPlayerDamage;
     public event EventHandler OnPlayerDie;
 
-
     private CharacterBase characterBase;
     private Unit player;
-
 
     private void Awake()
     {
@@ -43,9 +44,7 @@ public class CharacterDataManager : MonoBehaviour
         }
 
         var data = Resources.Load<TextAsset>(CharacterName);
-
         var Root = SimpleJSON.JSON.Parse(data.text);
-
         _Array = new SwordWoman[Root.Count];
 
         /*
@@ -119,6 +118,9 @@ public class CharacterDataManager : MonoBehaviour
         m_hp = firstArray.Hp;
         m_criticalRate = firstArray.CriticalRate;
         m_criticalDamage = firstArray.CriticalDamage;
+        m_class = firstArray.Class;
+        m_unitProperty = firstArray.UniyProperty;
+        m_resourcePath = firstArray.ResourcePath;
     }
 
     public float GetHealthNormalized()

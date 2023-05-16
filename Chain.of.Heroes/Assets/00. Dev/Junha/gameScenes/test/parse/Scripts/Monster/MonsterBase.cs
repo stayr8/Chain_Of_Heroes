@@ -50,7 +50,7 @@ public class MonsterBase : MonoBehaviour
         Debug.Log("몬스터 맞음");
         characterAP = CDM.m_attackPower;
         //Debug.Log("캐릭터 공격력: " + characterAP);
-        monsterDP = MDM.m_defensePower;
+        //monsterDP = MDM.m_defensePower;
         //Debug.Log("대상 몬스터 방어력: " + monsterDP);
 
         isCritical = Calc_Critical(CDM);
