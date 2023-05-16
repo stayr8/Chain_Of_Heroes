@@ -81,6 +81,24 @@ public class Unit : MonoBehaviour
             SoloEnemyActionPoints = 0;
         },false);
 
+        BindingManager.Bind(TurnSystem.Property, "IsPlayerTurn", (object value) =>
+        {
+            if (!TurnSystem.Property.IsPlayerTurn)
+            {
+                if (enemyType == EnemyType.RedStoneGolem)
+                {
+                    MonsterGridPosition(gridPosition, false);
+                }
+            }
+            else
+            {
+                if (enemyType == EnemyType.RedStoneGolem)
+                {
+                    MonsterGridPosition(gridPosition, true);
+                }
+            }
+        }, false);
+
         OnAnyUnitSpawned?.Invoke(this, EventArgs.Empty);
 
         gridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
@@ -103,24 +121,10 @@ public class Unit : MonoBehaviour
             GridPosition newGridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
             if (newGridPosition != gridPosition)
             {
-                if (enemyType == EnemyType.RedStoneGolem)
-                {
-                    // Character changed Grid Position
-                    GridPosition oldGridPosition = gridPosition;
-                    gridPosition = newGridPosition;
+                GridPosition oldGridPosition = gridPosition;
+                gridPosition = newGridPosition;
 
-                    MonsterGridPosition(oldGridPosition, false);
-                    LevelGrid.Instance.UnitMovedGridPosition(this, oldGridPosition, newGridPosition);
-                    MonsterGridPosition(newGridPosition, true);
-                }
-                else
-                {
-                    // Character changed Grid Position
-                    GridPosition oldGridPosition = gridPosition;
-                    gridPosition = newGridPosition;
-
-                    LevelGrid.Instance.UnitMovedGridPosition(this, oldGridPosition, newGridPosition);
-                }
+                LevelGrid.Instance.UnitMovedGridPosition(this, oldGridPosition, newGridPosition);
             }
         }
     }
@@ -215,6 +219,11 @@ public class Unit : MonoBehaviour
                 if (unitGridPosition == testGridPosition)
                 {
                     // Same Grid Position where the character is already at
+                    continue;
+                }
+
+                if(testGridPosition == null)
+                {
                     continue;
                 }
 

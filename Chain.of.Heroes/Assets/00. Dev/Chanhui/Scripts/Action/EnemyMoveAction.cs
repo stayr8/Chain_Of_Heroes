@@ -105,28 +105,11 @@ public class EnemyMoveAction : BaseAction
                     continue;
                 }
 
-                
                 if (LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition))
                 {
-                    if(unit.GetEnemyVisualType() == Unit.EnemyType.RedStoneGolem && unit.GetBossMonsterPosition().Contains(testGridPosition))
-                    {
-                        Debug.Log(LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition));
-                        
-                    }
-                    else 
-                    { 
-                        // Grid Position already occupied with another Character
-                        continue;
-                    }
-                }
-                /*
-                Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
-                if (targetUnit.IsEnemy() == unit.IsEnemy())
-                {
-                    // Both Units on same 'team'
                     continue;
-                }*/
-
+                }
+                
                 if (!Pathfinding.Instance.IsWalkableGridPosition(testGridPosition))
                 {
                     continue;
@@ -167,6 +150,10 @@ public class EnemyMoveAction : BaseAction
             targetCountAtGridPosition = unit.GetAction<ReadyAction>().GetTargetCountAtPosition(gridPosition);
         }
         else if (unit.GetEnemyVisualType() == Unit.EnemyType.Sword)
+        {
+            targetCountAtGridPosition = unit.GetAction<KingAction>().GetTargetCountAtPosition(gridPosition);
+        }
+        else if (unit.GetEnemyVisualType() == Unit.EnemyType.RedStoneGolem)
         {
             targetCountAtGridPosition = unit.GetAction<KingAction>().GetTargetCountAtPosition(gridPosition);
         }

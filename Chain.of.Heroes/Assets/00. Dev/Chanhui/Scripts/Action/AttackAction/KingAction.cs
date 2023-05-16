@@ -245,6 +245,11 @@ public class KingAction : BaseAction
                     continue;
                 }
 
+                if (LevelGrid.Instance.GetEnemyAtSurroundPosition(testGridPosition))
+                {
+                    continue;
+                }
+
                 if (!Pathfinding.Instance.IsWalkableGridPosition(testGridPosition))
                 {
                     continue;
