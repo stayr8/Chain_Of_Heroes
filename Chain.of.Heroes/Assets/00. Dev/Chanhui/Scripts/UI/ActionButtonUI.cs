@@ -30,17 +30,8 @@ public class ActionButtonUI : MonoBehaviour
                 skillCount.text = "" + baseAction.GetSkillCountPoint();
             }
         }
-        int number = 0;
-        if (baseAction.GetSkillCountPoint() == 0)
-        {
-            number = baseAction.GetSkillCountPoint() + 1;
-        }
-        else
-        {
-            number = baseAction.GetSkillCountPoint();
-        }
 
-        if (number == baseAction.GetActionPointsCost())
+        if (baseAction.GetMaxSkillCount() == baseAction.GetSkillCountPoint())
         {
             button.onClick.AddListener(() =>
             {
@@ -52,17 +43,8 @@ public class ActionButtonUI : MonoBehaviour
     public void UpdateSelectedVisual()
     {
         BaseAction selectedBaseAction = UnitActionSystem.Instance.GetSelectedAction();
-        int number = 0;
-        if (baseAction.GetSkillCountPoint() == 0)
-        {
-            number = baseAction.GetSkillCountPoint() + 1;
-        }
-        else
-        {
-            number = baseAction.GetSkillCountPoint();
-        }
-
-        if (number == selectedBaseAction.GetActionPointsCost())
+        
+        if (selectedBaseAction.GetMaxSkillCount() == selectedBaseAction.GetSkillCountPoint())
         {
             selectedGameObject.SetActive(selectedBaseAction == baseAction);
         }

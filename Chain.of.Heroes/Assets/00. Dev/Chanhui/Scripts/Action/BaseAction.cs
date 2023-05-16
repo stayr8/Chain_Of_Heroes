@@ -31,7 +31,9 @@ public abstract class BaseAction : MonoBehaviour
         return 0;
     }
 
-  
+    public abstract int GetMaxSkillCount();
+    
+
 
     public abstract void TakeAction(GridPosition gridPosition, Action onActionComplete);
 

@@ -44,6 +44,9 @@ public class SwordWomanSkill1Action : BaseAction
             actionValue = 0,
         };
     }
+
+    //protected override void Awake() => isSkillCount = 2;
+
     private void Start()
     {
         Binding Bind = BindingManager.Bind(TurnSystem.Property, "IsPlayerTurn", (object value) =>
@@ -62,15 +65,15 @@ public class SwordWomanSkill1Action : BaseAction
 
     private void Update()
     {
-        if (!isActive)
-        {
-            return;
-        }
-
-        if (isSkillCount == 0)
+        if (isSkillCount <= 0)
         {
             isSkillCount = 2;
             isSkill = false;
+        }
+
+        if (!isActive)
+        {
+            return;
         }
 
 
@@ -354,6 +357,11 @@ public class SwordWomanSkill1Action : BaseAction
     public override int GetSkillCountPoint()
     {
         return isSkillCount;
+    }
+
+    public override int GetMaxSkillCount()
+    {
+        return 2;
     }
 
     private void OnDisable()

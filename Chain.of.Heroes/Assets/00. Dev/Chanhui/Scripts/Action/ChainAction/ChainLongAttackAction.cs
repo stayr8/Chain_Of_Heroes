@@ -309,5 +309,8 @@ public class ChainLongAttackAction : BaseAction
     {
         return "0";
     }
-
+    public override int GetMaxSkillCount()
+    {
+        return 0;
+    }
 }

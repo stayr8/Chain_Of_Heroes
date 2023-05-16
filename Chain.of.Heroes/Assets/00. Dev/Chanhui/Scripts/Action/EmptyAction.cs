@@ -38,4 +38,9 @@ public class EmptyAction : BaseAction
             actionValue = 0,
         };
     }
+
+    public override int GetMaxSkillCount()
+    {
+        return 0;
+    }
 }

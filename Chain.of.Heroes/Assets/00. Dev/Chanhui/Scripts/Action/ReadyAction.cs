@@ -330,4 +330,9 @@ public class ReadyAction : BaseAction
     {
         return "1";
     }
+
+    public override int GetMaxSkillCount()
+    {
+        return 0;
+    }
 }

@@ -158,4 +158,9 @@ public class MoveAction : BaseAction
             actionValue = 0,
         };
     }
+
+    public override int GetMaxSkillCount()
+    {
+        return 0;
+    }
 }

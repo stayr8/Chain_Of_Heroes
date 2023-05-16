@@ -179,4 +179,9 @@ public class ChainAction : BaseAction
     {
         return "";
     }
+
+    public override int GetMaxSkillCount()
+    {
+        return 0;
+    }
 }

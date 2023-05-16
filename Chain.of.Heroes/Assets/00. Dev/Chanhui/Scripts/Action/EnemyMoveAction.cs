@@ -200,4 +200,9 @@ public class EnemyMoveAction : BaseAction
     {
         return "";
     }
+
+    public override int GetMaxSkillCount()
+    {
+        return 0;
+    }
 }

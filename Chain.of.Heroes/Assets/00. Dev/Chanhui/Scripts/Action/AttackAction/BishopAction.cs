@@ -336,4 +336,9 @@ public class BishopAction : BaseAction
     {
         return "1";
     }
+
+    public override int GetMaxSkillCount()
+    {
+        return 0;
+    }
 }
