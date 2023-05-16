@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class MonsterDataManager : MonoBehaviour
 {
-
     [SerializeField, Header("어떤 Json 파일을 불러올 것인가?")] private string CharacterName;
 
     [Header("캐릭터 데이터")]
@@ -13,14 +12,20 @@ public class MonsterDataManager : MonoBehaviour
     public string m_name;
     public int m_level;
     public float m_attackPower;
-    public float m_defensePower;
     public float m_hp;
     public float m_maxhp;
+
+    // 새로운 데이터 테이블
+    public float m_criticalRate;
+    public float m_criticalDamage;
+
     public int m_actionPoint;
     public float m_speed;
     public int m_movementRange;
     public int m_attackRange;
-    public int m_rank;
+    // 몬스터 등급
+    // 몬스터 속성
+    // 몬스터 
 
     private GoblinWarrior[] _Array;
     private GoblinWarrior firstArray;
@@ -74,13 +79,12 @@ public class MonsterDataManager : MonoBehaviour
         m_name = firstArray.Monster_Name;
         m_level = firstArray.Monster_Level;
         m_attackPower = firstArray.AttackPower;
-        m_defensePower = firstArray.Monster_DefensePower;
         m_hp = firstArray.Monster_Hp;
         m_actionPoint = firstArray.Monster_ActionPoint;
         m_speed = firstArray.Monster_Speed;
         m_movementRange = firstArray.Monster_MovementRange;
         m_attackRange = firstArray.Monster_AttackRange;
-        m_rank = firstArray.Monster_Rank;
+        //m_rank = firstArray.Monster_Rank;
     }
 
     public float GetHealthNormalized()
