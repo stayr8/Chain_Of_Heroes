@@ -99,4 +99,41 @@ public class LevelGrid : MonoBehaviour
         return gridObject.GetUnit();
     }
 
+    int maxDistance = 1;
+    public bool GetEnemyAtSurroundPosition(GridPosition gridPosition)
+    {
+        int count = 0;
+        for (int x = -maxDistance; x <= maxDistance; x++)
+        {
+            for (int z = -maxDistance; z <= maxDistance; z++)
+            {
+                GridPosition offsetGridPosition = new GridPosition(x, z);
+                GridPosition testGridPosition = gridPosition + offsetGridPosition;
+
+                if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition))
+                {
+                    continue;
+                }
+
+                if (GetUnitAtGridPosition(testGridPosition))
+                {
+                    Unit targetUnit = GetUnitAtGridPosition(testGridPosition);
+                    if (targetUnit.IsEnemy())
+                    {
+                        count++;
+                    }
+                }
+            }
+        }
+
+        if(count > 8)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
 }

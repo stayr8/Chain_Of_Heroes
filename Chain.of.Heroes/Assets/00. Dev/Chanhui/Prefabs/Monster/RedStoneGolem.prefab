@@ -200,10 +200,10 @@ GameObject:
   - component: {fileID: 1407506403342758208}
   - component: {fileID: 5477421119517210326}
   - component: {fileID: 175367251280525737}
-  - component: {fileID: 3185763718625801583}
   - component: {fileID: 6461905931904869656}
   - component: {fileID: 5178808168602908878}
   - component: {fileID: 8214725358993387341}
+  - component: {fileID: 8805188846385545873}
   m_Layer: 15
   m_Name: RedStoneGolem
   m_TagString: Enemy
@@ -271,9 +271,10 @@ MonoBehaviour:
   CameraPos: {fileID: 0}
   CameraFollow: {fileID: 0}
   CameraPos2: {fileID: 0}
+  CameraPos3: {fileID: 0}
   IsGrid: 0
   isEnemy: 1
-  newEnemyActionPoints: 4
+  newEnemyActionPoints: 2
   SoloEnemyActionPoints: 0
   enemyType: 3
   UnitName: "\uB808\uB4DC\uC2A4\uD1A4\uACE8\uB7A8"
@@ -306,20 +307,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxKingDistance: 2
---- !u!114 &3185763718625801583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6598657682457193299}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 929d06271f7cc2e4fbf2d2b7ef58bdd2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxMoveDistance: 4
-  minMoveDistance: 2
 --- !u!114 &6461905931904869656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,13 +324,14 @@ MonoBehaviour:
   m_name: 
   m_level: 0
   m_attackPower: 0
-  m_defensePower: 0
   m_hp: 0
+  m_maxhp: 0
+  m_criticalRate: 0
+  m_criticalDamage: 0
   m_actionPoint: 0
   m_speed: 0
   m_movementRange: 0
   m_attackRange: 0
-  m_rank: 0
 --- !u!114 &5178808168602908878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -369,6 +357,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxChainDistance: 2
+--- !u!114 &8805188846385545873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6598657682457193299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 929d06271f7cc2e4fbf2d2b7ef58bdd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxMoveDistance: 8
+  minMoveDistance: 2
 --- !u!1001 &5700434317125918206
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -655,4 +657,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meleeArea: {fileID: 1117703634556017189}
-  trailEffect: {fileID: 3438170010317979128}

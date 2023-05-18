@@ -349,6 +349,7 @@ GameObject:
   - component: {fileID: 2577265267764396204}
   - component: {fileID: 6620274313008379924}
   - component: {fileID: 7856202950983718118}
+  - component: {fileID: -6644422419733068798}
   m_Layer: 16
   m_Name: Valkyrie
   m_TagString: Player
@@ -510,6 +511,9 @@ MonoBehaviour:
   m_maxhp: 0
   m_criticalRate: 0
   m_criticalDamage: 0
+  m_class: 
+  m_unitProperty: 
+  m_resourcePath: 
 --- !u!114 &6620274313008379924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -532,6 +536,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b392cb8d956d2e40b7ae15c01c2d172, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-6644422419733068798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8342375045622521599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5813c565b1075c4aa036e25a72b01df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &2465899958219167685
@@ -1858,4 +1874,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meleeArea: {fileID: 729964654847203729}
-  trailEffect: {fileID: 2910270237343095773}

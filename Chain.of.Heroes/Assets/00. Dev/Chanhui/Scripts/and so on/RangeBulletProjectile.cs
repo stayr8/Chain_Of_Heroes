@@ -21,6 +21,8 @@ public class RangeBulletProjectile : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
         particle.Pause();
+        yield return new WaitForSeconds(4f);
+        Destroy(gameObject);
     }
 
     public void Setup(Vector3 targetPosition)
@@ -46,8 +48,6 @@ public class RangeBulletProjectile : MonoBehaviour
             //trailRenderer.transform.parent = null;
             GetValidActionGridPositionList();
             Destroy(gameObject);
-
-            //Instantiate(bulletHitVfxPrefab, targetPosition, Quaternion.identity);
         }
     }
 

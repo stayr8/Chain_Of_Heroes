@@ -13,6 +13,9 @@ public class AttackActionSystem : MonoBehaviour
 
     public static event EventHandler OnActionStarted;
     public static event EventHandler OnActionCompleted;
+    public event EventHandler OnUIBuff;
+    public event EventHandler OffUIBuff;
+
 
     private Vector3 unitpos;
     private Vector3 enemypos;
@@ -118,6 +121,7 @@ public class AttackActionSystem : MonoBehaviour
 
         unit.transform.rotation = Quaternion.Euler(0, 0, 0);
 
+        OnUIBuff?.Invoke(this, EventArgs.Empty);
         OnActionStarted?.Invoke(this, EventArgs.Empty);
         ActionVirtualCamera.Follow = player.GetCameraFollow();
         ActionVirtualCamera.LookAt = player.GetCameraPos();
@@ -140,12 +144,14 @@ public class AttackActionSystem : MonoBehaviour
             LevelGrid.Instance.AddUnitAtGridPosition(unit.GetGridPosition(), unit);
             unit.transform.rotation = unitrotation;
         }
+
         
         unit.SetIsGrid(false);
 
         if (!ChainStart)
         {
             OnAttackAtGround = false;
+            OffUIBuff?.Invoke(this, EventArgs.Empty);
             OnActionCompleted?.Invoke(this, EventArgs.Empty);
         }
     }
@@ -187,6 +193,7 @@ public class AttackActionSystem : MonoBehaviour
         if (!TripleChain)
         {
             OnAttackAtGround = false;
+            OffUIBuff?.Invoke(this, EventArgs.Empty);
             OnActionCompleted?.Invoke(this, EventArgs.Empty);
         }
     }
@@ -230,6 +237,7 @@ public class AttackActionSystem : MonoBehaviour
         chainunit.SetIsGrid(false);
         chainunit.SetChaintwo(false);
 
+        OffUIBuff?.Invoke(this, EventArgs.Empty);
         OnActionCompleted?.Invoke(this, EventArgs.Empty);
         OnAttackAtGround = false;
     }
@@ -326,6 +334,12 @@ public class AttackActionSystem : MonoBehaviour
         ActionVirtualCamera.LookAt = chainplayer_2.GetCameraPos();
     }
 
+    public void CharacterChange(Unit unit)
+    {
+        player = unit;
+        OnUIBuff?.Invoke(this, EventArgs.Empty);
+    }
+
     public CharacterDataManager GetCharacterDataManager()
     {
         return characterDataManager;
@@ -344,6 +358,11 @@ public class AttackActionSystem : MonoBehaviour
     public void SetMonsterDataManager(MonsterDataManager monsterDataManager)
     {
         this.monsterDataManager = monsterDataManager;
+    }
+
+    public Unit GetCharacterChainFind()
+    {
+        return player;
     }
 
     public Unit GetenemyChainFind()

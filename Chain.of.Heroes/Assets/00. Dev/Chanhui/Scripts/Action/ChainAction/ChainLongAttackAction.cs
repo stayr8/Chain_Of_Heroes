@@ -128,6 +128,7 @@ public class ChainLongAttackAction : BaseAction
                         }
                         else
                         {
+                            AttackActionSystem.Instance.CharacterChange(unit);
                             ActionCameraStart_1();
                             TimeAttack(1.8f);
                             state = State.SwingingChainLongAttackAiming;
@@ -152,6 +153,7 @@ public class ChainLongAttackAction : BaseAction
                         }
                         else
                         {
+                            AttackActionSystem.Instance.CharacterChange(unit);
                             ActionCameraStart_1();
                             TimeAttack(1.8f);
                             state = State.SwingingChainLongAttackAiming;

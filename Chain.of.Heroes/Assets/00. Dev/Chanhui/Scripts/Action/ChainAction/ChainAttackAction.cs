@@ -136,6 +136,7 @@ public class ChainAttackAction : BaseAction
                         }
                         else
                         {
+                            AttackActionSystem.Instance.CharacterChange(unit);
                             ActionCameraStart_1();
                             TimeAttack(1.8f);
                             state = State.SwingingChainAttackMoveOn;
@@ -157,6 +158,7 @@ public class ChainAttackAction : BaseAction
                         }
                         else
                         {
+                            AttackActionSystem.Instance.CharacterChange(unit);
                             ActionCameraStart_1();
 
                             TimeAttack(1.8f);

@@ -252,6 +252,7 @@ GameObject:
   - component: {fileID: 4753542210349233090}
   - component: {fileID: 7143406496573490957}
   - component: {fileID: 6614666023822418627}
+  - component: {fileID: -8886052718991542660}
   m_Layer: 16
   m_Name: Samurai
   m_TagString: Player
@@ -397,6 +398,9 @@ MonoBehaviour:
   m_maxhp: 0
   m_criticalRate: 0
   m_criticalDamage: 0
+  m_class: 
+  m_unitProperty: 
+  m_resourcePath: 
 --- !u!114 &4753542210349233090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -437,6 +441,18 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 262144
   maxKnightDistance: 2
+--- !u!114 &-8886052718991542660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8974077949075013416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5813c565b1075c4aa036e25a72b01df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8996821249372366508
 GameObject:
   m_ObjectHideFlags: 0

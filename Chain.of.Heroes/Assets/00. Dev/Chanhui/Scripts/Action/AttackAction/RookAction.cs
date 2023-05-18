@@ -111,7 +111,7 @@ public class RookAction : BaseAction
                 float rotateSpeed2 = 20f;
                 transform.forward = Vector3.Lerp(transform.forward, aimDir2, Time.deltaTime * rotateSpeed2);
 
-                float stoppingDistance1 = 0.1f;
+                float stoppingDistance1 = 1.5f;
                 if (Vector3.Distance(transform.position, targetDirection2) > stoppingDistance1)
                 {
                     float moveSpeed = 15f;
@@ -268,6 +268,11 @@ public class RookAction : BaseAction
                 if (targetUnit.IsEnemy() == unit.IsEnemy())
                 {
                     // Both Units on same 'team'
+                    continue;
+                }
+
+                if (LevelGrid.Instance.GetEnemyAtSurroundPosition(testGridPosition))
+                {
                     continue;
                 }
 

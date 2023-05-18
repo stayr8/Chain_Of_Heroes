@@ -45,7 +45,6 @@ public class SwordWomanSkill1Action : BaseAction
         };
     }
 
-    //protected override void Awake() => isSkillCount = 2;
 
     private void Start()
     {
@@ -57,20 +56,20 @@ public class SwordWomanSkill1Action : BaseAction
                 {
                     isSkillCount -= 1;
                 }
+
+                if(isSkillCount <= 0)
+                {
+                    isSkill = false;
+                }
             }
         });
 
-        isSkillCount = 2;
+        isSkillCount = 0;
     }
 
     private void Update()
     {
-        if (isSkillCount <= 0)
-        {
-            isSkillCount = 2;
-            isSkill = false;
-        }
-
+        
         if (!isActive)
         {
             return;
@@ -286,6 +285,11 @@ public class SwordWomanSkill1Action : BaseAction
                     continue;
                 }
 
+                if(LevelGrid.Instance.GetEnemyAtSurroundPosition(testGridPosition))
+                {
+                    continue;
+                }
+
                 if (!Pathfinding.Instance.IsWalkableGridPosition(testGridPosition))
                 {
                     continue;
@@ -314,6 +318,11 @@ public class SwordWomanSkill1Action : BaseAction
     {
         isSkill = true;
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
+
+        if (isSkillCount <= 0)
+        {
+            isSkillCount = 2;
+        }
 
         state = State.SwingingSWSkill_1_BeforeMoving;
         TimeAttack(0.7f);
@@ -361,7 +370,7 @@ public class SwordWomanSkill1Action : BaseAction
 
     public override int GetMaxSkillCount()
     {
-        return 2;
+        return 0;
     }
 
     private void OnDisable()

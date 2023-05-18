@@ -50,6 +50,7 @@ GameObject:
   - component: {fileID: 2543395621240999558}
   - component: {fileID: 5237839359686719391}
   - component: {fileID: 5022856026341374166}
+  - component: {fileID: 1630578711142191878}
   m_Layer: 16
   m_Name: Wizard
   m_TagString: Player
@@ -170,6 +171,9 @@ MonoBehaviour:
   m_maxhp: 0
   m_criticalRate: 0
   m_criticalDamage: 0
+  m_class: 
+  m_unitProperty: 
+  m_resourcePath: 
 --- !u!114 &1658652682721706826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,6 +233,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e8d82257a40aa747bd5d4f3d41b91c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstaclesLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  maxWizardDistance: 2
+--- !u!114 &1630578711142191878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2064354030354059594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5813c565b1075c4aa036e25a72b01df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2186868930828221455

@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 1999806266393596694}
   - component: {fileID: 5841622052012877121}
   - component: {fileID: 4929148159021651099}
+  - component: {fileID: 1026438709004340733}
   m_Layer: 15
   m_Name: StoneGolem
   m_TagString: Enemy
@@ -85,6 +86,7 @@ MonoBehaviour:
   CameraPos: {fileID: 0}
   CameraFollow: {fileID: 0}
   CameraPos2: {fileID: 0}
+  CameraPos3: {fileID: 0}
   IsGrid: 0
   isEnemy: 1
   newEnemyActionPoints: 2
@@ -132,7 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 929d06271f7cc2e4fbf2d2b7ef58bdd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxMoveDistance: 4
+  maxMoveDistance: 8
   minMoveDistance: 3
 --- !u!114 &1999806266393596694
 MonoBehaviour:
@@ -151,13 +153,14 @@ MonoBehaviour:
   m_name: 
   m_level: 0
   m_attackPower: 0
-  m_defensePower: 0
   m_hp: 0
+  m_maxhp: 0
+  m_criticalRate: 0
+  m_criticalDamage: 0
   m_actionPoint: 0
   m_speed: 0
   m_movementRange: 0
   m_attackRange: 0
-  m_rank: 0
 --- !u!114 &5841622052012877121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,6 +186,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxChainDistance: 1
+--- !u!114 &1026438709004340733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2281334507915587549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c50c80001bb543f4c80757d4a35ddc25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3257080367023052527
 GameObject:
   m_ObjectHideFlags: 0
@@ -1800,7 +1815,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meleeArea: {fileID: 8384371381210256427}
-  trailEffect: {fileID: 115922628654235766}
 --- !u!4 &4598676738063413573 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6516431913734988465, guid: ecf16460c75555441a3aea7a325df864, type: 3}

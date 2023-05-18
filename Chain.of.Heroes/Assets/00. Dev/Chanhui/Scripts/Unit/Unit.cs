@@ -17,6 +17,7 @@ public class Unit : MonoBehaviour
 
     private GridPosition gridPosition;
     private BaseAction[] baseActionArray;
+    private BaseBuff[] baseBuffArray;
     [SerializeField] private bool IsGrid;
 
     [Header("Monster Information")]
@@ -49,6 +50,7 @@ public class Unit : MonoBehaviour
     private void Awake()
     {
         baseActionArray = GetComponents<BaseAction>();
+        baseBuffArray = GetComponents<BaseBuff>();
         if (TryGetComponent<CharacterDataManager>(out CharacterDataManager characterdatamanager))
         {
             this.characterDataManager = characterdatamanager;
@@ -81,6 +83,24 @@ public class Unit : MonoBehaviour
             SoloEnemyActionPoints = 0;
         },false);
 
+        BindingManager.Bind(TurnSystem.Property, "IsPlayerTurn", (object value) =>
+        {
+            if (!TurnSystem.Property.IsPlayerTurn)
+            {
+                if (enemyType == EnemyType.RedStoneGolem)
+                {
+                    MonsterGridPosition(gridPosition, false);
+                }
+            }
+            else
+            {
+                if (enemyType == EnemyType.RedStoneGolem)
+                {
+                    MonsterGridPosition(gridPosition, true);
+                }
+            }
+        }, false);
+
         OnAnyUnitSpawned?.Invoke(this, EventArgs.Empty);
 
         gridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
@@ -103,24 +123,10 @@ public class Unit : MonoBehaviour
             GridPosition newGridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
             if (newGridPosition != gridPosition)
             {
-                if (enemyType == EnemyType.RedStoneGolem)
-                {
-                    // Character changed Grid Position
-                    GridPosition oldGridPosition = gridPosition;
-                    gridPosition = newGridPosition;
+                GridPosition oldGridPosition = gridPosition;
+                gridPosition = newGridPosition;
 
-                    MonsterGridPosition(oldGridPosition, false);
-                    LevelGrid.Instance.UnitMovedGridPosition(this, oldGridPosition, newGridPosition);
-                    MonsterGridPosition(newGridPosition, true);
-                }
-                else
-                {
-                    // Character changed Grid Position
-                    GridPosition oldGridPosition = gridPosition;
-                    gridPosition = newGridPosition;
-
-                    LevelGrid.Instance.UnitMovedGridPosition(this, oldGridPosition, newGridPosition);
-                }
+                LevelGrid.Instance.UnitMovedGridPosition(this, oldGridPosition, newGridPosition);
             }
         }
     }
@@ -137,6 +143,18 @@ public class Unit : MonoBehaviour
         return null;
     }
 
+    public T GetBuff<T>() where T : BaseBuff
+    {
+        foreach (BaseBuff baseBuff in baseBuffArray)
+        {
+            if (baseBuff is T)
+            {
+                return (T)baseBuff;
+            }
+        }
+        return null;
+    }
+
     public GridPosition GetGridPosition()
     {
         return gridPosition;
@@ -145,6 +163,11 @@ public class Unit : MonoBehaviour
     public BaseAction[] GetBaseActionArray()
     {
         return baseActionArray;
+    }
+
+    public BaseBuff[] GetBaseBuffArray()
+    {
+        return baseBuffArray;
     }
 
     public bool TrySpendActionPointsToTakeAction(BaseAction baseAction)
@@ -212,9 +235,19 @@ public class Unit : MonoBehaviour
                 GridPosition offsetGridPosition = new GridPosition(x, z);
                 GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
 
+                if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition))
+                {
+                    continue;
+                }
+
                 if (unitGridPosition == testGridPosition)
                 {
                     // Same Grid Position where the character is already at
+                    continue;
+                }
+
+                if(testGridPosition == null)
+                {
                     continue;
                 }
 

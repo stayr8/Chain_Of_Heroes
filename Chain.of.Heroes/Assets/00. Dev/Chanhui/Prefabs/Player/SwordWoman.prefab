@@ -317,9 +317,11 @@ GameObject:
   - component: {fileID: -4719305747903997168}
   - component: {fileID: 1024481362807706275}
   - component: {fileID: 5087397555020784552}
+  - component: {fileID: -2294549344370509138}
   - component: {fileID: 1888060841966501051}
   - component: {fileID: 6580717156127774672}
-  - component: {fileID: 8278808469374765314}
+  - component: {fileID: 5998044038719003112}
+  - component: {fileID: -3242751013431176123}
   m_Layer: 16
   m_Name: SwordWoman
   m_TagString: Player
@@ -465,6 +467,9 @@ MonoBehaviour:
   m_maxhp: 0
   m_criticalRate: 0
   m_criticalDamage: 0
+  m_class: 
+  m_unitProperty: 
+  m_resourcePath: 
 --- !u!114 &1024481362807706275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -489,6 +494,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c32281ad8c536534ab79952b0a84d685, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-2294549344370509138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7963473072988374339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07f53fe592d375a48a10e3089cba23aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstaclesLayerMask:
+    serializedVersion: 2
+    m_Bits: 262144
+  maxRookDistance: 3
 --- !u!114 &1888060841966501051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -519,9 +540,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstaclesLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 262144
   maxSWSkill_2_Distance: 2
---- !u!114 &8278808469374765314
+--- !u!114 &5998044038719003112
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -530,13 +551,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 7963473072988374339}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07f53fe592d375a48a10e3089cba23aa, type: 3}
+  m_Script: {fileID: 11500000, guid: a5813c565b1075c4aa036e25a72b01df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstaclesLayerMask:
-    serializedVersion: 2
-    m_Bits: 262144
-  maxRookDistance: 2
+--- !u!114 &-3242751013431176123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7963473072988374339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3b04169ba5cb4d40a741b7b695e80f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buffTurnCount: 0
 --- !u!1 &8193418529294817411
 GameObject:
   m_ObjectHideFlags: 0

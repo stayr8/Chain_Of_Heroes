@@ -2,16 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SamuraiPassive : CharacterBase
+public class SamuraiPassive : BaseBuff
 {
-    private CharacterDataManager _cdm;
-
-    private void Awake()
-    {
-        _cdm = GetComponent<CharacterDataManager>();
-    }
-
-
+    
     private void Start()
     {
         Passive();
@@ -25,4 +18,8 @@ public class SamuraiPassive : CharacterBase
     }
 
     // 나중에 스킬 행동력 포인터 -1 감소 시키기
+
+    public override void TakeAction(GridPosition gridPosition)
+    {
+    }
 }
