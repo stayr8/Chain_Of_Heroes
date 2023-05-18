@@ -142,7 +142,7 @@ public class KnightSkill2Action : BaseAction
                     if(!targetUnit.IsEnemy())
                     {
                         //TODO 여기서 버프를 주어야 한다.
-                        //targetUnit.GetCharacterDataManager().
+                        
                     }
                 }
 

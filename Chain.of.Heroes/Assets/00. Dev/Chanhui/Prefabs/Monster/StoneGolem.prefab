@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 1999806266393596694}
   - component: {fileID: 5841622052012877121}
   - component: {fileID: 4929148159021651099}
+  - component: {fileID: 1026438709004340733}
   m_Layer: 15
   m_Name: StoneGolem
   m_TagString: Enemy
@@ -185,6 +186,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxChainDistance: 1
+--- !u!114 &1026438709004340733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2281334507915587549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c50c80001bb543f4c80757d4a35ddc25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3257080367023052527
 GameObject:
   m_ObjectHideFlags: 0

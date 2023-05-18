@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static GridSystemVisual;
 
 public class GridSystemVisual : MonoBehaviour
 {
@@ -71,6 +72,18 @@ public class GridSystemVisual : MonoBehaviour
                 gridSystemVisualSingleArray[x, z] = gridSystemVisualSingleTransform.GetComponent<GridSystemVisualSingle>();
             }
         }
+
+        List<GridPosition> gridPositionList = new List<GridPosition>();
+        GridPosition StartPosition = new GridPosition(0, 0);
+        for (int z = 0; z < 3; z++)
+        {
+            for(int x = 0; x < 4; x++)
+            {
+                GridPosition testGridPosition = StartPosition  + new GridPosition(x, z);
+                gridPositionList.Add(testGridPosition);
+            }
+        }
+        ShowGridPositionList(gridPositionList, GridVisualType.Blue);
 
         UnitActionSystem.Instance.OnSelectedActionChanged += UnitActionSystem_OnSelectedActionChanged;
         UnitActionSystem.Instance.OffSelectedActionChanged += UnitActionSystem_OffSelectedActionChanged;

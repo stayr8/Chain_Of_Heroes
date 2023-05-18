@@ -33,7 +33,6 @@ public class ActionButtonUI : MonoBehaviour
 
         if (baseAction.GetMaxSkillCount() == baseAction.GetSkillCountPoint())
         {
-            Debug.Log("¾î±â´Â?");
             button.onClick.AddListener(() =>
             {
                 UnitActionSystem.Instance.SetSelectedAction(baseAction);

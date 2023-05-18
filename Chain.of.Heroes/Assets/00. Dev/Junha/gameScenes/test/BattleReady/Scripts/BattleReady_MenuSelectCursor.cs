@@ -73,6 +73,7 @@ public class BattleReady_MenuSelectCursor : CursorBase
                     {
                         ScenesSystem.Instance.ScenesChange();
                         UnitManager.Instance.SpawnAllPlayer();
+                        GridSystemVisual.Instance.HideAllGridPosition();
                     }
                     else if (isBack)
                     {

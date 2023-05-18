@@ -13,12 +13,12 @@ public class UnitBuffSystemUI : MonoBehaviour
     [SerializeField] private Transform EnemyBuffContainerTransform;
 
     private List<CharacterBuffUI> characterBuffUIList;
-    private List<CharacterBuffUI> enemyBuffUIList;
+    private List<EnemyBuffUI> enemyBuffUIList;
 
     private void Awake()
     {
         characterBuffUIList = new List<CharacterBuffUI>();
-        enemyBuffUIList = new List<CharacterBuffUI>();
+        enemyBuffUIList = new List<EnemyBuffUI>();
     }
 
     private void Start()
@@ -27,9 +27,9 @@ public class UnitBuffSystemUI : MonoBehaviour
         AttackActionSystem.Instance.OffUIBuff += AttackActionSystem_OffUIBuff;
     }
 
-    private void CreateUnitActionButtons()
+    private void CreateCharacterBuffs()
     {
-        DestroyBuffButton();
+        DestroyCharacterBuffs();
 
         Unit selectedUnit = AttackActionSystem.Instance.GetCharacterChainFind();
 
@@ -44,7 +44,7 @@ public class UnitBuffSystemUI : MonoBehaviour
         }
     }
 
-    private void DestroyBuffButton()
+    private void DestroyCharacterBuffs()
     {
         foreach (Transform imageTransform in CharacterBuffContainerTransform)
         {
@@ -54,13 +54,43 @@ public class UnitBuffSystemUI : MonoBehaviour
         characterBuffUIList.Clear();
     }
 
+    private void CreateEnemyBuffs()
+    {
+        DestroyEnemyBuffs();
+        Debug.Log("몬스터 패시브111");
+        Unit selectedUnit = AttackActionSystem.Instance.GetenemyChainFind();
+
+        foreach (BaseBuff baseBuff in selectedUnit.GetBaseBuffArray())
+        {
+            Debug.Log("몬스터 패시브222");
+            Transform buffButtonTransform = Instantiate(EnemyBuffImagePrefab, EnemyBuffContainerTransform);
+            EnemyBuffUI buffUI = buffButtonTransform.GetComponent<EnemyBuffUI>();
+            //buffButtonUI.Set_NameAndImage(selectedUnit.GetCharacterDataManager());
+            buffUI.SetBaseAction(baseBuff);
+
+            enemyBuffUIList.Add(buffUI);
+        }
+    }
+
+    private void DestroyEnemyBuffs()
+    {
+        foreach (Transform imageTransform in EnemyBuffContainerTransform)
+        {
+            Destroy(imageTransform.gameObject);
+        }
+
+        enemyBuffUIList.Clear();
+    }
+
     private void AttackActionSystem_OnUIBuff(object sender, EventArgs e)
     {
-        CreateUnitActionButtons();
+        CreateCharacterBuffs();
+        CreateEnemyBuffs();
     }
 
     private void AttackActionSystem_OffUIBuff(object sender, EventArgs e)
     {
-        DestroyBuffButton();
+        DestroyCharacterBuffs();
+        DestroyEnemyBuffs();
     }
 }
