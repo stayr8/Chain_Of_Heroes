@@ -5,18 +5,10 @@ using UnityEngine;
 public class SwordWomanPassive : BaseBuff
 {
 
-    private CharacterDataManager _cdm;
-
-    private void Awake()
-    {
-        _cdm = GetComponent<CharacterDataManager>();
-    }
-
     private void Start()
     {
-        //Passive();
+        Passive();
     }
-
 
     private void Passive()
     {
@@ -26,6 +18,5 @@ public class SwordWomanPassive : BaseBuff
 
     public override void TakeAction(GridPosition gridPosition)
     {
-        Passive();
     }
 }

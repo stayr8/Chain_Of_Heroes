@@ -2,15 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KnightPassive : CharacterBase
+public class KnightPassive : BaseBuff
 {
-    private CharacterDataManager _cdm;
-
-    private void Awake()
-    {
-        _cdm = GetComponent<CharacterDataManager>();
-    }
-
+   
 
     private void Start()
     {
@@ -21,5 +15,9 @@ public class KnightPassive : CharacterBase
     private void Passive()
     {
         _cdm.m_attackPower *= 1.15f;
+    }
+
+    public override void TakeAction(GridPosition gridPosition)
+    {
     }
 }

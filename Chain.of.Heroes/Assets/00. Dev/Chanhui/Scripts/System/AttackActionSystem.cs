@@ -302,14 +302,12 @@ public class AttackActionSystem : MonoBehaviour
             {
                 if (isChainAtk_2)
                 {
-                    OnUIBuff?.Invoke(this, EventArgs.Empty);
                     ActionVirtualCamera2.Follow = chainplayer_2.GetCameraFollow();
                     ActionVirtualCamera2.LookAt = chainplayer_2.GetCameraPos2();
                     Invoke("Camera2", 0.5f);
                 }
                 else if (isChainAtk_1)
                 {
-                    OnUIBuff?.Invoke(this, EventArgs.Empty);
                     ActionVirtualCamera2.Follow = chainplayer_1.GetCameraFollow();
                     ActionVirtualCamera2.LookAt = chainplayer_1.GetCameraPos2();
                     Invoke("Camera", 0.5f);
@@ -336,6 +334,12 @@ public class AttackActionSystem : MonoBehaviour
         ActionVirtualCamera.LookAt = chainplayer_2.GetCameraPos();
     }
 
+    public void CharacterChange(Unit unit)
+    {
+        player = unit;
+        OnUIBuff?.Invoke(this, EventArgs.Empty);
+    }
+
     public CharacterDataManager GetCharacterDataManager()
     {
         return characterDataManager;
@@ -354,6 +358,11 @@ public class AttackActionSystem : MonoBehaviour
     public void SetMonsterDataManager(MonsterDataManager monsterDataManager)
     {
         this.monsterDataManager = monsterDataManager;
+    }
+
+    public Unit GetCharacterChainFind()
+    {
+        return player;
     }
 
     public Unit GetenemyChainFind()

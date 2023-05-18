@@ -146,12 +146,12 @@ public class UnitActionSystemUI : MonoBehaviour
     private CharacterDataManager data;
     private void Update_Data()
     {
-        GameObject obj = BattleReady_UnitFormationCursor.currentSelected;
-        if (obj.GetComponentInChildren<CharacterDataManager>() == null)
+        GameObject obj = UnitActionSystem.Instance.GetSelecterdUnit().gameObject;
+        if (obj.GetComponent<CharacterDataManager>() == null)
         {
             return;
         }
-        data = obj.GetComponentInChildren<CharacterDataManager>();
+        data = obj.GetComponent<CharacterDataManager>();
 
         Set_NameAndImage();
 
@@ -159,13 +159,12 @@ public class UnitActionSystemUI : MonoBehaviour
         character_Class.text = data.m_class.ToString();
         character_Level.text = "Lv. " + data.m_level.ToString();
         character_HP.text = data.m_hp.ToString();
+        character_MaxHP.text = data.m_maxhp.ToString();
         character_AttackPower.text = data.m_attackPower.ToString();
         character_ChainAttackPower.text = data.m_chainAttackPower.ToString();
         character_DefensePower.text = data.m_defensePower.ToString();
 
-        character_Image.color = Color.white;
-
-        rt = character_Image.gameObject.GetComponent<RectTransform>();
+        
     }
 
     private RectTransform rt;

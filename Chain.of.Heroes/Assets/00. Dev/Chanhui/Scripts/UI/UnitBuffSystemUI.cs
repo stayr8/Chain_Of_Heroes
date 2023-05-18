@@ -29,21 +29,22 @@ public class UnitBuffSystemUI : MonoBehaviour
 
     private void CreateUnitActionButtons()
     {
-        DestroyActionButton();
+        DestroyBuffButton();
 
-        Unit selectedUnit = UnitActionSystem.Instance.GetSelecterdUnit();
+        Unit selectedUnit = AttackActionSystem.Instance.GetCharacterChainFind();
 
         foreach (BaseBuff baseBuff in selectedUnit.GetBaseBuffArray())
         {
             Transform buffButtonTransform = Instantiate(CharacterBuffImagePrefab, CharacterBuffContainerTransform);
-            CharacterBuffUI buggButtonUI = buffButtonTransform.GetComponent<CharacterBuffUI>();
-            buggButtonUI.SetBaseAction(baseBuff);
+            CharacterBuffUI buffButtonUI = buffButtonTransform.GetComponent<CharacterBuffUI>();
+            buffButtonUI.Set_NameAndImage(selectedUnit.GetCharacterDataManager());
+            buffButtonUI.SetBaseAction(baseBuff);
 
-            characterBuffUIList.Add(buggButtonUI);
+            characterBuffUIList.Add(buffButtonUI);
         }
     }
 
-    private void DestroyActionButton()
+    private void DestroyBuffButton()
     {
         foreach (Transform imageTransform in CharacterBuffContainerTransform)
         {
@@ -60,6 +61,6 @@ public class UnitBuffSystemUI : MonoBehaviour
 
     private void AttackActionSystem_OffUIBuff(object sender, EventArgs e)
     {
-        DestroyActionButton();
+        DestroyBuffButton();
     }
 }

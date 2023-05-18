@@ -2,13 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ValkyriePassive : CharacterBase
+public class ValkyriePassive : BaseBuff
 {
-    private CharacterDataManager _cdm;
-
-    private void Awake()
+    public override void TakeAction(GridPosition gridPosition)
     {
-        _cdm = GetComponent<CharacterDataManager>();
     }
 
 
