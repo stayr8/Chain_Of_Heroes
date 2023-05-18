@@ -24,7 +24,8 @@ public class GridSystemVisual : MonoBehaviour
         Red,
         RedSoft,
         Yellow,
-        RedMiddle
+        RedMiddle,
+        Green,
     }
 
     [SerializeField] private Transform gridSystemVisualSingPrefab;
@@ -112,6 +113,33 @@ public class GridSystemVisual : MonoBehaviour
             }
         }
     }
+
+    private void ShowSingleGridPositionRange(GridPosition gridPosition, int range, GridVisualType gridVisualType)
+    {
+        List<GridPosition> gridPositionList = new List<GridPosition>();
+        for (int x = -range; x <= range; x++)
+        {
+            for (int z = -range; z <= range; z++)
+            {
+                GridPosition testGridPosition = gridPosition + new GridPosition(x, z);
+
+                if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition))
+                {
+                    continue;
+                }
+
+                if(gridPosition != testGridPosition)
+                {
+                    continue;
+                }
+
+                gridPositionList.Add(testGridPosition);
+            }
+        }
+
+        ShowGridPositionList(gridPositionList, gridVisualType);
+    }
+
     private void ShowGridPositionRange(GridPosition gridPosition, int range, GridVisualType gridVisualType)
     {
         List<GridPosition> gridPositionList = new List<GridPosition>();
@@ -362,6 +390,29 @@ public class GridSystemVisual : MonoBehaviour
 
                 ShowGridPositionRange(selectedUnit.GetGridPosition(), swordWomanSkill2Action.GetMaxSWSkill_2_Distance(), GridVisualType.RedSoft);
                 ShowGridPositionRookRange(selectedUnit.GetGridPosition(), swordWomanSkill2Action.GetMaxSWSkill_2_Distance(), GridVisualType.RedMiddle);
+                break;
+            case KnightSkill1Action knightSkill1Action:
+                gridVisualType = GridVisualType.Red;
+
+                ShowGridPositionRange(selectedUnit.GetGridPosition(), knightSkill1Action.GetMaxSWSkill_1_Distance(), GridVisualType.RedSoft);
+                ShowGridPositionKingRange(selectedUnit.GetGridPosition(), knightSkill1Action.GetMaxSWSkill_1_Distance(), GridVisualType.RedMiddle);
+                break;
+            case KnightSkill2Action knightSkill2Action:
+                gridVisualType = GridVisualType.Green;
+
+                ShowSingleGridPositionRange(selectedUnit.GetGridPosition(), knightSkill2Action.GetMaxSWSkill_2_Distance(), gridVisualType);
+                break;
+            case SamuraiSkill1Action samuraiSkill1Action:
+                gridVisualType = GridVisualType.Red;
+
+                ShowGridPositionKingRange(selectedUnit.GetGridPosition(), samuraiSkill1Action.GetMaxSrSkill_1_Distance(), GridVisualType.RedSoft);
+                ShowGridPositionKnightRange(selectedUnit.GetGridPosition(), samuraiSkill1Action.GetMaxSrSkill_1_Distance(), GridVisualType.RedMiddle);
+                break;
+            case SamuraiSkill2Action samuraiSkill2Action:
+                gridVisualType = GridVisualType.Red;
+
+                ShowGridPositionKingRange(selectedUnit.GetGridPosition(), samuraiSkill2Action.GetMaxSrSkill_2_Distance(), GridVisualType.RedSoft);
+                ShowGridPositionKnightRange(selectedUnit.GetGridPosition(), samuraiSkill2Action.GetMaxSrSkill_2_Distance(), GridVisualType.RedMiddle);
                 break;
         }
 

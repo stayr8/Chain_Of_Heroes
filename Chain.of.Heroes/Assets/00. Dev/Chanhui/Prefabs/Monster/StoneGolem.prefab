@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 5841622052012877121}
   - component: {fileID: 4929148159021651099}
   - component: {fileID: 1026438709004340733}
+  - component: {fileID: 7245594440102175604}
   m_Layer: 15
   m_Name: StoneGolem
   m_TagString: Enemy
@@ -196,6 +197,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c50c80001bb543f4c80757d4a35ddc25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7245594440102175604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2281334507915587549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6319f51d41d488499f3dbae45e9601e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &3257080367023052527

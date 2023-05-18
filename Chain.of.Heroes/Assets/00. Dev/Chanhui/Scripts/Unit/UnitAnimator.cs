@@ -15,7 +15,7 @@ public class UnitAnimator : MonoBehaviour
     private void Awake()
     {
 
-        if(TryGetComponent<MoveAction>(out MoveAction moveAction))
+        if (TryGetComponent<MoveAction>(out MoveAction moveAction))
         {
             moveAction.OnStartMoving += MoveAction_OnStartMoving;
             moveAction.OnStopMoving += MoveAction_OnStopMoving;
@@ -113,7 +113,7 @@ public class UnitAnimator : MonoBehaviour
         if (TryGetComponent<SwordWomanSkill2Action>(out SwordWomanSkill2Action swordWomanSkill2Action))
         {
             swordWomanSkill2Action.OnShoot += SwordWomanSkill2Action_OnShoot;
-            
+
         }
 
         if (TryGetComponent<KnightSkill1Action>(out KnightSkill1Action knightSkill1Action))
@@ -121,15 +121,33 @@ public class UnitAnimator : MonoBehaviour
             knightSkill1Action.OnKnSkill_1_StartMoving += MoveAction_OnStartMoving;
             knightSkill1Action.OnKnSkill_1_StopMoving += MoveAction_OnStopMoving;
             knightSkill1Action.OnKnSkill_1_Stun += Action_OnSkill_1;
-
         }
 
         if (TryGetComponent<KnightSkill2Action>(out KnightSkill2Action knightSkill2Action))
         {
             knightSkill2Action.OnKnSkill_2_Buff += Action_OnSkill_2;
-
         }
 
+        if (TryGetComponent<SamuraiSkill1Action>(out SamuraiSkill1Action samuraiSkill1Action))
+        {
+            samuraiSkill1Action.OnSrSkill_1_StartMoving += MoveAction_OnStartMoving;
+            samuraiSkill1Action.OnSrSkill_1_StopMoving += MoveAction_OnStopMoving;
+            samuraiSkill1Action.OnSrSkill_1_Slash += Action_OnSkill_1;
+            samuraiSkill1Action.OnSrSkill_1_Dash += Unit_OnUnitDash;
+        }
+
+        if (TryGetComponent<SamuraiSkill2Action>(out SamuraiSkill2Action samuraiSkill2Action))
+        {
+            samuraiSkill2Action.OnSrSkill_2_StartMoving += MoveAction_OnStartMoving;
+            samuraiSkill2Action.OnSrSkill_2_StopMoving += MoveAction_OnStopMoving;
+            samuraiSkill2Action.OnSrSkill_2_Slash += Action_OnSkill_2;
+        }
+
+        if (TryGetComponent<StunAction>(out StunAction stunAction))
+        {
+            stunAction.OnUnitStun_Start += stunAction_OnUnitStun_Start;
+            stunAction.OnUnitStun_Stop += stunAction_OnUnitStun_Stop;
+        }
     }
 
     #region Attack Action
@@ -164,6 +182,15 @@ public class UnitAnimator : MonoBehaviour
 
     #endregion
 
+    private void stunAction_OnUnitStun_Start(object sender, EventArgs e)
+    {
+        animator.SetBool("IsStun", true);
+    }
+
+    private void stunAction_OnUnitStun_Stop(object sender, EventArgs e)
+    {
+        animator.SetBool("IsStun", false);
+    }
 
     #region 원거리 공격 Action
     private void shootAction_OnShoot(object sender, ReadyAction.OnShootEventArgs e)

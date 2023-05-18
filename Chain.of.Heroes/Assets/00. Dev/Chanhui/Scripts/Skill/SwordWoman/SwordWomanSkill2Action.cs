@@ -239,7 +239,7 @@ public class SwordWomanSkill2Action : BaseAction
 
     public override string GetActionName()
     {
-        return "½ºÅ³2";
+        return "¼¶±¤";
     }
 
     public override string GetSingleActionPoint()

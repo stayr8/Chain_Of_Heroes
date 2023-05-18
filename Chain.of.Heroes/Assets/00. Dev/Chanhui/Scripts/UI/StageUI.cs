@@ -106,9 +106,14 @@ public class StageUI : MonoBehaviour
         EnemyTurn.SetActive(false);
     }
 
-    private void ConditionShow()
+    public void ConditionShow()
     {
         GameCondition.SetActive(true);
+    }
+
+    public void ConditionHide()
+    {
+        GameCondition.SetActive(false);
     }
 
     public void AttackShow()

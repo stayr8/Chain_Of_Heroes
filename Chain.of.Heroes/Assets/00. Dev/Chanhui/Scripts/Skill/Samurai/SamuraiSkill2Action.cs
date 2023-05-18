@@ -3,12 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwordWomanSkill1Action : BaseAction
+public class SamuraiSkill2Action : BaseAction
 {
-    public event EventHandler OnSWSkill_1_StartMoving;
-    public event EventHandler OnSWSkill_1_StopMoving;
-    public event EventHandler OnSWSkill_1_Slash;
-    public event EventHandler OnSWSkill_1_Dash;
+    public event EventHandler OnSrSkill_2_StartMoving;
+    public event EventHandler OnSrSkill_2_StopMoving;
+    public event EventHandler OnSrSkill_2_Slash;
 
 
     private List<Vector3> positionList;
@@ -16,19 +15,14 @@ public class SwordWomanSkill1Action : BaseAction
 
     private enum State
     {
-        SwingingSWSkill_1_BeforeMoving,
-        SwingingSWSkill_1_Moving,
-        SwingingSWSkill_1_BeforeCamera,
-        SwingingSWSkill_1_AttackStand,
-        SwingingSWSkill_1_AfterMoving,
-        SwingingSWSkill_1_AttackMoving,
-        SwingingSWSkill_1_BeforeHit,
-        SwingingSWSkill_1_AfterCamera,
-        SwingingSWSkill_1_AfterHit,
+        SwingingSrSkill_2_BeforeMoving,
+        SwingingSrSkill_2_Moving,
+        SwingingSrSkill_2_Attacking,
+        SwingingSrSkill_2_AfterHit,
     }
 
     [SerializeField] private LayerMask obstaclesLayerMask;
-    [SerializeField] private int maxSWSkill_1_Distance = 2;
+    [SerializeField] private int maxSrSkill_2_Distance = 2;
 
     private State state;
     private float stateTimer;
@@ -45,7 +39,6 @@ public class SwordWomanSkill1Action : BaseAction
         };
     }
 
-
     private void Start()
     {
         Binding Bind = BindingManager.Bind(TurnSystem.Property, "IsPlayerTurn", (object value) =>
@@ -57,19 +50,20 @@ public class SwordWomanSkill1Action : BaseAction
                     isSkillCount -= 1;
                 }
 
-                if(isSkillCount <= 0)
+                if (isSkillCount <= 0)
                 {
                     isSkill = false;
                 }
             }
         });
+        Binds.Add(Bind);
 
         isSkillCount = 0;
     }
 
     private void Update()
     {
-        
+
         if (!isActive)
         {
             return;
@@ -82,7 +76,7 @@ public class SwordWomanSkill1Action : BaseAction
         Vector3 moveDirection = (targetPosition - transform.position).normalized;
 
 
-        if (state == State.SwingingSWSkill_1_BeforeMoving)
+        if (state == State.SwingingSrSkill_2_BeforeMoving)
         {
             float rotateSpeed_1 = 30f;
             transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed_1);
@@ -98,10 +92,10 @@ public class SwordWomanSkill1Action : BaseAction
                 float BeforepositionList = positionList.Count - 2;
                 if (currentPositionIndex >= BeforepositionList)
                 {
-                    OnSWSkill_1_StopMoving?.Invoke(this, EventArgs.Empty);
-                    UnitActionSystem.Instance.SetCameraPointchange(true);
+                    OnSrSkill_2_StopMoving?.Invoke(this, EventArgs.Empty);
+                    //UnitActionSystem.Instance.SetCameraPointchange(true);
                     currentPositionIndex++;
-                    state = State.SwingingSWSkill_1_Moving;
+                    state = State.SwingingSrSkill_2_Moving;
                 }
                 else
                 {
@@ -113,51 +107,20 @@ public class SwordWomanSkill1Action : BaseAction
 
         switch (state)
         {
-            case State.SwingingSWSkill_1_BeforeMoving:
+            case State.SwingingSrSkill_2_BeforeMoving:
 
                 break;
-            case State.SwingingSWSkill_1_Moving:
+            case State.SwingingSrSkill_2_Moving:
                 Vector3 targetDirection = targetUnit.transform.position;
                 Vector3 aimDir = (targetDirection - transform.position).normalized;
                 float rotateSpeed = 20f;
                 transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateSpeed);
 
                 break;
-            case State.SwingingSWSkill_1_BeforeCamera:
+            case State.SwingingSrSkill_2_Attacking:
 
                 break;
-            case State.SwingingSWSkill_1_AttackStand:
-
-                break;
-            case State.SwingingSWSkill_1_AfterMoving:
-
-                break;
-            case State.SwingingSWSkill_1_AttackMoving:
-                Vector3 targetDirection2 = targetUnit.transform.position;
-                Vector3 aimDir2 = (targetDirection2 - transform.position).normalized;
-                float rotateSpeed2 = 20f;
-                transform.forward = Vector3.Lerp(transform.forward, aimDir2, Time.deltaTime * rotateSpeed2);
-
-                float stoppingDistance1 = 1.5f;
-                if (Vector3.Distance(transform.position, targetDirection2) > stoppingDistance1)
-                {
-                    float moveSpeed = 15f;
-                    transform.position += aimDir2 * moveSpeed * Time.deltaTime;
-                }
-                else
-                {
-                    OnSWSkill_1_StopMoving?.Invoke(this, EventArgs.Empty);
-                    state = State.SwingingSWSkill_1_BeforeHit;
-                }
-
-                break;
-            case State.SwingingSWSkill_1_BeforeHit:
-
-                break;
-            case State.SwingingSWSkill_1_AfterCamera:
-
-                break;
-            case State.SwingingSWSkill_1_AfterHit:
+            case State.SwingingSrSkill_2_AfterHit:
 
                 break;
         }
@@ -172,59 +135,23 @@ public class SwordWomanSkill1Action : BaseAction
     {
         switch (state)
         {
-            case State.SwingingSWSkill_1_BeforeMoving:
+            case State.SwingingSrSkill_2_BeforeMoving:
 
                 break;
-            case State.SwingingSWSkill_1_Moving:
-                AttackCameraStart();
-
-                TimeAttack(0.5f);
-                state = State.SwingingSWSkill_1_BeforeCamera;
-
-                break;
-            case State.SwingingSWSkill_1_BeforeCamera:
-                ScreenManager._instance._LoadScreenTextuer();
+            case State.SwingingSrSkill_2_Moving:
 
                 TimeAttack(0.1f);
-                state = State.SwingingSWSkill_1_AttackStand;
+                state = State.SwingingSrSkill_2_Attacking;
 
                 break;
-            case State.SwingingSWSkill_1_AttackStand:
-                AttackActionSystem.Instance.OnAtLocationMove(unit, targetUnit);
-                ActionCameraStart();
+            case State.SwingingSrSkill_2_Attacking:
+                OnSrSkill_2_Slash?.Invoke(this, EventArgs.Empty);
 
                 TimeAttack(1.0f);
-                state = State.SwingingSWSkill_1_AfterMoving;
+                state = State.SwingingSrSkill_2_AfterHit;
 
                 break;
-            case State.SwingingSWSkill_1_AfterMoving:
-                AttackCameraComplete();
-                OnSWSkill_1_Dash?.Invoke(this, EventArgs.Empty);
-
-                TimeAttack(1.0f);
-                state = State.SwingingSWSkill_1_AttackMoving;
-
-                break;
-            case State.SwingingSWSkill_1_AttackMoving:
-
-                break;
-            case State.SwingingSWSkill_1_BeforeHit:
-                OnSWSkill_1_Slash?.Invoke(this, EventArgs.Empty);
-
-                TimeAttack(1.0f);
-                state = State.SwingingSWSkill_1_AfterCamera;
-
-
-                break;
-            case State.SwingingSWSkill_1_AfterCamera:
-                ScreenManager._instance._LoadScreenTextuer();
-                TimeAttack(0.1f);
-                state = State.SwingingSWSkill_1_AfterHit;
-
-                break;
-            case State.SwingingSWSkill_1_AfterHit:
-                ActionCameraComplete();
-                AttackActionSystem.Instance.OffAtLocationMove(unit, targetUnit);
+            case State.SwingingSrSkill_2_AfterHit:
 
                 ActionComplete();
 
@@ -247,9 +174,9 @@ public class SwordWomanSkill1Action : BaseAction
     {
         List<GridPosition> validGridPositionList = new List<GridPosition>();
 
-        for (int x = -maxSWSkill_1_Distance; x <= maxSWSkill_1_Distance; x++)
+        for (int x = -maxSrSkill_2_Distance; x <= maxSrSkill_2_Distance; x++)
         {
-            for (int z = -maxSWSkill_1_Distance; z <= maxSWSkill_1_Distance; z++)
+            for (int z = -maxSrSkill_2_Distance; z <= maxSrSkill_2_Distance; z++)
             {
                 GridPosition offsetGridPosition = new GridPosition(x, z);
                 GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
@@ -267,7 +194,7 @@ public class SwordWomanSkill1Action : BaseAction
 
                 int testX = Mathf.Abs(x);
                 int testZ = Mathf.Abs(z);
-                if ((testX != 0) && (testZ != 0))
+                if (testX == 0 || testZ == 0 || testX == testZ)
                 {
                     continue;
                 }
@@ -285,7 +212,7 @@ public class SwordWomanSkill1Action : BaseAction
                     continue;
                 }
 
-                if(LevelGrid.Instance.GetEnemyAtSurroundPosition(testGridPosition))
+                if (LevelGrid.Instance.GetEnemyAtSurroundPosition(testGridPosition))
                 {
                     continue;
                 }
@@ -321,10 +248,10 @@ public class SwordWomanSkill1Action : BaseAction
 
         if (isSkillCount <= 0)
         {
-            isSkillCount = 2;
+            isSkillCount = 3;
         }
 
-        state = State.SwingingSWSkill_1_BeforeMoving;
+        state = State.SwingingSrSkill_2_BeforeMoving;
         TimeAttack(0.7f);
 
         List<GridPosition> pathgridPositionList = Pathfinding.Instance.AttackFindPath(unit.GetGridPosition(), gridPosition, out int pathLength);
@@ -337,20 +264,20 @@ public class SwordWomanSkill1Action : BaseAction
             positionList.Add(LevelGrid.Instance.GetWorldPosition(pathgridPositionList[i]));
         }
 
-        OnSWSkill_1_StartMoving?.Invoke(this, EventArgs.Empty);
+        OnSrSkill_2_StartMoving?.Invoke(this, EventArgs.Empty);
         AttackActionSystem.Instance.SetUnitChainFind(targetUnit, unit);
 
         ActionStart(onActionComplete);
     }
 
-    public int GetMaxSWSkill_1_Distance()
+    public int GetMaxSrSkill_2_Distance()
     {
-        return maxSWSkill_1_Distance;
+        return maxSrSkill_2_Distance;
     }
 
     public override string GetActionName()
     {
-        return "ÀÏ¼¶";
+        return "¹Ý¿ù¼¶";
     }
 
     public override string GetSingleActionPoint()

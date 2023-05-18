@@ -56,6 +56,7 @@ public class KnightSkill1Action : BaseAction
                 }
             }
         });
+        Binds.Add(Bind);
 
         isSkillCount = 0;
     }
@@ -92,7 +93,7 @@ public class KnightSkill1Action : BaseAction
                 if (currentPositionIndex >= BeforepositionList)
                 {
                     OnKnSkill_1_StopMoving?.Invoke(this, EventArgs.Empty);
-                    UnitActionSystem.Instance.SetCameraPointchange(true);
+                    //UnitActionSystem.Instance.SetCameraPointchange(true);
                     currentPositionIndex++;
                     state = State.SwingingKnSkill_1_Moving;
                 }
@@ -145,6 +146,8 @@ public class KnightSkill1Action : BaseAction
                 break;
             case State.SwingingKnSkill_1_Attacking:
                 OnKnSkill_1_Stun?.Invoke(this, EventArgs.Empty);
+                BaseAction StartAction = targetUnit.GetAction<StunAction>();
+                StartAction.TakeAction(targetUnit.GetGridPosition(), onActionComplete);
 
                 TimeAttack(1.0f);
                 state = State.SwingingKnSkill_1_AfterHit;
@@ -269,7 +272,7 @@ public class KnightSkill1Action : BaseAction
 
     public override string GetActionName()
     {
-        return "스킬1";
+        return "신성강타";
     }
 
     public override string GetSingleActionPoint()

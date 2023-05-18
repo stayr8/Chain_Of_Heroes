@@ -121,10 +121,7 @@ public class EnemyAI : MonoBehaviour
             }
             else
             {
-                
                 EnemyAIAction testEnemyAIAction = baseAction.GetBestEnemyAIAction();
-                Debug.Log(bestEnemyAIAction.actionValue);
-                Debug.Log(testEnemyAIAction.actionValue);
                 if (testEnemyAIAction != null && testEnemyAIAction.actionValue > bestEnemyAIAction.actionValue)
                 {
                     bestEnemyAIAction = testEnemyAIAction;

@@ -35,6 +35,11 @@ public class UnitBuffSystemUI : MonoBehaviour
 
         foreach (BaseBuff baseBuff in selectedUnit.GetBaseBuffArray())
         {
+            if(baseBuff == selectedUnit.GetBuff<KnightSkillBuff>() && baseBuff.GetBuffTurnCount() == 0)
+            {
+                continue;
+            }
+
             Transform buffButtonTransform = Instantiate(CharacterBuffImagePrefab, CharacterBuffContainerTransform);
             CharacterBuffUI buffButtonUI = buffButtonTransform.GetComponent<CharacterBuffUI>();
             buffButtonUI.Set_NameAndImage(selectedUnit.GetCharacterDataManager());
