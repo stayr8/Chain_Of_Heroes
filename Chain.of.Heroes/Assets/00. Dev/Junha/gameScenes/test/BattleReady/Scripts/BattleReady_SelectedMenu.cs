@@ -18,15 +18,14 @@ public class BattleReady_SelectedMenu : MonoBehaviour, ISelectHandler, IDeselect
         image = GetComponent<Image>();
     }
 
-    private bool isInitStart = false;
     private void OnEnable()
     {
-        if (gameObject.name == "_BattleStart" && !isInitStart)
+        if (gameObject.name == "_BattleStart")
         {
             Select();
-            isInitStart = true;
         }
     }
+
     private void OnDisable()
     {
         notSelect();

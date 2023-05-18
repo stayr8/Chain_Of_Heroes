@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 public class BattleReady_MenuSelectCursor : CursorBase
 {
     private RectTransform rt;
-    private GameObject currentSelected;
+    public GameObject currentSelected;
 
     private const float INIT_X = -860f;
     private const float INIT_Y = 200f;
@@ -122,7 +122,7 @@ public class BattleReady_MenuSelectCursor : CursorBase
         }
         else if (currentSelected.name == "_Back")
         {
-            rt.anchoredPosition = new Vector2(-900f, MIN_POSITION_Y);
+            rt.anchoredPosition = new Vector2(-890f, MIN_POSITION_Y);
         }
     }
 }

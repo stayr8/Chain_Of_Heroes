@@ -56,7 +56,6 @@ public class BattleReady_SkillCursor : CursorBase
 
                     break;
             }
-            
         }
 
         if (isOnDetail && Input.GetKeyDown(KeyCode.Escape))

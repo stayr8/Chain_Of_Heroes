@@ -8,22 +8,25 @@ using System;
 
 public class BattleReady_UIManager : MonoBehaviour
 {
-    public event EventHandler OnCharacterChangeFormation;
-
-    [SerializeField, Header("[메뉴] 오브젝트")] private GameObject UI_Menu;
-    [SerializeField, Header("[유닛 편성] 오브젝트")] private GameObject UI_UnitFormation;
-    [SerializeField, Header("[배치 변경] 오브젝트")] private GameObject UI_ChangeFormation;
-    [Header("[캐릭터 슬롯] 오브젝트")] public GameObject[] slot;
-
-    [SerializeField] private bool ischange_formationCamera;
-
     #region instance화 :: Awake()함수 포함
+    [Header("===== [instance 전용 property] =====")]
+    [Header("[유닛 슬롯] 오브젝트")] public GameObject[] slot;
+    [Header("선택된 메뉴를 위한 임시")] public BattleReady_MenuSelectCursor Menu_Cursor;
     public static BattleReady_UIManager instance;
     private void Awake()
     {
         instance = this;
     }
     #endregion
+
+    public event EventHandler OnCharacterChangeFormation;
+
+    [Header("============================\n\n[UI Canvas] 오브젝트")]
+    [SerializeField] private GameObject _Menu;
+    [SerializeField] private GameObject _UnitFormation;
+    [SerializeField] private GameObject _ChangeFormation;
+
+    [SerializeField] private bool ischange_formationCamera;
 
     private void Update()
     {
@@ -42,8 +45,8 @@ public class BattleReady_UIManager : MonoBehaviour
             case STATE.UNIT_FORMATION:
                 if (!BattleReady_UnitFormationCursor.isOnMenuSelect && Input.GetKeyDown(KeyCode.Escape))
                 {
-                    UI_UnitFormation.SetActive(false);
-                    UI_Menu.SetActive(true);
+                    _UnitFormation.SetActive(false);
+                    _Menu.SetActive(true);
 
                     state = STATE.MENU;
                 }
@@ -54,8 +57,8 @@ public class BattleReady_UIManager : MonoBehaviour
             case STATE.CHANGE_FORMATION:
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
-                    UI_ChangeFormation.SetActive(false);
-                    UI_Menu.SetActive(true);
+                    _ChangeFormation.SetActive(false);
+                    _Menu.SetActive(true);
                     ischange_formationCamera = false;
 
                     state = STATE.MENU;
@@ -72,16 +75,16 @@ public class BattleReady_UIManager : MonoBehaviour
     {
         state = STATE.UNIT_FORMATION;
 
-        UI_Menu.SetActive(false);
-        UI_UnitFormation.SetActive(true);
+        _Menu.SetActive(false);
+        _UnitFormation.SetActive(true);
     }
 
     public void OnChangeFormation()
     {
         state = STATE.CHANGE_FORMATION;
 
-        UI_Menu.SetActive(false);
-        UI_ChangeFormation.SetActive(true);
+        _Menu.SetActive(false);
+        _ChangeFormation.SetActive(true);
         OnCharacterChangeFormation?.Invoke(this, EventArgs.Empty);
     }
 
@@ -99,10 +102,21 @@ public class BattleReady_UIManager : MonoBehaviour
     }
     #endregion
 
+    #region 유닛 수 관리
+    [SerializeField, Header("현재 편성 유닛 수")] private TMP_Text _Current; // "n"
+    [SerializeField, Header("총 조우한 유닛 수")] private TMP_Text _Max; // "/ n"
+    public int Max_Value = 0;
+    private void Update_Formation()
+    {
+        _Current.text = BattleReady_UnitFormationCursor.count.ToString();
+        _Max.text = "/ " + Max_Value; // 총 캐릭터 수가 9명임.
+    }
+    #endregion
+
     #region 미편성 / 편성 완료
     public void UnlockCharacter(GameObject obj)
     {
-        // 캐릭터 언락 상태에 따른 캐릭터 스프라이트 명암 변경
+        //캐릭터 언락 상태에 따른 캐릭터 스프라이트 명암 변경
         ChangeColor(obj, 0f, 0f, 0f, 255f);
 
         GameObject child = obj.transform.GetChild(1).gameObject;
@@ -123,10 +137,10 @@ public class BattleReady_UIManager : MonoBehaviour
         RectTransform childRT = child.GetComponent<RectTransform>();
         if (obj.GetComponent<BattleReady_FormationState>().isFormationState)
         {
-            // 편성 상태에 따른 캐릭터 스프라이트 명암 변경
+            //편성 상태에 따른 캐릭터 스프라이트 명암 변경
             ChangeColor(obj, 255f, 255f, 255f, 255f);
 
-            // 편성 스프라이트 변경 및 포지션 변경
+            //편성 스프라이트 변경 및 포지션 변경
             img.sprite = Img_OnFormation;
             childRT.anchoredPosition = new Vector2(-59.5f, 19f);
 
@@ -134,10 +148,10 @@ public class BattleReady_UIManager : MonoBehaviour
         }
         else //!obj.GetComponent<BattleReady_FormationState>().isFormationState
         {
-            // 편성 상태에 따른 캐릭터 스프라이트 명암 변경
+            //편성 상태에 따른 캐릭터 스프라이트 명암 변경
             ChangeColor(obj, 48f, 48f, 48f, 255f);
 
-            // 편성 스프라이트 변경 및 포지션 변경
+            //편성 스프라이트 변경 및 포지션 변경
             img.sprite = Img_OffFormation;
             childRT.anchoredPosition = new Vector2(-41.5f, 18.5f);
         }
@@ -153,16 +167,6 @@ public class BattleReady_UIManager : MonoBehaviour
     #endregion
 
     #region 유닛 편성: 캐릭터 정보 갱신
-    [Header("[유닛 편성 수] 텍스트")]
-    [SerializeField] private TextMeshProUGUI _Current; // "n"
-    [SerializeField] private TextMeshProUGUI _Max; // "/ n"
-    public int Max_Value = 0;
-    private void Update_Formation()
-    {
-        _Current.text = BattleReady_UnitFormationCursor.count.ToString();
-        _Max.text = "/ " + Max_Value; // 총 캐릭터 수가 9명임.
-    }
-
     [Header("[캐릭터 정보] 텍스트")]
     [SerializeField] private TextMeshProUGUI character_Name;
     [SerializeField] private TextMeshProUGUI character_Class;
@@ -180,6 +184,7 @@ public class BattleReady_UIManager : MonoBehaviour
     [Header("캐릭터 스킬 이름")]
     [SerializeField] private TextMeshProUGUI[] character_Skill_Name;
     [Header("캐릭터 이미지")]
+    [SerializeField] private Image character_Background;
     [SerializeField] private Image character_Image;
     private RectTransform rt;
     private void Update_Data()
@@ -203,8 +208,11 @@ public class BattleReady_UIManager : MonoBehaviour
             character_ChainAttackPower.text = "???";
             character_DefensePower.text = "???";
 
+            //character_Background.sprite = Resources.Load<Sprite>(data.m_bResourcePath);
             character_Image.sprite = Resources.Load<Sprite>(data.m_resourcePath);
             character_Image.color = Color.black;
+
+            character_Background.color = new Color(64/255f, 64/255f, 64/255f, 255/255f);
 
             for (int i = 0; i < skillNum; ++i)
             {
@@ -224,7 +232,7 @@ public class BattleReady_UIManager : MonoBehaviour
             character_ChainAttackPower.text = data.m_chainAttackPower.ToString();
             character_DefensePower.text = data.m_defensePower.ToString();
 
-            character_Image.color = Color.white;
+            character_Image.color = character_Background.color = Color.white;
         }
         rt = character_Image.gameObject.GetComponent<RectTransform>();
     }
@@ -237,20 +245,23 @@ public class BattleReady_UIManager : MonoBehaviour
     private string skill_Content_3;
     private void Set_NameAndImage()
     {
+        //character_Background.sprite = Resources.Load<Sprite>(data.m_bResourcePath);
         character_Image.sprite = Resources.Load<Sprite>(data.m_resourcePath);
 
         switch (data.m_name)
         {
-            #region 아카메, SwordWoman
+            #region No.1 아카메, SwordWoman
             case "아카메":
                 rt.anchoredPosition = new Vector2(480f, -415f);
+
+                character_Background.sprite = Resources.Load<Sprite>("Character/Background/b_Akame_1");
 
                 character_Skill_Image[0].sprite = Resources.Load<Sprite>(path + "SwordWoman/Skill01_Sww");
                 character_Skill_Name[0].text = "신검합일";
                 skill_Content_1 = "검과 하나가 되어 치명적인 공격 능력을 향상시킨다.\n\n" +
                     "치명타 확률 +<color=#ff7f00>15</color>%\n" +
                     "치명타 데미지 +<color=#ff7f00>20</color>%";
-                
+
                 character_Skill_Image[1].sprite = Resources.Load<Sprite>(path + "SwordWoman/Skill02_Sww");
                 character_Skill_Name[1].text = "일섬";
                 skill_Content_2 = "빠른 속도로 전방의 적 한명을 캐릭터 공격력의 <color=#ff7f00>150</color>% 만큼의 데미지로 <color=#ff7f00>1</color>회 벤다.";
@@ -265,6 +276,8 @@ public class BattleReady_UIManager : MonoBehaviour
             #region No.2 크리스, Knight
             case "크리스":
                 rt.anchoredPosition = new Vector2(447f, -415f);
+
+                character_Background.sprite = Resources.Load<Sprite>("Character/Background/b_Kris_1");
 
                 character_Skill_Image[0].sprite = Resources.Load<Sprite>(path + "Knight/Skill01_Kni");
                 character_Skill_Name[0].text = "신성의 힘";
@@ -284,6 +297,8 @@ public class BattleReady_UIManager : MonoBehaviour
             #region No.3 카미나, Samurai
             case "카미나":
                 rt.anchoredPosition = new Vector2(383f, -415f);
+
+                character_Background.sprite = Resources.Load<Sprite>("Character/Background/b_Kamina_1");
 
                 character_Skill_Image[0].sprite = Resources.Load<Sprite>(path + "Samurai/Skill01_Sam");
                 character_Skill_Name[0].text = "명경지수";
@@ -327,7 +342,7 @@ public class BattleReady_UIManager : MonoBehaviour
 
             #region No.5 플라틴, Guardian
             case "플라틴":
-                //rt.anchoredPosition = new Vector2(433f, -415f);
+                rt.anchoredPosition = new Vector2(433f, -415f);
 
                 character_Skill_Image[0].sprite = Resources.Load<Sprite>(path + "Guardian/Skill01_Gur");
                 character_Skill_Name[0].text = "굳건한 의지";
@@ -365,7 +380,7 @@ public class BattleReady_UIManager : MonoBehaviour
 
             #region No.7 제이브, Wizard
             case "제이브":
-                //rt.anchoredPosition = new Vector2(433f, -415f);
+                rt.anchoredPosition = new Vector2(433f, -415f);
 
                 character_Skill_Image[0].sprite = Resources.Load<Sprite>(path + "Wizard/Skill01_Wiz");
                 character_Skill_Name[0].text = "마나 폭주";
@@ -385,9 +400,11 @@ public class BattleReady_UIManager : MonoBehaviour
                 break;
             #endregion
 
-            #region No.8 바네사, Vanessa
+            #region No.8 바네사, Valkyrie
             case "바네사":
                 rt.anchoredPosition = new Vector2(408f, -336f);
+
+                character_Background.sprite = Resources.Load<Sprite>("Character/Background/b_Vanessa_1");
 
                 character_Skill_Image[0].sprite = Resources.Load<Sprite>(path + "Valkyrie/Skill01_Val");
                 character_Skill_Name[0].text = "승리의 여신";
@@ -396,7 +413,7 @@ public class BattleReady_UIManager : MonoBehaviour
 
                 character_Skill_Image[1].sprite = Resources.Load<Sprite>(path + "Valkyrie/Skill02_Val");
                 character_Skill_Name[1].text = "찌르기";
-                skill_Content_2 = "전방의 적을 강하게 찔러 캐릭터 공격력의 <color=#ff7f00>200</color>% 만큼의 데미지로 1<color=#ff7f00>1</color>회 공격한다.";
+                skill_Content_2 = "전방의 적을 강하게 찔러 캐릭터 공격력의 <color=#ff7f00>200</color>% 만큼의 데미지로 <color=#ff7f00>1</color>회 공격한다.";
 
                 character_Skill_Image[2].sprite = Resources.Load<Sprite>(path + "Valkyrie/Skill03_Val");
                 character_Skill_Name[2].text = "심판";

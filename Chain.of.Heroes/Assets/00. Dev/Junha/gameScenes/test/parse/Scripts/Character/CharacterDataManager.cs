@@ -91,8 +91,6 @@ public class CharacterDataManager : MonoBehaviour
         {
             ++NumForLvUp;
             initInfo();
-
-            Debug.Log("레벨 업! 현재 레벨은: " + m_level);
         }
 
         if(m_hp <= 0)

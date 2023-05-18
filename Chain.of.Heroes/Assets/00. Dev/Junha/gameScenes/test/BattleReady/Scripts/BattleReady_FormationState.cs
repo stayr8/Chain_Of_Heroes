@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class BattleReady_FormationState : MonoBehaviour
 {
-    public bool isUnlock = false; // 동료를 조우했나, 안 했나
-    public bool isFormationState = false; // 편성이 되었나, 안 되었나
-
     #region instance화 :: Awake()함수 포함
     public static BattleReady_FormationState instance;
     private void Awake()
@@ -14,6 +11,9 @@ public class BattleReady_FormationState : MonoBehaviour
         instance = this;
     }
     #endregion
+
+    public bool isUnlock = false; // 동료를 조우했나, 안 했나
+    public bool isFormationState = false; // 편성이 되었나, 안 되었나
 
     private void Update()
     {
