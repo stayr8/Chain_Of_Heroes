@@ -57,12 +57,11 @@ public class UnitBuffSystemUI : MonoBehaviour
     private void CreateEnemyBuffs()
     {
         DestroyEnemyBuffs();
-        Debug.Log("몬스터 패시브111");
+
         Unit selectedUnit = AttackActionSystem.Instance.GetenemyChainFind();
 
         foreach (BaseBuff baseBuff in selectedUnit.GetBaseBuffArray())
         {
-            Debug.Log("몬스터 패시브222");
             Transform buffButtonTransform = Instantiate(EnemyBuffImagePrefab, EnemyBuffContainerTransform);
             EnemyBuffUI buffUI = buffButtonTransform.GetComponent<EnemyBuffUI>();
             //buffButtonUI.Set_NameAndImage(selectedUnit.GetCharacterDataManager());

@@ -10,6 +10,8 @@ public abstract class BaseBuff : MonoBehaviour
     protected CharacterDataManager _cdm;
     protected MonsterDataManager _mdm;
 
+    protected bool isActive;
+
     protected virtual void Awake()
     {
         unit = GetComponent<Unit>();
@@ -25,14 +27,18 @@ public abstract class BaseBuff : MonoBehaviour
 
     public abstract void TakeAction(GridPosition gridPosition);
 
-    protected void ActionStart(Action onActionComplete)
+    protected void ActionStart()
     {
+        isActive = true;
+
 
     }
 
     protected void ActionComplete()
     {
-          
+        isActive = false;
+
+
     }
 
     public Unit GetUnit()

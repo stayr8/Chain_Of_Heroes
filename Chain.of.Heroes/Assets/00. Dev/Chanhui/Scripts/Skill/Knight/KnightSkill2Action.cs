@@ -141,8 +141,13 @@ public class KnightSkill2Action : BaseAction
                     Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
                     if(!targetUnit.IsEnemy())
                     {
-                        //TODO 여기서 버프를 주어야 한다.
-                        
+                        foreach (BaseBuff baseBuff in targetUnit.GetBaseBuffArray())
+                        {
+                            if(targetUnit.GetBuff<KnightSkillBuff>() == baseBuff)
+                            {
+                                baseBuff.TakeAction(testGridPosition);
+                            }
+                        }
                     }
                 }
 
