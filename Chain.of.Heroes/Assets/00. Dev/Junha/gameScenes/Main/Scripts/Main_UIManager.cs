@@ -147,7 +147,7 @@ public class Main_UIManager : MonoBehaviour
         }
 
         yield return new WaitForSeconds(1f);
-        LoadingSceneController.LoadScene("WorldMapScene"); // [05.02] 나중에 호진이가 튜토리얼 씬 만들어주면 해당 씬으로 가도록 하기.
+        LoadingSceneController.LoadScene("Cinematic"); // [05.02] 나중에 호진이가 튜토리얼 씬 만들어주면 해당 씬으로 가도록 하기.
     }
     private IEnumerator SoundFadeIn()
     {

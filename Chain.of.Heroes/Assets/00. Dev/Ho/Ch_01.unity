@@ -3441,6 +3441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 768b2ab0f6ae92b4a9aaf332f268fd7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentSelected: {fileID: 0}
   nextButton: {fileID: 1880253172}
   text_nextButton: {fileID: 2063618705}
 --- !u!114 &167756374
@@ -12144,7 +12145,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 671234029}
-  m_LocalRotation: {x: 0.4045538, y: -0.00000003147096, z: 0.000000013921811, w: 0.91451424}
+  m_LocalRotation: {x: 0.4045538, y: 0.000000031470965, z: -0.000000013921814, w: 0.91451424}
   m_LocalPosition: {x: 0.18081789, y: 11.50001, z: -7.6287823}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -25822,9 +25823,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9952805928f657949a8e01591478084e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UI_Menu: {fileID: 914854331}
-  UI_UnitFormation: {fileID: 1539283465}
-  UI_ChangeFormation: {fileID: 189185095}
   slot:
   - {fileID: 1544431636}
   - {fileID: 1112964947}
@@ -25834,13 +25832,17 @@ MonoBehaviour:
   - {fileID: 1865785733}
   - {fileID: 1765578433}
   - {fileID: 1907939352}
+  Menu_Cursor: {fileID: 0}
+  _Menu: {fileID: 914854331}
+  _UnitFormation: {fileID: 1539283465}
+  _ChangeFormation: {fileID: 189185095}
   ischange_formationCamera: 0
   menuSelected: {fileID: 970728547}
-  Img_OffFormation: {fileID: 21300000, guid: 5d66205fdf30f104ba9b38d4cec6a2c6, type: 3}
-  Img_OnFormation: {fileID: 21300000, guid: 547a12fc3b961124484ca1f00c0ca8c8, type: 3}
   _Current: {fileID: 70305107}
   _Max: {fileID: 1553407390}
   Max_Value: 0
+  Img_OffFormation: {fileID: 21300000, guid: 5d66205fdf30f104ba9b38d4cec6a2c6, type: 3}
+  Img_OnFormation: {fileID: 21300000, guid: 547a12fc3b961124484ca1f00c0ca8c8, type: 3}
   character_Name: {fileID: 1351988650}
   character_Class: {fileID: 340788688}
   character_Level: {fileID: 787348162}
@@ -25856,6 +25858,7 @@ MonoBehaviour:
   - {fileID: 417705996}
   - {fileID: 2009224120}
   - {fileID: 179642293}
+  character_Background: {fileID: 0}
   character_Image: {fileID: 1889484378}
   skill_Image: {fileID: 2006958846}
   skill_Name: {fileID: 1823375869}

@@ -50,6 +50,10 @@ public class Talk : MonoBehaviour
         /*
         currentindex 가 최대일때 씬 넘어가기 or 전투 준비 UI 켜기
         */
+        if(Speeches.Count == CurrentIndex)
+        {
+            LoadingSceneController.LoadScene("WorldMapScene");
+        }
 
         if(TalkCoroutine == null)
         {
