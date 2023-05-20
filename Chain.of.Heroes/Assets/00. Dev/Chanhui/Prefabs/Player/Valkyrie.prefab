@@ -350,6 +350,7 @@ GameObject:
   - component: {fileID: 6620274313008379924}
   - component: {fileID: 7856202950983718118}
   - component: {fileID: -6644422419733068798}
+  - component: {fileID: -3974295449079167820}
   m_Layer: 16
   m_Name: Valkyrie
   m_TagString: Player
@@ -550,6 +551,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5813c565b1075c4aa036e25a72b01df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-3974295449079167820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8342375045622521599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3b04169ba5cb4d40a741b7b695e80f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buffTurnCount: 0
 --- !u!1001 &2465899958219167685
 PrefabInstance:
   m_ObjectHideFlags: 0

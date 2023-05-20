@@ -74,6 +74,9 @@ public class BattleReady_MenuSelectCursor : CursorBase
                         ScenesSystem.Instance.ScenesChange();
                         UnitManager.Instance.SpawnAllPlayer();
                         GridSystemVisual.Instance.HideAllGridPosition();
+                        StageUI.Instance.ConditionShow();
+                        //Invoke("Show", 2f);
+                        Invoke("Hide", 2f);
                     }
                     else if (isBack)
                     {
@@ -96,6 +99,15 @@ public class BattleReady_MenuSelectCursor : CursorBase
                     break;
             }
         }
+    }
+    void Show()
+    {
+        StageUI.Instance.ConditionShow();
+    }
+
+    void Hide()
+    {
+        StageUI.Instance.ConditionHide();
     }
 
     private void NextButton(bool isCheck, string name)

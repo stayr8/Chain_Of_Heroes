@@ -11,6 +11,8 @@ public abstract class BaseBuff : MonoBehaviour
     protected MonsterDataManager _mdm;
 
     protected bool isActive;
+    protected int buffTurnCount;
+    protected int atkPowerBuff;
 
     protected virtual void Awake()
     {
@@ -44,5 +46,10 @@ public abstract class BaseBuff : MonoBehaviour
     public Unit GetUnit()
     {
         return unit;
+    }
+
+    public int GetBuffTurnCount()
+    {
+        return buffTurnCount;
     }
 }

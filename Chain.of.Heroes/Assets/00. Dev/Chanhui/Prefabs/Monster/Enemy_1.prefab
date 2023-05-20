@@ -49,6 +49,7 @@ GameObject:
   - component: {fileID: 8681924711701863764}
   - component: {fileID: 5786774799620719496}
   - component: {fileID: 8141815212963083106}
+  - component: {fileID: -540481363815248974}
   m_Layer: 15
   m_Name: Enemy_1
   m_TagString: Enemy
@@ -117,6 +118,7 @@ MonoBehaviour:
   CameraPos: {fileID: 0}
   CameraFollow: {fileID: 0}
   CameraPos2: {fileID: 0}
+  CameraPos3: {fileID: 0}
   IsGrid: 0
   isEnemy: 1
   newEnemyActionPoints: 2
@@ -139,6 +141,7 @@ MonoBehaviour:
   obstaclesLayerMask:
     serializedVersion: 2
     m_Bits: 262144
+  maxReadyDistance: 1
 --- !u!114 &9054943789650772714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,13 +188,14 @@ MonoBehaviour:
   m_name: 
   m_level: 0
   m_attackPower: 0
-  m_defensePower: 0
   m_hp: 0
+  m_maxhp: 0
+  m_criticalRate: 0
+  m_criticalDamage: 0
   m_actionPoint: 0
   m_speed: 0
   m_movementRange: 0
   m_attackRange: 0
-  m_rank: 0
 --- !u!114 &5786774799620719496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,6 +221,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxChainDistance: 1
+--- !u!114 &-540481363815248974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3695012023952319668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6319f51d41d488499f3dbae45e9601e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7420146111581597954
 GameObject:
   m_ObjectHideFlags: 0

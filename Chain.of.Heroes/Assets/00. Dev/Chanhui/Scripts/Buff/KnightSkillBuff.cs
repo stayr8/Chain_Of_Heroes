@@ -8,26 +8,37 @@ public class KnightSkillBuff : BaseBuff
     private List<Binding> Binds = new List<Binding>();
 
     private CharacterDataManager cdm;
-    [SerializeField] private int buffTurnCount;
-    private float atkPowerBuff;
+    
 
     private void Start()
     {
         Binding Bind = BindingManager.Bind(TurnSystem.Property, "IsPlayerTurn", (object value) =>
         {
-            if(!TurnSystem.Property.IsPlayerTurn)
+            if (isActive)
             {
-                buffTurnCount--;
-                if(buffTurnCount <= 0)
+                if (!TurnSystem.Property.IsPlayerTurn)
                 {
-                    cdm.m_attackPower -= atkPowerBuff;
-                    ActionComplete();
+                    buffTurnCount--;
+                    if (buffTurnCount <= 0)
+                    {
+                        cdm.m_attackPower -= atkPowerBuff;
+                        atkPowerBuff = 0;
+                        ActionComplete();
+                    }
                 }
             }
         });
         Binds.Add(Bind);
 
         buffTurnCount = 0;
+    }
+
+    private void Update()
+    {
+        if(!isActive)
+        {
+            return;
+        }
     }
 
 
@@ -37,7 +48,7 @@ public class KnightSkillBuff : BaseBuff
         buffTurnCount = 2;
 
         cdm = unit.GetCharacterDataManager();
-        atkPowerBuff = cdm.m_attackPower * 0.3f;
+        atkPowerBuff = (int)((int)cdm.m_attackPower * 0.3f);
         cdm.m_attackPower += atkPowerBuff;
 
         ActionStart();

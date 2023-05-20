@@ -9,13 +9,14 @@ public class UnitAnimator : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private Transform bulletProjectilePrefab;
     [SerializeField] private Transform shootPointTransform;
-
+    [SerializeField] private Transform ArSkill_1_shootPointTransform;
+    [SerializeField] private Transform ArSkill_2_shootPointTransform;
 
 
     private void Awake()
     {
 
-        if(TryGetComponent<MoveAction>(out MoveAction moveAction))
+        if (TryGetComponent<MoveAction>(out MoveAction moveAction))
         {
             moveAction.OnStartMoving += MoveAction_OnStartMoving;
             moveAction.OnStopMoving += MoveAction_OnStopMoving;
@@ -113,7 +114,6 @@ public class UnitAnimator : MonoBehaviour
         if (TryGetComponent<SwordWomanSkill2Action>(out SwordWomanSkill2Action swordWomanSkill2Action))
         {
             swordWomanSkill2Action.OnShoot += SwordWomanSkill2Action_OnShoot;
-            
         }
 
         if (TryGetComponent<KnightSkill1Action>(out KnightSkill1Action knightSkill1Action))
@@ -121,15 +121,41 @@ public class UnitAnimator : MonoBehaviour
             knightSkill1Action.OnKnSkill_1_StartMoving += MoveAction_OnStartMoving;
             knightSkill1Action.OnKnSkill_1_StopMoving += MoveAction_OnStopMoving;
             knightSkill1Action.OnKnSkill_1_Stun += Action_OnSkill_1;
-
         }
 
         if (TryGetComponent<KnightSkill2Action>(out KnightSkill2Action knightSkill2Action))
         {
             knightSkill2Action.OnKnSkill_2_Buff += Action_OnSkill_2;
-
         }
 
+        if (TryGetComponent<SamuraiSkill1Action>(out SamuraiSkill1Action samuraiSkill1Action))
+        {
+            samuraiSkill1Action.OnSrSkill_1_StartMoving += MoveAction_OnStartMoving;
+            samuraiSkill1Action.OnSrSkill_1_StopMoving += MoveAction_OnStopMoving;
+            samuraiSkill1Action.OnSrSkill_1_Slash += Action_OnSkill_1;
+            samuraiSkill1Action.OnSrSkill_1_Dash += Unit_OnUnitDash;
+        }
+
+        if (TryGetComponent<SamuraiSkill2Action>(out SamuraiSkill2Action samuraiSkill2Action))
+        {
+            samuraiSkill2Action.OnSrSkill_2_StartMoving += MoveAction_OnStartMoving;
+            samuraiSkill2Action.OnSrSkill_2_StopMoving += MoveAction_OnStopMoving;
+            samuraiSkill2Action.OnSrSkill_2_Slash += Action_OnSkill_2;
+        }
+
+        if (TryGetComponent<StunAction>(out StunAction stunAction))
+        {
+            stunAction.OnUnitStun_Start += stunAction_OnUnitStun_Start;
+            stunAction.OnUnitStun_Stop += stunAction_OnUnitStun_Stop;
+        }
+        if (TryGetComponent<ArcherSkill1Action>(out ArcherSkill1Action archerSkill1Action))
+        {
+            archerSkill1Action.OnShoot += ArSkill1_1_Action_OnShoot;
+        }
+        if (TryGetComponent<ArcherSkill2Action>(out ArcherSkill2Action archerSkill2Action))
+        {
+            archerSkill2Action.OnShoot += ArSkill1_2_Action_OnShoot;
+        }
     }
 
     #region Attack Action
@@ -164,6 +190,15 @@ public class UnitAnimator : MonoBehaviour
 
     #endregion
 
+    private void stunAction_OnUnitStun_Start(object sender, EventArgs e)
+    {
+        animator.SetBool("IsStun", true);
+    }
+
+    private void stunAction_OnUnitStun_Stop(object sender, EventArgs e)
+    {
+        animator.SetBool("IsStun", false);
+    }
 
     #region 원거리 공격 Action
     private void shootAction_OnShoot(object sender, ReadyAction.OnShootEventArgs e)
@@ -181,7 +216,6 @@ public class UnitAnimator : MonoBehaviour
         bulletProjectile.Setup(targetUnitShootAtPosition);
 
     }
-
     private void shootAction_OnChainShoot(object sender, ChainLongAttackAction.OnChainShootEventArgs e)
     {
         animator.SetTrigger("Shoot");
@@ -197,7 +231,6 @@ public class UnitAnimator : MonoBehaviour
         bulletProjectile.Setup(targetUnitShootAtPosition);
 
     }
-
     private void LongKnightAction_OnShoot(object sender, LongKnightAction.OnShootEventArgs e)
     {
         animator.SetTrigger("Shoot");
@@ -213,7 +246,6 @@ public class UnitAnimator : MonoBehaviour
         bulletProjectile.Setup(targetUnitShootAtPosition);
 
     }
-
     private void LongBishopAction_OnShoot(object sender, LongBishopAction.OnShootEventArgs e)
     {
         animator.SetTrigger("Shoot");
@@ -229,14 +261,12 @@ public class UnitAnimator : MonoBehaviour
         bulletProjectile.Setup(targetUnitShootAtPosition);
 
     }
-
     private void SwordWomanSkill2Action_OnShoot(object sender, SwordWomanSkill2Action.OnShootEventArgs e)
     {
         animator.SetTrigger("IsSkill_2");
 
         StartCoroutine(WaitShoot(e.targetUnit.GetWorldPosition()));
     }
-
     IEnumerator WaitShoot(Vector3 e)
     {
         yield return new WaitForSeconds(0.3f);
@@ -282,6 +312,73 @@ public class UnitAnimator : MonoBehaviour
 
         bulletProjectile4.Setup(targetUnitShootAtPosition4);
          
+    }
+    private void ArSkill1_1_Action_OnShoot(object sender, ArcherSkill1Action.OnShootEventArgs e)
+    {
+        animator.SetTrigger("IsSkill_1");
+
+        StartCoroutine(ArSkill_1_Shoot(e.targetUnit.GetWorldPosition()));
+    }
+    IEnumerator ArSkill_1_Shoot(Vector3 e)
+    {
+        yield return new WaitForSeconds(0.2f);
+        Transform bulletProjectileTransform =
+                Instantiate(bulletProjectilePrefab, ArSkill_1_shootPointTransform.position, Quaternion.identity);
+        BulletProjectile bulletProjectile = bulletProjectileTransform.GetComponent<BulletProjectile>();
+
+        Vector3 targetUnitShootAtPosition = e;
+
+        targetUnitShootAtPosition.y = ArSkill_1_shootPointTransform.position.y;
+
+        bulletProjectile.Setup(targetUnitShootAtPosition);
+        yield return new WaitForSeconds(0.2f);
+        Transform bulletProjectileTransform2 =
+                Instantiate(bulletProjectilePrefab, ArSkill_1_shootPointTransform.position, Quaternion.identity);
+        BulletProjectile bulletProjectile2 = bulletProjectileTransform2.GetComponent<BulletProjectile>();
+
+        Vector3 targetUnitShootAtPosition2 = e;
+
+        targetUnitShootAtPosition2.y = ArSkill_1_shootPointTransform.position.y;
+
+        bulletProjectile2.Setup(targetUnitShootAtPosition2);
+
+        yield return new WaitForSeconds(0.2f);
+        Transform bulletProjectileTransform3 =
+                Instantiate(bulletProjectilePrefab, ArSkill_1_shootPointTransform.position, Quaternion.identity);
+        BulletProjectile bulletProjectile3 = bulletProjectileTransform3.GetComponent<BulletProjectile>();
+
+        Vector3 targetUnitShootAtPosition3 = e;
+
+        targetUnitShootAtPosition3.y = ArSkill_1_shootPointTransform.position.y;
+
+        bulletProjectile3.Setup(targetUnitShootAtPosition3);
+
+        yield return new WaitForSeconds(0.2f);
+        Transform bulletProjectileTransform4 =
+                Instantiate(bulletProjectilePrefab, ArSkill_1_shootPointTransform.position, Quaternion.identity);
+        BulletProjectile bulletProjectile4 = bulletProjectileTransform4.GetComponent<BulletProjectile>();
+
+        Vector3 targetUnitShootAtPosition4 = e;
+
+        targetUnitShootAtPosition4.y = ArSkill_1_shootPointTransform.position.y;
+
+        bulletProjectile4.Setup(targetUnitShootAtPosition4);
+
+    }
+    private void ArSkill1_2_Action_OnShoot(object sender, ArcherSkill2Action.OnShootEventArgs e)
+    {
+        animator.SetTrigger("IsSkill_2");
+
+        Transform bulletProjectileTransform =
+            Instantiate(bulletProjectilePrefab, ArSkill_2_shootPointTransform.position, Quaternion.identity);
+        BulletProjectile bulletProjectile = bulletProjectileTransform.GetComponent<BulletProjectile>();
+
+        Vector3 targetUnitShootAtPosition = e.targetUnit.GetWorldPosition();
+
+        targetUnitShootAtPosition.y = ArSkill_2_shootPointTransform.position.y;
+
+        bulletProjectile.Setup(targetUnitShootAtPosition);
+
     }
 
     #endregion

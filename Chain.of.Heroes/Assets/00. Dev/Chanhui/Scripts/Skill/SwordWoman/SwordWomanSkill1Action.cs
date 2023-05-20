@@ -63,6 +63,7 @@ public class SwordWomanSkill1Action : BaseAction
                 }
             }
         });
+        Binds.Add(Bind);
 
         isSkillCount = 0;
     }
@@ -350,7 +351,7 @@ public class SwordWomanSkill1Action : BaseAction
 
     public override string GetActionName()
     {
-        return "Ω∫≈≥1";
+        return "¿œº∂";
     }
 
     public override string GetSingleActionPoint()

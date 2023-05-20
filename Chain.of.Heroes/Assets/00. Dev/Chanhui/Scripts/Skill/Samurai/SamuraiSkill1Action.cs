@@ -3,11 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KnightSkill1Action : BaseAction
+public class SamuraiSkill1Action : BaseAction
 {
-    public event EventHandler OnKnSkill_1_StartMoving;
-    public event EventHandler OnKnSkill_1_StopMoving;
-    public event EventHandler OnKnSkill_1_Stun;
+    public event EventHandler OnSrSkill_1_StartMoving;
+    public event EventHandler OnSrSkill_1_StopMoving;
+    public event EventHandler OnSrSkill_1_Slash;
+    public event EventHandler OnSrSkill_1_Dash;
 
 
     private List<Vector3> positionList;
@@ -15,14 +16,19 @@ public class KnightSkill1Action : BaseAction
 
     private enum State
     {
-        SwingingKnSkill_1_BeforeMoving,
-        SwingingKnSkill_1_Moving,
-        SwingingKnSkill_1_Attacking,
-        SwingingKnSkill_1_AfterHit,
+        SwingingSrSkill_1_BeforeMoving,
+        SwingingSrSkill_1_Moving,
+        SwingingSrSkill_1_BeforeCamera,
+        SwingingSrSkill_1_AttackStand,
+        SwingingSrSkill_1_AfterMoving,
+        SwingingSrSkill_1_AttackMoving,
+        SwingingSrSkill_1_BeforeHit,
+        SwingingSrSkill_1_AfterCamera,
+        SwingingSrSkill_1_AfterHit,
     }
 
     [SerializeField] private LayerMask obstaclesLayerMask;
-    [SerializeField] private int maxKnSkill_1_Distance = 2;
+    [SerializeField] private int maxSrSkill_1_Distance = 2;
 
     private State state;
     private float stateTimer;
@@ -38,6 +44,7 @@ public class KnightSkill1Action : BaseAction
             actionValue = 0,
         };
     }
+
 
     private void Start()
     {
@@ -76,7 +83,7 @@ public class KnightSkill1Action : BaseAction
         Vector3 moveDirection = (targetPosition - transform.position).normalized;
 
 
-        if (state == State.SwingingKnSkill_1_BeforeMoving)
+        if (state == State.SwingingSrSkill_1_BeforeMoving)
         {
             float rotateSpeed_1 = 30f;
             transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed_1);
@@ -92,10 +99,10 @@ public class KnightSkill1Action : BaseAction
                 float BeforepositionList = positionList.Count - 2;
                 if (currentPositionIndex >= BeforepositionList)
                 {
-                    OnKnSkill_1_StopMoving?.Invoke(this, EventArgs.Empty);
-                    //UnitActionSystem.Instance.SetCameraPointchange(true);
+                    OnSrSkill_1_StopMoving?.Invoke(this, EventArgs.Empty);
+                    UnitActionSystem.Instance.SetCameraPointchange(true);
                     currentPositionIndex++;
-                    state = State.SwingingKnSkill_1_Moving;
+                    state = State.SwingingSrSkill_1_Moving;
                 }
                 else
                 {
@@ -107,20 +114,51 @@ public class KnightSkill1Action : BaseAction
 
         switch (state)
         {
-            case State.SwingingKnSkill_1_BeforeMoving:
+            case State.SwingingSrSkill_1_BeforeMoving:
 
                 break;
-            case State.SwingingKnSkill_1_Moving:
+            case State.SwingingSrSkill_1_Moving:
                 Vector3 targetDirection = targetUnit.transform.position;
                 Vector3 aimDir = (targetDirection - transform.position).normalized;
                 float rotateSpeed = 20f;
                 transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateSpeed);
 
                 break;
-            case State.SwingingKnSkill_1_Attacking:
+            case State.SwingingSrSkill_1_BeforeCamera:
 
                 break;
-            case State.SwingingKnSkill_1_AfterHit:
+            case State.SwingingSrSkill_1_AttackStand:
+
+                break;
+            case State.SwingingSrSkill_1_AfterMoving:
+
+                break;
+            case State.SwingingSrSkill_1_AttackMoving:
+                Vector3 targetDirection2 = targetUnit.transform.position;
+                Vector3 aimDir2 = (targetDirection2 - transform.position).normalized;
+                float rotateSpeed2 = 20f;
+                transform.forward = Vector3.Lerp(transform.forward, aimDir2, Time.deltaTime * rotateSpeed2);
+
+                float stoppingDistance1 = 3.5f;
+                if (Vector3.Distance(transform.position, targetDirection2) > stoppingDistance1)
+                {
+                    float moveSpeed = 15f;
+                    transform.position += aimDir2 * moveSpeed * Time.deltaTime;
+                }
+                else
+                {
+                    OnSrSkill_1_StopMoving?.Invoke(this, EventArgs.Empty);
+                    state = State.SwingingSrSkill_1_BeforeHit;
+                }
+
+                break;
+            case State.SwingingSrSkill_1_BeforeHit:
+
+                break;
+            case State.SwingingSrSkill_1_AfterCamera:
+
+                break;
+            case State.SwingingSrSkill_1_AfterHit:
 
                 break;
         }
@@ -135,25 +173,59 @@ public class KnightSkill1Action : BaseAction
     {
         switch (state)
         {
-            case State.SwingingKnSkill_1_BeforeMoving:
+            case State.SwingingSrSkill_1_BeforeMoving:
 
                 break;
-            case State.SwingingKnSkill_1_Moving:
+            case State.SwingingSrSkill_1_Moving:
+                AttackCameraStart();
+
+                TimeAttack(0.5f);
+                state = State.SwingingSrSkill_1_BeforeCamera;
+
+                break;
+            case State.SwingingSrSkill_1_BeforeCamera:
+                ScreenManager._instance._LoadScreenTextuer();
 
                 TimeAttack(0.1f);
-                state = State.SwingingKnSkill_1_Attacking;
+                state = State.SwingingSrSkill_1_AttackStand;
 
                 break;
-            case State.SwingingKnSkill_1_Attacking:
-                OnKnSkill_1_Stun?.Invoke(this, EventArgs.Empty);
-                BaseAction StartAction = targetUnit.GetAction<StunAction>();
-                StartAction.TakeAction(targetUnit.GetGridPosition(), onActionComplete);
+            case State.SwingingSrSkill_1_AttackStand:
+                AttackActionSystem.Instance.OnAtLocationMove(unit, targetUnit);
+                ActionCameraStart();
 
                 TimeAttack(1.0f);
-                state = State.SwingingKnSkill_1_AfterHit;
+                state = State.SwingingSrSkill_1_AfterMoving;
 
                 break;
-            case State.SwingingKnSkill_1_AfterHit:
+            case State.SwingingSrSkill_1_AfterMoving:
+                AttackCameraComplete();
+                OnSrSkill_1_Dash?.Invoke(this, EventArgs.Empty);
+
+                TimeAttack(1.0f);
+                state = State.SwingingSrSkill_1_AttackMoving;
+
+                break;
+            case State.SwingingSrSkill_1_AttackMoving:
+
+                break;
+            case State.SwingingSrSkill_1_BeforeHit:
+                OnSrSkill_1_Slash?.Invoke(this, EventArgs.Empty);
+
+                TimeAttack(1.0f);
+                state = State.SwingingSrSkill_1_AfterCamera;
+
+
+                break;
+            case State.SwingingSrSkill_1_AfterCamera:
+                ScreenManager._instance._LoadScreenTextuer();
+                TimeAttack(0.1f);
+                state = State.SwingingSrSkill_1_AfterHit;
+
+                break;
+            case State.SwingingSrSkill_1_AfterHit:
+                ActionCameraComplete();
+                AttackActionSystem.Instance.OffAtLocationMove(unit, targetUnit);
 
                 ActionComplete();
 
@@ -176,9 +248,9 @@ public class KnightSkill1Action : BaseAction
     {
         List<GridPosition> validGridPositionList = new List<GridPosition>();
 
-        for (int x = -maxKnSkill_1_Distance; x <= maxKnSkill_1_Distance; x++)
+        for (int x = -maxSrSkill_1_Distance; x <= maxSrSkill_1_Distance; x++)
         {
-            for (int z = -maxKnSkill_1_Distance; z <= maxKnSkill_1_Distance; z++)
+            for (int z = -maxSrSkill_1_Distance; z <= maxSrSkill_1_Distance; z++)
             {
                 GridPosition offsetGridPosition = new GridPosition(x, z);
                 GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
@@ -191,6 +263,13 @@ public class KnightSkill1Action : BaseAction
                 if (unitGridPosition == testGridPosition)
                 {
                     // Same Grid Position where the character is already at
+                    continue;
+                }
+
+                int testX = Mathf.Abs(x);
+                int testZ = Mathf.Abs(z);
+                if (testX == 0 || testZ == 0 || testX == testZ)
+                {
                     continue;
                 }
 
@@ -246,7 +325,7 @@ public class KnightSkill1Action : BaseAction
             isSkillCount = 2;
         }
 
-        state = State.SwingingKnSkill_1_BeforeMoving;
+        state = State.SwingingSrSkill_1_BeforeMoving;
         TimeAttack(0.7f);
 
         List<GridPosition> pathgridPositionList = Pathfinding.Instance.AttackFindPath(unit.GetGridPosition(), gridPosition, out int pathLength);
@@ -259,30 +338,30 @@ public class KnightSkill1Action : BaseAction
             positionList.Add(LevelGrid.Instance.GetWorldPosition(pathgridPositionList[i]));
         }
 
-        OnKnSkill_1_StartMoving?.Invoke(this, EventArgs.Empty);
+        OnSrSkill_1_StartMoving?.Invoke(this, EventArgs.Empty);
         AttackActionSystem.Instance.SetUnitChainFind(targetUnit, unit);
 
         ActionStart(onActionComplete);
     }
 
-    public int GetMaxSWSkill_1_Distance()
+    public int GetMaxSrSkill_1_Distance()
     {
-        return maxKnSkill_1_Distance;
+        return maxSrSkill_1_Distance;
     }
 
     public override string GetActionName()
     {
-        return "신성강타";
+        return "제비참";
     }
 
     public override string GetSingleActionPoint()
     {
-        return "3";
+        return "2";
     }
 
     public override int GetActionPointsCost()
     {
-        return 3;
+        return 2;
     }
 
     public override int GetSkillCountPoint()

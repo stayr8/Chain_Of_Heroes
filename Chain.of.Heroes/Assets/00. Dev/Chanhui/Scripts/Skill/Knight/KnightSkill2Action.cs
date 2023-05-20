@@ -52,6 +52,7 @@ public class KnightSkill2Action : BaseAction
                 }
             }
         });
+        Binds.Add(Bind);
 
         isSkillCount = 0;
     }
@@ -96,6 +97,7 @@ public class KnightSkill2Action : BaseAction
                 break;
             case State.SwingingKnSkill_2_Buff:
                 OnKnSkill_2_Buff?.Invoke(this, EventArgs.Empty);
+                GetCharacterBuffOn();
 
                 TimeAttack(1.0f);
                 state = State.SwingingKnSkill_2_AfterHit;
@@ -136,21 +138,6 @@ public class KnightSkill2Action : BaseAction
                     continue;
                 }
 
-                if(LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition))
-                {
-                    Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
-                    if(!targetUnit.IsEnemy())
-                    {
-                        foreach (BaseBuff baseBuff in targetUnit.GetBaseBuffArray())
-                        {
-                            if(targetUnit.GetBuff<KnightSkillBuff>() == baseBuff)
-                            {
-                                baseBuff.TakeAction(testGridPosition);
-                            }
-                        }
-                    }
-                }
-
                 if (unitGridPosition != testGridPosition)
                 {
                     // Same Grid Position where the character is already at
@@ -162,6 +149,40 @@ public class KnightSkill2Action : BaseAction
         }
 
         return validGridPositionList;
+    }
+
+    public void GetCharacterBuffOn()
+    {
+        GridPosition unitGridPosition = unit.GetGridPosition();
+        for (int x = -maxKnSkill_2_Distance; x <= maxKnSkill_2_Distance; x++)
+        {
+            for (int z = -maxKnSkill_2_Distance; z <= maxKnSkill_2_Distance; z++)
+            {
+                GridPosition offsetGridPosition = new GridPosition(x, z);
+                GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
+
+                if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition))
+                {
+                    continue;
+                }
+
+                if (LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition))
+                {
+                    Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
+                    if (!targetUnit.IsEnemy())
+                    {
+                        foreach (BaseBuff baseBuff in targetUnit.GetBaseBuffArray())
+                        {
+                            if (targetUnit.GetBuff<KnightSkillBuff>() == baseBuff)
+                            {
+                                baseBuff.TakeAction(testGridPosition);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
     }
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
@@ -198,7 +219,7 @@ public class KnightSkill2Action : BaseAction
 
     public override string GetActionName()
     {
-        return "스킬2";
+        return "홀리오라";
     }
 
     public override string GetSingleActionPoint()

@@ -158,11 +158,11 @@ public class UnitActionSystemUI : MonoBehaviour
         character_Name.text = data.m_name.ToString();
         character_Class.text = data.m_class.ToString();
         character_Level.text = "Lv. " + data.m_level.ToString();
-        character_HP.text = data.m_hp.ToString();
-        character_MaxHP.text = data.m_maxhp.ToString();
-        character_AttackPower.text = data.m_attackPower.ToString();
-        character_ChainAttackPower.text = data.m_chainAttackPower.ToString();
-        character_DefensePower.text = data.m_defensePower.ToString();
+        character_HP.text = ((int)data.m_hp).ToString();
+        character_MaxHP.text = ((int)data.m_maxhp).ToString();
+        character_AttackPower.text = ((int)data.m_attackPower).ToString();
+        character_ChainAttackPower.text = ((int)data.m_chainAttackPower).ToString();
+        character_DefensePower.text = ((int)data.m_defensePower).ToString();
 
         
     }

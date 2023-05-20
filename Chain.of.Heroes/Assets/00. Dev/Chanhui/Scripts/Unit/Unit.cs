@@ -71,7 +71,6 @@ public class Unit : MonoBehaviour
             if (IsEnemy() && !TurnSystem.Property.IsPlayerTurn)
             {
                 SoloEnemyActionPoints = newEnemyActionPoints;
-                //newEnemyActionPoints = 2;
                 OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
             }
             TurnSystem.Property.IsEnemyPointCheck = false;
@@ -402,5 +401,8 @@ public class Unit : MonoBehaviour
         this.isChaintwo = isChaintwo;
     }
 
-
+    public void SetSoloEnemyActionPoints(int SoloEnemyActionPoints)
+    {
+        this.SoloEnemyActionPoints = SoloEnemyActionPoints;
+    }
 }

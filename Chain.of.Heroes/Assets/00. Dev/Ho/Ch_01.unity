@@ -12145,7 +12145,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 671234029}
-  m_LocalRotation: {x: 0.4045538, y: 0.000000031470965, z: -0.000000013921814, w: 0.91451424}
+  m_LocalRotation: {x: 0.4045538, y: -0.00000003147096, z: 0.000000013921811, w: 0.91451424}
   m_LocalPosition: {x: 0.18081789, y: 11.50001, z: -7.6287823}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -16514,7 +16514,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 367.5, y: 0}
+  m_AnchoredPosition: {x: 433, y: 0}
   m_SizeDelta: {x: 380, y: 423}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &862151716
@@ -25832,7 +25832,7 @@ MonoBehaviour:
   - {fileID: 1865785733}
   - {fileID: 1765578433}
   - {fileID: 1907939352}
-  Menu_Cursor: {fileID: 0}
+  Menu_Cursor: {fileID: 167756373}
   _Menu: {fileID: 914854331}
   _UnitFormation: {fileID: 1539283465}
   _ChangeFormation: {fileID: 189185095}
@@ -25979,7 +25979,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 367.5, y: 0}
+  m_AnchoredPosition: {x: 433, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1423898997
@@ -26356,7 +26356,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1462613409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30131,6 +30131,8 @@ MonoBehaviour:
     material: {fileID: 2100000, guid: 2d16e277e83f7654eab95645435c3e3b, type: 2}
   - gridVisualType: 0
     material: {fileID: 2100000, guid: 60636f7bdc2c41d4cab07a9317986213, type: 2}
+  - gridVisualType: 7
+    material: {fileID: 2100000, guid: 4f50108a987d3a74db183f29a01a775e, type: 2}
 --- !u!1001 &1685347199
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30901,7 +30903,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b7f552d50a913445a4f560f6af022fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isUnlock: 0
+  isUnlock: 1
   isFormationState: 0
 --- !u!222 &1765578437
 CanvasRenderer:
@@ -31364,7 +31366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b7f552d50a913445a4f560f6af022fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isUnlock: 0
+  isUnlock: 1
   isFormationState: 0
 --- !u!222 &1799439257
 CanvasRenderer:
@@ -32829,7 +32831,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b7f552d50a913445a4f560f6af022fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isUnlock: 0
+  isUnlock: 1
   isFormationState: 0
 --- !u!222 &1865785737
 CanvasRenderer:
@@ -33839,7 +33841,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b7f552d50a913445a4f560f6af022fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isUnlock: 0
+  isUnlock: 1
   isFormationState: 0
 --- !u!114 &1907939355
 MonoBehaviour:

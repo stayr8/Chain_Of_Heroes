@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwordWomanSkill2Action : BaseAction
+public class ArcherSkill2Action : BaseAction
 {
     public event EventHandler<OnShootEventArgs> OnShoot;
 
@@ -13,16 +13,19 @@ public class SwordWomanSkill2Action : BaseAction
         public Unit shootingUnit;
     }
 
-
     private enum State
     {
-        SwingingSWSkill_2_LookAt,
-        SwingingSWSkill_2_Attack,
-        SwingingSWSkill_2_AfterHit,
+        SwingingArSkill_2_CameraStart,
+        SwingingArSkill_2_BeforeCamera,
+        SwingingArSkill_2_AttackCameraEnd,
+        SwingingArSkill_2_AttackStand,
+        SwingingArSkill_2_Aiming,
+        SwingingArSkill_2_Shooting,
+        SwingingArSkill_2_Cooloff,
     }
 
     [SerializeField] private LayerMask obstaclesLayerMask;
-    [SerializeField] private int maxSWSkill_2_Distance = 2;
+    [SerializeField] private int maxArSkill_2_Distance = 2;
 
     private State state;
     private float stateTimer;
@@ -30,16 +33,6 @@ public class SwordWomanSkill2Action : BaseAction
     private bool canShootBullet;
 
     private List<Binding> Binds = new List<Binding>();
-
-    public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
-    {
-        return new EnemyAIAction
-        {
-            gridPosition = gridPosition,
-            actionValue = 0,
-        };
-    }
-
 
     private void Start()
     {
@@ -66,7 +59,6 @@ public class SwordWomanSkill2Action : BaseAction
 
     private void Update()
     {
-
         if (!isActive)
         {
             return;
@@ -76,17 +68,29 @@ public class SwordWomanSkill2Action : BaseAction
 
         switch (state)
         {
-            case State.SwingingSWSkill_2_LookAt:
-                Vector3 targetDirection = targetUnit.transform.position;
-                Vector3 aimDir = (targetDirection - transform.position).normalized;
+            case State.SwingingArSkill_2_CameraStart:
+                Vector3 aimDir = (targetUnit.GetWorldPosition() - unit.GetWorldPosition()).normalized;
                 float rotateSpeed = 20f;
-                transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateSpeed); 
-                
-                break;
-            case State.SwingingSWSkill_2_Attack:
+                transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateSpeed);
 
                 break;
-            case State.SwingingSWSkill_2_AfterHit:
+            case State.SwingingArSkill_2_BeforeCamera:
+
+                break;
+            case State.SwingingArSkill_2_AttackCameraEnd:
+
+                break;
+            case State.SwingingArSkill_2_AttackStand:
+
+                break;
+            case State.SwingingArSkill_2_Aiming:
+
+
+                break;
+            case State.SwingingArSkill_2_Shooting:
+
+                break;
+            case State.SwingingArSkill_2_Cooloff:
 
                 break;
         }
@@ -101,28 +105,61 @@ public class SwordWomanSkill2Action : BaseAction
     {
         switch (state)
         {
-            case State.SwingingSWSkill_2_LookAt:
-                TimeAttack(0.1f);
-                state = State.SwingingSWSkill_2_Attack;
+            case State.SwingingArSkill_2_CameraStart:
+                AttackCameraStart();
+
+                TimeAttack(0.5f);
+                state = State.SwingingArSkill_2_BeforeCamera;
 
                 break;
-            case State.SwingingSWSkill_2_Attack:
+            case State.SwingingArSkill_2_BeforeCamera:
+                ScreenManager._instance._LoadScreenTextuer();
+
+                TimeAttack(0.1f);
+                state = State.SwingingArSkill_2_AttackCameraEnd;
+
+                break;
+            case State.SwingingArSkill_2_AttackCameraEnd:
+                AttackActionSystem.Instance.OnAtLocationMove(unit, targetUnit);
+                ActionCameraStart();
+
+                TimeAttack(1.0f);
+                state = State.SwingingArSkill_2_AttackStand;
+
+                break;
+            case State.SwingingArSkill_2_AttackStand:
+                AttackCameraComplete();
+
+                TimeAttack(0.3f);
+                state = State.SwingingArSkill_2_Aiming;
+
+                break;
+            case State.SwingingArSkill_2_Aiming:
+
                 if (canShootBullet)
                 {
                     Shoot();
                     canShootBullet = false;
                 }
 
-                TimeAttack(3.0f);
-                state = State.SwingingSWSkill_2_AfterHit;
+                TimeAttack(2.0f);
+                state = State.SwingingArSkill_2_Shooting;
 
                 break;
-            case State.SwingingSWSkill_2_AfterHit:
+            case State.SwingingArSkill_2_Shooting:
+                ScreenManager._instance._LoadScreenTextuer();
+                TimeAttack(0.1f);
+                state = State.SwingingArSkill_2_Cooloff;
+
+                break;
+            case State.SwingingArSkill_2_Cooloff:
+                ActionCameraComplete();
+                AttackActionSystem.Instance.OffAtLocationMove(unit, targetUnit);
 
                 ActionComplete();
-
                 break;
         }
+
     }
     void TimeAttack(float StateTime)
     {
@@ -137,8 +174,8 @@ public class SwordWomanSkill2Action : BaseAction
             targetUnit = targetUnit,
             shootingUnit = unit
         });
-
     }
+
 
     public override List<GridPosition> GetValidActionGridPositionList()
     {
@@ -150,9 +187,9 @@ public class SwordWomanSkill2Action : BaseAction
     {
         List<GridPosition> validGridPositionList = new List<GridPosition>();
 
-        for (int x = -maxSWSkill_2_Distance; x <= maxSWSkill_2_Distance; x++)
+        for (int x = -maxArSkill_2_Distance; x <= maxArSkill_2_Distance; x++)
         {
-            for (int z = -maxSWSkill_2_Distance; z <= maxSWSkill_2_Distance; z++)
+            for (int z = -maxArSkill_2_Distance; z <= maxArSkill_2_Distance; z++)
             {
                 GridPosition offsetGridPosition = new GridPosition(x, z);
                 GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
@@ -162,15 +199,9 @@ public class SwordWomanSkill2Action : BaseAction
                     continue;
                 }
 
-                if (unitGridPosition == testGridPosition)
-                {
-                    // Same Grid Position where the character is already at
-                    continue;
-                }
-
                 int testX = Mathf.Abs(x);
                 int testZ = Mathf.Abs(z);
-                if ((testX != 0) && (testZ != 0))
+                if (testX == 0 || testZ == 0 || testX == testZ)
                 {
                     continue;
                 }
@@ -187,7 +218,6 @@ public class SwordWomanSkill2Action : BaseAction
                     // Both Units on same 'team'
                     continue;
                 }
-
 
                 if (!Pathfinding.Instance.IsWalkableGridPosition(testGridPosition))
                 {
@@ -216,43 +246,51 @@ public class SwordWomanSkill2Action : BaseAction
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
         isSkill = true;
-        if (isSkillCount <= 0)
-        {
-            isSkillCount = 3;
-        }
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
 
-        state = State.SwingingSWSkill_2_LookAt;
+        if (isSkillCount <= 0)
+        {
+            isSkillCount = 4;
+        }
+
         TimeAttack(0.7f);
+        state = State.SwingingArSkill_2_CameraStart;
 
         canShootBullet = true;
 
         AttackActionSystem.Instance.SetUnitChainFind(targetUnit, unit);
         AttackActionSystem.Instance.SetCharacterDataManager(unit.GetCharacterDataManager());
-        
+
         ActionStart(onActionComplete);
     }
 
-    public int GetMaxSWSkill_2_Distance()
+    public int GetMaxArSkill_2_Distance()
     {
-        return maxSWSkill_2_Distance;
+        return maxArSkill_2_Distance;
+    }
+
+    public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
+    {
+        return new EnemyAIAction
+        {
+            gridPosition = gridPosition,
+            actionValue = 0,
+        };
     }
 
     public override string GetActionName()
     {
-        return "¼¶±¤";
+        return "½º³ªÀÌÇÎ";
     }
 
     public override string GetSingleActionPoint()
     {
         return "4";
     }
-
     public override int GetActionPointsCost()
     {
         return 4;
     }
-
     public override int GetSkillCountPoint()
     {
         return isSkillCount;
@@ -262,6 +300,7 @@ public class SwordWomanSkill2Action : BaseAction
     {
         return 0;
     }
+
     private void OnDisable()
     {
         foreach (var bind in Binds)
