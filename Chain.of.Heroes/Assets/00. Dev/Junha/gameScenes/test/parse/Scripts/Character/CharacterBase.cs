@@ -27,7 +27,7 @@ public class CharacterBase : MonoBehaviour
         //Debug.Log("대상 캐릭터 방어력: " + characterDP);
 
         // 몬스터 데미지 결정
-        monsterDamage = monsterAP * (100 / (100 + (characterDP / 10))) * (1 /*- 데미지 감소율 */);
+        monsterDamage = monsterAP * (100 / (100 + (characterDP / 10))) * (1 - CDM.m_damagereductionRate);
         //Debug.Log("몬스터 데미지: " + (int)monsterDamage);
 
         // 데미지 넣기

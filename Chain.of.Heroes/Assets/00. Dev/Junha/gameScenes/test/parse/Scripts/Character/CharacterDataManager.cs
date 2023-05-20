@@ -20,6 +20,7 @@ public class CharacterDataManager : MonoBehaviour
     public float m_hp;
 
     public float m_maxhp;
+    public float m_damagereductionRate;
 
     public float m_criticalRate;
     public float m_criticalDamage;
@@ -83,6 +84,7 @@ public class CharacterDataManager : MonoBehaviour
         //firstArray = _Array[0]; // Init
         initInfo();
         m_maxhp = m_hp;
+        m_damagereductionRate = 0;
     }
 
     private void Update()
