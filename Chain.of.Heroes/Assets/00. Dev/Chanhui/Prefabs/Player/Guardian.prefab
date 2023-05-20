@@ -114,6 +114,8 @@ GameObject:
   - component: {fileID: 7873998132134429225}
   - component: {fileID: -6826417587015314279}
   - component: {fileID: 5736953269846490589}
+  - component: {fileID: -8077675777750156433}
+  - component: {fileID: 980143029882267657}
   m_Layer: 16
   m_Name: Guardian
   m_TagString: Player
@@ -208,6 +210,8 @@ MonoBehaviour:
   animator: {fileID: 4181979276213329559}
   bulletProjectilePrefab: {fileID: 8732296480811401870, guid: ed38717c6af161c4ab4f619260be292a, type: 3}
   shootPointTransform: {fileID: 8683328056549729029, guid: 674163c29b459ea44a3fbb783e369615, type: 3}
+  ArSkill_1_shootPointTransform: {fileID: 0}
+  ArSkill_2_shootPointTransform: {fileID: 0}
 --- !u!114 &146454294639285728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,7 +327,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3b04169ba5cb4d40a741b7b695e80f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buffTurnCount: 0
+--- !u!114 &-8077675777750156433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6764130903679231686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78e5802660fcd8542bf59267e6e94d2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &980143029882267657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6764130903679231686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 814517ec2e0387b4882868cb4d2139ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7431582752401372534
 GameObject:
   m_ObjectHideFlags: 0

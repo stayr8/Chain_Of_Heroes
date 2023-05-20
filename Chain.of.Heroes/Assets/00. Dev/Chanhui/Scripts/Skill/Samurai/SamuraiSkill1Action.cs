@@ -63,6 +63,7 @@ public class SamuraiSkill1Action : BaseAction
                 }
             }
         });
+        Binds.Add(Bind);
 
         isSkillCount = 0;
     }

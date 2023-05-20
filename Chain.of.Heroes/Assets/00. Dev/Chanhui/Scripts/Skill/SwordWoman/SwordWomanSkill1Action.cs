@@ -63,6 +63,7 @@ public class SwordWomanSkill1Action : BaseAction
                 }
             }
         });
+        Binds.Add(Bind);
 
         isSkillCount = 0;
     }

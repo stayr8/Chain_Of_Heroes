@@ -52,6 +52,7 @@ public class KnightSkill2Action : BaseAction
                 }
             }
         });
+        Binds.Add(Bind);
 
         isSkillCount = 0;
     }
