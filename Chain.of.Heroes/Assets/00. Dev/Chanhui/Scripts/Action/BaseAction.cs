@@ -14,6 +14,7 @@ public abstract class BaseAction : MonoBehaviour
     protected Unit unit;
     protected bool isActive;
     protected bool isSkill;
+    protected bool isProvoke;
     protected int isSkillCount;
     protected int isMaxSkillCount;
     protected Action onActionComplete;

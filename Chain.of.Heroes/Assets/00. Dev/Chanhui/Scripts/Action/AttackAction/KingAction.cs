@@ -30,10 +30,12 @@ public class KingAction : BaseAction
    
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
     {
+        Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
+
         return new EnemyAIAction
         {
             gridPosition = gridPosition,
-            actionValue = 200,
+            actionValue = 100 + Mathf.RoundToInt((1 - targetUnit.GetHealthNormalized()) * 100f),
         };
 
     }
@@ -231,8 +233,14 @@ public class KingAction : BaseAction
                     continue;
                 }
 
-
-                if (!LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition))
+                if(isProvoke && LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition))
+                {
+                    if(LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition).GetUnitName() == "플라틴")
+                    {
+                        validGridPositionList.Add(testGridPosition);
+                    }
+                }
+                else if (!LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition))
                 {
                     // Grid Position is empty, no Unit
                     continue;
