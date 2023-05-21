@@ -198,15 +198,6 @@ public class KnightSkill2Action : BaseAction
         state = State.SwingingKnSkill_2_BeforeSkill;
         TimeAttack(0.7f);
 
-        List<GridPosition> pathgridPositionList = Pathfinding.Instance.AttackFindPath(unit.GetGridPosition(), gridPosition, out int pathLength);
-
-        positionList = new List<Vector3>();
-
-        for (int i = 0; i < pathgridPositionList.Count; i++)
-        {
-            positionList.Add(LevelGrid.Instance.GetWorldPosition(pathgridPositionList[i]));
-        }
-
         AttackActionSystem.Instance.SetUnitChainFind(targetUnit, unit);
 
         ActionStart(onActionComplete);

@@ -280,7 +280,7 @@ public class ArcherSkill1Action : BaseAction
 
     public override string GetActionName()
     {
-        return "애로우블로우";
+        return "연사";
     }
 
     public override string GetSingleActionPoint()

@@ -151,13 +151,7 @@ public class ChangeFormationSystem : MonoBehaviour
             {
                 CreateCharacterUI(7, i);
                 isImage[7] = true;
-            }
-            else if (!isImage[8] && CharacterTypeManager.Instance.GetIsCharacter()[8] == true)
-            {
-                CreateCharacterUI(8, i);
-                isImage[8] = true;
-            }
-            
+            }        
         }
     }
 

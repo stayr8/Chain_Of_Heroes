@@ -14,7 +14,6 @@ public class CharacterTypeManager : MonoBehaviour
         Samurai,
         Archer,
         Guardian,
-        SwordMan,
         Priest,
         Wizard,
         Valkyrie,

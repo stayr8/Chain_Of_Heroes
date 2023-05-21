@@ -414,6 +414,40 @@ public class GridSystemVisual : MonoBehaviour
                 ShowGridPositionKingRange(selectedUnit.GetGridPosition(), samuraiSkill2Action.GetMaxSrSkill_2_Distance(), GridVisualType.RedSoft);
                 ShowGridPositionKnightRange(selectedUnit.GetGridPosition(), samuraiSkill2Action.GetMaxSrSkill_2_Distance(), GridVisualType.RedMiddle);
                 break;
+            case ArcherSkill1Action archerSkill1Action:
+                gridVisualType = GridVisualType.Red;
+
+                ShowGridPositionKingRange(selectedUnit.GetGridPosition(), archerSkill1Action.GetMaxArSkill_1_Distance(), GridVisualType.RedSoft);
+                ShowGridPositionKnightRange(selectedUnit.GetGridPosition(), archerSkill1Action.GetMaxArSkill_1_Distance(), GridVisualType.RedMiddle);
+                break;
+            case ArcherSkill2Action archerSkill2Action:
+                gridVisualType = GridVisualType.Red;
+
+                ShowGridPositionKingRange(selectedUnit.GetGridPosition(), archerSkill2Action.GetMaxArSkill_2_Distance(), GridVisualType.RedSoft);
+                ShowGridPositionKnightRange(selectedUnit.GetGridPosition(), archerSkill2Action.GetMaxArSkill_2_Distance(), GridVisualType.RedMiddle);
+                break;
+            case GuardianSkill1Action guardianSkill1Action:
+                gridVisualType = GridVisualType.Red;
+
+                ShowGridPositionRange(selectedUnit.GetGridPosition(), guardianSkill1Action.GetMaxGdSkill_1_Distance(), GridVisualType.RedSoft);
+                ShowGridPositionKingRange(selectedUnit.GetGridPosition(), guardianSkill1Action.GetMaxGdSkill_1_Distance(), GridVisualType.RedMiddle);
+                break;
+            case GuardianSkill2Action guardianSkill2Action:
+                gridVisualType = GridVisualType.Green;
+
+                ShowSingleGridPositionRange(selectedUnit.GetGridPosition(), guardianSkill2Action.GetMaxGdSkill_2_Distance(), gridVisualType);
+                break;
+            case PriestSkill1Action priestSkill1Action:
+                gridVisualType = GridVisualType.Yellow;
+
+                ShowGridPositionKingRange(selectedUnit.GetGridPosition(), priestSkill1Action.GetMaxPsSkill_1_Distance(), GridVisualType.RedSoft);
+                ShowGridPositionBishopRange(selectedUnit.GetGridPosition(), priestSkill1Action.GetMaxPsSkill_1_Distance(), GridVisualType.RedMiddle);
+                break;
+            case PriestSkill2Action priestSkill2Action:
+                gridVisualType = GridVisualType.Yellow;
+
+                ShowSingleGridPositionRange(selectedUnit.GetGridPosition(), priestSkill2Action.GetMaxPsSkill_2_Distance(), GridVisualType.RedMiddle);
+                break;
         }
 
         ShowGridPositionList(selectedAction.GetValidActionGridPositionList(), gridVisualType);

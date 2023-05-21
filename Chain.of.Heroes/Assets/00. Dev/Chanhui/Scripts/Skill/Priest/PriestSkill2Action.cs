@@ -3,21 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GuardianSkill2Action : BaseAction
+public class PriestSkill2Action : BaseAction
 {
-    public event EventHandler OnGdSkill_2_provoke;
-
-    private List<Vector3> positionList;
+    public event EventHandler OnPsSkill_2_Hill;
 
     private enum State
     {
-        SwingingGdSkill_2_BeforeSkill,
-        SwingingGdSkill_2_Provoke,
-        SwingingGdSkill_2_AfterHit,
+        SwingingPsSkill_2_BeforeSkill,
+        SwingingPsSkill_2_Hill,
+        SwingingPsSkill_2_AfterHit,
     }
 
-    [SerializeField] private LayerMask obstaclesLayerMask;
-    [SerializeField] private int maxGdSkill_2_Distance = 1;
+    [SerializeField] private int maxPsSkill_2_Distance = 2;
 
     private State state;
     private float stateTimer;
@@ -68,13 +65,13 @@ public class GuardianSkill2Action : BaseAction
 
         switch (state)
         {
-            case State.SwingingGdSkill_2_BeforeSkill:
+            case State.SwingingPsSkill_2_BeforeSkill:
 
                 break;
-            case State.SwingingGdSkill_2_Provoke:
+            case State.SwingingPsSkill_2_Hill:
 
                 break;
-            case State.SwingingGdSkill_2_AfterHit:
+            case State.SwingingPsSkill_2_AfterHit:
 
                 break;
         }
@@ -89,19 +86,20 @@ public class GuardianSkill2Action : BaseAction
     {
         switch (state)
         {
-            case State.SwingingGdSkill_2_BeforeSkill:
+            case State.SwingingPsSkill_2_BeforeSkill:
                 TimeAttack(0.1f);
-                state = State.SwingingGdSkill_2_Provoke;
+                state = State.SwingingPsSkill_2_Hill;
 
                 break;
-            case State.SwingingGdSkill_2_Provoke:
-                OnGdSkill_2_provoke?.Invoke(this, EventArgs.Empty);
+            case State.SwingingPsSkill_2_Hill:
+                OnPsSkill_2_Hill?.Invoke(this, EventArgs.Empty);
+                GetCharacterHillOn();
 
-                TimeAttack(2.0f);
-                state = State.SwingingGdSkill_2_AfterHit;
+                TimeAttack(1.0f);
+                state = State.SwingingPsSkill_2_AfterHit;
 
                 break;
-            case State.SwingingGdSkill_2_AfterHit:
+            case State.SwingingPsSkill_2_AfterHit:
 
                 ActionComplete();
 
@@ -124,9 +122,9 @@ public class GuardianSkill2Action : BaseAction
     {
         List<GridPosition> validGridPositionList = new List<GridPosition>();
 
-        for (int x = -maxGdSkill_2_Distance; x <= maxGdSkill_2_Distance; x++)
+        for (int x = -maxPsSkill_2_Distance; x <= maxPsSkill_2_Distance; x++)
         {
-            for (int z = -maxGdSkill_2_Distance; z <= maxGdSkill_2_Distance; z++)
+            for (int z = -maxPsSkill_2_Distance; z <= maxPsSkill_2_Distance; z++)
             {
                 GridPosition offsetGridPosition = new GridPosition(x, z);
                 GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
@@ -149,6 +147,46 @@ public class GuardianSkill2Action : BaseAction
         return validGridPositionList;
     }
 
+    int HillDistance = 1;
+    public void GetCharacterHillOn()
+    {
+        GridPosition unitGridPosition = unit.GetGridPosition();
+        for (int x = -HillDistance; x <= HillDistance; x++)
+        {
+            for (int z = -HillDistance; z <= HillDistance; z++)
+            {
+                GridPosition offsetGridPosition = new GridPosition(x, z);
+                GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
+
+                if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition))
+                {
+                    continue;
+                }
+
+                if (LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition))
+                {
+                    Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
+                    if (!targetUnit.IsEnemy())
+                    {
+                        CharacterDataManager _cmd = targetUnit.GetCharacterDataManager();
+                        if (_cmd.m_hp == _cmd.m_maxhp)
+                        {
+                            continue;
+                        }
+                        else if((_cmd.m_maxhp - _cmd.m_hp) < (_cmd.m_maxhp * 0.2f))
+                        {
+                            _cmd.m_hp = _cmd.m_maxhp;
+                        }
+                        else
+                        {
+                            _cmd.m_hp += (_cmd.m_maxhp * 0.2f) * 1.2f;
+                        }
+                    }
+                }
+            }
+        }
+
+    }
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
@@ -157,34 +195,25 @@ public class GuardianSkill2Action : BaseAction
 
         if (isSkillCount <= 0)
         {
-            isSkillCount = 3;
+            isSkillCount = 4;
         }
 
-        state = State.SwingingGdSkill_2_BeforeSkill;
+        state = State.SwingingPsSkill_2_BeforeSkill;
         TimeAttack(0.7f);
-
-        List<GridPosition> pathgridPositionList = Pathfinding.Instance.AttackFindPath(unit.GetGridPosition(), gridPosition, out int pathLength);
-
-        positionList = new List<Vector3>();
-
-        for (int i = 0; i < pathgridPositionList.Count; i++)
-        {
-            positionList.Add(LevelGrid.Instance.GetWorldPosition(pathgridPositionList[i]));
-        }
 
         AttackActionSystem.Instance.SetUnitChainFind(targetUnit, unit);
 
         ActionStart(onActionComplete);
     }
 
-    public int GetMaxGdSkill_2_Distance()
+    public int GetMaxPsSkill_2_Distance()
     {
-        return maxGdSkill_2_Distance;
+        return maxPsSkill_2_Distance;
     }
 
     public override string GetActionName()
     {
-        return "도발";
+        return "대천사의축복";
     }
 
     public override string GetSingleActionPoint()
