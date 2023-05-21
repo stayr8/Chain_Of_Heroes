@@ -28,7 +28,7 @@ public class UnitManager : MonoBehaviour
 
     public MapData mapData;
 
-    [SerializeField] private GameObject[] Character;
+    [SerializeField] private List<GameObject> Character;
 
     public int playerpos = 0;
     public int enemypos = 0;
@@ -41,6 +41,19 @@ public class UnitManager : MonoBehaviour
         enemyUnitList = new List<Unit>();
         characterUiList = new List<CharacterUI>();
         OnChangeFormation = false;
+        Character = new List<GameObject>();
+    }
+
+    private void Start()
+    {
+        Character.Add(Resources.Load<GameObject>("SwordWoman"));
+        Character.Add(Resources.Load<GameObject>("Knight"));
+        Character.Add(Resources.Load<GameObject>("Samurai"));
+        Character.Add(Resources.Load<GameObject>("Archer"));
+        Character.Add(Resources.Load<GameObject>("Guardian"));
+        Character.Add(Resources.Load<GameObject>("Priest"));
+        Character.Add(Resources.Load<GameObject>("Wizard"));
+        Character.Add(Resources.Load<GameObject>("Valkyrie"));
     }
 
     public void UnitInitialize()

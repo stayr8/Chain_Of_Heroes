@@ -3,11 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SamuraiSkill2Action : BaseAction
+public class ValkyrieSkill1Action : BaseAction
 {
-    public event EventHandler OnSrSkill_2_StartMoving;
-    public event EventHandler OnSrSkill_2_StopMoving;
-    public event EventHandler OnSrSkill_2_Slash;
+    public event EventHandler OnVkSkill_1_StartMoving;
+    public event EventHandler OnVkSkill_1_StopMoving;
+    public event EventHandler OnVkSkill_1_Slash;
+    public event EventHandler OnVkSkill_1_Dash;
 
 
     private List<Vector3> positionList;
@@ -15,14 +16,19 @@ public class SamuraiSkill2Action : BaseAction
 
     private enum State
     {
-        SwingingSrSkill_2_BeforeMoving,
-        SwingingSrSkill_2_Moving,
-        SwingingSrSkill_2_Attacking,
-        SwingingSrSkill_2_AfterHit,
+        SwingingVkSkill_1_BeforeMoving,
+        SwingingVkSkill_1_Moving,
+        SwingingVkSkill_1_BeforeCamera,
+        SwingingVkSkill_1_AttackStand,
+        SwingingVkSkill_1_AfterMoving,
+        SwingingVkSkill_1_AttackMoving,
+        SwingingVkSkill_1_BeforeHit,
+        SwingingVkSkill_1_AfterCamera,
+        SwingingVkSkill_1_AfterHit,
     }
 
     [SerializeField] private LayerMask obstaclesLayerMask;
-    [SerializeField] private int maxSrSkill_2_Distance = 2;
+    [SerializeField] private int maxVkSkill_1_Distance = 2;
 
     private State state;
     private float stateTimer;
@@ -38,6 +44,7 @@ public class SamuraiSkill2Action : BaseAction
             actionValue = 0,
         };
     }
+
 
     private void Start()
     {
@@ -76,7 +83,7 @@ public class SamuraiSkill2Action : BaseAction
         Vector3 moveDirection = (targetPosition - transform.position).normalized;
 
 
-        if (state == State.SwingingSrSkill_2_BeforeMoving)
+        if (state == State.SwingingVkSkill_1_BeforeMoving)
         {
             float rotateSpeed_1 = 30f;
             transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed_1);
@@ -92,10 +99,10 @@ public class SamuraiSkill2Action : BaseAction
                 float BeforepositionList = positionList.Count - 2;
                 if (currentPositionIndex >= BeforepositionList)
                 {
-                    OnSrSkill_2_StopMoving?.Invoke(this, EventArgs.Empty);
-                    //UnitActionSystem.Instance.SetCameraPointchange(true);
+                    OnVkSkill_1_StopMoving?.Invoke(this, EventArgs.Empty);
+                    UnitActionSystem.Instance.SetCameraPointchange(true);
                     currentPositionIndex++;
-                    state = State.SwingingSrSkill_2_Moving;
+                    state = State.SwingingVkSkill_1_Moving;
                 }
                 else
                 {
@@ -107,20 +114,51 @@ public class SamuraiSkill2Action : BaseAction
 
         switch (state)
         {
-            case State.SwingingSrSkill_2_BeforeMoving:
+            case State.SwingingVkSkill_1_BeforeMoving:
 
                 break;
-            case State.SwingingSrSkill_2_Moving:
+            case State.SwingingVkSkill_1_Moving:
                 Vector3 targetDirection = targetUnit.transform.position;
                 Vector3 aimDir = (targetDirection - transform.position).normalized;
                 float rotateSpeed = 20f;
                 transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateSpeed);
 
                 break;
-            case State.SwingingSrSkill_2_Attacking:
+            case State.SwingingVkSkill_1_BeforeCamera:
 
                 break;
-            case State.SwingingSrSkill_2_AfterHit:
+            case State.SwingingVkSkill_1_AttackStand:
+
+                break;
+            case State.SwingingVkSkill_1_AfterMoving:
+
+                break;
+            case State.SwingingVkSkill_1_AttackMoving:
+                Vector3 targetDirection2 = targetUnit.transform.position;
+                Vector3 aimDir2 = (targetDirection2 - transform.position).normalized;
+                float rotateSpeed2 = 20f;
+                transform.forward = Vector3.Lerp(transform.forward, aimDir2, Time.deltaTime * rotateSpeed2);
+
+                float stoppingDistance1 = 1.5f;
+                if (Vector3.Distance(transform.position, targetDirection2) > stoppingDistance1)
+                {
+                    float moveSpeed = 15f;
+                    transform.position += aimDir2 * moveSpeed * Time.deltaTime;
+                }
+                else
+                {
+                    OnVkSkill_1_StopMoving?.Invoke(this, EventArgs.Empty);
+                    state = State.SwingingVkSkill_1_BeforeHit;
+                }
+
+                break;
+            case State.SwingingVkSkill_1_BeforeHit:
+
+                break;
+            case State.SwingingVkSkill_1_AfterCamera:
+
+                break;
+            case State.SwingingVkSkill_1_AfterHit:
 
                 break;
         }
@@ -135,23 +173,59 @@ public class SamuraiSkill2Action : BaseAction
     {
         switch (state)
         {
-            case State.SwingingSrSkill_2_BeforeMoving:
+            case State.SwingingVkSkill_1_BeforeMoving:
 
                 break;
-            case State.SwingingSrSkill_2_Moving:
+            case State.SwingingVkSkill_1_Moving:
+                AttackCameraStart();
+
+                TimeAttack(0.5f);
+                state = State.SwingingVkSkill_1_BeforeCamera;
+
+                break;
+            case State.SwingingVkSkill_1_BeforeCamera:
+                ScreenManager._instance._LoadScreenTextuer();
 
                 TimeAttack(0.1f);
-                state = State.SwingingSrSkill_2_Attacking;
+                state = State.SwingingVkSkill_1_AttackStand;
 
                 break;
-            case State.SwingingSrSkill_2_Attacking:
-                OnSrSkill_2_Slash?.Invoke(this, EventArgs.Empty);
+            case State.SwingingVkSkill_1_AttackStand:
+                AttackActionSystem.Instance.OnAtLocationMove(unit, targetUnit);
+                ActionCameraStart();
 
                 TimeAttack(1.0f);
-                state = State.SwingingSrSkill_2_AfterHit;
+                state = State.SwingingVkSkill_1_AfterMoving;
 
                 break;
-            case State.SwingingSrSkill_2_AfterHit:
+            case State.SwingingVkSkill_1_AfterMoving:
+                AttackCameraComplete();
+                OnVkSkill_1_Dash?.Invoke(this, EventArgs.Empty);
+
+                TimeAttack(1.0f);
+                state = State.SwingingVkSkill_1_AttackMoving;
+
+                break;
+            case State.SwingingVkSkill_1_AttackMoving:
+
+                break;
+            case State.SwingingVkSkill_1_BeforeHit:
+                OnVkSkill_1_Slash?.Invoke(this, EventArgs.Empty);
+
+                TimeAttack(1.0f);
+                state = State.SwingingVkSkill_1_AfterCamera;
+
+
+                break;
+            case State.SwingingVkSkill_1_AfterCamera:
+                ScreenManager._instance._LoadScreenTextuer();
+                TimeAttack(0.1f);
+                state = State.SwingingVkSkill_1_AfterHit;
+
+                break;
+            case State.SwingingVkSkill_1_AfterHit:
+                ActionCameraComplete();
+                AttackActionSystem.Instance.OffAtLocationMove(unit, targetUnit);
 
                 ActionComplete();
 
@@ -174,9 +248,9 @@ public class SamuraiSkill2Action : BaseAction
     {
         List<GridPosition> validGridPositionList = new List<GridPosition>();
 
-        for (int x = -maxSrSkill_2_Distance; x <= maxSrSkill_2_Distance; x++)
+        for (int x = -maxVkSkill_1_Distance; x <= maxVkSkill_1_Distance; x++)
         {
-            for (int z = -maxSrSkill_2_Distance; z <= maxSrSkill_2_Distance; z++)
+            for (int z = -maxVkSkill_1_Distance; z <= maxVkSkill_1_Distance; z++)
             {
                 GridPosition offsetGridPosition = new GridPosition(x, z);
                 GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
@@ -194,7 +268,7 @@ public class SamuraiSkill2Action : BaseAction
 
                 int testX = Mathf.Abs(x);
                 int testZ = Mathf.Abs(z);
-                if (testX == 0 || testZ == 0 || testX == testZ)
+                if ((testX != 0) && (testZ != 0) && (testX != testZ))
                 {
                     continue;
                 }
@@ -244,7 +318,7 @@ public class SamuraiSkill2Action : BaseAction
             isSkillCount = 3;
         }
 
-        state = State.SwingingSrSkill_2_BeforeMoving;
+        state = State.SwingingVkSkill_1_BeforeMoving;
         TimeAttack(0.7f);
 
         List<GridPosition> pathgridPositionList = Pathfinding.Instance.AttackFindPath(unit.GetGridPosition(), gridPosition, out int pathLength);
@@ -257,30 +331,30 @@ public class SamuraiSkill2Action : BaseAction
             positionList.Add(LevelGrid.Instance.GetWorldPosition(pathgridPositionList[i]));
         }
 
-        OnSrSkill_2_StartMoving?.Invoke(this, EventArgs.Empty);
+        OnVkSkill_1_StartMoving?.Invoke(this, EventArgs.Empty);
         AttackActionSystem.Instance.SetUnitChainFind(targetUnit, unit);
 
         ActionStart(onActionComplete);
     }
 
-    public int GetMaxSrSkill_2_Distance()
+    public int GetMaxVkSkill_1_Distance()
     {
-        return maxSrSkill_2_Distance;
+        return maxVkSkill_1_Distance;
     }
 
     public override string GetActionName()
     {
-        return "¹Ý¿ù¼¶";
+        return "Âî¸£±â";
     }
 
     public override string GetSingleActionPoint()
     {
-        return "3";
+        return "2";
     }
 
     public override int GetActionPointsCost()
     {
-        return 3;
+        return 2;
     }
 
     public override int GetSkillCountPoint()

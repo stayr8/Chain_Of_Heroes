@@ -205,6 +205,7 @@ GameObject:
   - component: {fileID: 8214725358993387341}
   - component: {fileID: 8805188846385545873}
   - component: {fileID: -4581321362207785993}
+  - component: {fileID: -7673811709383631068}
   m_Layer: 15
   m_Name: RedStoneGolem
   m_TagString: Enemy
@@ -295,6 +296,8 @@ MonoBehaviour:
   animator: {fileID: 5700434317116467358}
   bulletProjectilePrefab: {fileID: 8732296480811401870, guid: ed38717c6af161c4ab4f619260be292a, type: 3}
   shootPointTransform: {fileID: 8683328056549729029, guid: 674163c29b459ea44a3fbb783e369615, type: 3}
+  ArSkill_1_shootPointTransform: {fileID: 0}
+  ArSkill_2_shootPointTransform: {fileID: 0}
 --- !u!114 &175367251280525737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -382,6 +385,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e6319f51d41d488499f3dbae45e9601e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-7673811709383631068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6598657682457193299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1c1350886321b749806661a6ce70218, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &5700434317125918206

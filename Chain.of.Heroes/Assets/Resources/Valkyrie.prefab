@@ -351,6 +351,8 @@ GameObject:
   - component: {fileID: 7856202950983718118}
   - component: {fileID: -6644422419733068798}
   - component: {fileID: -3974295449079167820}
+  - component: {fileID: 5884947301822923937}
+  - component: {fileID: 6561337449165243673}
   m_Layer: 16
   m_Name: Valkyrie
   m_TagString: Player
@@ -445,6 +447,9 @@ MonoBehaviour:
   animator: {fileID: 7055968204582313817}
   bulletProjectilePrefab: {fileID: 8732296480811401870, guid: ed38717c6af161c4ab4f619260be292a, type: 3}
   shootPointTransform: {fileID: 8683328056549729029, guid: 674163c29b459ea44a3fbb783e369615, type: 3}
+  ArSkill_1_shootPointTransform: {fileID: 0}
+  ArSkill_2_shootPointTransform: {fileID: 0}
+  WzSkill_2_shootPointTransform: {fileID: 0}
 --- !u!114 &3175420061438258649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -510,6 +515,7 @@ MonoBehaviour:
   m_defensePower: 0
   m_hp: 0
   m_maxhp: 0
+  m_damagereductionRate: 0
   m_criticalRate: 0
   m_criticalDamage: 0
   m_class: 
@@ -563,7 +569,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3b04169ba5cb4d40a741b7b695e80f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buffTurnCount: 0
+--- !u!114 &5884947301822923937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8342375045622521599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42a787afcac73bb409f22cc706f28b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6561337449165243673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8342375045622521599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29425f62690acb84d91d5de6d689711a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2465899958219167685
 PrefabInstance:
   m_ObjectHideFlags: 0

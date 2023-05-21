@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KnightSkillBuff : BaseBuff
+public class WizardSkillDebuff : BaseBuff
 {
     private List<Binding> Binds = new List<Binding>();
-    
+
+    int defense;
 
     private void Start()
     {
@@ -18,8 +19,7 @@ public class KnightSkillBuff : BaseBuff
                     buffTurnCount--;
                     if (buffTurnCount <= 0)
                     {
-                        _cdm.m_attackPower -= atkPowerBuff;
-                        atkPowerBuff = 0;
+                        //_mdm.m_DefensePower = defense;
                         ActionComplete();
                     }
                 }
@@ -32,21 +32,18 @@ public class KnightSkillBuff : BaseBuff
 
     private void Update()
     {
-        if(!isActive)
+        if (!isActive)
         {
             return;
         }
     }
 
-
-
     public override void TakeAction(GridPosition gridPosition)
     {
         buffTurnCount = 2;
 
-        _cdm = unit.GetCharacterDataManager();
-        atkPowerBuff = (int)((int)_cdm.m_attackPower * 0.3f);
-        _cdm.m_attackPower += atkPowerBuff;
+        //defense = _mdm.m_DefensePower;
+        //_mdm.m_DefensePower -= _mdm.m_DefensePower * 0.1f;
 
         ActionStart();
     }
@@ -57,6 +54,6 @@ public class KnightSkillBuff : BaseBuff
         foreach (var bind in Binds)
         {
             BindingManager.Unbind(TurnSystem.Property, bind);
-        } 
+        }
     }
 }

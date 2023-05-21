@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 4929148159021651099}
   - component: {fileID: 1026438709004340733}
   - component: {fileID: 7245594440102175604}
+  - component: {fileID: 9123454587874446124}
   m_Layer: 15
   m_Name: StoneGolem
   m_TagString: Enemy
@@ -110,6 +111,8 @@ MonoBehaviour:
   animator: {fileID: 4598676738070404835}
   bulletProjectilePrefab: {fileID: 8732296480811401870, guid: ed38717c6af161c4ab4f619260be292a, type: 3}
   shootPointTransform: {fileID: 8683328056549729029, guid: 674163c29b459ea44a3fbb783e369615, type: 3}
+  ArSkill_1_shootPointTransform: {fileID: 0}
+  ArSkill_2_shootPointTransform: {fileID: 0}
 --- !u!114 &5957920914601071742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,6 +212,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e6319f51d41d488499f3dbae45e9601e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &9123454587874446124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2281334507915587549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1c1350886321b749806661a6ce70218, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &3257080367023052527

@@ -11,7 +11,8 @@ public class UnitAnimator : MonoBehaviour
     [SerializeField] private Transform shootPointTransform;
     [SerializeField] private Transform ArSkill_1_shootPointTransform;
     [SerializeField] private Transform ArSkill_2_shootPointTransform;
-
+    [SerializeField] private Transform WzSkill_2_shootPointTransform;
+    [SerializeField] private Transform VkSkill_2_shootPointTransform;
 
     private void Awake()
     {
@@ -168,6 +169,29 @@ public class UnitAnimator : MonoBehaviour
         if (TryGetComponent<PriestSkill2Action>(out PriestSkill2Action priestSkill2Action))
         {
             priestSkill2Action.OnPsSkill_2_Hill += Action_OnSkill_2;
+        }
+
+        if (TryGetComponent<WizardSkill1Action>(out WizardSkill1Action wizardSkill1Action))
+        {
+            wizardSkill1Action.OnWzSkill_1_StartMoving += MoveAction_OnStartMoving;
+            wizardSkill1Action.OnWzSkill_1_StopMoving += MoveAction_OnStopMoving;
+            wizardSkill1Action.OnWzSkill_1_Debuff += Action_OnSkill_1;
+        }
+        if (TryGetComponent<WizardSkill2Action>(out WizardSkill2Action wizardSkill2Action))
+        {
+            wizardSkill2Action.OnShoot += WzSkill1_2_Action_OnShoot;
+        }
+
+        if (TryGetComponent<ValkyrieSkill1Action>(out ValkyrieSkill1Action valkyrieSkill1Action))
+        {
+            valkyrieSkill1Action.OnVkSkill_1_StartMoving += MoveAction_OnStartMoving;
+            valkyrieSkill1Action.OnVkSkill_1_StopMoving += MoveAction_OnStopMoving;
+            valkyrieSkill1Action.OnVkSkill_1_Slash += Action_OnSkill_1;
+            valkyrieSkill1Action.OnVkSkill_1_Dash += Unit_OnUnitDash;
+        }
+        if (TryGetComponent<ValkyrieSkill2Action>(out ValkyrieSkill2Action valkyrieSkill2Action))
+        {
+            valkyrieSkill2Action.OnShoot += VkSkill1_2_Action_OnShoot;
         }
 
         if (TryGetComponent<StunAction>(out StunAction stunAction))
@@ -397,6 +421,38 @@ public class UnitAnimator : MonoBehaviour
         Vector3 targetUnitShootAtPosition = e.targetUnit.GetWorldPosition();
 
         targetUnitShootAtPosition.y = ArSkill_2_shootPointTransform.position.y;
+
+        bulletProjectile.Setup(targetUnitShootAtPosition);
+
+    }
+
+    private void WzSkill1_2_Action_OnShoot(object sender, WizardSkill2Action.OnShootEventArgs e)
+    {
+        animator.SetTrigger("IsSkill_2");
+
+        Transform bulletProjectileTransform =
+            Instantiate(bulletProjectilePrefab, WzSkill_2_shootPointTransform.position, Quaternion.identity);
+        BulletProjectile bulletProjectile = bulletProjectileTransform.GetComponent<BulletProjectile>();
+
+        Vector3 targetUnitShootAtPosition = e.targetUnit.GetWorldPosition();
+
+        targetUnitShootAtPosition.y = WzSkill_2_shootPointTransform.position.y;
+
+        bulletProjectile.Setup(targetUnitShootAtPosition);
+
+    }
+
+    private void VkSkill1_2_Action_OnShoot(object sender, ValkyrieSkill2Action.OnShootEventArgs e)
+    {
+        animator.SetTrigger("IsSkill_2");
+
+        Transform bulletProjectileTransform =
+            Instantiate(bulletProjectilePrefab, VkSkill_2_shootPointTransform.position, Quaternion.identity);
+        BulletProjectile bulletProjectile = bulletProjectileTransform.GetComponent<BulletProjectile>();
+
+        Vector3 targetUnitShootAtPosition = e.targetUnit.GetWorldPosition();
+
+        targetUnitShootAtPosition.y = VkSkill_2_shootPointTransform.position.y;
 
         bulletProjectile.Setup(targetUnitShootAtPosition);
 
