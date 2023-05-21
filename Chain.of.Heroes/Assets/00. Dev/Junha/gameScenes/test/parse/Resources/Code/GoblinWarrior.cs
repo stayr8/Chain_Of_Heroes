@@ -18,6 +18,7 @@ public class GoblinWarrior
 	public int Monster_MovementRange;
 	public int Monster_AttackRange;
 	public int Monster_Rank;
+	public int UniyProperty;
 
 	public bool Parse(SimpleJSON.JSONNode Data)
 	{
@@ -34,6 +35,7 @@ public class GoblinWarrior
 		Monster_MovementRange = Data["Monster_MovementRange"].AsInt;
 		Monster_AttackRange = Data["Monster_AttackRange"].AsInt;
 		Monster_Rank = Data["Monster_Rank"].AsInt;
+		UniyProperty = Data["UniyProperty"].AsInt;
 		return true;
 	}
 }
