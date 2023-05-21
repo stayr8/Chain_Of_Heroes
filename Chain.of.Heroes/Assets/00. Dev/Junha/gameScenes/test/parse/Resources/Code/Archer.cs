@@ -20,6 +20,7 @@ public class Archer
 	public string Class;
 	public string UniyProperty;
 	public string ResourcePath;
+	public string BResourcePath;
 
 	public bool Parse(SimpleJSON.JSONNode Data)
 	{
@@ -38,6 +39,7 @@ public class Archer
 		Class = Data["Class"];
 		UniyProperty = Data["UniyProperty"];
 		ResourcePath = Data["ResourcePath"];
+		BResourcePath = Data["BResourcePath"];
 		return true;
 	}
 }

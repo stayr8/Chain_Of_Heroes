@@ -156,7 +156,7 @@ RectTransform:
   - {fileID: 423634764}
   - {fileID: 1876343366}
   m_Father: {fileID: 840763139}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2063,6 +2063,7 @@ MonoBehaviour:
   m_defensePower: 0
   m_hp: 0
   m_maxhp: 0
+  m_damagereductionRate: 0
   m_criticalRate: 0
   m_criticalDamage: 0
   m_class: 
@@ -3687,6 +3688,7 @@ MonoBehaviour:
   m_defensePower: 0
   m_hp: 0
   m_maxhp: 0
+  m_damagereductionRate: 0
   m_criticalRate: 0
   m_criticalDamage: 0
   m_class: 
@@ -4658,6 +4660,7 @@ MonoBehaviour:
   m_defensePower: 0
   m_hp: 0
   m_maxhp: 0
+  m_damagereductionRate: 0
   m_criticalRate: 0
   m_criticalDamage: 0
   m_class: 
@@ -6297,7 +6300,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 840763139}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6450,8 +6453,8 @@ RectTransform:
   - {fileID: 1381203330}
   - {fileID: 974751697}
   - {fileID: 1608440581}
-  - {fileID: 836584331}
   - {fileID: 2157082}
+  - {fileID: 836584331}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6561,6 +6564,7 @@ MonoBehaviour:
   m_defensePower: 0
   m_hp: 0
   m_maxhp: 0
+  m_damagereductionRate: 0
   m_criticalRate: 0
   m_criticalDamage: 0
   m_class: 
@@ -6667,6 +6671,7 @@ MonoBehaviour:
   m_defensePower: 0
   m_hp: 0
   m_maxhp: 0
+  m_damagereductionRate: 0
   m_criticalRate: 0
   m_criticalDamage: 0
   m_class: 
@@ -11632,6 +11637,7 @@ MonoBehaviour:
   m_defensePower: 0
   m_hp: 0
   m_maxhp: 0
+  m_damagereductionRate: 0
   m_criticalRate: 0
   m_criticalDamage: 0
   m_class: 
@@ -12656,6 +12662,7 @@ MonoBehaviour:
   m_defensePower: 0
   m_hp: 0
   m_maxhp: 0
+  m_damagereductionRate: 0
   m_criticalRate: 0
   m_criticalDamage: 0
   m_class: 
@@ -13843,6 +13850,7 @@ MonoBehaviour:
   m_defensePower: 0
   m_hp: 0
   m_maxhp: 0
+  m_damagereductionRate: 0
   m_criticalRate: 0
   m_criticalDamage: 0
   m_class: 

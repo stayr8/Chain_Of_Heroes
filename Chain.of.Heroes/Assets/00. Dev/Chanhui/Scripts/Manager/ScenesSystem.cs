@@ -25,7 +25,6 @@ public class ScenesSystem : MonoBehaviour
             return;
         }
         Instance = this;
- 
     }
 
     private void Start()
