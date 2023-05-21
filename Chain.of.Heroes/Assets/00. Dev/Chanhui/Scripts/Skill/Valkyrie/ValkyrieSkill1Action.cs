@@ -27,7 +27,6 @@ public class ValkyrieSkill1Action : BaseAction
         SwingingVkSkill_1_AfterHit,
     }
 
-    [SerializeField] private LayerMask obstaclesLayerMask;
     [SerializeField] private int maxVkSkill_1_Distance = 2;
 
     private State state;
@@ -139,7 +138,7 @@ public class ValkyrieSkill1Action : BaseAction
                 float rotateSpeed2 = 20f;
                 transform.forward = Vector3.Lerp(transform.forward, aimDir2, Time.deltaTime * rotateSpeed2);
 
-                float stoppingDistance1 = 1.5f;
+                float stoppingDistance1 = 3.0f;
                 if (Vector3.Distance(transform.position, targetDirection2) > stoppingDistance1)
                 {
                     float moveSpeed = 15f;
@@ -286,18 +285,6 @@ public class ValkyrieSkill1Action : BaseAction
 
                 if (!Pathfinding.Instance.IsWalkableGridPosition(testGridPosition))
                 {
-                    continue;
-                }
-
-                Vector3 unitWorldPosition = LevelGrid.Instance.GetWorldPosition(unitGridPosition);
-                Vector3 shootDir = (targetUnit.GetWorldPosition() - unitWorldPosition).normalized;
-
-                float unitShoulderHeight = 1.7f;
-                if (Physics.Raycast(unitWorldPosition + Vector3.up * unitShoulderHeight, shootDir,
-                    Vector3.Distance(unitWorldPosition, targetUnit.GetWorldPosition()),
-                    obstaclesLayerMask))
-                {
-                    // Blocked by an Obstacle
                     continue;
                 }
 

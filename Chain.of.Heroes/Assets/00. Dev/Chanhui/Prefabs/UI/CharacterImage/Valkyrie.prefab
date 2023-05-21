@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4f4ba63b79d6274a8b0affc60538e4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterType: 8
+  characterType: 7
   UIPosNumber: 0
   characterUimovepos: {x: 0, y: 0, z: 0}
 --- !u!114 &7163924501057474121
@@ -117,5 +117,9 @@ MonoBehaviour:
   m_defensePower: 0
   m_hp: 0
   m_maxhp: 0
+  m_damagereductionRate: 0
   m_criticalRate: 0
   m_criticalDamage: 0
+  m_class: 
+  m_unitProperty: 
+  m_resourcePath: 

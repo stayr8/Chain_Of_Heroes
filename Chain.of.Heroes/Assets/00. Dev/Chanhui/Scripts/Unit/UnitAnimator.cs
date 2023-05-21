@@ -9,6 +9,7 @@ public class UnitAnimator : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private Transform bulletProjectilePrefab;
     [SerializeField] private Transform shootPointTransform;
+    [SerializeField] private Transform VkeffectTransform;
     [SerializeField] private Transform ArSkill_1_shootPointTransform;
     [SerializeField] private Transform ArSkill_2_shootPointTransform;
     [SerializeField] private Transform WzSkill_2_shootPointTransform;
@@ -446,16 +447,22 @@ public class UnitAnimator : MonoBehaviour
     {
         animator.SetTrigger("IsSkill_2");
 
+        StartCoroutine(VkSkill_2_Shoot(e.targetUnit.GetWorldPosition()));
+    }
+    IEnumerator VkSkill_2_Shoot(Vector3 e)
+    {
+        yield return new WaitForSeconds(1f);
+
+        Vector3 MousePosition = e;
         Transform bulletProjectileTransform =
-            Instantiate(bulletProjectilePrefab, VkSkill_2_shootPointTransform.position, Quaternion.identity);
+            Instantiate(VkeffectTransform, MousePosition, Quaternion.identity);
         BulletProjectile bulletProjectile = bulletProjectileTransform.GetComponent<BulletProjectile>();
 
-        Vector3 targetUnitShootAtPosition = e.targetUnit.GetWorldPosition();
+        Vector3 targetUnitShootAtPosition = e;
 
-        targetUnitShootAtPosition.y = VkSkill_2_shootPointTransform.position.y;
+        targetUnitShootAtPosition.y = MousePosition.y;
 
         bulletProjectile.Setup(targetUnitShootAtPosition);
-
     }
 
     #endregion

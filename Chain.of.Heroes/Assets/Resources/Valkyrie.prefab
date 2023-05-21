@@ -447,9 +447,11 @@ MonoBehaviour:
   animator: {fileID: 7055968204582313817}
   bulletProjectilePrefab: {fileID: 8732296480811401870, guid: ed38717c6af161c4ab4f619260be292a, type: 3}
   shootPointTransform: {fileID: 8683328056549729029, guid: 674163c29b459ea44a3fbb783e369615, type: 3}
+  VkeffectTransform: {fileID: 5222644616509305886, guid: 26d3a0643ebc7214ab697033f877537d, type: 3}
   ArSkill_1_shootPointTransform: {fileID: 0}
   ArSkill_2_shootPointTransform: {fileID: 0}
   WzSkill_2_shootPointTransform: {fileID: 0}
+  VkSkill_2_shootPointTransform: {fileID: 0}
 --- !u!114 &3175420061438258649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -581,6 +583,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42a787afcac73bb409f22cc706f28b7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxVkSkill_1_Distance: 2
 --- !u!114 &6561337449165243673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -593,6 +596,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29425f62690acb84d91d5de6d689711a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxVkSkill_2_Distance: 2
 --- !u!1001 &2465899958219167685
 PrefabInstance:
   m_ObjectHideFlags: 0

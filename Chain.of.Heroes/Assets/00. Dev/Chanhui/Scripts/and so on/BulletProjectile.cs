@@ -31,7 +31,7 @@ public class BulletProjectile : MonoBehaviour
         {
             transform.position = targetPosition;
 
-            trailRenderer.transform.parent = null;
+            //trailRenderer.transform.parent = null;
             Destroy(gameObject);
 
             //Instantiate(bulletHitVfxPrefab, targetPosition, Quaternion.identity);
