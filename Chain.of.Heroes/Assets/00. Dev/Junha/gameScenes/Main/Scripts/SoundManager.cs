@@ -6,9 +6,18 @@ public class SoundManager : MonoBehaviour
 {
     #region instance화 :: Awake()함수 포함
     public static SoundManager instance;
-    private void Awake()
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    public static void Initialize()
     {
-        instance = this;
+        if (instance == null)
+        {
+            GameObject Entity = new GameObject("SoundManager");
+
+            instance = Entity.AddComponent<SoundManager>();
+            Entity.AddComponent<AudioSource>();
+
+            DontDestroyOnLoad(Entity.gameObject);
+        }
     }
     #endregion
 
@@ -23,8 +32,10 @@ public class SoundManager : MonoBehaviour
     public void Sound_SelectMenu()
     {
         _SelectMenu = Resources.Load<AudioClip>("SelectMenu");
-
-        _thisObject.PlayOneShot(_SelectMenu);
+        if(_SelectMenu != null)
+        {
+            _thisObject.PlayOneShot(_SelectMenu);
+        }
     }
     #endregion
 

@@ -7,6 +7,19 @@ using UnityEngine;
 public class UnitManager : MonoBehaviour
 {
     public static UnitManager Instance { get; private set; }
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    public static void Initialize()
+    {
+        if (Instance == null)
+        {
+            GameObject Entity = new GameObject("UnitManager");
+
+            Instance = Entity.AddComponent<UnitManager>();
+
+            DontDestroyOnLoad(Entity.gameObject);
+        }
+    }
+
 
     private List<Unit> unitList;
     private List<Unit> friendlyUnitList;
@@ -23,14 +36,6 @@ public class UnitManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null)
-        {
-            Debug.LogError("There's more than one UnitManager! " + transform + " - " + Instance);
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-
         unitList = new List<Unit>();
         friendlyUnitList = new List<Unit>();
         enemyUnitList = new List<Unit>();
