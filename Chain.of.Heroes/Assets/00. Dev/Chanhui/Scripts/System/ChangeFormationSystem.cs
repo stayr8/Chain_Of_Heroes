@@ -54,7 +54,10 @@ public class ChangeFormationSystem : MonoBehaviour
 
     private void Start()
     {
-        BattleReady_UIManager.instance.OnCharacterChangeFormation += BattleReady_UIManager_OnCharacterChangeFormation;
+        if(BattleReady_UIManager.instance)
+        {
+            BattleReady_UIManager.instance.OnCharacterChangeFormation += BattleReady_UIManager_OnCharacterChangeFormation;
+        }
     }
 
     public void CreateCharacterUI(int Charnumber, int pos)

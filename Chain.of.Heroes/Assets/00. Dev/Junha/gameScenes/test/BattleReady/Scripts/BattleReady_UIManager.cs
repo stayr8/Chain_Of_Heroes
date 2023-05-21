@@ -14,23 +14,11 @@ public class BattleReady_UIManager : MonoBehaviour
     [Header("선택된 메뉴를 위한 임시")] public BattleReady_MenuSelectCursor Menu_Cursor;
 
     public static BattleReady_UIManager instance;
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    public static void Initialize()
+
+    private void Awake()
     {
-        if (instance == null)
-        {
-            GameObject Entity = new GameObject("BattleReady_UIManager");
-
-            instance = Entity.AddComponent<BattleReady_UIManager>();
-
-            DontDestroyOnLoad(Entity.gameObject);
-        }
+        instance = this;
     }
-
-    //private void Awake()
-    //{
-    //    instance = this;
-    //}
     #endregion
 
     public event EventHandler OnCharacterChangeFormation;
@@ -41,15 +29,6 @@ public class BattleReady_UIManager : MonoBehaviour
     [SerializeField] private GameObject _ChangeFormation;
 
     [SerializeField] private bool ischange_formationCamera;
-
-    private void Start()
-    {
-        _Menu = GameObject.Find("===== Select Menu =====");
-        _UnitFormation = GameObject.Find("====== UnitFormation =====");
-        _ChangeFormation = GameObject.Find("===== ChangeFormation =====");
-
-        ischange_formationCamera = false;
-    }
 
     private void Update()
     {
