@@ -136,7 +136,6 @@ public class BattleReady_ChangeFormationCursor : CursorBase
             }
             else if(_seletedImageMove)
             {
-                Debug.Log((int)_characterUi.ImageType());
                 ChangeFormationSystem.Instance.SingleDestroyCharacterUI(_characterUi, (int)_characterUi.ImageType(), _characterUi.GetCharUIpos());
                 ChangeFormationSystem.Instance.CreateCharacterUI((int)_characterUi.ImageType(), pos);
                 _seletedImageMove = false;
@@ -187,7 +186,8 @@ public class BattleReady_ChangeFormationCursor : CursorBase
         }
         data = obj.GetComponentInChildren<CharacterDataManager>();
 
-        Set_NameAndImage();
+        //Set_NameAndImage();
+        character_Name.text = data.m_name.ToString();
         character_HP.text = data.m_hp.ToString();
         character_MaxHP.text = data.m_hp.ToString();
         character_AttackPower.text = data.m_attackPower.ToString();

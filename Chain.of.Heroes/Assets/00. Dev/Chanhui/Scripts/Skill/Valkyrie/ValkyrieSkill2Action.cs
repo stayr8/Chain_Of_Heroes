@@ -17,10 +17,10 @@ public class ValkyrieSkill2Action : BaseAction
     {
         SwingingVkSkill_2_LookAt,
         SwingingVkSkill_2_Attack,
+        SwingingVkSkill_2_Attacking,
         SwingingVkSkill_2_AfterHit,
     }
 
-    [SerializeField] private LayerMask obstaclesLayerMask;
     [SerializeField] private int maxVkSkill_2_Distance = 2;
 
     private GridPosition targetposition;
@@ -86,6 +86,9 @@ public class ValkyrieSkill2Action : BaseAction
             case State.SwingingVkSkill_2_Attack:
 
                 break;
+            case State.SwingingVkSkill_2_Attacking:
+
+                break;
             case State.SwingingVkSkill_2_AfterHit:
 
                 break;
@@ -110,11 +113,17 @@ public class ValkyrieSkill2Action : BaseAction
                 if (canShootBullet)
                 {
                     Shoot();
-                    TargetSurroundStun();
                     canShootBullet = false;
                 }
 
-                TimeAttack(3.0f);
+                TimeAttack(0.8f);
+                state = State.SwingingVkSkill_2_Attacking;
+
+                break;
+            case State.SwingingVkSkill_2_Attacking:
+                TargetSurroundStun();
+
+                TimeAttack(1.0f);
                 state = State.SwingingVkSkill_2_AfterHit;
 
                 break;
@@ -217,18 +226,6 @@ public class ValkyrieSkill2Action : BaseAction
 
                 if (!Pathfinding.Instance.IsWalkableGridPosition(testGridPosition))
                 {
-                    continue;
-                }
-
-                Vector3 unitWorldPosition = LevelGrid.Instance.GetWorldPosition(unitGridPosition);
-                Vector3 shootDir = (targetUnit.GetWorldPosition() - unitWorldPosition).normalized;
-
-                float unitShoulderHeight = 1.7f;
-                if (Physics.Raycast(unitWorldPosition + Vector3.up * unitShoulderHeight, shootDir,
-                    Vector3.Distance(unitWorldPosition, targetUnit.GetWorldPosition()),
-                    obstaclesLayerMask))
-                {
-                    // Blocked by an Obstacle
                     continue;
                 }
 

@@ -460,6 +460,18 @@ public class GridSystemVisual : MonoBehaviour
                 ShowSingleGridPositionRange(selectedUnit.GetGridPosition(), wizardSkill2Action.GetMaxWzSkill_2_Distance(), GridVisualType.RedMiddle);
                 ShowGridPositionBishopRange(selectedUnit.GetGridPosition(), wizardSkill2Action.GetMaxWzSkill_2_Distance(), GridVisualType.RedMiddle);
                 break;
+            case ValkyrieSkill1Action valkyrieSkill1Action:
+                gridVisualType = GridVisualType.Red;
+
+                ShowGridPositionKingRange(selectedUnit.GetGridPosition(), valkyrieSkill1Action.GetMaxVkSkill_1_Distance(), GridVisualType.RedSoft);
+                ShowGridPositionQueenRange(selectedUnit.GetGridPosition(), valkyrieSkill1Action.GetMaxVkSkill_1_Distance(), GridVisualType.RedMiddle);
+                break;
+            case ValkyrieSkill2Action valkyrieSkill2Action:
+                gridVisualType = GridVisualType.Red;
+
+                ShowGridPositionKingRange(selectedUnit.GetGridPosition(), valkyrieSkill2Action.GetMaxVkSkill_2_Distance(), GridVisualType.RedSoft);
+                ShowGridPositionQueenRange(selectedUnit.GetGridPosition(), valkyrieSkill2Action.GetMaxVkSkill_2_Distance(), GridVisualType.RedMiddle);
+                break;
         }
 
         ShowGridPositionList(selectedAction.GetValidActionGridPositionList(), gridVisualType);
