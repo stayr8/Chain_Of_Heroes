@@ -42,6 +42,15 @@ public class BattleReady_UIManager : MonoBehaviour
 
     [SerializeField] private bool ischange_formationCamera;
 
+    private void Start()
+    {
+        _Menu = GameObject.Find("===== Select Menu =====");
+        _UnitFormation = GameObject.Find("====== UnitFormation =====");
+        _ChangeFormation = GameObject.Find("===== ChangeFormation =====");
+
+        ischange_formationCamera = false;
+    }
+
     private void Update()
     {
         UI_STATE();

@@ -9,6 +9,7 @@ public class ScenesSystem : MonoBehaviour
 
     public event EventHandler OnScenesChange;
 
+    [SerializeField] TurnSystem TurnSystem;
     [SerializeField] private GameObject ChanScene;
     [SerializeField] private GameObject JunScene;
 
