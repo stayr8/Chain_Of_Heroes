@@ -225,12 +225,19 @@ public class ReadyAction : BaseAction
                     continue;
                 }
 
-                if (!LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition))
+                if (isProvoke && LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition))
+                {
+                    if (LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition).GetUnitName() == "«√∂Û∆æ")
+                    {
+                        validGridPositionList.Add(testGridPosition);
+                    }
+                }
+                else if (!LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition))
                 {
                     // Grid Position is empty, no Unit
                     continue;
                 }
-                
+
                 Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
                 if(targetUnit.IsEnemy() == unit.IsEnemy())
                 {
@@ -296,7 +303,6 @@ public class ReadyAction : BaseAction
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
     {
         Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
-
 
         return new EnemyAIAction
         {

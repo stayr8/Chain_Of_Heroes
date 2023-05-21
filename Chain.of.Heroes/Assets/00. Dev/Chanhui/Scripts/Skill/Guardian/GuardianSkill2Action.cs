@@ -47,6 +47,7 @@ public class GuardianSkill2Action : BaseAction
 
                 if (isSkillCount <= 0)
                 {
+                    isProvoke = false;
                     isSkill = false;
                 }
             }
@@ -96,7 +97,7 @@ public class GuardianSkill2Action : BaseAction
                 break;
             case State.SwingingGdSkill_2_Provoke:
                 OnGdSkill_2_provoke?.Invoke(this, EventArgs.Empty);
-
+                isProvoke = true;
                 TimeAttack(2.0f);
                 state = State.SwingingGdSkill_2_AfterHit;
 

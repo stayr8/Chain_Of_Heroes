@@ -149,11 +149,7 @@ public class EnemyMoveAction : BaseAction
         {
             targetCountAtGridPosition = unit.GetAction<ReadyAction>().GetTargetCountAtPosition(gridPosition);
         }
-        else if (unit.GetEnemyVisualType() == Unit.EnemyType.Sword)
-        {
-            targetCountAtGridPosition = unit.GetAction<KingAction>().GetTargetCountAtPosition(gridPosition);
-        }
-        else if (unit.GetEnemyVisualType() == Unit.EnemyType.RedStoneGolem)
+        else if (unit.GetEnemyVisualType() == Unit.EnemyType.Sword || unit.GetEnemyVisualType() == Unit.EnemyType.RedStoneGolem)
         {
             targetCountAtGridPosition = unit.GetAction<KingAction>().GetTargetCountAtPosition(gridPosition);
         }
