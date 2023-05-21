@@ -117,9 +117,8 @@ public partial class TurnSystem : MonoBehaviour
 
     private List<Binding> Binds = new List<Binding>();
 
-    private void Start()
+    public void Initialize()
     {
-        Initialize();
         Property.TurnNumber = 0;
 
         Property.AllPlayerPoint = MapManager.Instance.mapData[MapManager.Instance.stageNum].Player_ActionPoint;

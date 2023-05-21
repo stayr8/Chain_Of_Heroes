@@ -9,7 +9,8 @@ public class ScenesSystem : MonoBehaviour
 
     public event EventHandler OnScenesChange;
 
-    [SerializeField] TurnSystem TurnSystem;
+    [SerializeField] TurnSystem turnSystem;
+
     [SerializeField] private GameObject ChanScene;
     [SerializeField] private GameObject JunScene;
 
@@ -31,6 +32,7 @@ public class ScenesSystem : MonoBehaviour
     {
         MapManager.Instance.MapDataInitialize();
         UnitManager.Instance.UnitInitialize();
+        turnSystem.Initialize();
 
         OnScenesChange += ScenesManager_OnScenesChange;
         isInGame = false;
