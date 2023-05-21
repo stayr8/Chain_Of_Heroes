@@ -66,6 +66,6 @@ public class InGame_UIManager : MonoBehaviour
         _state = STATE.PARTY_INFO;
 
         _PartyInfo.SetActive(true);
-        _Menu?.SetActive(false);
+        _Menu.SetActive(false);
     }
 }

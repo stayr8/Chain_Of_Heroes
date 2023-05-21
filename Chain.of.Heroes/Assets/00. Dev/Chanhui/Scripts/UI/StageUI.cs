@@ -11,7 +11,6 @@ public class StageUI : MonoBehaviour
 
     [SerializeField] private GameObject PlayerTurn;
     [SerializeField] private GameObject EnemyTurn;
-    [SerializeField] private GameObject MenuUI;
     [SerializeField] private GameObject AttackUI;
     [SerializeField] private GameObject TurnSystemUI;
     [SerializeField] private GameObject GameCondition;
@@ -70,20 +69,6 @@ public class StageUI : MonoBehaviour
         PlayerHide();
         EnemyHide();
         turnNumberText.text = "TURN " + TurnSystem.Property.TurnNumber;
-    }
-
-    private void Update()
-    {
-        
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (!IsMenu)
-            {
-                IsMenu = !IsMenu;
-                MenuShow(IsMenu);
-            }
-        }
-
     }
 
     private void PlayerShow()
@@ -215,38 +200,7 @@ public class StageUI : MonoBehaviour
         Panel.gameObject.SetActive(false);
 
         yield return null;
-    }
- 
-
-    private void MenuShow(bool isShow)
-    {
-        MenuUI.SetActive(isShow);
-    }
-    
-
-    public void OnContinueButton()
-    {
-        IsMenu = !IsMenu;
-        MenuShow(IsMenu);
-    }
-
-    public void OnResetButton()
-    {
-
-    }
-
-    public void OnExitButton()
-    {
-        // UI
-        MenuUI.SetActive(false);
-        
-
-        // Unit Destroy
-        UnitManager.Instance.playerpos = 0;
-        UnitManager.Instance.enemypos = 0;
-
-        SceneManager.LoadScene("ChoiceScene");
-    }
+    } 
 
     private void OnDisable()
     {

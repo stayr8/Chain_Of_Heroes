@@ -142,7 +142,7 @@ public class CharacterDataManager : MonoBehaviour
 
     public float GetHealthNormalized()
     {
-        return (float)m_hp / m_maxhp;
+        return (float)m_hp;
     }
 
     public float GetHealth()
