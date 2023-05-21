@@ -50,6 +50,7 @@ GameObject:
   - component: {fileID: 5786774799620719496}
   - component: {fileID: 8141815212963083106}
   - component: {fileID: -540481363815248974}
+  - component: {fileID: -1416789301734179253}
   m_Layer: 15
   m_Name: Enemy_1
   m_TagString: Enemy
@@ -157,6 +158,8 @@ MonoBehaviour:
   animator: {fileID: 4737514008072432975}
   bulletProjectilePrefab: {fileID: 8732296480811401870, guid: ed38717c6af161c4ab4f619260be292a, type: 3}
   shootPointTransform: {fileID: 8979883348018533939}
+  ArSkill_1_shootPointTransform: {fileID: 0}
+  ArSkill_2_shootPointTransform: {fileID: 0}
 --- !u!114 &6030806032592465833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,6 +234,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e6319f51d41d488499f3dbae45e9601e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-1416789301734179253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3695012023952319668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1c1350886321b749806661a6ce70218, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7420146111581597954

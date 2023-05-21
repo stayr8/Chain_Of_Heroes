@@ -11,6 +11,7 @@ public class UnitAnimator : MonoBehaviour
     [SerializeField] private Transform shootPointTransform;
     [SerializeField] private Transform ArSkill_1_shootPointTransform;
     [SerializeField] private Transform ArSkill_2_shootPointTransform;
+    [SerializeField] private Transform WzSkill_2_shootPointTransform;
 
 
     private void Awake()
@@ -168,6 +169,17 @@ public class UnitAnimator : MonoBehaviour
         if (TryGetComponent<PriestSkill2Action>(out PriestSkill2Action priestSkill2Action))
         {
             priestSkill2Action.OnPsSkill_2_Hill += Action_OnSkill_2;
+        }
+
+        if (TryGetComponent<WizardSkill1Action>(out WizardSkill1Action wizardSkill1Action))
+        {
+            wizardSkill1Action.OnWzSkill_1_StartMoving += MoveAction_OnStartMoving;
+            wizardSkill1Action.OnWzSkill_1_StopMoving += MoveAction_OnStopMoving;
+            wizardSkill1Action.OnWzSkill_1_Debuff += Action_OnSkill_1;
+        }
+        if (TryGetComponent<WizardSkill2Action>(out WizardSkill2Action wizardSkill2Action))
+        {
+            wizardSkill2Action.OnShoot += WzSkill1_2_Action_OnShoot;
         }
 
         if (TryGetComponent<StunAction>(out StunAction stunAction))
@@ -397,6 +409,22 @@ public class UnitAnimator : MonoBehaviour
         Vector3 targetUnitShootAtPosition = e.targetUnit.GetWorldPosition();
 
         targetUnitShootAtPosition.y = ArSkill_2_shootPointTransform.position.y;
+
+        bulletProjectile.Setup(targetUnitShootAtPosition);
+
+    }
+
+    private void WzSkill1_2_Action_OnShoot(object sender, WizardSkill2Action.OnShootEventArgs e)
+    {
+        animator.SetTrigger("IsSkill_2");
+
+        Transform bulletProjectileTransform =
+            Instantiate(bulletProjectilePrefab, WzSkill_2_shootPointTransform.position, Quaternion.identity);
+        BulletProjectile bulletProjectile = bulletProjectileTransform.GetComponent<BulletProjectile>();
+
+        Vector3 targetUnitShootAtPosition = e.targetUnit.GetWorldPosition();
+
+        targetUnitShootAtPosition.y = WzSkill_2_shootPointTransform.position.y;
 
         bulletProjectile.Setup(targetUnitShootAtPosition);
 

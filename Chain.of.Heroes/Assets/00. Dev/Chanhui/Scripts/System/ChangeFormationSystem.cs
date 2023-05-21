@@ -7,18 +7,7 @@ using UnityEngine.UI;
 public class ChangeFormationSystem : MonoBehaviour
 {
     public static ChangeFormationSystem Instance { get; private set; }
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    public static void Initialize()
-    {
-        if (Instance == null)
-        {
-            GameObject Entity = new GameObject("ChangeFormationSystem");
-
-            Instance = Entity.AddComponent<ChangeFormationSystem>();
-
-            DontDestroyOnLoad(Entity.gameObject);
-        }
-    }
+   
 
 
     private List<CharacterUI> characterUIList;
@@ -31,20 +20,16 @@ public class ChangeFormationSystem : MonoBehaviour
     [SerializeField] private Transform[] CharacterUIPrefab;
 
 
-    //private bool OnChangeFormation;
-
-    
-
     private void Awake()
     {
-        //if (Instance != null && Instance != this)
-        //{
-        //    Destroy(gameObject);
-        //}
-        //else
-        //{
-        //    Instance = this;
-        //}
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
 
         characterUIList = new List<CharacterUI>();
 
@@ -54,7 +39,7 @@ public class ChangeFormationSystem : MonoBehaviour
 
     private void Start()
     {
-        if(BattleReady_UIManager.instance)
+        if (BattleReady_UIManager.instance)
         {
             BattleReady_UIManager.instance.OnCharacterChangeFormation += BattleReady_UIManager_OnCharacterChangeFormation;
         }

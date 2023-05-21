@@ -448,6 +448,18 @@ public class GridSystemVisual : MonoBehaviour
 
                 ShowSingleGridPositionRange(selectedUnit.GetGridPosition(), priestSkill2Action.GetMaxPsSkill_2_Distance(), GridVisualType.RedMiddle);
                 break;
+            case WizardSkill1Action wizardSkill1Action:
+                gridVisualType = GridVisualType.Red;
+
+                ShowGridPositionKingRange(selectedUnit.GetGridPosition(), wizardSkill1Action.GetMaxWzSkill_1_Distance(), GridVisualType.RedSoft);
+                ShowGridPositionBishopRange(selectedUnit.GetGridPosition(), wizardSkill1Action.GetMaxWzSkill_1_Distance(), GridVisualType.RedMiddle);
+                break;
+            case WizardSkill2Action wizardSkill2Action:
+                gridVisualType = GridVisualType.Red;
+
+                ShowSingleGridPositionRange(selectedUnit.GetGridPosition(), wizardSkill2Action.GetMaxWzSkill_2_Distance(), GridVisualType.RedMiddle);
+                ShowGridPositionBishopRange(selectedUnit.GetGridPosition(), wizardSkill2Action.GetMaxWzSkill_2_Distance(), GridVisualType.RedMiddle);
+                break;
         }
 
         ShowGridPositionList(selectedAction.GetValidActionGridPositionList(), gridVisualType);

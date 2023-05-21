@@ -7,7 +7,7 @@ public class WizardSkill1Action : BaseAction
 {
     public event EventHandler OnWzSkill_1_StartMoving;
     public event EventHandler OnWzSkill_1_StopMoving;
-    public event EventHandler OnWzSkill_1_Stun;
+    public event EventHandler OnWzSkill_1_Debuff;
 
 
     private List<Vector3> positionList;
@@ -21,7 +21,6 @@ public class WizardSkill1Action : BaseAction
         SwingingWzSkill_1_AfterHit,
     }
 
-    [SerializeField] private LayerMask obstaclesLayerMask;
     [SerializeField] private int maxWzSkill_1_Distance = 2;
 
     private State state;
@@ -93,7 +92,6 @@ public class WizardSkill1Action : BaseAction
                 if (currentPositionIndex >= BeforepositionList)
                 {
                     OnWzSkill_1_StopMoving?.Invoke(this, EventArgs.Empty);
-                    //UnitActionSystem.Instance.SetCameraPointchange(true);
                     currentPositionIndex++;
                     state = State.SwingingWzSkill_1_Moving;
                 }
@@ -145,9 +143,8 @@ public class WizardSkill1Action : BaseAction
 
                 break;
             case State.SwingingWzSkill_1_Attacking:
-                OnWzSkill_1_Stun?.Invoke(this, EventArgs.Empty);
-                BaseAction StartAction = targetUnit.GetAction<StunAction>();
-                StartAction.TakeAction(targetUnit.GetGridPosition(), onActionComplete);
+                OnWzSkill_1_Debuff?.Invoke(this, EventArgs.Empty);
+                GetCharacterBuffOn();
 
                 TimeAttack(1.0f);
                 state = State.SwingingWzSkill_1_AfterHit;
@@ -218,23 +215,51 @@ public class WizardSkill1Action : BaseAction
                     continue;
                 }
 
-                Vector3 unitWorldPosition = LevelGrid.Instance.GetWorldPosition(unitGridPosition);
-                Vector3 shootDir = (targetUnit.GetWorldPosition() - unitWorldPosition).normalized;
-
-                float unitShoulderHeight = 1.7f;
-                if (Physics.Raycast(unitWorldPosition + Vector3.up * unitShoulderHeight, shootDir,
-                    Vector3.Distance(unitWorldPosition, targetUnit.GetWorldPosition()),
-                    obstaclesLayerMask))
-                {
-                    // Blocked by an Obstacle
-                    continue;
-                }
-
                 validGridPositionList.Add(testGridPosition);
             }
         }
 
         return validGridPositionList;
+    }
+
+    int DebuffDistance = 1;
+    public void GetCharacterBuffOn()
+    {
+        GridPosition unitGridPosition = unit.GetGridPosition();
+        for (int x = -DebuffDistance; x <= DebuffDistance; x++)
+        {
+            for (int z = -DebuffDistance; z <= DebuffDistance; z++)
+            {
+                GridPosition offsetGridPosition = new GridPosition(x, z);
+                GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
+
+                if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition))
+                {
+                    continue;
+                }
+
+                int testDistance = Mathf.Abs(x) + Mathf.Abs(z);
+                if (testDistance > DebuffDistance)
+                {
+                    continue;
+                }
+
+                if (LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition))
+                {
+                    Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
+                    if (targetUnit.IsEnemy())
+                    {
+                        foreach (BaseBuff baseBuff in targetUnit.GetBaseBuffArray())
+                        {
+                            if (targetUnit.GetBuff<WizardSkillDebuff>() == baseBuff)
+                            {
+                                baseBuff.TakeAction(testGridPosition);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)

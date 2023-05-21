@@ -7,9 +7,6 @@ public class KnightSkill2Action : BaseAction
 {
     public event EventHandler OnKnSkill_2_Buff;
 
-
-    private List<Vector3> positionList;
-
     private enum State
     {
         SwingingKnSkill_2_BeforeSkill,
