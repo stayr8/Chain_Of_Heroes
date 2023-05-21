@@ -33,7 +33,7 @@ public class ChangeFormationSystem : MonoBehaviour
 
         characterUIList = new List<CharacterUI>();
 
-        isImage = new bool[9];
+        isImage = new bool[8];
         isGround = new bool[12];
     }
 
@@ -50,12 +50,8 @@ public class ChangeFormationSystem : MonoBehaviour
         
         Transform CharacterTransform = Instantiate(CharacterUIPrefab[Charnumber], Characterpos[pos]);
         CharacterUI CharacterUI = CharacterTransform.GetComponent<CharacterUI>();
-        Debug.Log(Charnumber);
-        //CharacterUI.SelectedImage(Charnumber);
         CharacterUI.SetCharUIpos(pos);
         CharacterUI.SetCharacterUIMovePos(CharacterMovePos[pos]);
-        Debug.Log(CharacterMovePos[pos]);
-        //CharacterUI.GetComponent<Image>().SetNativeSize();
 
         characterUIList.Add(CharacterUI);
         characterUIList.Sort(new CharacterTypeComparer());
