@@ -64,10 +64,6 @@ public class BattleReady_FormationState : MonoBehaviour
             case "_8":
                 CharacterTypeManager.Instance.SetIsCharacter(7, isFormationState);
                 break;
-
-            case "_9":
-                CharacterTypeManager.Instance.SetIsCharacter(8, isFormationState);
-                break;
         }
     }
 }

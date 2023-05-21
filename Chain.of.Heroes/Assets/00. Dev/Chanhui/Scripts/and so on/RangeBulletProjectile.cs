@@ -53,7 +53,7 @@ public class RangeBulletProjectile : MonoBehaviour
 
     public void GetValidActionGridPositionList()
     {
-        GridPosition unitGridPosition = AttackActionSystem.Instance.GetenemyChainFind().GetGridPosition();
+        GridPosition unitGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
 
         for (int x = -maxMoveDistance; x <= maxMoveDistance; x++)
         {

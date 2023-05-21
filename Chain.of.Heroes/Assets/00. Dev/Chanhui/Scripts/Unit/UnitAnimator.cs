@@ -110,7 +110,6 @@ public class UnitAnimator : MonoBehaviour
             swordWomanSkill1Action.OnSWSkill_1_Slash += Action_OnSkill_1;
             swordWomanSkill1Action.OnSWSkill_1_Dash += Unit_OnUnitDash;
         }
-
         if (TryGetComponent<SwordWomanSkill2Action>(out SwordWomanSkill2Action swordWomanSkill2Action))
         {
             swordWomanSkill2Action.OnShoot += SwordWomanSkill2Action_OnShoot;
@@ -122,7 +121,6 @@ public class UnitAnimator : MonoBehaviour
             knightSkill1Action.OnKnSkill_1_StopMoving += MoveAction_OnStopMoving;
             knightSkill1Action.OnKnSkill_1_Stun += Action_OnSkill_1;
         }
-
         if (TryGetComponent<KnightSkill2Action>(out KnightSkill2Action knightSkill2Action))
         {
             knightSkill2Action.OnKnSkill_2_Buff += Action_OnSkill_2;
@@ -135,7 +133,6 @@ public class UnitAnimator : MonoBehaviour
             samuraiSkill1Action.OnSrSkill_1_Slash += Action_OnSkill_1;
             samuraiSkill1Action.OnSrSkill_1_Dash += Unit_OnUnitDash;
         }
-
         if (TryGetComponent<SamuraiSkill2Action>(out SamuraiSkill2Action samuraiSkill2Action))
         {
             samuraiSkill2Action.OnSrSkill_2_StartMoving += MoveAction_OnStartMoving;
@@ -143,11 +140,6 @@ public class UnitAnimator : MonoBehaviour
             samuraiSkill2Action.OnSrSkill_2_Slash += Action_OnSkill_2;
         }
 
-        if (TryGetComponent<StunAction>(out StunAction stunAction))
-        {
-            stunAction.OnUnitStun_Start += stunAction_OnUnitStun_Start;
-            stunAction.OnUnitStun_Stop += stunAction_OnUnitStun_Stop;
-        }
         if (TryGetComponent<ArcherSkill1Action>(out ArcherSkill1Action archerSkill1Action))
         {
             archerSkill1Action.OnShoot += ArSkill1_1_Action_OnShoot;
@@ -156,6 +148,35 @@ public class UnitAnimator : MonoBehaviour
         {
             archerSkill2Action.OnShoot += ArSkill1_2_Action_OnShoot;
         }
+
+        if (TryGetComponent<GuardianSkill1Action>(out GuardianSkill1Action guardianSkill1Action))
+        {
+            guardianSkill1Action.OnGdSkill_1_StartMoving += MoveAction_OnStartMoving;
+            guardianSkill1Action.OnGdSkill_1_StopMoving += MoveAction_OnStopMoving;
+            guardianSkill1Action.OnGdSkill_1_Slash += Action_OnSkill_1;
+            guardianSkill1Action.OnGdSkill_1_Dash += Unit_OnUnitDash;
+        }
+        if (TryGetComponent<GuardianSkill2Action>(out GuardianSkill2Action guardianSkill2Action))
+        {
+            guardianSkill2Action.OnGdSkill_2_provoke += Action_OnSkill_2;
+        }
+
+        if (TryGetComponent<PriestSkill1Action>(out PriestSkill1Action priestSkill1Action))
+        {
+            priestSkill1Action.OnPsSkill_1_Hill += Action_OnSkill_1;
+        }
+        if (TryGetComponent<PriestSkill2Action>(out PriestSkill2Action priestSkill2Action))
+        {
+            priestSkill2Action.OnPsSkill_2_Hill += Action_OnSkill_2;
+        }
+
+        if (TryGetComponent<StunAction>(out StunAction stunAction))
+        {
+            stunAction.OnUnitStun_Start += stunAction_OnUnitStun_Start;
+            stunAction.OnUnitStun_Stop += stunAction_OnUnitStun_Stop;
+        }
+
+       
     }
 
     #region Attack Action

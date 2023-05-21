@@ -21,6 +21,7 @@ public class UnitActionSystem : MonoBehaviour
     [SerializeField] private MonsterDataManager selectedEnemy;
     [SerializeField] private LayerMask EnemyLayerMask;
 
+    private bool characterHill;
 
     private BaseAction selectedAction;
     private bool isBusy;
@@ -129,7 +130,11 @@ public class UnitActionSystem : MonoBehaviour
                         return true;
                     }
 
-                    
+                    if(characterHill && unit != selectedUnit)
+                    {
+                        return false;
+                    }
+
                     if(unit.IsEnemy())
                     {
                         // Clicked on an enemy
@@ -160,6 +165,7 @@ public class UnitActionSystem : MonoBehaviour
     {
         //selectedUnit = unit;
         DoubleSelectedUnit = true;
+        characterHill = false;
 
         SetSelectedAction(unit.GetAction<EmptyAction>());
 
@@ -212,5 +218,10 @@ public class UnitActionSystem : MonoBehaviour
     public void SetCameraPointchange(bool cameraPointchange)
     {
         this.cameraPointchange = cameraPointchange;
+    }
+
+    public void SetCharacterHill(bool characterHill)
+    {
+        this.characterHill = characterHill;
     }
 }

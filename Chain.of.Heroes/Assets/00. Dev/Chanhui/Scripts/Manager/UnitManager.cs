@@ -107,7 +107,7 @@ public class UnitManager : MonoBehaviour
 
     public void SpawnAllPlayer()
     {
-        for (int i = 0; i < 9; i++)
+        for (int i = 0; i < 8; i++)
         {
             if (CharacterTypeManager.Instance.GetIsCharacter()[i] == true)
             {
