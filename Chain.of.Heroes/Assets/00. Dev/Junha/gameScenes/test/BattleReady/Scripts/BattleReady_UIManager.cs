@@ -179,7 +179,6 @@ public class BattleReady_UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI character_DefensePower;
     private CharacterDataManager data;
     private BattleReady_FormationState form_State;
-    private const int skillNum = 3;
     private Sprite no_Skill;
     [Header("캐릭터 스킬 이미지")]
     [SerializeField] private Image[] character_Skill_Image;
@@ -200,6 +199,7 @@ public class BattleReady_UIManager : MonoBehaviour
 
         form_State = obj.GetComponentInChildren<BattleReady_FormationState>();
         no_Skill = Resources.Load<Sprite>("slot_image");
+        rt = character_Image.gameObject.GetComponent<RectTransform>();
         if (!form_State.isUnlock)
         {
             character_Name.text = "???";
@@ -210,13 +210,13 @@ public class BattleReady_UIManager : MonoBehaviour
             character_ChainAttackPower.text = "???";
             character_DefensePower.text = "???";
 
-            //character_Background.sprite = Resources.Load<Sprite>(data.m_bResourcePath);
+            character_Background.sprite = Resources.Load<Sprite>(data.m_back_resourcePath);
+            character_Background.color = new Color(64/255f, 64/255f, 64/255f, 255/255f);
+
             character_Image.sprite = Resources.Load<Sprite>(data.m_resourcePath);
             character_Image.color = Color.black;
 
-            character_Background.color = new Color(64/255f, 64/255f, 64/255f, 255/255f);
-
-            for (int i = 0; i < skillNum; ++i)
+            for (int i = 0; i < character_Skill_Image.Length; ++i)
             {
                 character_Skill_Image[i].sprite = no_Skill;
                 character_Skill_Name[i].text = "???";
@@ -236,7 +236,6 @@ public class BattleReady_UIManager : MonoBehaviour
 
             character_Image.color = character_Background.color = Color.white;
         }
-        rt = character_Image.gameObject.GetComponent<RectTransform>();
     }
     #endregion
 
@@ -247,7 +246,7 @@ public class BattleReady_UIManager : MonoBehaviour
     private string skill_Content_3;
     private void Set_NameAndImage()
     {
-        //character_Background.sprite = Resources.Load<Sprite>(data.m_bResourcePath);
+        character_Background.sprite = Resources.Load<Sprite>(data.m_back_resourcePath);
         character_Image.sprite = Resources.Load<Sprite>(data.m_resourcePath);
 
         switch (data.m_name)
@@ -255,8 +254,6 @@ public class BattleReady_UIManager : MonoBehaviour
             #region No.1 아카메, SwordWoman
             case "아카메":
                 rt.anchoredPosition = new Vector2(480f, -415f);
-
-                character_Background.sprite = Resources.Load<Sprite>("Character/Background/b_Akame_1");
 
                 character_Skill_Image[0].sprite = Resources.Load<Sprite>(path + "SwordWoman/Skill01_Sww");
                 character_Skill_Name[0].text = "신검합일";
@@ -279,8 +276,6 @@ public class BattleReady_UIManager : MonoBehaviour
             case "크리스":
                 rt.anchoredPosition = new Vector2(447f, -415f);
 
-                character_Background.sprite = Resources.Load<Sprite>("Character/Background/b_Kris_1");
-
                 character_Skill_Image[0].sprite = Resources.Load<Sprite>(path + "Knight/Skill01_Kni");
                 character_Skill_Name[0].text = "신성의 힘";
                 skill_Content_1 = "신성한 힘을 통해 자신의 공격력을 <color=#ff7f00>15</color>% 만큼 증가시킨다.";
@@ -299,8 +294,6 @@ public class BattleReady_UIManager : MonoBehaviour
             #region No.3 카미나, Samurai
             case "카미나":
                 rt.anchoredPosition = new Vector2(383f, -415f);
-
-                character_Background.sprite = Resources.Load<Sprite>("Character/Background/b_Kamina_1");
 
                 character_Skill_Image[0].sprite = Resources.Load<Sprite>(path + "Samurai/Skill01_Sam");
                 character_Skill_Name[0].text = "명경지수";
@@ -344,7 +337,7 @@ public class BattleReady_UIManager : MonoBehaviour
 
             #region No.5 플라틴, Guardian
             case "플라틴":
-                rt.anchoredPosition = new Vector2(433f, -415f);
+                rt.anchoredPosition = new Vector2(480f, -415f);
 
                 character_Skill_Image[0].sprite = Resources.Load<Sprite>(path + "Guardian/Skill01_Gur");
                 character_Skill_Name[0].text = "굳건한 의지";
@@ -382,7 +375,7 @@ public class BattleReady_UIManager : MonoBehaviour
 
             #region No.7 제이브, Wizard
             case "제이브":
-                rt.anchoredPosition = new Vector2(433f, -415f);
+                rt.anchoredPosition = new Vector2(408f, -415f);
 
                 character_Skill_Image[0].sprite = Resources.Load<Sprite>(path + "Wizard/Skill01_Wiz");
                 character_Skill_Name[0].text = "마나 폭주";
@@ -405,8 +398,6 @@ public class BattleReady_UIManager : MonoBehaviour
             #region No.8 바네사, Valkyrie
             case "바네사":
                 rt.anchoredPosition = new Vector2(408f, -336f);
-
-                character_Background.sprite = Resources.Load<Sprite>("Character/Background/b_Vanessa_1");
 
                 character_Skill_Image[0].sprite = Resources.Load<Sprite>(path + "Valkyrie/Skill01_Val");
                 character_Skill_Name[0].text = "승리의 여신";

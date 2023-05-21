@@ -18,8 +18,9 @@ public class Priest
 	public float CriticalRate;
 	public float CriticalDamage;
 	public string Class;
-	public string UniyProperty;
+	public string UnitProperty;
 	public string ResourcePath;
+	public string BResourcePath;
 
 	public bool Parse(SimpleJSON.JSONNode Data)
 	{
@@ -36,8 +37,9 @@ public class Priest
 		CriticalRate = Data["CriticalRate"].AsFloat;
 		CriticalDamage = Data["CriticalDamage"].AsFloat;
 		Class = Data["Class"];
-		UniyProperty = Data["UniyProperty"];
+		UnitProperty = Data["UnitProperty"];
 		ResourcePath = Data["ResourcePath"];
+		BResourcePath = Data["BResourcePath"];
 		return true;
 	}
 }

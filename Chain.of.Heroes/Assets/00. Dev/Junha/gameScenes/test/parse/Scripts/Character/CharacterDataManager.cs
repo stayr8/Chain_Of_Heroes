@@ -6,27 +6,36 @@ using UnityEngine;
 public class CharacterDataManager : MonoBehaviour
 {
     [Header("어떤 Json 파일을 불러올 것인가?")] public string CharacterName;
-
     [Header("캐릭터 데이터")]
-    public int m_id;
-    public string m_name;
-    public int m_level;
-    public int m_maxLevel;
-    public float m_currentExp;
-    public float m_maxExp;
-    public float m_attackPower;
-    public float m_chainAttackPower;
-    public float m_defensePower;
-    public float m_hp;
+    public int m_id; // [아이디]
+    public string m_name; // [이름]
 
-    public float m_maxhp;
-    public float m_damagereductionRate;
+    public int m_level; // [현재 레벨]
+    public int m_maxLevel; // [최대 레벨]
 
-    public float m_criticalRate;
-    public float m_criticalDamage;
-    public string m_class;
-    public string m_unitProperty;
-    public string m_resourcePath;
+    public float m_currentExp; // [현재 경험치]
+    public float m_maxExp; // [최대 경험치]
+
+    public float m_attackPower; // [공격력]
+    public float m_chainAttackPower; // [협공력]
+    public float m_defensePower; // [방어력]
+
+    public float m_hp; // [현재 체력]
+
+    public float m_criticalRate; // [크리티컬 확률]
+    public float m_criticalDamage; // [크리티컬 데미지]
+
+    public string m_class; // [클래스/타입]
+    public string m_property; // [속성]
+
+    public string m_resourcePath; // [캐릭터 이미지]
+    public string m_back_resourcePath; // [캐릭터 배경 이미지]
+
+    [Header("별도의 데이터")]
+    public float m_maxhp; // [최대 체력]
+    public float m_damagereductionRate; // [데미지 감소율]
+
+
 
     private SwordWoman[] _Array;
     private SwordWoman firstArray;
@@ -108,19 +117,27 @@ public class CharacterDataManager : MonoBehaviour
 
         m_id = firstArray.ID;
         m_name = firstArray.Name;
+
         m_level = firstArray.Level;
         m_maxLevel = firstArray.MaxLevel;
+
         m_currentExp = firstArray.CurrentExp;
         m_maxExp = firstArray.MaxExp;
+
         m_attackPower = firstArray.AttackPower;
         m_chainAttackPower = firstArray.ChainAttackPower;
         m_defensePower = firstArray.DefensePower;
+
         m_hp = firstArray.Hp;
+
         m_criticalRate = firstArray.CriticalRate;
         m_criticalDamage = firstArray.CriticalDamage;
+
         m_class = firstArray.Class;
-        m_unitProperty = firstArray.UniyProperty;
+        m_property = firstArray.UnitProperty;
+
         m_resourcePath = firstArray.ResourcePath;
+        m_back_resourcePath = firstArray.BResourcePath;
     }
 
     public float GetHealthNormalized()
