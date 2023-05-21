@@ -43,7 +43,7 @@ public class UnitManager : MonoBehaviour
         OnChangeFormation = false;
     }
 
-    private void Start()
+    public void UnitInitialize()
     {
         // 임시로 저장
         mapData = MapManager.Instance.mapData[0];

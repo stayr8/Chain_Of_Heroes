@@ -12,11 +12,25 @@ public class BattleReady_UIManager : MonoBehaviour
     [Header("===== [instance 전용 property] =====")]
     [Header("[유닛 슬롯] 오브젝트")] public GameObject[] slot;
     [Header("선택된 메뉴를 위한 임시")] public BattleReady_MenuSelectCursor Menu_Cursor;
+
     public static BattleReady_UIManager instance;
-    private void Awake()
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    public static void Initialize()
     {
-        instance = this;
+        if (instance == null)
+        {
+            GameObject Entity = new GameObject("BattleReady_UIManager");
+
+            instance = Entity.AddComponent<BattleReady_UIManager>();
+
+            DontDestroyOnLoad(Entity.gameObject);
+        }
     }
+
+    //private void Awake()
+    //{
+    //    instance = this;
+    //}
     #endregion
 
     public event EventHandler OnCharacterChangeFormation;

@@ -28,6 +28,9 @@ public class ScenesSystem : MonoBehaviour
 
     private void Start()
     {
+        MapManager.Instance.MapDataInitialize();
+        UnitManager.Instance.UnitInitialize();
+
         OnScenesChange += ScenesManager_OnScenesChange;
         isInGame = false;
     }
