@@ -142,7 +142,7 @@ MonoBehaviour:
   obstaclesLayerMask:
     serializedVersion: 2
     m_Bits: 262144
-  maxReadyDistance: 1
+  maxReadyDistance: 2
 --- !u!114 &9054943789650772714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,8 +158,11 @@ MonoBehaviour:
   animator: {fileID: 4737514008072432975}
   bulletProjectilePrefab: {fileID: 8732296480811401870, guid: ed38717c6af161c4ab4f619260be292a, type: 3}
   shootPointTransform: {fileID: 8979883348018533939}
+  VkeffectTransform: {fileID: 0}
   ArSkill_1_shootPointTransform: {fileID: 0}
   ArSkill_2_shootPointTransform: {fileID: 0}
+  WzSkill_2_shootPointTransform: {fileID: 0}
+  VkSkill_2_shootPointTransform: {fileID: 0}
 --- !u!114 &6030806032592465833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,7 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 929d06271f7cc2e4fbf2d2b7ef58bdd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxMoveDistance: 4
+  maxMoveDistance: 6
   minMoveDistance: 3
 --- !u!114 &8681924711701863764
 MonoBehaviour:
@@ -191,14 +194,17 @@ MonoBehaviour:
   m_name: 
   m_level: 0
   m_attackPower: 0
+  m_defensePower: 0
   m_hp: 0
-  m_maxhp: 0
   m_criticalRate: 0
   m_criticalDamage: 0
   m_actionPoint: 0
   m_speed: 0
   m_movementRange: 0
   m_attackRange: 0
+  m_rank: 
+  m_property: 
+  m_maxhp: 0
 --- !u!114 &5786774799620719496
 MonoBehaviour:
   m_ObjectHideFlags: 0

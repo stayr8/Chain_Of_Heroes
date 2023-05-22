@@ -218,12 +218,12 @@ public class ReadyAction : BaseAction
                 {
                     continue;
                 }
-
+                /*
                 int testDistance = Mathf.Abs(x) + Mathf.Abs(z);
                 if(testDistance > maxReadyDistance)
                 {
                     continue;
-                }
+                }*/
 
                 if (isProvoke && LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition))
                 {
@@ -320,7 +320,7 @@ public class ReadyAction : BaseAction
     {
         if (unit.IsEnemy())
         {
-            return 2;
+            return 1;
         }
         else
         {
