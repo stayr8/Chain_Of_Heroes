@@ -35,7 +35,7 @@ public class KingAction : BaseAction
         return new EnemyAIAction
         {
             gridPosition = gridPosition,
-            actionValue = 100 + Mathf.RoundToInt((1 - targetUnit.GetHealthNormalized()) * 100f),
+            actionValue = 200,
         };
 
     }
@@ -310,7 +310,7 @@ public class KingAction : BaseAction
     {
         if (unit.GetEnemyVisualType() == Unit.EnemyType.Sword)
         {
-            return 2;
+            return 1;
         }
         else if (unit.GetEnemyVisualType() == Unit.EnemyType.RedStoneGolem)
         {

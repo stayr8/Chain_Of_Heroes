@@ -191,7 +191,7 @@ MonoBehaviour:
   newEnemyActionPoints: 2
   SoloEnemyActionPoints: 0
   enemyType: 2
-  UnitName: "\uAC80\uC0AC \uACE0\uBE14\uB9B0"
+  UnitName: "\uCC3D \uACE0\uBE14\uB9B0"
   IsLongdistance: 0
 --- !u!114 &3055651058716310813
 MonoBehaviour:
@@ -238,8 +238,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 929d06271f7cc2e4fbf2d2b7ef58bdd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxMoveDistance: 4
-  minMoveDistance: 3
+  maxMoveDistance: 6
+  minMoveDistance: 2
 --- !u!114 &-370482674512953063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -543,7 +543,7 @@ PrefabInstance:
     - target: {fileID: 2143263890515441817, guid: 5f7756aae0d7afb468b9977c9695a15c, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 8db403a59d4279641a559d609cda666e, type: 2}
+      objectReference: {fileID: 9100000, guid: 7302810e39fde2d4d82d96c254a97d88, type: 2}
     - target: {fileID: 2310719923162985044, guid: 5f7756aae0d7afb468b9977c9695a15c, type: 3}
       propertyPath: m_Layer
       value: 15
