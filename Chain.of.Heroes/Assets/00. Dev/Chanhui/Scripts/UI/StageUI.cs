@@ -24,8 +24,6 @@ public class StageUI : MonoBehaviour
     private float F_time2 = 1f;
 
 
-    private bool IsMenu;
-
     private List<Binding> Binds = new List<Binding>();
 
     private void Awake()
@@ -43,7 +41,6 @@ public class StageUI : MonoBehaviour
     {
         //SoundManager.instance.Sound_Battle();
 
-        IsMenu = false;
 
         Binding Bind = BindingManager.Bind(TurnSystem.Property, "IsPlayerTurn", (object value) =>
         {

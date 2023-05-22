@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class UnitAnimator : MonoBehaviour
 {
 
@@ -319,6 +320,8 @@ public class UnitAnimator : MonoBehaviour
         Transform bulletProjectileTransform =
                 Instantiate(bulletProjectilePrefab, shootPointTransform.position, Quaternion.identity);
         RangeBulletProjectile bulletProjectile = bulletProjectileTransform.GetComponent<RangeBulletProjectile>();
+        float random = UnityEngine.Random.Range(-90f, 90f);
+        bulletProjectile.transform.rotation = Quaternion.Euler(random, -75f, 0);
 
         Vector3 targetUnitShootAtPosition = e;
 
@@ -329,6 +332,8 @@ public class UnitAnimator : MonoBehaviour
         Transform bulletProjectileTransform2 =
                 Instantiate(bulletProjectilePrefab, shootPointTransform.position, Quaternion.identity);
         RangeBulletProjectile bulletProjectile2 = bulletProjectileTransform2.GetComponent<RangeBulletProjectile>();
+        float random2 = UnityEngine.Random.Range(-90f, 90f);
+        bulletProjectile2.transform.rotation = Quaternion.Euler(random2, -75f, 0);
 
         Vector3 targetUnitShootAtPosition2 = e;
 
@@ -340,6 +345,8 @@ public class UnitAnimator : MonoBehaviour
         Transform bulletProjectileTransform3 =
                 Instantiate(bulletProjectilePrefab, shootPointTransform.position, Quaternion.identity);
         RangeBulletProjectile bulletProjectile3 = bulletProjectileTransform3.GetComponent<RangeBulletProjectile>();
+        float random3 = UnityEngine.Random.Range(-90f, 90f);
+        bulletProjectile3.transform.rotation = Quaternion.Euler(random3, -75f, 0);
 
         Vector3 targetUnitShootAtPosition3 = e;
 
@@ -351,7 +358,8 @@ public class UnitAnimator : MonoBehaviour
         Transform bulletProjectileTransform4 =
                 Instantiate(bulletProjectilePrefab, shootPointTransform.position, Quaternion.identity);
         RangeBulletProjectile bulletProjectile4 = bulletProjectileTransform4.GetComponent<RangeBulletProjectile>();
-
+        float random4 = UnityEngine.Random.Range(-90f, 90f);
+        bulletProjectile4.transform.rotation = Quaternion.Euler(random4, -75f, 0);
         Vector3 targetUnitShootAtPosition4 = e;
 
         targetUnitShootAtPosition4.y = shootPointTransform.position.y;
