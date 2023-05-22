@@ -48,10 +48,7 @@ public class CharacterDataManager : MonoBehaviour
 
     private void Awake()
     {
-        if(CharacterName == "")
-        {
-            return;
-        }
+        if (CharacterName == "") { return; }
 
         var data = Resources.Load<TextAsset>(CharacterName);
         var Root = SimpleJSON.JSON.Parse(data.text);
@@ -104,7 +101,7 @@ public class CharacterDataManager : MonoBehaviour
             initInfo();
         }
 
-        if(m_hp <= 0)
+        if (m_hp <= 0)
         {
             m_hp = 0;
         }
@@ -181,26 +178,3 @@ public class CharacterDataManager : MonoBehaviour
         }
     }
 }
-
-#region 정보 디버그
-/*
-
-    public void DebugInfo()
-    {
-        Debug.Log("아이디: " + ID
-            + ("\n이름: ") + Name
-            + ("\n레벨: ") + Level
-            + ("\n최대 레벨: ") + MaxLevel
-            + ("\n현재 경험치: ") + CurrentExp
-            + ("\n최대 경험치: ") + MaxExp
-            + ("\n공격력: ") + AttackPower
-            + ("\n협공력: ") + ChainAttackPower
-            + ("\n방어력: ") + DefensePower
-            + ("\n체력: ") + Hp
-            + ("\n크리티컬 확률: ") + CriticalRate
-            + ("\n크리티컬 데미지: ") + CriticalDamage
-            );
-    }
-
- */
-#endregion

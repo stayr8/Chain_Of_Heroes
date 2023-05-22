@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MonsterDataManager : MonoBehaviour
 {
-    [SerializeField, Header("어떤 Json 파일을 불러올 것인가?")] private string CharacterName;
+    [SerializeField, Header("어떤 Json 파일을 불러올 것인가?")] private string MonsterName;
     [Header("캐릭터 데이터")]
     public int m_id; // [아이디]
     public string m_name; // [이름]
@@ -46,7 +46,7 @@ public class MonsterDataManager : MonoBehaviour
 
     private void Awake()
     {
-        var data = Resources.Load<TextAsset>(CharacterName);
+        var data = Resources.Load<TextAsset>(MonsterName);
 
         var Root = SimpleJSON.JSON.Parse(data.text);
 
