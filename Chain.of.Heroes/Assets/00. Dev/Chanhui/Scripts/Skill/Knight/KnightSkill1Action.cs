@@ -9,6 +9,8 @@ public class KnightSkill1Action : BaseAction
     public event EventHandler OnKnSkill_1_StopMoving;
     public event EventHandler OnKnSkill_1_Stun;
 
+    [SerializeField] private Transform skill1_effect;
+    [SerializeField] private Transform skill1_effect_transform;
 
     private List<Vector3> positionList;
     private int currentPositionIndex;
@@ -18,6 +20,7 @@ public class KnightSkill1Action : BaseAction
         SwingingKnSkill_1_BeforeMoving,
         SwingingKnSkill_1_Moving,
         SwingingKnSkill_1_Attacking,
+        SwingingKnSkill_1_Effect,
         SwingingKnSkill_1_AfterHit,
     }
 
@@ -119,6 +122,9 @@ public class KnightSkill1Action : BaseAction
             case State.SwingingKnSkill_1_Attacking:
 
                 break;
+            case State.SwingingKnSkill_1_Effect:
+
+                break;
             case State.SwingingKnSkill_1_AfterHit:
 
                 break;
@@ -148,7 +154,16 @@ public class KnightSkill1Action : BaseAction
                 BaseAction StartAction = targetUnit.GetAction<StunAction>();
                 StartAction.TakeAction(targetUnit.GetGridPosition(), onActionComplete);
 
-                TimeAttack(1.0f);
+                TimeAttack(0.6f);
+                state = State.SwingingKnSkill_1_Effect;
+
+                break;
+            case State.SwingingKnSkill_1_Effect:
+                AttackActionSystem.Instance.GetMonsterDataManager().Damage();
+                Transform skill1EffectTransform = Instantiate(skill1_effect, skill1_effect_transform.position, Quaternion.identity);
+                Destroy(skill1EffectTransform.gameObject, 0.2f);
+
+                TimeAttack(0.4f);
                 state = State.SwingingKnSkill_1_AfterHit;
 
                 break;
@@ -242,6 +257,8 @@ public class KnightSkill1Action : BaseAction
 
         OnKnSkill_1_StartMoving?.Invoke(this, EventArgs.Empty);
         AttackActionSystem.Instance.SetUnitChainFind(targetUnit, unit);
+        AttackActionSystem.Instance.SetCharacterDataManager(unit.GetCharacterDataManager());
+        AttackActionSystem.Instance.SetMonsterDataManager(targetUnit.GetMonsterDataManager());
 
         ActionStart(onActionComplete);
     }

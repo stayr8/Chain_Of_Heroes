@@ -5,7 +5,7 @@ using UnityEngine;
 public class BulletProjectile : MonoBehaviour
 {
 
-    [SerializeField] private TrailRenderer trailRenderer;
+    //[SerializeField] private TrailRenderer trailRenderer;
     //[SerializeField] private Transform bulletHitVfxPrefab;
     private Vector3 targetPosition;
 
@@ -32,7 +32,7 @@ public class BulletProjectile : MonoBehaviour
             transform.position = targetPosition;
 
             //trailRenderer.transform.parent = null;
-            Destroy(gameObject);
+            Destroy(gameObject, 0.3f);
 
             //Instantiate(bulletHitVfxPrefab, targetPosition, Quaternion.identity);
         }

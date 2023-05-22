@@ -13,7 +13,6 @@ public class SwordWomanSkill2Action : BaseAction
         public Unit shootingUnit;
     }
 
-
     private enum State
     {
         SwingingSWSkill_2_LookAt,

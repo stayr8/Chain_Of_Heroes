@@ -13,8 +13,11 @@ public class RangeBulletProjectile : MonoBehaviour
 
     private void Start()
     {
-        particle.Play();
-        StartCoroutine(Pause());
+        if (particle != null)
+        {
+            particle.Play();
+            StartCoroutine(Pause());
+        }
     }
 
     IEnumerator Pause()
@@ -53,7 +56,7 @@ public class RangeBulletProjectile : MonoBehaviour
 
     public void GetValidActionGridPositionList()
     {
-        GridPosition unitGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
+        GridPosition unitGridPosition = AttackActionSystem.Instance.GetenemyChainFind().GetGridPosition();
 
         for (int x = -maxMoveDistance; x <= maxMoveDistance; x++)
         {

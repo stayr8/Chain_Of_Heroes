@@ -13,6 +13,7 @@ public class MonsterBase : MonoBehaviour
     {
         Debug.Log("몬스터 맞음");
         characterAP = CDM.m_attackPower;
+        monsterDP = MDM.m_defensePower;
 
         isCritical = Calc_Critical(CDM);
         if (!isCritical)
@@ -35,11 +36,6 @@ public class MonsterBase : MonoBehaviour
         DamagePopup.Create(pos, (int)finalDamage, isCritical);
     }
 
-    public void Calc_ChainAttack(CharacterDataManager CDM, MonsterDataManager MDM) // 체인 어택 공식
-    {
-
-    }
-
     private float characterCR;
     private bool Calc_Critical(CharacterDataManager CDM) // 크리티컬 확률 공식
     {
@@ -55,4 +51,24 @@ public class MonsterBase : MonoBehaviour
             return false;
         }
     }
+
+    public void Calc_ChainAttack(CharacterDataManager CDM, MonsterDataManager MDM) // 체인 어택 공식
+    {
+        
+    }
+
+    private float characterSKD; // 크리티컬인가?
+    public void Calc_SkillAttack(CharacterDataManager CDM, MonsterDataManager MDM) // 스킬 공식
+    {
+        characterAP = CDM.m_attackPower;
+        monsterDP = MDM.m_defensePower;
+        characterSKD = CDM.m_skilldamagecoefficient;
+
+        finalDamage = (characterAP * characterSKD * (100 / (100 + (monsterDP / 10))));
+
+        MDM.m_hp -= (int)finalDamage;
+
+        Vector3 pos = new Vector3(this.transform.position.x + 1f, this.transform.position.y + 1f, this.transform.position.z);
+        DamagePopup.Create(pos, (int)finalDamage, isCritical);
+    } 
 }

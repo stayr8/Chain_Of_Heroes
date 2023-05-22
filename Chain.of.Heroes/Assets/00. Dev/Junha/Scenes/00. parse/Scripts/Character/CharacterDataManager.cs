@@ -34,6 +34,7 @@ public class CharacterDataManager : MonoBehaviour
     [Header("별도의 데이터")]
     public float m_maxhp; // [최대 체력]
     public float m_damagereductionRate; // [데미지 감소율]
+    public float m_skilldamagecoefficient; // [스킬 데미지 계수]
 
 
 
@@ -94,6 +95,7 @@ public class CharacterDataManager : MonoBehaviour
         initInfo();
         m_maxhp = m_hp;
         m_damagereductionRate = 0;
+        m_skilldamagecoefficient = 0;
     }
 
     private void Update()
@@ -175,7 +177,7 @@ public class CharacterDataManager : MonoBehaviour
     {
         if (other.transform.tag == "EnemyMelee")
         {
-            Debug.Log(other.gameObject.name);
+            //Debug.Log(other.gameObject.name);
             ScreenShake.Instance.Shake();
             Damage();
         }

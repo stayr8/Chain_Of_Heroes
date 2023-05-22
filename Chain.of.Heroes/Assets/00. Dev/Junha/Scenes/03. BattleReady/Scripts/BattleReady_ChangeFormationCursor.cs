@@ -188,6 +188,7 @@ public class BattleReady_ChangeFormationCursor : CursorBase
 
         //Set_NameAndImage();
         character_Name.text = data.m_name.ToString();
+        character_Class.text = data.m_class.ToString();
         character_HP.text = data.m_hp.ToString();
         character_MaxHP.text = data.m_hp.ToString();
         character_AttackPower.text = data.m_attackPower.ToString();

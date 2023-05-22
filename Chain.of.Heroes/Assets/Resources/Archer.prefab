@@ -274,10 +274,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 8934991884634520614}
-  bulletProjectilePrefab: {fileID: 8732296480811401870, guid: a68ba26ac9425034b8d224551ed6fa8b, type: 3}
   shootPointTransform: {fileID: 3905382890455222643}
+  VkeffectTransform: {fileID: 0}
   ArSkill_1_shootPointTransform: {fileID: 7760530916579635431}
   ArSkill_2_shootPointTransform: {fileID: 2760004473113416682}
+  WzSkill_2_shootPointTransform: {fileID: 0}
+  VkSkill_2_shootPointTransform: {fileID: 0}
+  bulletProjectilePrefab: {fileID: 8732296480811401870, guid: a68ba26ac9425034b8d224551ed6fa8b, type: 3}
+  ArSkill1_bulletProjectilePrefab: {fileID: 9156132799818224889, guid: 7ebfd422c6cee544cb564a68345c6337, type: 3}
+  ArSkill2_bulletProjectilePrefab: {fileID: 5940275869156980632, guid: d486df93adb89eb448cedcaeaaaba7a0, type: 3}
 --- !u!114 &3500579739310478914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,12 +306,15 @@ MonoBehaviour:
   m_chainAttackPower: 0
   m_defensePower: 0
   m_hp: 0
-  m_maxhp: 0
   m_criticalRate: 0
   m_criticalDamage: 0
   m_class: 
-  m_unitProperty: 
+  m_property: 
   m_resourcePath: 
+  m_back_resourcePath: 
+  m_maxhp: 0
+  m_damagereductionRate: 0
+  m_skilldamagecoefficient: 0
 --- !u!114 &3283995920611689855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -410,7 +418,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstaclesLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 262144
   maxArSkill_1_Distance: 2
 --- !u!114 &828612034672503587
 MonoBehaviour:
@@ -426,7 +434,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstaclesLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 262144
   maxArSkill_2_Distance: 2
 --- !u!1 &3191017033987743120
 GameObject:

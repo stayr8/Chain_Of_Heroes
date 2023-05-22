@@ -24,7 +24,6 @@ public class ArcherSkill1Action : BaseAction
         SwingingArSkill_1_Cooloff,
     }
 
-    [SerializeField] private LayerMask obstaclesLayerMask;
     [SerializeField] private int maxArSkill_1_Distance = 2;
 
     private State state;
@@ -156,6 +155,7 @@ public class ArcherSkill1Action : BaseAction
                 ActionCameraComplete();
                 AttackActionSystem.Instance.OffAtLocationMove(unit, targetUnit);
 
+                unit.GetCharacterDataManager().m_skilldamagecoefficient = 0f;
                 ActionComplete();
                 break;
         }
@@ -217,18 +217,6 @@ public class ArcherSkill1Action : BaseAction
                     continue;
                 }
 
-                Vector3 unitWorldPosition = LevelGrid.Instance.GetWorldPosition(unitGridPosition);
-                Vector3 shootDir = (targetUnit.GetWorldPosition() - unitWorldPosition).normalized;
-
-                float unitShoulderHeight = 1.7f;
-                if (Physics.Raycast(unitWorldPosition + Vector3.up * unitShoulderHeight, shootDir,
-                    Vector3.Distance(unitWorldPosition, targetUnit.GetWorldPosition()),
-                    obstaclesLayerMask))
-                {
-                    // Blocked by an Obstacle
-                    continue;
-                }
-
                 validGridPositionList.Add(testGridPosition);
             }
         }
@@ -240,6 +228,7 @@ public class ArcherSkill1Action : BaseAction
     {
         isSkill = true;
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
+        unit.GetCharacterDataManager().m_skilldamagecoefficient = 0.5f;
 
         if (isSkillCount <= 0)
         {

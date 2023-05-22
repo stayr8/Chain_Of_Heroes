@@ -10,6 +10,9 @@ public class SwordWomanSkill1Action : BaseAction
     public event EventHandler OnSWSkill_1_Slash;
     public event EventHandler OnSWSkill_1_Dash;
 
+    [SerializeField] private Transform skill1_effect;
+    [SerializeField] private Transform skill1_effect_transform;
+
 
     private List<Vector3> positionList;
     private int currentPositionIndex;
@@ -210,7 +213,9 @@ public class SwordWomanSkill1Action : BaseAction
                 break;
             case State.SwingingSWSkill_1_BeforeHit:
                 OnSWSkill_1_Slash?.Invoke(this, EventArgs.Empty);
-
+                Transform skill1EffectTransform = Instantiate(skill1_effect, skill1_effect_transform.position, Quaternion.identity);
+                skill1EffectTransform.transform.rotation = Quaternion.Euler(-30f, -75f, 0);
+                Destroy(skill1EffectTransform.gameObject, 0.2f);
                 TimeAttack(1.0f);
                 state = State.SwingingSWSkill_1_AfterCamera;
 
@@ -227,7 +232,7 @@ public class SwordWomanSkill1Action : BaseAction
                 AttackActionSystem.Instance.OffAtLocationMove(unit, targetUnit);
 
                 ActionComplete();
-
+                unit.GetCharacterDataManager().m_skilldamagecoefficient = 0f;
                 break;
         }
     }
@@ -299,6 +304,7 @@ public class SwordWomanSkill1Action : BaseAction
     {
         isSkill = true;
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
+        unit.GetCharacterDataManager().m_skilldamagecoefficient = 1.5f;
 
         if (isSkillCount <= 0)
         {

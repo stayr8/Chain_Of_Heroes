@@ -7,6 +7,9 @@ public class KnightSkill2Action : BaseAction
 {
     public event EventHandler OnKnSkill_2_Buff;
 
+    [SerializeField] private Transform skill2_effect;
+    [SerializeField] private Transform skill2_effect_transform;
+
     private enum State
     {
         SwingingKnSkill_2_BeforeSkill,
@@ -14,7 +17,6 @@ public class KnightSkill2Action : BaseAction
         SwingingKnSkill_2_AfterHit,
     }
 
-    [SerializeField] private LayerMask obstaclesLayerMask;
     [SerializeField] private int maxKnSkill_2_Distance = 1;
 
     private State state;
@@ -95,6 +97,9 @@ public class KnightSkill2Action : BaseAction
             case State.SwingingKnSkill_2_Buff:
                 OnKnSkill_2_Buff?.Invoke(this, EventArgs.Empty);
                 GetCharacterBuffOn();
+
+                Transform skill1EffectTransform = Instantiate(skill2_effect, skill2_effect_transform.position, Quaternion.identity);
+                Destroy(skill1EffectTransform.gameObject, 1.5f);
 
                 TimeAttack(1.0f);
                 state = State.SwingingKnSkill_2_AfterHit;
