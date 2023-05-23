@@ -19,14 +19,14 @@ public class MonsterBase : MonoBehaviour
         if (!isCritical)
         { 
             // 최종 데미지 결정
-            finalDamage = characterAP * (100 / (100 + (monsterDP / 10)));
+            finalDamage = characterAP * (100 / (100 + (monsterDP / 10))) * (1 - MDM.m_damagereductionRate);
         }
         else if (isCritical)
         {
             characterCD = CDM.m_criticalDamage;
 
             // 크리티컬 최종 데미지 결정
-            finalDamage = (characterAP * (100 / (100 + (monsterDP / 10)))) * (1.3f + characterCD);
+            finalDamage = (characterAP * (100 / (100 + (monsterDP / 10))) * (1 - MDM.m_damagereductionRate)) * (1.3f + characterCD);
         }
 
         // 데미지 넣기

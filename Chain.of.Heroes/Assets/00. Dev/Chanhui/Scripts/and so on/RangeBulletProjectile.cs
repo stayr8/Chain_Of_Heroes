@@ -35,7 +35,7 @@ public class RangeBulletProjectile : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("여기 들어오니?");
+        
         Vector3 moveDir = (targetPosition - transform.position).normalized;
 
         float distanceBeforeMoving = Vector3.Distance(transform.position, targetPosition);
@@ -44,7 +44,7 @@ public class RangeBulletProjectile : MonoBehaviour
         transform.position += moveDir * moveSpeed * Time.deltaTime;
 
         float distanceAfterMoving = Vector3.Distance(transform.position, targetPosition);
-
+        Debug.Log(distanceBeforeMoving);
         if (distanceBeforeMoving < distanceAfterMoving)
         {
             transform.position = targetPosition;

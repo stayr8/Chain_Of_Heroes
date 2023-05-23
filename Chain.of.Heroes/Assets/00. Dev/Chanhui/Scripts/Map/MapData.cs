@@ -17,6 +17,11 @@ public class MapData : ScriptableObject
     [SerializeField] private int enemy_actionpoint;
     public int Enemy_ActionPoint { get { return enemy_actionpoint; } }
 
+    [SerializeField] private int map_id;
+    public int Map_Id { get { return map_id; } }
+    
+
+
     [Header("Monster_Information")]
     [SerializeField] private GameObject[] enemy_pf;
     public GameObject[] Enemy_pf { get { return enemy_pf; } }

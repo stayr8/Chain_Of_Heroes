@@ -2,7 +2,7 @@
 
 =====================================================
 
-WizardGIN [3D Model]   < Ver 1.0 >
+SkeletonArcher [3D Model]   < Ver 1.0 >
 
 =====================================================
 
@@ -64,9 +64,9 @@ instructions
 ===================================================
 
 
-1.click to the  [File] > [Open Project] > [WizardGIN] folder
+1.click to the  [File] > [Open Project] > [SkeletonArcher] folder
 
-2.Dubble click [Demo_scene] and Use Prefab file in the [Prefabs] folder
+2.Dubble click [Demo_scene] and Use Prefap file in the [Prefaps] folder
 
 3.you can use the model file ~  Too easy~~~
 

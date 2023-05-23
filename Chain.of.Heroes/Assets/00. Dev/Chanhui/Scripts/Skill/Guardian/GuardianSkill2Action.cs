@@ -25,6 +25,7 @@ public class GuardianSkill2Action : BaseAction
     private State state;
     private float stateTimer;
     private Unit targetUnit;
+    private float lastTime;
 
     private List<Binding> Binds = new List<Binding>();
 
@@ -46,18 +47,25 @@ public class GuardianSkill2Action : BaseAction
                 if (isSkill && isSkillCount > 0)
                 {
                     isSkillCount -= 1;
+                    lastTime -= 1;
                 }
 
                 if (isSkillCount <= 0)
                 {
-                    isProvoke = false;
                     isSkill = false;
+                }
+
+                if(lastTime <= 0)
+                {
+                    Debug.Log("도발 종료");
+                    isProvoke = false;
                 }
             }
         });
         Binds.Add(Bind);
 
         isSkillCount = 0;
+        lastTime = 0;
     }
 
     private void Update()
@@ -101,8 +109,7 @@ public class GuardianSkill2Action : BaseAction
             case State.SwingingGdSkill_2_Provoke:
                 OnGdSkill_2_provoke?.Invoke(this, EventArgs.Empty);
                 isProvoke = true;
-                Transform skill1EffectTransform = Instantiate(skill2_effect, skill2_effect_transform.position, Quaternion.identity);
-                Destroy(skill1EffectTransform.gameObject, 1.5f);
+                Invoke("Effect", 0.3f);
 
                 TimeAttack(2.0f);
                 state = State.SwingingGdSkill_2_AfterHit;
@@ -119,6 +126,13 @@ public class GuardianSkill2Action : BaseAction
     {
         float afterHitStateTime = StateTime;
         stateTimer = afterHitStateTime;
+    }
+
+    void Effect()
+    {
+        Debug.Log("도발 시작");
+        Transform skill1EffectTransform = Instantiate(skill2_effect, skill2_effect_transform.position, Quaternion.identity);
+        Destroy(skill1EffectTransform.gameObject, 1.5f);
     }
 
     public override List<GridPosition> GetValidActionGridPositionList()
@@ -166,7 +180,8 @@ public class GuardianSkill2Action : BaseAction
         {
             isSkillCount = 3;
         }
-
+        lastTime = 2;
+        
         state = State.SwingingGdSkill_2_BeforeSkill;
         TimeAttack(0.7f);
 

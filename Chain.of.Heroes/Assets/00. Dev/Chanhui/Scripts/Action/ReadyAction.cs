@@ -225,17 +225,27 @@ public class ReadyAction : BaseAction
                     continue;
                 }*/
 
-                if (isProvoke && LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition))
-                {
-                    if (LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition).GetUnitName() == "플라틴")
-                    {
-                        validGridPositionList.Add(testGridPosition);
-                    }
-                }
-                else if (!LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition))
+                if (!LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition))
                 {
                     // Grid Position is empty, no Unit
                     continue;
+                }
+
+                if (isProvoke)
+                {
+                    if (LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition))
+                    {
+                        Unit Prunit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
+                        if (Prunit.GetUnitName() == "플라틴")
+                        {
+                            Debug.Log("가디언");
+                        }
+                        else
+                        {
+                            Debug.Log(Prunit);
+                            continue;
+                        }
+                    }
                 }
 
                 Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);

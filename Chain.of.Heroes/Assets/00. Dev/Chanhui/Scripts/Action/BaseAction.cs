@@ -11,10 +11,11 @@ public abstract class BaseAction : MonoBehaviour
     public static event EventHandler OnAnyActionStarted_1;
     public static event EventHandler OnAnyActionCompleted_1;
 
+    public static bool isProvoke;
+
     protected Unit unit;
     protected bool isActive;
     protected bool isSkill;
-    protected bool isProvoke;
     protected int isSkillCount;
     protected int isMaxSkillCount;
     protected Action onActionComplete;

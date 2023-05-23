@@ -130,7 +130,7 @@ public class ValkyrieSkill2Action : BaseAction
             case State.SwingingVkSkill_2_AfterHit:
 
                 ActionComplete();
-
+                unit.GetCharacterDataManager().m_skilldamagecoefficient = 0f;
                 break;
         }
     }
@@ -177,6 +177,7 @@ public class ValkyrieSkill2Action : BaseAction
                     {
                         BaseAction StartAction = targetUnit.GetAction<StunAction>();
                         StartAction.TakeAction(targetUnit.GetGridPosition(), onActionComplete);
+                        targetUnit.GetMonsterDataManager().SkillDamage();
                     }
                 }
             }
@@ -245,6 +246,7 @@ public class ValkyrieSkill2Action : BaseAction
             isSkillCount = 3;
         }
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
+        unit.GetCharacterDataManager().m_skilldamagecoefficient = 3.0f;
 
         state = State.SwingingVkSkill_2_LookAt;
         TimeAttack(0.7f);

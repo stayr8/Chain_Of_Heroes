@@ -10,6 +10,8 @@ public class ValkyrieSkill1Action : BaseAction
     public event EventHandler OnVkSkill_1_Slash;
     public event EventHandler OnVkSkill_1_Dash;
 
+    [SerializeField] private Transform skill1_effect;
+    [SerializeField] private Transform skill1_effect_transform;
 
     private List<Vector3> positionList;
     private int currentPositionIndex;
@@ -210,6 +212,7 @@ public class ValkyrieSkill1Action : BaseAction
                 break;
             case State.SwingingVkSkill_1_BeforeHit:
                 OnVkSkill_1_Slash?.Invoke(this, EventArgs.Empty);
+                Invoke("Effect", 0.2f);
 
                 TimeAttack(1.0f);
                 state = State.SwingingVkSkill_1_AfterCamera;
@@ -227,7 +230,7 @@ public class ValkyrieSkill1Action : BaseAction
                 AttackActionSystem.Instance.OffAtLocationMove(unit, targetUnit);
 
                 ActionComplete();
-
+                unit.GetCharacterDataManager().m_skilldamagecoefficient = 0f;
                 break;
         }
     }
@@ -235,6 +238,14 @@ public class ValkyrieSkill1Action : BaseAction
     {
         float afterHitStateTime = StateTime;
         stateTimer = afterHitStateTime;
+    }
+
+    void Effect()
+    {
+        Transform skill1EffectTransform = Instantiate(skill1_effect, skill1_effect_transform.position, Quaternion.identity);
+        ScreenShake.Instance.Shake();
+        targetUnit.GetMonsterDataManager().SkillDamage();
+        Destroy(skill1EffectTransform.gameObject, 0.2f);
     }
 
     public override List<GridPosition> GetValidActionGridPositionList()
@@ -299,6 +310,7 @@ public class ValkyrieSkill1Action : BaseAction
     {
         isSkill = true;
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
+        unit.GetCharacterDataManager().m_skilldamagecoefficient = 2.0f;
 
         if (isSkillCount <= 0)
         {

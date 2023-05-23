@@ -450,7 +450,6 @@ public class UnitAnimator : MonoBehaviour
         animator.SetTrigger("IsSkill_2");
         StartCoroutine(WzSkill_2_Shoot(e.targetUnit.GetWorldPosition()));
         
-
     }
 
     IEnumerator WzSkill_2_Shoot(Vector3 e)
@@ -460,11 +459,11 @@ public class UnitAnimator : MonoBehaviour
         Vector3 MousePosition = e + new Vector3(0f,20f,0f);
         Transform bulletProjectileTransform =
             Instantiate(WzSkill_2_bulletProjectilePrefab, MousePosition, Quaternion.identity);
-        RangeBulletProjectile bulletProjectile = bulletProjectileTransform.GetComponent<RangeBulletProjectile>();
+        MetaoBulletProjjectile bulletProjectile = bulletProjectileTransform.GetComponent<MetaoBulletProjjectile>();
 
         Vector3 targetUnitShootAtPosition = e;
 
-        targetUnitShootAtPosition.y = MousePosition.y;
+        targetUnitShootAtPosition.y = e.y;
 
         bulletProjectile.Setup(targetUnitShootAtPosition);
     }
