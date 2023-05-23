@@ -9,6 +9,8 @@ public class SamuraiSkill2Action : BaseAction
     public event EventHandler OnSrSkill_2_StopMoving;
     public event EventHandler OnSrSkill_2_Slash;
 
+    [SerializeField] private Transform skill2_effect;
+    [SerializeField] private Transform skill2_effect_transform;
 
     private List<Vector3> positionList;
     private int currentPositionIndex;
@@ -21,7 +23,6 @@ public class SamuraiSkill2Action : BaseAction
         SwingingSrSkill_2_AfterHit,
     }
 
-    [SerializeField] private LayerMask obstaclesLayerMask;
     [SerializeField] private int maxSrSkill_2_Distance = 2;
 
     private State state;
@@ -146,13 +147,15 @@ public class SamuraiSkill2Action : BaseAction
                 break;
             case State.SwingingSrSkill_2_Attacking:
                 OnSrSkill_2_Slash?.Invoke(this, EventArgs.Empty);
+                Invoke("Effect", 0.1f);
+                GetSkill2EnemyGridPositionList();
 
                 TimeAttack(1.0f);
                 state = State.SwingingSrSkill_2_AfterHit;
 
                 break;
             case State.SwingingSrSkill_2_AfterHit:
-
+                unit.GetCharacterDataManager().m_skilldamagecoefficient = 0f;
                 ActionComplete();
 
                 break;
@@ -162,6 +165,42 @@ public class SamuraiSkill2Action : BaseAction
     {
         float afterHitStateTime = StateTime;
         stateTimer = afterHitStateTime;
+    }
+
+    void Effect()
+    {
+        Transform skill1EffectTransform = Instantiate(skill2_effect, skill2_effect_transform.position, Quaternion.identity);
+        skill1EffectTransform.transform.rotation = Quaternion.Euler(0f, -75f, -10f);
+        Destroy(skill1EffectTransform.gameObject, 0.2f);
+    }
+
+    int Skill2Distance = 1;
+    public void GetSkill2EnemyGridPositionList()
+    {
+        GridPosition unitGridPosition = AttackActionSystem.Instance.GetenemyChainFind().GetGridPosition();
+
+        for (int x = -Skill2Distance; x <= Skill2Distance; x++)
+        {
+            for (int z = -Skill2Distance; z <= Skill2Distance; z++)
+            {
+                GridPosition offsetGridPosition = new GridPosition(x, z);
+                GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
+
+                if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition))
+                {
+                    continue;
+                }
+
+                if (LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition))
+                {
+                    Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
+                    if (targetUnit.IsEnemy())
+                    {
+                        targetUnit.GetMonsterDataManager().Damage();
+                    }
+                }
+            }
+        }
     }
 
     public override List<GridPosition> GetValidActionGridPositionList()
@@ -215,18 +254,6 @@ public class SamuraiSkill2Action : BaseAction
                     continue;
                 }
 
-                Vector3 unitWorldPosition = LevelGrid.Instance.GetWorldPosition(unitGridPosition);
-                Vector3 shootDir = (targetUnit.GetWorldPosition() - unitWorldPosition).normalized;
-
-                float unitShoulderHeight = 1.7f;
-                if (Physics.Raycast(unitWorldPosition + Vector3.up * unitShoulderHeight, shootDir,
-                    Vector3.Distance(unitWorldPosition, targetUnit.GetWorldPosition()),
-                    obstaclesLayerMask))
-                {
-                    // Blocked by an Obstacle
-                    continue;
-                }
-
                 validGridPositionList.Add(testGridPosition);
             }
         }
@@ -238,6 +265,7 @@ public class SamuraiSkill2Action : BaseAction
     {
         isSkill = true;
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
+        unit.GetCharacterDataManager().m_skilldamagecoefficient = 5.0f;
 
         if (isSkillCount <= 0)
         {
@@ -259,7 +287,8 @@ public class SamuraiSkill2Action : BaseAction
 
         OnSrSkill_2_StartMoving?.Invoke(this, EventArgs.Empty);
         AttackActionSystem.Instance.SetUnitChainFind(targetUnit, unit);
-
+        AttackActionSystem.Instance.SetCharacterDataManager(unit.GetCharacterDataManager());
+        AttackActionSystem.Instance.SetMonsterDataManager(targetUnit.GetMonsterDataManager());
         ActionStart(onActionComplete);
     }
 

@@ -9,6 +9,7 @@ public class WizardSkill1Action : BaseAction
     public event EventHandler OnWzSkill_1_StopMoving;
     public event EventHandler OnWzSkill_1_Debuff;
 
+    [SerializeField] private Transform skill1_effect;
 
     private List<Vector3> positionList;
     private int currentPositionIndex;
@@ -145,6 +146,7 @@ public class WizardSkill1Action : BaseAction
             case State.SwingingWzSkill_1_Attacking:
                 OnWzSkill_1_Debuff?.Invoke(this, EventArgs.Empty);
                 GetCharacterBuffOn();
+                Invoke("Effect", 0.5f);
 
                 TimeAttack(1.0f);
                 state = State.SwingingWzSkill_1_AfterHit;
@@ -161,6 +163,12 @@ public class WizardSkill1Action : BaseAction
     {
         float afterHitStateTime = StateTime;
         stateTimer = afterHitStateTime;
+    }
+
+    void Effect()
+    {
+        Transform skill1EffectTransform = Instantiate(skill1_effect, targetUnit.transform.position, Quaternion.identity);
+        Destroy(skill1EffectTransform.gameObject, 0.5f);
     }
 
     public override List<GridPosition> GetValidActionGridPositionList()

@@ -9,10 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8375788931848342557}
-  - component: {fileID: 5209687766277933032}
-  - component: {fileID: 8682431948608113476}
   m_Layer: 14
-  m_Name: SamuraiSkill_effect
+  m_Name: SamuraiSkill2_effect
   m_TagString: SkillMelee
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,31 +32,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &5209687766277933032
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8114071261443282375}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 4.2896347, y: 0.5208612, z: 2.5989754}
-  m_Center: {x: -0.016090393, y: 0.07629485, z: 0.79948795}
---- !u!114 &8682431948608113476
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8114071261443282375}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6378585e3bd23c49b75299122803286, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &3528034119389159755
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -73,6 +46,18 @@ PrefabInstance:
     - target: {fileID: 3071203166238714258, guid: c8f862f736b50f54892ad8e2f5297c7c, type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3071203166238714258, guid: c8f862f736b50f54892ad8e2f5297c7c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3071203166238714258, guid: c8f862f736b50f54892ad8e2f5297c7c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3071203166238714258, guid: c8f862f736b50f54892ad8e2f5297c7c, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 3071203166238714258, guid: c8f862f736b50f54892ad8e2f5297c7c, type: 3}
       propertyPath: m_LocalPosition.x

@@ -228,7 +228,7 @@ public class GuardianSkill1Action : BaseAction
                 AttackActionSystem.Instance.OffAtLocationMove(unit, targetUnit);
 
                 ActionComplete();
-
+                unit.GetCharacterDataManager().m_skilldamagecoefficient = 0f;
                 break;
         }
     }
@@ -244,7 +244,7 @@ public class GuardianSkill1Action : BaseAction
         Transform skill1EffectTransform = Instantiate(skill1_effect, skill1_effect_transform.position, Quaternion.identity);
         skill1EffectTransform.transform.rotation = Quaternion.Euler(30f, -75f, 0);
         Destroy(skill1EffectTransform.gameObject, 0.2f);
-        yield return new WaitForSeconds(0.45f);
+        yield return new WaitForSeconds(0.5f);
         Transform skill1EffectTransform2 = Instantiate(skill1_effect, skill1_effect_transform.position, Quaternion.identity);
         skill1EffectTransform2.transform.rotation = Quaternion.Euler(-30f, -75f, 0);
         Destroy(skill1EffectTransform2.gameObject, 0.2f);
@@ -324,6 +324,7 @@ public class GuardianSkill1Action : BaseAction
     {
         isSkill = true;
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
+        unit.GetCharacterDataManager().m_skilldamagecoefficient = 0.75f;
 
         if (isSkillCount <= 0)
         {

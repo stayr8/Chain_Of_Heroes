@@ -10,6 +10,8 @@ public class SamuraiSkill1Action : BaseAction
     public event EventHandler OnSrSkill_1_Slash;
     public event EventHandler OnSrSkill_1_Dash;
 
+    [SerializeField] private Transform skill1_effect;
+    [SerializeField] private Transform skill1_effect_transform;
 
     private List<Vector3> positionList;
     private int currentPositionIndex;
@@ -27,7 +29,6 @@ public class SamuraiSkill1Action : BaseAction
         SwingingSrSkill_1_AfterHit,
     }
 
-    [SerializeField] private LayerMask obstaclesLayerMask;
     [SerializeField] private int maxSrSkill_1_Distance = 2;
 
     private State state;
@@ -211,6 +212,7 @@ public class SamuraiSkill1Action : BaseAction
                 break;
             case State.SwingingSrSkill_1_BeforeHit:
                 OnSrSkill_1_Slash?.Invoke(this, EventArgs.Empty);
+                StartCoroutine(Effect());
 
                 TimeAttack(1.0f);
                 state = State.SwingingSrSkill_1_AfterCamera;
@@ -227,6 +229,7 @@ public class SamuraiSkill1Action : BaseAction
                 ActionCameraComplete();
                 AttackActionSystem.Instance.OffAtLocationMove(unit, targetUnit);
 
+                unit.GetCharacterDataManager().m_skilldamagecoefficient = 0f;
                 ActionComplete();
 
                 break;
@@ -236,6 +239,22 @@ public class SamuraiSkill1Action : BaseAction
     {
         float afterHitStateTime = StateTime;
         stateTimer = afterHitStateTime;
+    }
+
+    IEnumerator Effect()
+    {
+        yield return new WaitForSeconds(0.1f);
+        Transform skill1EffectTransform = Instantiate(skill1_effect, skill1_effect_transform.position, Quaternion.identity);
+        skill1EffectTransform.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+        Destroy(skill1EffectTransform.gameObject, 0.5f);
+        yield return new WaitForSeconds(0.2f);
+        Transform skill1EffectTransform2 = Instantiate(skill1_effect, skill1_effect_transform.position, Quaternion.identity);
+        skill1EffectTransform2.transform.rotation = Quaternion.Euler(0f, 0f, 30f);
+        Destroy(skill1EffectTransform2.gameObject, 0.5f);
+        yield return new WaitForSeconds(0.2f);
+        Transform skill1EffectTransform3 = Instantiate(skill1_effect, skill1_effect_transform.position, Quaternion.identity);
+        skill1EffectTransform3.transform.rotation = Quaternion.Euler(0f, 0f, -30f);
+        Destroy(skill1EffectTransform3.gameObject, 0.5f);
     }
 
     public override List<GridPosition> GetValidActionGridPositionList()
@@ -289,18 +308,6 @@ public class SamuraiSkill1Action : BaseAction
                     continue;
                 }
 
-                Vector3 unitWorldPosition = LevelGrid.Instance.GetWorldPosition(unitGridPosition);
-                Vector3 shootDir = (targetUnit.GetWorldPosition() - unitWorldPosition).normalized;
-
-                float unitShoulderHeight = 1.7f;
-                if (Physics.Raycast(unitWorldPosition + Vector3.up * unitShoulderHeight, shootDir,
-                    Vector3.Distance(unitWorldPosition, targetUnit.GetWorldPosition()),
-                    obstaclesLayerMask))
-                {
-                    // Blocked by an Obstacle
-                    continue;
-                }
-
                 validGridPositionList.Add(testGridPosition);
             }
         }
@@ -312,6 +319,7 @@ public class SamuraiSkill1Action : BaseAction
     {
         isSkill = true;
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
+        unit.GetCharacterDataManager().m_skilldamagecoefficient = 1.5f;
 
         if (isSkillCount <= 0)
         {

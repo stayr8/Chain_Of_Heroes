@@ -12,13 +12,13 @@ public class UnitAnimator : MonoBehaviour
     [SerializeField] private Transform VkeffectTransform;
     [SerializeField] private Transform ArSkill_1_shootPointTransform;
     [SerializeField] private Transform ArSkill_2_shootPointTransform;
-    [SerializeField] private Transform WzSkill_2_shootPointTransform;
     [SerializeField] private Transform VkSkill_2_shootPointTransform;
 
     [Header("ÃÑ¾Ëµé")]
     [SerializeField] private Transform bulletProjectilePrefab;
     [SerializeField] private Transform ArSkill1_bulletProjectilePrefab;
     [SerializeField] private Transform ArSkill2_bulletProjectilePrefab;
+    [SerializeField] private Transform WzSkill_2_bulletProjectilePrefab;
 
     private void Awake()
     {
@@ -448,17 +448,25 @@ public class UnitAnimator : MonoBehaviour
     private void WzSkill1_2_Action_OnShoot(object sender, WizardSkill2Action.OnShootEventArgs e)
     {
         animator.SetTrigger("IsSkill_2");
+        StartCoroutine(WzSkill_2_Shoot(e.targetUnit.GetWorldPosition()));
+        
 
+    }
+
+    IEnumerator WzSkill_2_Shoot(Vector3 e)
+    {
+        yield return new WaitForSeconds(0.2f);
+
+        Vector3 MousePosition = e + new Vector3(0f,20f,0f);
         Transform bulletProjectileTransform =
-            Instantiate(bulletProjectilePrefab, WzSkill_2_shootPointTransform.position, Quaternion.identity);
-        BulletProjectile bulletProjectile = bulletProjectileTransform.GetComponent<BulletProjectile>();
+            Instantiate(WzSkill_2_bulletProjectilePrefab, MousePosition, Quaternion.identity);
+        RangeBulletProjectile bulletProjectile = bulletProjectileTransform.GetComponent<RangeBulletProjectile>();
 
-        Vector3 targetUnitShootAtPosition = e.targetUnit.GetWorldPosition();
+        Vector3 targetUnitShootAtPosition = e;
 
-        targetUnitShootAtPosition.y = WzSkill_2_shootPointTransform.position.y;
+        targetUnitShootAtPosition.y = MousePosition.y;
 
         bulletProjectile.Setup(targetUnitShootAtPosition);
-
     }
 
     private void VkSkill1_2_Action_OnShoot(object sender, ValkyrieSkill2Action.OnShootEventArgs e)

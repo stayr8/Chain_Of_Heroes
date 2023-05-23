@@ -7,6 +7,7 @@ public class WizardSkill2Action : BaseAction
 {
     public event EventHandler<OnShootEventArgs> OnShoot;
 
+
     public class OnShootEventArgs : EventArgs
     {
         public Unit targetUnit;
@@ -118,7 +119,7 @@ public class WizardSkill2Action : BaseAction
             case State.SwingingWzSkill_2_AfterHit:
 
                 ActionComplete();
-
+                unit.GetCharacterDataManager().m_skilldamagecoefficient = 0f;
                 break;
         }
     }
@@ -198,6 +199,7 @@ public class WizardSkill2Action : BaseAction
             isSkillCount = 4;
         }
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
+        unit.GetCharacterDataManager().m_skilldamagecoefficient = 3.0f;
 
         state = State.SwingingWzSkill_2_LookAt;
         TimeAttack(0.7f);
