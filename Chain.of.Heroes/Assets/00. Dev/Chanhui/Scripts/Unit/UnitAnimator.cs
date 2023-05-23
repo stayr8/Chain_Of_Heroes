@@ -427,16 +427,22 @@ public class UnitAnimator : MonoBehaviour
     {
         animator.SetTrigger("IsSkill_2");
 
+        StartCoroutine(ArSkill_2_Shoot(e.targetUnit.GetWorldPosition()));
+
+    }
+    IEnumerator ArSkill_2_Shoot(Vector3 e)
+    {
+        yield return new WaitForSeconds(0.4f);
+
         Transform bulletProjectileTransform =
             Instantiate(ArSkill2_bulletProjectilePrefab, ArSkill_2_shootPointTransform.position, Quaternion.identity);
         BulletProjectile bulletProjectile = bulletProjectileTransform.GetComponent<BulletProjectile>();
 
-        Vector3 targetUnitShootAtPosition = e.targetUnit.GetWorldPosition();
+        Vector3 targetUnitShootAtPosition = e;
 
         targetUnitShootAtPosition.y = ArSkill_2_shootPointTransform.position.y;
 
         bulletProjectile.Setup(targetUnitShootAtPosition);
-
     }
 
     private void WzSkill1_2_Action_OnShoot(object sender, WizardSkill2Action.OnShootEventArgs e)

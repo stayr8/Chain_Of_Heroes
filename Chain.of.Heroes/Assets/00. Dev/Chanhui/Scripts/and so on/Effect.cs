@@ -8,9 +8,9 @@ public class Effect : MonoBehaviour
 
 
 
-    private void OnTriggerEnter(Collider2D collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.transform.tag == "Enemy")
+        if (other.transform.tag == "Enemy")
         {
             Debug.Log("ลอมü");
             Transform skill1EffectTransform = Instantiate(skill_end_effect, transform.position, Quaternion.identity);

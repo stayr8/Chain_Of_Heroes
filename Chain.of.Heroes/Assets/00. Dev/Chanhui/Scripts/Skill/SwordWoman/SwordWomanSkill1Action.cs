@@ -216,9 +216,9 @@ public class SwordWomanSkill1Action : BaseAction
                 Transform skill1EffectTransform = Instantiate(skill1_effect, skill1_effect_transform.position, Quaternion.identity);
                 skill1EffectTransform.transform.rotation = Quaternion.Euler(-30f, -75f, 0);
                 Destroy(skill1EffectTransform.gameObject, 0.2f);
+
                 TimeAttack(1.0f);
                 state = State.SwingingSWSkill_1_AfterCamera;
-
 
                 break;
             case State.SwingingSWSkill_1_AfterCamera:

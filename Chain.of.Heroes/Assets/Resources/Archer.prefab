@@ -416,9 +416,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e6903bfa29c08946b6bbb37073347ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstaclesLayerMask:
-    serializedVersion: 2
-    m_Bits: 262144
   maxArSkill_1_Distance: 2
 --- !u!114 &828612034672503587
 MonoBehaviour:
@@ -432,9 +429,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85486052e188241459a44530350362ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstaclesLayerMask:
-    serializedVersion: 2
-    m_Bits: 262144
   maxArSkill_2_Distance: 2
 --- !u!1 &3191017033987743120
 GameObject:
@@ -460,7 +454,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3191017033987743120}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.3991905, y: -0.6978895, z: -0.001953423}
+  m_LocalPosition: {x: 0.3830747, y: -0.4009914, z: 0.123111695}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

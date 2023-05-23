@@ -221,6 +221,37 @@ Transform:
   m_Father: {fileID: 4558079877491338188}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8821242342212412977
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4932956625243742940}
+  m_Layer: 16
+  m_Name: Skill2Pos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4932956625243742940
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8821242342212412977}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 713944944809116282}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9108872348708313369
 GameObject:
   m_ObjectHideFlags: 0
@@ -268,6 +299,7 @@ Transform:
   - {fileID: 596603090001238051}
   - {fileID: 1219006220620374930}
   - {fileID: 2656080615620875645}
+  - {fileID: 4932956625243742940}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -336,10 +368,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 4558079877482071466}
-  bulletProjectilePrefab: {fileID: 8732296480811401870, guid: ed38717c6af161c4ab4f619260be292a, type: 3}
   shootPointTransform: {fileID: 5641576420840286486}
+  VkeffectTransform: {fileID: 0}
   ArSkill_1_shootPointTransform: {fileID: 0}
   ArSkill_2_shootPointTransform: {fileID: 0}
+  WzSkill_2_shootPointTransform: {fileID: 0}
+  VkSkill_2_shootPointTransform: {fileID: 0}
+  bulletProjectilePrefab: {fileID: 8732296480811401870, guid: ed38717c6af161c4ab4f619260be292a, type: 3}
+  ArSkill1_bulletProjectilePrefab: {fileID: 0}
+  ArSkill2_bulletProjectilePrefab: {fileID: 0}
 --- !u!114 &2431518821814102591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -388,13 +425,15 @@ MonoBehaviour:
   m_chainAttackPower: 0
   m_defensePower: 0
   m_hp: 0
-  m_maxhp: 0
-  m_damagereductionRate: 0
   m_criticalRate: 0
   m_criticalDamage: 0
   m_class: 
-  m_unitProperty: 
+  m_property: 
   m_resourcePath: 
+  m_back_resourcePath: 
+  m_maxhp: 0
+  m_damagereductionRate: 0
+  m_skilldamagecoefficient: 0
 --- !u!114 &6228714327043162098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -471,9 +510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d566fdc793f49924da83de8b10e6fb2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstaclesLayerMask:
-    serializedVersion: 2
-    m_Bits: 0
+  skill1_effect: {fileID: 4214057320191117187, guid: 7c17561023b48d440815077f6fc72a6c, type: 3}
   maxPsSkill_1_Distance: 1
 --- !u!114 &3622615075190272887
 MonoBehaviour:
@@ -487,6 +524,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33c94225b605f1547b45ee313cef2752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skill2_effect: {fileID: 6569617959588036190, guid: 2d82e3e79c330ce479a0cbac198b0de5, type: 3}
+  skill2_effect_transform: {fileID: 4932956625243742940}
+  maxPsSkill_2_Distance: 2
 --- !u!1001 &2003859914626563003
 PrefabInstance:
   m_ObjectHideFlags: 0

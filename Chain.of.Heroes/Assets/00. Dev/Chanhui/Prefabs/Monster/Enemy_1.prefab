@@ -156,13 +156,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 4737514008072432975}
-  bulletProjectilePrefab: {fileID: 8732296480811401870, guid: ed38717c6af161c4ab4f619260be292a, type: 3}
   shootPointTransform: {fileID: 8979883348018533939}
   VkeffectTransform: {fileID: 0}
   ArSkill_1_shootPointTransform: {fileID: 0}
   ArSkill_2_shootPointTransform: {fileID: 0}
   WzSkill_2_shootPointTransform: {fileID: 0}
   VkSkill_2_shootPointTransform: {fileID: 0}
+  bulletProjectilePrefab: {fileID: 8732296480811401870, guid: ed38717c6af161c4ab4f619260be292a, type: 3}
+  ArSkill1_bulletProjectilePrefab: {fileID: 0}
+  ArSkill2_bulletProjectilePrefab: {fileID: 0}
 --- !u!114 &6030806032592465833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,7 +191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b590571ee1e864f4687bf875422cfea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterName: GoblinArcher
+  MonsterName: GoblinArcher
   m_id: 0
   m_name: 
   m_level: 0

@@ -9,6 +9,9 @@ public class GuardianSkill2Action : BaseAction
 
     private List<Vector3> positionList;
 
+    [SerializeField] private Transform skill2_effect;
+    [SerializeField] private Transform skill2_effect_transform;
+
     private enum State
     {
         SwingingGdSkill_2_BeforeSkill,
@@ -98,6 +101,9 @@ public class GuardianSkill2Action : BaseAction
             case State.SwingingGdSkill_2_Provoke:
                 OnGdSkill_2_provoke?.Invoke(this, EventArgs.Empty);
                 isProvoke = true;
+                Transform skill1EffectTransform = Instantiate(skill2_effect, skill2_effect_transform.position, Quaternion.identity);
+                Destroy(skill1EffectTransform.gameObject, 1.5f);
+
                 TimeAttack(2.0f);
                 state = State.SwingingGdSkill_2_AfterHit;
 

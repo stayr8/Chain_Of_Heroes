@@ -7,6 +7,8 @@ public class PriestSkill1Action : BaseAction
 {
     public event EventHandler OnPsSkill_1_Hill;
 
+    [SerializeField] private Transform skill1_effect;
+
 
     private enum State
     {
@@ -94,6 +96,8 @@ public class PriestSkill1Action : BaseAction
             case State.SwingingPsSkill_1_Hill:
                 OnPsSkill_1_Hill?.Invoke(this, EventArgs.Empty);
                 TargetCharacterHill();
+                Transform skill1EffectTransform = Instantiate(skill1_effect, targetUnit.transform.position, Quaternion.identity);
+                Destroy(skill1EffectTransform.gameObject, 1.5f);
 
                 TimeAttack(1.5f);
                 state = State.SwingingPsSkill_1_AfterHit;

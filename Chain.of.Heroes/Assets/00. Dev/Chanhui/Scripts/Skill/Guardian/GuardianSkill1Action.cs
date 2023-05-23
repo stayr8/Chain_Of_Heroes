@@ -10,6 +10,8 @@ public class GuardianSkill1Action : BaseAction
     public event EventHandler OnGdSkill_1_Slash;
     public event EventHandler OnGdSkill_1_Dash;
 
+    [SerializeField] private Transform skill1_effect;
+    [SerializeField] private Transform skill1_effect_transform;
 
     private List<Vector3> positionList;
     private int currentPositionIndex;
@@ -209,10 +211,10 @@ public class GuardianSkill1Action : BaseAction
                 break;
             case State.SwingingGdSkill_1_BeforeHit:
                 OnGdSkill_1_Slash?.Invoke(this, EventArgs.Empty);
+                StartCoroutine(Effect());
 
                 TimeAttack(2.0f);
                 state = State.SwingingGdSkill_1_AfterCamera;
-
 
                 break;
             case State.SwingingGdSkill_1_AfterCamera:
@@ -234,6 +236,18 @@ public class GuardianSkill1Action : BaseAction
     {
         float afterHitStateTime = StateTime;
         stateTimer = afterHitStateTime;
+    }
+
+    IEnumerator Effect()
+    {
+        yield return new WaitForSeconds(0.2f);
+        Transform skill1EffectTransform = Instantiate(skill1_effect, skill1_effect_transform.position, Quaternion.identity);
+        skill1EffectTransform.transform.rotation = Quaternion.Euler(30f, -75f, 0);
+        Destroy(skill1EffectTransform.gameObject, 0.2f);
+        yield return new WaitForSeconds(0.45f);
+        Transform skill1EffectTransform2 = Instantiate(skill1_effect, skill1_effect_transform.position, Quaternion.identity);
+        skill1EffectTransform2.transform.rotation = Quaternion.Euler(-30f, -75f, 0);
+        Destroy(skill1EffectTransform2.gameObject, 0.2f);
     }
 
     public override List<GridPosition> GetValidActionGridPositionList()
