@@ -22,8 +22,14 @@ public class Talk : MonoBehaviour
 
     private bool PressedEnter = false;
 
-    private void Start()
+    private bool Initialized = false;
+
+    public bool IsEnd { get; private set; } = false;
+
+    public void Initialize(int _MapID)
     {
+        MapID = _MapID;
+
         JsonFileName = "SpeechBubble";
         Txt_Text.text = "";
 
@@ -43,16 +49,23 @@ public class Talk : MonoBehaviour
 
         CurrentIndex = 0;
         TalkCoroutine = StartCoroutine(Talking(Speeches[CurrentIndex].StringKR));
+
+        Initialized = true;
     }
 
     private void Update()
     {
+        if(Initialized == false || IsEnd) { return; }
         /*
         currentindex 가 최대일때 씬 넘어가기 or 전투 준비 UI 켜기
         */
         if(Speeches.Count == CurrentIndex)
         {
-            LoadingSceneController.LoadScene("WorldMapScene");
+            //LoadingSceneController.LoadScene("WorldMapScene");
+
+            IsEnd = true;
+
+            return;
         }
 
         if(TalkCoroutine == null)

@@ -1891,7 +1891,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b7f552d50a913445a4f560f6af022fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isUnlock: 1
+  isUnlock: 0
   isFormationState: 0
 --- !u!222 &112543057
 CanvasRenderer:
@@ -2053,7 +2053,6 @@ GameObject:
   - component: {fileID: 117323160}
   - component: {fileID: 117323159}
   - component: {fileID: 117323158}
-  - component: {fileID: 117323157}
   - component: {fileID: 117323156}
   m_Layer: 5
   m_Name: _No
@@ -2095,53 +2094,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54eab17a5f369164a859c32f1d6aef70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextButton_Selected: {fileID: 21300000, guid: e7b26d6676cf13343acec57b6b6fd7de, type: 3}
-  nextButton_notSelected: {fileID: 21300000, guid: 48681954ff6b8334cb1efe336b541caf, type: 3}
---- !u!114 &117323157
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 117323154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 9
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 117323156}
-          m_TargetAssemblyTypeName: nextButton_SelectedMenu, Assembly-CSharp
-          m_MethodName: OnSelect
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 10
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 117323156}
-          m_TargetAssemblyTypeName: nextButton_SelectedMenu, Assembly-CSharp
-          m_MethodName: OnDeselect
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!114 &117323158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2324,7 +2276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b7f552d50a913445a4f560f6af022fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isUnlock: 1
+  isUnlock: 0
   isFormationState: 0
 --- !u!222 &118676292
 CanvasRenderer:
@@ -2997,7 +2949,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 768b2ab0f6ae92b4a9aaf332f268fd7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentSelected: {fileID: 0}
   nextButton: {fileID: 1880253172}
   text_nextButton: {fileID: 2063618705}
 --- !u!114 &167756374
@@ -3121,6 +3072,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 171158900}
+  - component: {fileID: 171158901}
   m_Layer: 5
   m_Name: _Unit
   m_TagString: Untagged
@@ -3156,6 +3108,19 @@ RectTransform:
   m_AnchoredPosition: {x: -157, y: 375}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &171158901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 171158899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 951f11a2ede0eb24e9ee8dc4fff150e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _unit: []
 --- !u!1001 &173592849
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6014,7 +5979,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Selected: {fileID: 21300000, guid: 3002ea90561aa2c4fadceb96cc6313a4, type: 3}
-  notSelected: {fileID: 21300000, guid: ebef20b4bf7b2384a938b358ed35dcc1, type: 3}
+  DeSelected: {fileID: 0}
+  rt: {fileID: 0}
+  image: {fileID: 0}
 --- !u!222 &386924482
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8572,7 +8539,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b7f552d50a913445a4f560f6af022fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isUnlock: 1
+  isUnlock: 0
   isFormationState: 0
 --- !u!222 &530409661
 CanvasRenderer:
@@ -9697,7 +9664,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Selected: {fileID: 21300000, guid: 3002ea90561aa2c4fadceb96cc6313a4, type: 3}
-  notSelected: {fileID: 21300000, guid: ebef20b4bf7b2384a938b358ed35dcc1, type: 3}
+  DeSelected: {fileID: 0}
+  rt: {fileID: 0}
+  image: {fileID: 0}
 --- !u!222 &573310756
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9966,7 +9935,6 @@ GameObject:
   - component: {fileID: 582992622}
   - component: {fileID: 582992619}
   - component: {fileID: 582992618}
-  - component: {fileID: 582992621}
   - component: {fileID: 582992620}
   m_Layer: 5
   m_Name: _Yes
@@ -10036,7 +10004,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 48681954ff6b8334cb1efe336b541caf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e7b26d6676cf13343acec57b6b6fd7de, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10058,53 +10026,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54eab17a5f369164a859c32f1d6aef70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextButton_Selected: {fileID: 21300000, guid: e7b26d6676cf13343acec57b6b6fd7de, type: 3}
-  nextButton_notSelected: {fileID: 21300000, guid: 48681954ff6b8334cb1efe336b541caf, type: 3}
---- !u!114 &582992621
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 582992617}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 9
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 582992620}
-          m_TargetAssemblyTypeName: nextButton_SelectedMenu, Assembly-CSharp
-          m_MethodName: OnSelect
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 10
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 582992620}
-          m_TargetAssemblyTypeName: nextButton_SelectedMenu, Assembly-CSharp
-          m_MethodName: OnDeselect
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!222 &582992622
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11243,7 +11164,6 @@ GameObject:
   - component: {fileID: 644765798}
   - component: {fileID: 644765797}
   - component: {fileID: 644765796}
-  - component: {fileID: 644765801}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -11360,21 +11280,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &644765801
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 644765795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a384d93ce92008a41a04031e3fe3be63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _Panel: {fileID: 0}
-  _Menu: {fileID: 0}
-  _PartyInfo: {fileID: 0}
 --- !u!1001 &647435774
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12383,7 +12288,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 671234029}
-  m_LocalRotation: {x: 0.4045538, y: 0.000000031470965, z: -0.000000013921814, w: 0.91451424}
+  m_LocalRotation: {x: 0.4045538, y: -0.00000003147096, z: 0.000000013921811, w: 0.91451424}
   m_LocalPosition: {x: 0.18081789, y: 11.50001, z: -7.6287823}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -12768,8 +12673,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9658a34a8497bb4ab3db9a5a9b28eb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Selected: {fileID: 21300000, guid: 4e611d44ad8f82644a57d4d85a516f00, type: 3}
-  notSelected: {fileID: 21300000, guid: 6ef678e58789a98418dfc9a63b79a171, type: 3}
 --- !u!114 &682010856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13906,7 +13809,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b7f552d50a913445a4f560f6af022fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isUnlock: 1
+  isUnlock: 0
   isFormationState: 0
 --- !u!222 &717257226
 CanvasRenderer:
@@ -14315,7 +14218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b7f552d50a913445a4f560f6af022fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isUnlock: 1
+  isUnlock: 0
   isFormationState: 0
 --- !u!222 &731998662
 CanvasRenderer:
@@ -16874,7 +16777,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b7f552d50a913445a4f560f6af022fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isUnlock: 1
+  isUnlock: 0
   isFormationState: 0
 --- !u!222 &861292234
 CanvasRenderer:
@@ -21009,8 +20912,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9658a34a8497bb4ab3db9a5a9b28eb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Selected: {fileID: 21300000, guid: 4e611d44ad8f82644a57d4d85a516f00, type: 3}
-  notSelected: {fileID: 21300000, guid: 6ef678e58789a98418dfc9a63b79a171, type: 3}
 --- !u!222 &1029052956
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -27741,15 +27642,15 @@ MonoBehaviour:
   - {fileID: 717257222}
   - {fileID: 118676288}
   - {fileID: 1405254999}
-  Menu_Cursor: {fileID: 167756373}
+  _cursor: {fileID: 0}
+  Max_Value: 0
   _Menu: {fileID: 914854331}
   _UnitFormation: {fileID: 667927023}
   _ChangeFormation: {fileID: 189185095}
   ischange_formationCamera: 0
-  menuSelected: {fileID: 888385400}
   _Current: {fileID: 917856231}
   _Max: {fileID: 604279138}
-  Max_Value: 0
+  menuSelected: {fileID: 888385400}
   Img_OffFormation: {fileID: 21300000, guid: 5d66205fdf30f104ba9b38d4cec6a2c6, type: 3}
   Img_OnFormation: {fileID: 21300000, guid: 547a12fc3b961124484ca1f00c0ca8c8, type: 3}
   character_Name: {fileID: 1174992508}
@@ -28594,7 +28495,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b7f552d50a913445a4f560f6af022fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isUnlock: 1
+  isUnlock: 0
   isFormationState: 0
 --- !u!114 &1405255002
 MonoBehaviour:
@@ -30289,7 +30190,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Selected: {fileID: 21300000, guid: a698c916b6d45b14c8293d34608b9c38, type: 3}
-  notSelected: {fileID: 21300000, guid: 9f769258ace91f3489c8e91fcc9c552c, type: 3}
+  DeSelected: {fileID: 0}
+  rt: {fileID: 0}
+  image: {fileID: 0}
 --- !u!114 &1493319370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32357,7 +32260,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Selected: {fileID: 21300000, guid: 3002ea90561aa2c4fadceb96cc6313a4, type: 3}
-  notSelected: {fileID: 21300000, guid: ebef20b4bf7b2384a938b358ed35dcc1, type: 3}
+  DeSelected: {fileID: 0}
+  rt: {fileID: 0}
+  image: {fileID: 0}
 --- !u!222 &1620396634
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -34223,7 +34128,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Selected: {fileID: 21300000, guid: a698c916b6d45b14c8293d34608b9c38, type: 3}
-  notSelected: {fileID: 21300000, guid: 9f769258ace91f3489c8e91fcc9c552c, type: 3}
+  DeSelected: {fileID: 0}
+  rt: {fileID: 0}
+  image: {fileID: 0}
 --- !u!222 &1692861309
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -35240,7 +35147,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Selected: {fileID: 21300000, guid: a698c916b6d45b14c8293d34608b9c38, type: 3}
-  notSelected: {fileID: 21300000, guid: 9f769258ace91f3489c8e91fcc9c552c, type: 3}
+  DeSelected: {fileID: 0}
+  rt: {fileID: 0}
+  image: {fileID: 0}
 --- !u!222 &1784097676
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -38007,7 +37916,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b7f552d50a913445a4f560f6af022fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isUnlock: 1
+  isUnlock: 0
   isFormationState: 0
 --- !u!222 &1933491522
 CanvasRenderer:
@@ -38589,7 +38498,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Selected: {fileID: 21300000, guid: 3002ea90561aa2c4fadceb96cc6313a4, type: 3}
-  notSelected: {fileID: 21300000, guid: ebef20b4bf7b2384a938b358ed35dcc1, type: 3}
+  DeSelected: {fileID: 0}
+  rt: {fileID: 0}
+  image: {fileID: 0}
 --- !u!114 &1953052168
 MonoBehaviour:
   m_ObjectHideFlags: 0

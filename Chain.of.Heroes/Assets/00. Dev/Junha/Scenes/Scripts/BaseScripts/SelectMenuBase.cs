@@ -14,7 +14,7 @@ public class SelectMenuBase : MonoBehaviour
     private void Awake()
     {
         Selected = Resources.Load<Sprite>("J_SelectMenu");
-        DeSelected = Resources.Load<Sprite>("J_notSelectMenu");
+        DeSelected = Resources.Load<Sprite>("J_DeSelectMenu");
 
         rt = GetComponent<RectTransform>();
         image = GetComponent<Image>();
@@ -50,14 +50,7 @@ public class SelectMenuBase : MonoBehaviour
                                 string m3, float m3_x, 
                                 string m4, float m4_x)
     {
-        if(isSelect)
-        {
-            image.sprite = Selected;
-        }
-        else // !isSelect
-        {
-            image.sprite = DeSelected;
-        }
+        image.sprite = isSelect ? Selected : DeSelected;
 
         if (_obj.name == m1)
         {
@@ -77,5 +70,37 @@ public class SelectMenuBase : MonoBehaviour
         }
 
         image.SetNativeSize();
-    }    
+    }
+
+    /// <summary>
+    /// use. BattleReady_SelectedMenu
+    /// </summary>
+    protected virtual void Select(bool isSelect, GameObject _obj,
+                                string SelectSprite, string DeSelectSprite,
+                                string m1, float m1_x,
+                                string m2, float m2_x,
+                                string m3, float m3_x,
+                                string m4, float m4_x)
+    {
+        image.sprite = isSelect ? Resources.Load<Sprite>(SelectSprite) : Resources.Load<Sprite>(DeSelectSprite);
+
+        if (_obj.name == m1)
+        {
+            rt.anchoredPosition = new Vector2(m1_x, rt.anchoredPosition.y);
+        }
+        else if (_obj.name == m2)
+        {
+            rt.anchoredPosition = new Vector2(m2_x, rt.anchoredPosition.y);
+        }
+        else if (_obj.name == m3)
+        {
+            rt.anchoredPosition = new Vector2(m3_x, rt.anchoredPosition.y);
+        }
+        else if (_obj.name == m4)
+        {
+            rt.anchoredPosition = new Vector2(m4_x, rt.anchoredPosition.y);
+        }
+
+        image.SetNativeSize();
+    }
 }

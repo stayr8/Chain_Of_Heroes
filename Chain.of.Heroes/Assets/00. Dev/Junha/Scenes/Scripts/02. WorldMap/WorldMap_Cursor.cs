@@ -74,8 +74,8 @@ public class WorldMap_Cursor : CursorBase
 
                     break;
                 case "_Yes":
-                    MapManager.Instance.stageNum = 0;
-                    SceneManager.LoadScene("Ch_01");
+                    SceneManager.LoadScene("Ch_01"); // map_id¿¡ ¸Â°Ô ¹Ù²ãÁà¾ß ÇÒ µí
+                    // MapManager.Instance.mapData[MapManager.Instance.stageNum].Map_Id;
 
                     break;
                 case "_No":
@@ -121,7 +121,7 @@ public class WorldMap_Cursor : CursorBase
         }
         else if (currentSelected.name == "_BaseCamp")
         {
-            rt.anchoredPosition = new Vector2(-900f, MIN_POSITION_Y);
+            rt.anchoredPosition = new Vector2(-890f, MIN_POSITION_Y);
         }
     }
 }

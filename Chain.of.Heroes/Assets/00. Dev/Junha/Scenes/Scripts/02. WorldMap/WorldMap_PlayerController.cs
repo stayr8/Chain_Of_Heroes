@@ -68,6 +68,7 @@ public class WorldMap_PlayerController : MonoBehaviour
                     currentSelected = selectableOnLeft.gameObject;
                     currentSelected.GetComponent<Selectable>().Select();
                     StageManager.instance.num--;
+                    MapManager.Instance.stageNum--;
 
                     StartCoroutine(MoveObject(currentSelected.transform.position));
                 }
@@ -86,6 +87,7 @@ public class WorldMap_PlayerController : MonoBehaviour
                         currentSelected = selectableOnRight.gameObject;
                         currentSelected.GetComponent<Selectable>().Select();
                         StageManager.instance.num++;
+                        MapManager.Instance.stageNum++;
 
                         StartCoroutine(MoveObject(currentSelected.transform.position));
                     }

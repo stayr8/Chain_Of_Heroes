@@ -29,7 +29,7 @@ public class ScenesSystem : MonoBehaviour
 
     private void Start()
     {
-        MapManager.Instance.MapDataInitialize();
+        //MapManager.Instance.MapDataInitialize();
         UnitManager.Instance.UnitInitialize();
         turnSystem.Initialize();
 

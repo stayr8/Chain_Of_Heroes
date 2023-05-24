@@ -14,14 +14,33 @@ public class BattleReady_UIManager : MonoBehaviour
     [Header("선택된 메뉴를 위한 임시")] public BattleReady_Cursor _cursor;
 
     public static BattleReady_UIManager instance;
-
     private void Awake()
     {
         instance = this;
     }
     #endregion
 
-    public event EventHandler OnCharacterChangeFormation;
+    public int Max_Value;
+    private Talk TextBox;
+    private void Start()
+    {
+        Max_Value = MapManager.Instance.mapData[MapManager.Instance.stageNum].Count_Unlock;
+
+        StartCoroutine(TalkStart());
+    }
+
+    private IEnumerator TalkStart()
+    {
+        _Menu.SetActive(false);
+        TextBox = Instantiate(Resources.Load<GameObject>("TextBox")).GetComponent<Talk>();
+
+        TextBox.Initialize(MapManager.Instance.stageNum);
+        yield return new WaitUntil(() => TextBox.IsEnd);
+
+        _Menu.SetActive(true);
+
+        Destroy(TextBox.gameObject);
+    }
 
     [Header("============================\n\n[UI Canvas] 오브젝트")]
     [SerializeField] private GameObject _Menu;
@@ -81,6 +100,7 @@ public class BattleReady_UIManager : MonoBehaviour
         _UnitFormation.SetActive(true);
     }
 
+    public event EventHandler OnCharacterChangeFormation;
     public void OnChangeFormation()
     {
         state = STATE.CHANGE_FORMATION;
@@ -90,7 +110,18 @@ public class BattleReady_UIManager : MonoBehaviour
         OnCharacterChangeFormation?.Invoke(this, EventArgs.Empty);
     }
 
-    #region 편성 / 스킬 확인
+    #region [현재 편성된 유닛 수 / 총 조우한 유닛 수]
+    [SerializeField, Header("현재 편성 유닛 수")] private TMP_Text _Current; // "n"
+    [SerializeField, Header("총 조우한 유닛 수")] private TMP_Text _Max; // "/ n"
+
+    private void Update_Formation()
+    {
+        _Current.text = BattleReady_UnitFormationCursor.count.ToString();
+        _Max.text = "/ " + Max_Value; // 총 캐릭터 수가 9명임.
+    }
+    #endregion
+
+    #region [편성 / 스킬 확인]
     [SerializeField, Header("[편성 / 스킬 확인] 오브젝트")] private GameObject menuSelected;
     public void OnMenuSelected()
     {
@@ -101,17 +132,6 @@ public class BattleReady_UIManager : MonoBehaviour
     {
         SoundManager.instance.Sound_SelectMenu();
         menuSelected.SetActive(false);
-    }
-    #endregion
-
-    #region 유닛 수 관리
-    [SerializeField, Header("현재 편성 유닛 수")] private TMP_Text _Current; // "n"
-    [SerializeField, Header("총 조우한 유닛 수")] private TMP_Text _Max; // "/ n"
-    public int Max_Value = 0;
-    private void Update_Formation()
-    {
-        _Current.text = BattleReady_UnitFormationCursor.count.ToString();
-        _Max.text = "/ " + Max_Value; // 총 캐릭터 수가 9명임.
     }
     #endregion
 
@@ -211,7 +231,7 @@ public class BattleReady_UIManager : MonoBehaviour
             character_DefensePower.text = "???";
 
             character_Background.sprite = Resources.Load<Sprite>(data.m_back_resourcePath);
-            character_Background.color = new Color(64/255f, 64/255f, 64/255f, 255/255f);
+            character_Background.color = new Color(64 / 255f, 64 / 255f, 64 / 255f, 255 / 255f);
 
             character_Image.sprite = Resources.Load<Sprite>(data.m_resourcePath);
             character_Image.color = Color.black;
@@ -354,7 +374,7 @@ public class BattleReady_UIManager : MonoBehaviour
                 break;
             #endregion
 
-            #region No.6 아일린, Priest
+            #region No.6 아이네, Priest
             case "아이네":
                 rt.anchoredPosition = new Vector2(408f, -415f);
 

@@ -9,21 +9,24 @@ using UnityEngine.EventSystems;
 
 public class WorldMap_nextButtonSelectedMenu : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
-    [SerializeField, Header("nextButton 스프라이트 On")] private Sprite Selected;
-    [SerializeField, Header("nextButton 스프라이트 Off")] private Sprite DeSelected;
-
-    private RectTransform rt;
     private Image image;
+    private Sprite Selected;
+    private Sprite DeSelected;
     private void Awake()
     {
-        rt = GetComponent<RectTransform>();
         image = GetComponent<Image>();
+
+        Selected = Resources.Load<Sprite>("J_next_SelectMenu");
+        DeSelected = Resources.Load<Sprite>("J_next_DeSelectMenu");
     }
 
     private void OnEnable()
     {
 
     }
+
+    // private void Update() {}
+
     private void OnDisable()
     {
         notSelect();

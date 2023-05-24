@@ -25,11 +25,14 @@ public class PartyInfoCell : MonoBehaviour
     {
         if (unit == null) { return; }
 
-        Txt_Name.text = unit.GetCharacterDataManager().m_name;
-        Txt_ClassType.text = unit.GetCharacterDataManager().m_class;
-        Txt_Level.text = unit.GetCharacterDataManager().m_level.ToString();
-        Txt_AP.text = unit.GetCharacterDataManager().m_attackPower.ToString();
-        Txt_CAP.text = unit.GetCharacterDataManager().m_chainAttackPower.ToString();
-        Txt_DP.text = unit.GetCharacterDataManager().m_defensePower.ToString();
+        var CharData = unit.GetCharacterDataManager();
+
+        Img.sprite = Resources.Load<Sprite>(CharData.m_resourcePath);
+        Txt_Name.text = CharData.m_name;
+        Txt_ClassType.text = CharData.m_class;
+        Txt_Level.text = CharData.m_level.ToString();
+        Txt_AP.text = Mathf.RoundToInt(CharData.m_attackPower).ToString();
+        Txt_CAP.text = CharData.m_chainAttackPower.ToString();
+        Txt_DP.text = CharData.m_defensePower.ToString();
     }
 }

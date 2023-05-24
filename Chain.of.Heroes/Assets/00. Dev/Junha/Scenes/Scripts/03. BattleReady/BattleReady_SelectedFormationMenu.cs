@@ -9,23 +9,20 @@ using UnityEngine.EventSystems;
 
 public class BattleReady_SelectedFormationMenu : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
-    [SerializeField, Header("선택 스프라이트")] private Sprite Selected;
-    [SerializeField, Header("미선택 스프라이트")] private Sprite notSelected;
-
-    private RectTransform rt;
     private Image image;
+    private Sprite Selected;
+    private Sprite DeSelected;
     private void Awake()
     {
-        rt = GetComponent<RectTransform>();
         image = GetComponent<Image>();
+
+        Selected = Resources.Load<Sprite>("J_B_next_SelectMenu");
+        DeSelected = Resources.Load<Sprite>("J_B_next_DeSelectMenu");
     }
 
     private void OnEnable()
     {
-        if(gameObject.name == BattleReady_UnitFormationCursor.currentSelected.name)
-        {
-            Select();
-        }
+        
     }
 
     // private void Update() {}
@@ -52,7 +49,7 @@ public class BattleReady_SelectedFormationMenu : MonoBehaviour, ISelectHandler, 
     }
     private void DeSelect()
     {
-        image.sprite = notSelected;
+        image.sprite = DeSelected;
 
         image.SetNativeSize();
     }

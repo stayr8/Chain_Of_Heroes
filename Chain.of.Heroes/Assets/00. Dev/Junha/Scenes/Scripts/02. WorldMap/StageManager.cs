@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine.UI;
 using TMPro;
-using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 [Serializable]
 public class Info
@@ -18,50 +18,15 @@ public class Info
 
 public class StageManager : MonoBehaviour
 {
-    #region instance화
-    /*
     public static StageManager instance;
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    public static void Initialize()
-    {
-        if (instance == null)
-        {
-            GameObject Entity = new GameObject("StageManager");
-
-            instance = Entity.AddComponent<StageManager>();
-
-            //Entity.AddComponent<AudioSource>();
-
-            DontDestroyOnLoad(Entity.gameObject);
-        }
-    }
-    */
-
-    /*
-    public static StageManager Instance { get; private set; }
-    private void ins()
-    {
-        if (Instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
-    */
-
-    public static StageManager instance;
-    #endregion
 
     private string ChapterName; // [JSON 파일 이름]
     private WorldMap[] _Array;
     public Info[] info;
-    private const int STAGE_LENGTH = 10;
     private void Awake()
     {
-        //ins();
         instance = this;
+        DontDestroyOnLoad(gameObject);
 
         ChapterName = "WorldMap";
 
@@ -79,20 +44,18 @@ public class StageManager : MonoBehaviour
             _Array[i] = WorldMap;
         }
 
-        //info = new Info[STAGE_LENGTH];
-        //for (int i = 0; i < STAGE_LENGTH; ++i)
-        //{
-        //    info[i].Stage = GameObject.Find("_" + (1 + i));
-        //}
-
         initInfo();
     }
 
     private void Update()
     {
-        UpdateChapter();
+        if(SceneManager.GetActiveScene().name.Contains("WorldMapScene"))
+        {
+            UpdateChapter();
 
-        Controller_Clear();
+            Controller_Clear();
+        }
+
     }
 
     [Header("월드맵 데이터")]
@@ -105,7 +68,6 @@ public class StageManager : MonoBehaviour
     private WorldMap firstArray;
     public int num;
     private GameObject _nextChapter;
-
     private void initInfo()
     {
         firstArray = _Array[num];
@@ -121,6 +83,7 @@ public class StageManager : MonoBehaviour
 
     [SerializeField, Header("[챕터 이름] 텍스트")] private TMP_Text Txt_ChapterNum;
     [SerializeField, Header("[챕터 대표] 이미지")] private Image Img_ChapterImage;
+    private const int STAGE_LENGTH = 10;
     private void UpdateChapter()
     {
         initInfo();
