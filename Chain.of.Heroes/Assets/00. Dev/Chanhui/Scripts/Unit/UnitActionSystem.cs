@@ -67,13 +67,11 @@ public class UnitActionSystem : MonoBehaviour
             return;
         }
 
-
         if (TryHandleUnitSelection())
         { 
             return; 
         }
 
-        
         HandleSelectedAction();
 
     }
@@ -122,6 +120,10 @@ public class UnitActionSystem : MonoBehaviour
             {
                 if (raycastHit.transform.TryGetComponent<Unit>(out Unit unit))
                 {
+                    if (unit.GetIsStun() == true)
+                    {
+                        return false;
+                    }
 
                     if (unit == selectedUnit && !DoubleSelectedUnit)
                     {
@@ -140,7 +142,7 @@ public class UnitActionSystem : MonoBehaviour
                         // Clicked on an enemy
                         return false;
                     }
-                    
+
                     SetSelectedUnit(unit);
                     return true;
                 }

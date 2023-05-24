@@ -172,7 +172,6 @@ public class CharacterDataManager : MonoBehaviour
 
     public void SkillDamage()
     {
-        Debug.Log("¿©±â µé¾î¿È?");
         characterBase.Calc_SkillAttack(this, AttackActionSystem.Instance.GetMonsterDataManager());
 
         if (m_hp <= 0)

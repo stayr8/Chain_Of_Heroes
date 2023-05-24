@@ -63,7 +63,7 @@ public class CharacterBase : MonoBehaviour
 
         finalDamage = (monsterAP * monsterSKD * (100 / (100 + (characterDP / 10)))) * (1 - CDM.m_damagereductionRate);
 
-        MDM.m_hp -= (int)finalDamage;
+        CDM.m_hp -= (int)finalDamage;
 
         Vector3 pos = new Vector3(this.transform.position.x + 1f, this.transform.position.y + 1f, this.transform.position.z);
         DamagePopup.Create(pos, (int)finalDamage, isCritical);

@@ -171,6 +171,37 @@ TrailRenderer:
   m_MinVertexDistance: 1.5
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!1 &1928360184643891049
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3042390767902205441}
+  m_Layer: 0
+  m_Name: Stunpos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3042390767902205441
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1928360184643891049}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1802203563451473440}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3911086564202397303
 GameObject:
   m_ObjectHideFlags: 0
@@ -322,6 +353,7 @@ GameObject:
   - component: {fileID: 6580717156127774672}
   - component: {fileID: 5998044038719003112}
   - component: {fileID: -3242751013431176123}
+  - component: {fileID: 7692247596701879093}
   m_Layer: 16
   m_Name: SwordWoman
   m_TagString: Player
@@ -346,6 +378,7 @@ Transform:
   - {fileID: 1778157605652513913}
   - {fileID: 1408171976}
   - {fileID: 3762349079961356583}
+  - {fileID: 3042390767902205441}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -392,9 +425,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CameraPos: {fileID: 1778157605652513913}
   CameraFollow: {fileID: 1408171976}
-  CameraPos2: {fileID: 0}
+  CameraPos2: {fileID: 3762349079961356583}
   CameraPos3: {fileID: 3762349079961356583}
   IsGrid: 0
+  IsStun: 0
   isEnemy: 0
   newEnemyActionPoints: 2
   SoloEnemyActionPoints: 0
@@ -414,13 +448,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 8513498976621876638}
-  bulletProjectilePrefab: {fileID: 2246365127883289709, guid: 98db8eb536f99e748b62314fb5e3ba26, type: 3}
   shootPointTransform: {fileID: 4211984990376263158}
   VkeffectTransform: {fileID: 0}
   ArSkill_1_shootPointTransform: {fileID: 0}
   ArSkill_2_shootPointTransform: {fileID: 0}
-  WzSkill_2_shootPointTransform: {fileID: 0}
   VkSkill_2_shootPointTransform: {fileID: 0}
+  bulletProjectilePrefab: {fileID: 2246365127883289709, guid: 98db8eb536f99e748b62314fb5e3ba26, type: 3}
+  ArSkill1_bulletProjectilePrefab: {fileID: 0}
+  ArSkill2_bulletProjectilePrefab: {fileID: 0}
+  WzSkill_2_bulletProjectilePrefab: {fileID: 0}
 --- !u!114 &3554671403889899109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -477,6 +513,7 @@ MonoBehaviour:
   m_back_resourcePath: 
   m_maxhp: 0
   m_damagereductionRate: 0
+  m_skilldamagecoefficient: 0
 --- !u!114 &1024481362807706275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -569,6 +606,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3b04169ba5cb4d40a741b7b695e80f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7692247596701879093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7963473072988374339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6319f51d41d488499f3dbae45e9601e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skill1_effect: {fileID: 9197206113158755842, guid: 007a549e4b4ab614790069285901ffe7, type: 3}
+  skill1_effect_transform: {fileID: 3042390767902205441}
 --- !u!1 &8193418529294817411
 GameObject:
   m_ObjectHideFlags: 0

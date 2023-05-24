@@ -278,6 +278,14 @@ public class GuardianSkill1Action : BaseAction
                     continue;
                 }
 
+                if (LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition))
+                {
+                    if (!LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition).IsEnemy())
+                    {
+                        continue;
+                    }
+                }
+
                 if (!LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition))
                 {
                     // Grid Position is empty, no Unit
@@ -298,18 +306,6 @@ public class GuardianSkill1Action : BaseAction
 
                 if (!Pathfinding.Instance.IsWalkableGridPosition(testGridPosition))
                 {
-                    continue;
-                }
-
-                Vector3 unitWorldPosition = LevelGrid.Instance.GetWorldPosition(unitGridPosition);
-                Vector3 shootDir = (targetUnit.GetWorldPosition() - unitWorldPosition).normalized;
-
-                float unitShoulderHeight = 1.7f;
-                if (Physics.Raycast(unitWorldPosition + Vector3.up * unitShoulderHeight, shootDir,
-                    Vector3.Distance(unitWorldPosition, targetUnit.GetWorldPosition()),
-                    obstaclesLayerMask))
-                {
-                    // Blocked by an Obstacle
                     continue;
                 }
 

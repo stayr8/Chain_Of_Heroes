@@ -112,7 +112,7 @@ public class WizardSkill1Action : BaseAction
             case State.SwingingWzSkill_1_Moving:
                 Vector3 targetDirection = targetUnit.transform.position;
                 Vector3 aimDir = (targetDirection - transform.position).normalized;
-                float rotateSpeed = 20f;
+                float rotateSpeed = 40f;
                 transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateSpeed);
 
                 break;
@@ -139,7 +139,7 @@ public class WizardSkill1Action : BaseAction
                 break;
             case State.SwingingWzSkill_1_Moving:
 
-                TimeAttack(0.1f);
+                TimeAttack(0.3f);
                 state = State.SwingingWzSkill_1_Attacking;
 
                 break;
@@ -206,12 +206,19 @@ public class WizardSkill1Action : BaseAction
                     continue;
                 }
 
+                if(LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition))
+                {
+                    if(!LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition).IsEnemy())
+                    {
+                        continue;
+                    }
+                }
+
                 if (!LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition))
                 {
                     // Grid Position is empty, no Unit
                     continue;
                 }
-
 
                 if (LevelGrid.Instance.GetEnemyAtSurroundPosition(testGridPosition))
                 {

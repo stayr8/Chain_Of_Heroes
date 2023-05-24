@@ -44,17 +44,15 @@ public class RangeBulletProjectile : MonoBehaviour
         transform.position += moveDir * moveSpeed * Time.deltaTime;
 
         float distanceAfterMoving = Vector3.Distance(transform.position, targetPosition);
-        Debug.Log(distanceBeforeMoving);
         if (distanceBeforeMoving < distanceAfterMoving)
         {
             transform.position = targetPosition;
-            Debug.Log("¿©±âµµ?");
-            //trailRenderer.transform.parent = null;
             GetValidActionGridPositionList();
             Destroy(gameObject);
         }
     }
 
+    int BossAttckCount = 0;
     public void GetValidActionGridPositionList()
     {
         GridPosition unitGridPosition = AttackActionSystem.Instance.GetenemyChainFind().GetGridPosition();
@@ -76,7 +74,19 @@ public class RangeBulletProjectile : MonoBehaviour
                     Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
                     if (targetUnit.IsEnemy())
                     {
-                        targetUnit.GetMonsterDataManager().Damage();
+                        if(targetUnit.GetEnemyVisualType() == Unit.EnemyType.Dragon ||
+                            targetUnit.GetEnemyVisualType() == Unit.EnemyType.RedStoneGolem)
+                        {
+                            if(BossAttckCount <= 0)
+                            {
+                                targetUnit.GetMonsterDataManager().SkillDamage();
+                                BossAttckCount++;
+                            }
+                        }
+                        else
+                        {
+                            targetUnit.GetMonsterDataManager().SkillDamage();
+                        }
                     }
                 }
             }

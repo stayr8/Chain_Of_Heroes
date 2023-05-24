@@ -207,6 +207,25 @@ public class UnitAnimator : MonoBehaviour
             goblinLoadSkill1Action.OnGLSkill_1_Slash += Action_OnSkill_1;
 
         }
+        if (TryGetComponent<SalamanderLoadSkill1Action>(out SalamanderLoadSkill1Action salamanderLoadSkill1Action))
+        {
+            salamanderLoadSkill1Action.OnSLSkill_1_StartMoving += MoveAction_OnStartMoving;
+            salamanderLoadSkill1Action.OnSLSkill_1_StopMoving += MoveAction_OnStopMoving;
+            salamanderLoadSkill1Action.OnSLSkill_1_Slash += Action_OnSkill_1;
+
+        }
+        if (TryGetComponent<RedStoneGolemSkill1Action>(out RedStoneGolemSkill1Action redStoneGolemSkill1Action))
+        {
+            redStoneGolemSkill1Action.OnRSGSkill_1_StartMoving += MoveAction_OnStartMoving;
+            redStoneGolemSkill1Action.OnRSGSkill_1_StopMoving += MoveAction_OnStopMoving;
+            redStoneGolemSkill1Action.OnRSGSkill_1_Slash += Action_OnSkill_1;
+
+        }
+        if (TryGetComponent<DragonSkill1Action>(out DragonSkill1Action dragonSkill1Action))
+        {
+            dragonSkill1Action.OnDGSkill_1_Bress += Action_OnSkill_1;
+
+        }
 
         if (TryGetComponent<StunAction>(out StunAction stunAction))
         {

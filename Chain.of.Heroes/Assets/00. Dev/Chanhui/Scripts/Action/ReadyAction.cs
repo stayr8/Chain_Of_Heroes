@@ -328,14 +328,7 @@ public class ReadyAction : BaseAction
 
     public override int GetActionPointsCost()
     {
-        if (unit.IsEnemy())
-        {
-            return 1;
-        }
-        else
-        {
-            return 1;
-        }
+        return 1;
     }
     public override string GetActionName()
     {

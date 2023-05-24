@@ -31,6 +31,37 @@ Transform:
   m_Father: {fileID: 3052951535024700837}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3478498303861556080
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6415742258664692458}
+  m_Layer: 0
+  m_Name: Stunpos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6415742258664692458
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3478498303861556080}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.5000002, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3052951535024700837}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3701103100228557890
 GameObject:
   m_ObjectHideFlags: 0
@@ -86,7 +117,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4794592960555968785}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.1000061, z: 0}
+  m_LocalPosition: {x: 0, y: 2.0000002, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -147,6 +178,7 @@ GameObject:
   - component: {fileID: 5736953269846490589}
   - component: {fileID: -8077675777750156433}
   - component: {fileID: 980143029882267657}
+  - component: {fileID: 8815204463872245549}
   m_Layer: 16
   m_Name: Guardian
   m_TagString: Player
@@ -173,6 +205,7 @@ Transform:
   - {fileID: 534372704238430882}
   - {fileID: 2234267995658904005}
   - {fileID: 93666399772054906}
+  - {fileID: 6415742258664692458}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -219,9 +252,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CameraPos: {fileID: 3166520106503464956}
   CameraFollow: {fileID: 3701103100228557901}
-  CameraPos2: {fileID: 0}
+  CameraPos2: {fileID: 534372704238430882}
   CameraPos3: {fileID: 534372704238430882}
   IsGrid: 0
+  IsStun: 0
   isEnemy: 0
   newEnemyActionPoints: 2
   SoloEnemyActionPoints: 0
@@ -404,6 +438,20 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   maxGdSkill_2_Distance: 1
+--- !u!114 &8815204463872245549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6764130903679231686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6319f51d41d488499f3dbae45e9601e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skill1_effect: {fileID: 9197206113158755842, guid: 007a549e4b4ab614790069285901ffe7, type: 3}
+  skill1_effect_transform: {fileID: 6415742258664692458}
 --- !u!1 &7431582752401372534
 GameObject:
   m_ObjectHideFlags: 0

@@ -240,7 +240,7 @@ public class KingAction : BaseAction
                     continue;
                 }
 
-                if (isProvoke)
+                if (unit.IsEnemy() && isProvoke)
                 {
                     if(LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition))
                     {
@@ -319,18 +319,7 @@ public class KingAction : BaseAction
 
     public override int GetActionPointsCost()
     {
-        if (unit.GetEnemyVisualType() == Unit.EnemyType.Sword)
-        {
-            return 1;
-        }
-        else if (unit.GetEnemyVisualType() == Unit.EnemyType.RedStoneGolem)
-        {
-            return 4;
-        }
-        else
-        {
-            return 1;
-        }
+        return 1;
     }
 
     public override string GetSingleActionPoint()
