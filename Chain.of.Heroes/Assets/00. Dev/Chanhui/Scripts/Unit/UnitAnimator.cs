@@ -200,6 +200,14 @@ public class UnitAnimator : MonoBehaviour
             valkyrieSkill2Action.OnShoot += VkSkill1_2_Action_OnShoot;
         }
 
+        if (TryGetComponent<GoblinLoadSkill1Action>(out GoblinLoadSkill1Action goblinLoadSkill1Action))
+        {
+            goblinLoadSkill1Action.OnGLSkill_1_StartMoving += MoveAction_OnStartMoving;
+            goblinLoadSkill1Action.OnGLSkill_1_StopMoving += MoveAction_OnStopMoving;
+            goblinLoadSkill1Action.OnGLSkill_1_Slash += Action_OnSkill_1;
+
+        }
+
         if (TryGetComponent<StunAction>(out StunAction stunAction))
         {
             stunAction.OnUnitStun_Start += stunAction_OnUnitStun_Start;

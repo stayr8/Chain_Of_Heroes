@@ -54,6 +54,21 @@ public class CharacterBase : MonoBehaviour
         }
     }
 
+    private float monsterSKD; // 크리티컬인가?
+    public void Calc_SkillAttack(CharacterDataManager CDM, MonsterDataManager MDM) // 스킬 공식
+    {
+        monsterAP = MDM.m_attackPower;
+        characterDP = CDM.m_defensePower;
+        monsterSKD = MDM.m_skilldamagecoefficient;
+
+        finalDamage = (monsterAP * monsterSKD * (100 / (100 + (characterDP / 10)))) * (1 - CDM.m_damagereductionRate);
+
+        MDM.m_hp -= (int)finalDamage;
+
+        Vector3 pos = new Vector3(this.transform.position.x + 1f, this.transform.position.y + 1f, this.transform.position.z);
+        DamagePopup.Create(pos, (int)finalDamage, isCritical);
+    }
+
     #region 개발 전
     // 레벨업 방식
     private float currentExp; // 현재 경험치 량

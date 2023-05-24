@@ -33,7 +33,7 @@ public class MonsterDataManager : MonoBehaviour
     [Header("별도의 데이터")]
     public float m_maxhp; // [최대 체력]
     public float m_damagereductionRate; // [데미지 감소율]
-
+    public float m_skilldamagecoefficient; // [스킬 데미지 계수]
 
     private GoblinWarrior[] _Array;
     private GoblinWarrior firstArray;
@@ -68,6 +68,7 @@ public class MonsterDataManager : MonoBehaviour
         initInfo();
         m_maxhp = m_hp;
         m_damagereductionRate = 0;
+        m_skilldamagecoefficient = 0;
     }
 
     private void Update()

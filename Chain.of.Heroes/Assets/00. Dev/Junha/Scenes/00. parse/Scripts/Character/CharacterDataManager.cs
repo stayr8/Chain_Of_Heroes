@@ -170,6 +170,27 @@ public class CharacterDataManager : MonoBehaviour
         }
     }
 
+    public void SkillDamage()
+    {
+        Debug.Log("¿©±â µé¾î¿È?");
+        characterBase.Calc_SkillAttack(this, AttackActionSystem.Instance.GetMonsterDataManager());
+
+        if (m_hp <= 0)
+        {
+            OnPlayerDie?.Invoke(this, EventArgs.Empty);
+            player.GetAnyUnitDead();
+
+            LevelGrid.Instance.RemoveUnitAtGridPosition(player.GetGridPosition(), player);
+
+            Destroy(gameObject, 4.0f);
+
+        }
+        else
+        {
+            OnPlayerDamage?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.transform.tag == "EnemyMelee")
@@ -177,6 +198,12 @@ public class CharacterDataManager : MonoBehaviour
             //Debug.Log(other.gameObject.name);
             ScreenShake.Instance.Shake();
             Damage();
+        }
+        else if (other.transform.tag == "EnemySkillMelee")
+        {
+            //Debug.Log(other.gameObject.name);
+            ScreenShake.Instance.Shake();
+            SkillDamage();
         }
     }
 }

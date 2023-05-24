@@ -34,6 +34,7 @@ public class Unit : MonoBehaviour
         Empty,
         Archer,
         Sword,
+        GoblinLoad,
         RedStoneGolem,
     }
 
