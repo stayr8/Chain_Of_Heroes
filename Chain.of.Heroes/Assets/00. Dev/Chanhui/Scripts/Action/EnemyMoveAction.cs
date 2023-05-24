@@ -164,19 +164,7 @@ public class EnemyMoveAction : BaseAction
 
     public override int GetActionPointsCost()
     {
-        if (unit.GetEnemyVisualType() == Unit.EnemyType.Archer)
-        {
-            return 1;
-        }
-        else if (unit.GetEnemyVisualType() == Unit.EnemyType.Sword)
-        {
-            return 1;
-        }
-        else if (unit.GetEnemyVisualType() == Unit.EnemyType.RedStoneGolem)
-        {
-            return 4;
-        }
-        return 0;
+        return 1;
     }
 
     public override string GetSingleActionPoint()

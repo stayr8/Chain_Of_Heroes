@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &604424287747754139
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2436716443099116938}
+  m_Layer: 0
+  m_Name: Stunpos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2436716443099116938
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 604424287747754139}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.7000005, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 713944944809116282}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1219006220620374941
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,6 +306,7 @@ GameObject:
   - component: {fileID: 9173352140826010005}
   - component: {fileID: 5665712486550008810}
   - component: {fileID: 3622615075190272887}
+  - component: {fileID: 5798749009640988830}
   m_Layer: 16
   m_Name: Priest
   m_TagString: Player
@@ -300,6 +332,7 @@ Transform:
   - {fileID: 1219006220620374930}
   - {fileID: 2656080615620875645}
   - {fileID: 4932956625243742940}
+  - {fileID: 2436716443099116938}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -346,9 +379,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CameraPos: {fileID: 596603090001238051}
   CameraFollow: {fileID: 1219006220620374930}
-  CameraPos2: {fileID: 0}
+  CameraPos2: {fileID: 2656080615620875645}
   CameraPos3: {fileID: 2656080615620875645}
   IsGrid: 0
+  IsStun: 0
   isEnemy: 0
   newEnemyActionPoints: 2
   SoloEnemyActionPoints: 0
@@ -372,11 +406,11 @@ MonoBehaviour:
   VkeffectTransform: {fileID: 0}
   ArSkill_1_shootPointTransform: {fileID: 0}
   ArSkill_2_shootPointTransform: {fileID: 0}
-  WzSkill_2_shootPointTransform: {fileID: 0}
   VkSkill_2_shootPointTransform: {fileID: 0}
   bulletProjectilePrefab: {fileID: 8732296480811401870, guid: ed38717c6af161c4ab4f619260be292a, type: 3}
   ArSkill1_bulletProjectilePrefab: {fileID: 0}
   ArSkill2_bulletProjectilePrefab: {fileID: 0}
+  WzSkill_2_bulletProjectilePrefab: {fileID: 0}
 --- !u!114 &2431518821814102591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -527,6 +561,20 @@ MonoBehaviour:
   skill2_effect: {fileID: 6569617959588036190, guid: 2d82e3e79c330ce479a0cbac198b0de5, type: 3}
   skill2_effect_transform: {fileID: 4932956625243742940}
   maxPsSkill_2_Distance: 2
+--- !u!114 &5798749009640988830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9108872348708313369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6319f51d41d488499f3dbae45e9601e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skill1_effect: {fileID: 9197206113158755842, guid: 007a549e4b4ab614790069285901ffe7, type: 3}
+  skill1_effect_transform: {fileID: 2436716443099116938}
 --- !u!1001 &2003859914626563003
 PrefabInstance:
   m_ObjectHideFlags: 0

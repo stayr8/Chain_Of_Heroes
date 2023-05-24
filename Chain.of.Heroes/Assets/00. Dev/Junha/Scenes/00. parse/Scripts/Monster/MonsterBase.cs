@@ -64,7 +64,7 @@ public class MonsterBase : MonoBehaviour
         monsterDP = MDM.m_defensePower;
         characterSKD = CDM.m_skilldamagecoefficient;
 
-        finalDamage = (characterAP * characterSKD * (100 / (100 + (monsterDP / 10))));
+        finalDamage = (characterAP * characterSKD * (100 / (100 + (monsterDP / 10)))) * (1 - MDM.m_damagereductionRate);
 
         MDM.m_hp -= (int)finalDamage;
 

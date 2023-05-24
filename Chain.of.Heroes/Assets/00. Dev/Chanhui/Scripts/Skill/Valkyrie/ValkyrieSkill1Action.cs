@@ -283,6 +283,14 @@ public class ValkyrieSkill1Action : BaseAction
                     continue;
                 }
 
+                if (LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition))
+                {
+                    if (!LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition).IsEnemy())
+                    {
+                        continue;
+                    }
+                }
+
                 if (!LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition))
                 {
                     // Grid Position is empty, no Unit

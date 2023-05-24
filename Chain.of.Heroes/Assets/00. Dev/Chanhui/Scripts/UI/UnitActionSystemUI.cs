@@ -47,8 +47,13 @@ public class UnitActionSystemUI : MonoBehaviour
         actionButtionBackground.SetActive(true);
         foreach (BaseAction baseAction in selectedUnit.GetBaseActionArray())
         {
-            if(baseAction.GetActionName() == "Empty" || baseAction.GetActionName() == "체인 근거리 공격" || baseAction.GetActionName() == "체인 원거리 공격")
+            if (baseAction.GetActionName() == "Empty" ||
+               baseAction.GetActionName() == "체인 근거리 공격" ||
+               baseAction.GetActionName() == "체인 원거리 공격" ||
+               baseAction.GetActionName() == "스턴")
+            {
                 continue;
+            }
 
             Transform actionButtonTransform = Instantiate(actionButtonPrefab, actionButtonContainerTransform);
             ActionButtonUI actionButtonUI = actionButtonTransform.GetComponent<ActionButtonUI>();

@@ -140,6 +140,10 @@ public abstract class BaseAction : MonoBehaviour
     {
         return isSkillCount;
     }
+    public void SetIsSkillCount(int isSkillCount)
+    {
+        this.isSkillCount = isSkillCount;
+    }
 
     public int GetMaxIsSkillCount()
     {

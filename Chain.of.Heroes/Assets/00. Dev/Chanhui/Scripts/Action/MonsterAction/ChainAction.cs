@@ -116,6 +116,15 @@ public class ChainAction : BaseAction
                     continue;
                 }
 
+                if (LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition))
+                {
+                    Unit targetUnit3 = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
+                    if (targetUnit3.GetIsStun())
+                    {
+                        continue;
+                    }
+                }
+
                 if (!LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition))
                 {
                     // Grid Position already occupied with another Character

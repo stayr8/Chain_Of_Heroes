@@ -19,6 +19,7 @@ public class Unit : MonoBehaviour
     private BaseAction[] baseActionArray;
     private BaseBuff[] baseBuffArray;
     [SerializeField] private bool IsGrid;
+    [SerializeField] private bool IsStun;
 
     [Header("Monster Information")]
     [SerializeField] private bool isEnemy;
@@ -34,7 +35,9 @@ public class Unit : MonoBehaviour
         Empty,
         Archer,
         Sword,
+        GoblinLoad,
         RedStoneGolem,
+        Dragon,
     }
 
     [SerializeField] private EnemyType enemyType;
@@ -86,14 +89,14 @@ public class Unit : MonoBehaviour
         {
             if (!TurnSystem.Property.IsPlayerTurn)
             {
-                if (enemyType == EnemyType.RedStoneGolem)
+                if (enemyType == EnemyType.RedStoneGolem || enemyType == EnemyType.Dragon)
                 {
                     MonsterGridPosition(gridPosition, false);
                 }
             }
             else
             {
-                if (enemyType == EnemyType.RedStoneGolem)
+                if (enemyType == EnemyType.RedStoneGolem || enemyType == EnemyType.Dragon)
                 {
                     MonsterGridPosition(gridPosition, true);
                 }
@@ -105,7 +108,7 @@ public class Unit : MonoBehaviour
         gridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
         LevelGrid.Instance.AddUnitAtGridPosition(gridPosition, this);
 
-        if(enemyType == EnemyType.RedStoneGolem)
+        if(enemyType == EnemyType.RedStoneGolem || enemyType == EnemyType.Dragon)
         {
             MonsterGridPosition(gridPosition, true);
         }
@@ -379,6 +382,15 @@ public class Unit : MonoBehaviour
     public void SetIsGrid(bool IsGrid)
     {
         this.IsGrid = IsGrid;
+    }
+
+    public bool GetIsStun()
+    {
+        return IsStun;
+    }
+    public void SetIsStun(bool IsStun)
+    {
+        this.IsStun = IsStun;
     }
 
     public bool GetChainfirst()

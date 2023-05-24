@@ -253,7 +253,6 @@ public class AttackActionSystem : MonoBehaviour
 
         enemypos = enemy.GetWorldPosition();
         enemyrotation = enemy.transform.rotation;
-
         Vector3 enemylocationMove = new Vector3(0, 150, 3);
 
         LevelGrid.Instance.RemoveUnitAtGridPosition(enemy.GetGridPosition(), enemy);

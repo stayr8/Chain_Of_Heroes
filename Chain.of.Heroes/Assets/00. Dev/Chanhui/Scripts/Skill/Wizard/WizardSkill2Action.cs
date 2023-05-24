@@ -78,7 +78,7 @@ public class WizardSkill2Action : BaseAction
             case State.SwingingWzSkill_2_LookAt:
                 Vector3 targetDirection = targetUnit.transform.position;
                 Vector3 aimDir = (targetDirection - transform.position).normalized;
-                float rotateSpeed = 20f;
+                float rotateSpeed = 40f;
                 transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateSpeed);
 
                 break;
@@ -171,6 +171,14 @@ public class WizardSkill2Action : BaseAction
                 if (testX != testZ)
                 {
                     continue;
+                }
+
+                if (LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition))
+                {
+                    if (!LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition).IsEnemy())
+                    {
+                        continue;
+                    }
                 }
 
                 if (!LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition))

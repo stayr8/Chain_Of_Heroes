@@ -182,6 +182,7 @@ GameObject:
   - component: {fileID: 3011324145342287122}
   - component: {fileID: 6732230419474698770}
   - component: {fileID: 828612034672503587}
+  - component: {fileID: 4031023585307077081}
   m_Layer: 16
   m_Name: Archer
   m_TagString: Player
@@ -206,6 +207,7 @@ Transform:
   - {fileID: 7162705694277194783}
   - {fileID: 938315201987121831}
   - {fileID: 6368000326195812704}
+  - {fileID: 5601358355346232862}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -252,9 +254,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CameraPos: {fileID: 7162705694277194783}
   CameraFollow: {fileID: 938315201987121831}
-  CameraPos2: {fileID: 0}
+  CameraPos2: {fileID: 6368000326195812704}
   CameraPos3: {fileID: 6368000326195812704}
   IsGrid: 0
+  IsStun: 0
   isEnemy: 0
   newEnemyActionPoints: 2
   SoloEnemyActionPoints: 0
@@ -278,11 +281,11 @@ MonoBehaviour:
   VkeffectTransform: {fileID: 0}
   ArSkill_1_shootPointTransform: {fileID: 7760530916579635431}
   ArSkill_2_shootPointTransform: {fileID: 2760004473113416682}
-  WzSkill_2_shootPointTransform: {fileID: 0}
   VkSkill_2_shootPointTransform: {fileID: 0}
   bulletProjectilePrefab: {fileID: 8732296480811401870, guid: a68ba26ac9425034b8d224551ed6fa8b, type: 3}
   ArSkill1_bulletProjectilePrefab: {fileID: 9156132799818224889, guid: 7ebfd422c6cee544cb564a68345c6337, type: 3}
   ArSkill2_bulletProjectilePrefab: {fileID: 5940275869156980632, guid: d486df93adb89eb448cedcaeaaaba7a0, type: 3}
+  WzSkill_2_bulletProjectilePrefab: {fileID: 0}
 --- !u!114 &3500579739310478914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -430,6 +433,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxArSkill_2_Distance: 2
+--- !u!114 &4031023585307077081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2752157034800633727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6319f51d41d488499f3dbae45e9601e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skill1_effect: {fileID: 9197206113158755842, guid: 007a549e4b4ab614790069285901ffe7, type: 3}
+  skill1_effect_transform: {fileID: 5601358355346232862}
 --- !u!1 &3191017033987743120
 GameObject:
   m_ObjectHideFlags: 0
@@ -491,6 +508,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2986207300816095125}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6519948353625909066
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5601358355346232862}
+  m_Layer: 0
+  m_Name: Stunpos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5601358355346232862
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6519948353625909066}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2986207300816095125}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6701207457614896556
 GameObject:

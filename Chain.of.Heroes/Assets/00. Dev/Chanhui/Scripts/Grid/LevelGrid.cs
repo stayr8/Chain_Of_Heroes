@@ -117,8 +117,7 @@ public class LevelGrid : MonoBehaviour
 
                 if (GetUnitAtGridPosition(testGridPosition))
                 {
-                    Unit targetUnit = GetUnitAtGridPosition(testGridPosition);
-                    if (targetUnit.IsEnemy())
+                    if (HasAnyUnitOnGridPosition(testGridPosition))
                     {
                         count++;
                     }

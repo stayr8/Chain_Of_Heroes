@@ -118,7 +118,7 @@ public class SwordWomanSkill2Action : BaseAction
             case State.SwingingSWSkill_2_AfterHit:
 
                 ActionComplete();
-
+                unit.GetCharacterDataManager().m_skilldamagecoefficient = 0f;
                 break;
         }
     }
@@ -173,6 +173,14 @@ public class SwordWomanSkill2Action : BaseAction
                     continue;
                 }
 
+                if (LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition))
+                {
+                    if (!LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition).IsEnemy())
+                    {
+                        continue;
+                    }
+                }
+
                 if (!LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition))
                 {
                     // Grid Position is empty, no Unit
@@ -194,6 +202,7 @@ public class SwordWomanSkill2Action : BaseAction
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
         isSkill = true;
+        unit.GetCharacterDataManager().m_skilldamagecoefficient = 1.0f;
         if (isSkillCount <= 0)
         {
             isSkillCount = 3;

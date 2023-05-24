@@ -233,6 +233,37 @@ Transform:
   m_Father: {fileID: 4007945315561742235}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6775674645318372614
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2353348863906850611}
+  m_Layer: 0
+  m_Name: Stunpos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2353348863906850611
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6775674645318372614}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4007945315561742235}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8736232441397629369
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,6 +318,7 @@ GameObject:
   - component: {fileID: 6189863253328963832}
   - component: {fileID: 5964318003240674044}
   - component: {fileID: 6408807544343556022}
+  - component: {fileID: 7873872497880622250}
   m_Layer: 16
   m_Name: Samurai
   m_TagString: Player
@@ -312,6 +344,7 @@ Transform:
   - {fileID: 6992718189361783821}
   - {fileID: 292987836240464246}
   - {fileID: 1729495032670746849}
+  - {fileID: 2353348863906850611}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -358,9 +391,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CameraPos: {fileID: 8868952552453640963}
   CameraFollow: {fileID: 6992718189361783821}
-  CameraPos2: {fileID: 0}
+  CameraPos2: {fileID: 292987836240464246}
   CameraPos3: {fileID: 292987836240464246}
   IsGrid: 0
+  IsStun: 0
   isEnemy: 0
   newEnemyActionPoints: 2
   SoloEnemyActionPoints: 0
@@ -384,11 +418,11 @@ MonoBehaviour:
   VkeffectTransform: {fileID: 0}
   ArSkill_1_shootPointTransform: {fileID: 0}
   ArSkill_2_shootPointTransform: {fileID: 0}
-  WzSkill_2_shootPointTransform: {fileID: 0}
   VkSkill_2_shootPointTransform: {fileID: 0}
   bulletProjectilePrefab: {fileID: 8732296480811401870, guid: ed38717c6af161c4ab4f619260be292a, type: 3}
   ArSkill1_bulletProjectilePrefab: {fileID: 0}
   ArSkill2_bulletProjectilePrefab: {fileID: 0}
+  WzSkill_2_bulletProjectilePrefab: {fileID: 0}
 --- !u!114 &7106906245678296809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -540,6 +574,20 @@ MonoBehaviour:
   skill2_effect: {fileID: 8375788931848342557, guid: 59c13a69c9b847b40a0eb64ae664ff6e, type: 3}
   skill2_effect_transform: {fileID: 1729495032670746849}
   maxSrSkill_2_Distance: 2
+--- !u!114 &7873872497880622250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8974077949075013416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6319f51d41d488499f3dbae45e9601e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skill1_effect: {fileID: 9197206113158755842, guid: 007a549e4b4ab614790069285901ffe7, type: 3}
+  skill1_effect_transform: {fileID: 2353348863906850611}
 --- !u!1 &8996821249372366508
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,6 +8,10 @@ public class StunAction : BaseAction
     public event EventHandler OnUnitStun_Start;
     public event EventHandler OnUnitStun_Stop;
 
+    [SerializeField] private Transform skill1_effect;
+    [SerializeField] private Transform skill1_effect_transform;
+    private Transform skill1EffectTransform;
+
     private List<Binding> Binds = new List<Binding>();
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
@@ -23,6 +27,7 @@ public class StunAction : BaseAction
     {
         Unit_StunStart,
         Unit_StunStop,
+        Unit_Stun,
     }
 
     private State state;
@@ -46,6 +51,8 @@ public class StunAction : BaseAction
                         ActionComplete();
                         OnUnitStun_Stop?.Invoke(this, EventArgs.Empty);
                         isSkill = false;
+                        unit.SetIsStun(false);
+                        Destroy(skill1EffectTransform.gameObject);
                     }
                 }
                 else
@@ -79,6 +86,9 @@ public class StunAction : BaseAction
             case State.Unit_StunStop:
                 
                 break;
+            case State.Unit_Stun:
+
+                break;
         }
 
         if (stateTimer <= 0f)
@@ -98,6 +108,12 @@ public class StunAction : BaseAction
                 break;
             case State.Unit_StunStop:
                 OnUnitStun_Start?.Invoke(this, EventArgs.Empty);
+                skill1EffectTransform = Instantiate(skill1_effect, skill1_effect_transform.position, Quaternion.identity);
+                skill1EffectTransform.transform.parent = skill1_effect_transform.parent;
+                state = State.Unit_Stun;
+
+                break;
+            case State.Unit_Stun:
 
                 break;
         }
@@ -119,9 +135,12 @@ public class StunAction : BaseAction
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
         isSkill = true;
-        isSkillCount = 2;
+        if (isSkillCount <= 0)
+        {
+            isSkillCount = 2;
+        }
 
-        
+
         state = State.Unit_StunStart;
 
         ActionStart(onActionComplete);
