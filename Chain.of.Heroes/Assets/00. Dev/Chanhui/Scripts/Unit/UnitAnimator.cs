@@ -19,6 +19,7 @@ public class UnitAnimator : MonoBehaviour
     [SerializeField] private Transform ArSkill1_bulletProjectilePrefab;
     [SerializeField] private Transform ArSkill2_bulletProjectilePrefab;
     [SerializeField] private Transform WzSkill_2_bulletProjectilePrefab;
+    [SerializeField] private Transform DGSkill_2_bulletProjectilePrefab;
 
     private void Awake()
     {
@@ -224,6 +225,11 @@ public class UnitAnimator : MonoBehaviour
         if (TryGetComponent<DragonSkill1Action>(out DragonSkill1Action dragonSkill1Action))
         {
             dragonSkill1Action.OnDGSkill_1_Bress += Action_OnSkill_1;
+
+        }
+        if (TryGetComponent<DragonSkill2Action>(out DragonSkill2Action dragonSkill2Action))
+        {
+            dragonSkill2Action.OnShoot += DGSkill1_2_Action_OnShoot;
 
         }
 
@@ -516,6 +522,30 @@ public class UnitAnimator : MonoBehaviour
 
         bulletProjectile.Setup(targetUnitShootAtPosition);
     }
+
+    private void DGSkill1_2_Action_OnShoot(object sender, DragonSkill2Action.OnShootEventArgs e)
+    {
+        animator.SetTrigger("IsSkill_2");
+
+        StartCoroutine(DGSkill_2_Shoot(e.targetUnit.GetWorldPosition()));
+    }
+
+    IEnumerator DGSkill_2_Shoot(Vector3 e)
+    {
+        yield return new WaitForSeconds(0.4f);
+
+        Vector3 MousePosition = e + new Vector3(0f, 20f, 0f);
+        Transform bulletProjectileTransform =
+            Instantiate(DGSkill_2_bulletProjectilePrefab, MousePosition, Quaternion.identity);
+        MetaoBulletProjjectile bulletProjectile = bulletProjectileTransform.GetComponent<MetaoBulletProjjectile>();
+
+        Vector3 targetUnitShootAtPosition = e;
+
+        targetUnitShootAtPosition.y = e.y;
+
+        bulletProjectile.Setup(targetUnitShootAtPosition);
+    }
+
 
     #endregion
 

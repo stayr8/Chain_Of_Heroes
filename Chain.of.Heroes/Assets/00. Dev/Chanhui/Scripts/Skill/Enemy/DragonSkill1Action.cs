@@ -108,7 +108,7 @@ public class DragonSkill1Action : BaseAction
 
                 OnDGSkill_1_Bress?.Invoke(this, EventArgs.Empty);
                 Debug.Log(targetUnit);
-                Invoke("Effect", 0.4f);
+                StartCoroutine(Effect());
 
                 TimeAttack(4.0f);
                 state = State.SwingingRSGSkill_1_AfterHit;
@@ -127,13 +127,14 @@ public class DragonSkill1Action : BaseAction
         stateTimer = afterHitStateTime;
     }
 
-    void Effect()
+    IEnumerator Effect()
     {
-        GetPlayerStunGridPositionList();
         Transform skill1EffectTransform = Instantiate(skill1_effect, skill1_effect_transform.position, Quaternion.identity);
         skill1EffectTransform.transform.parent = skill1_effect_transform;
         skill1EffectTransform.transform.rotation = Quaternion.Euler(70f, 0f, 0f);
         Destroy(skill1EffectTransform.gameObject, 2f);
+        yield return new WaitForSeconds(1.0f);
+        GetPlayerStunGridPositionList();
     }
 
     int stunDistance = 1;
@@ -223,11 +224,6 @@ public class DragonSkill1Action : BaseAction
                     continue;
                 }
 
-                if (LevelGrid.Instance.GetEnemyAtSurroundPosition(testGridPosition))
-                {
-                    continue;
-                }
-
                 if (!Pathfinding.Instance.IsWalkableGridPosition(testGridPosition))
                 {
                     continue;
@@ -249,7 +245,7 @@ public class DragonSkill1Action : BaseAction
 
         if (isSkillCount <= 0)
         {
-            isSkillCount = 4;
+            isSkillCount = 2;
         }
 
         state = State.SwingingRSGSkill_1_BeforeMoving;

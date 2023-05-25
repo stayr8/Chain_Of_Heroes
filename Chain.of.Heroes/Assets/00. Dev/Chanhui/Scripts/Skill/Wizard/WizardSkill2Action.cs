@@ -101,7 +101,7 @@ public class WizardSkill2Action : BaseAction
         switch (state)
         {
             case State.SwingingWzSkill_2_LookAt:
-                TimeAttack(0.1f);
+                TimeAttack(0.3f);
                 state = State.SwingingWzSkill_2_Attack;
 
                 break;

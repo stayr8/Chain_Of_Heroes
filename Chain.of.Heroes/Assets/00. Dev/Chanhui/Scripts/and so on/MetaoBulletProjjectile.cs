@@ -59,6 +59,10 @@ public class MetaoBulletProjjectile : MonoBehaviour
                     {
                         targetUnit.GetMonsterDataManager().SkillDamage();
                     }
+                    else
+                    {
+                        targetUnit.GetCharacterDataManager().SkillDamage();
+                    }
                 }
             }
         }
