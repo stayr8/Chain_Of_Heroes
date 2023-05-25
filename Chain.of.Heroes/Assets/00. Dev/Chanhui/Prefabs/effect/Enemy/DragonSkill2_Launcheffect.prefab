@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3002923411913306283}
   - component: {fileID: 2590171623061612620}
   - component: {fileID: 1186681402503756826}
-  - component: {fileID: 8202453907957649623}
+  - component: {fileID: -7510685892513352142}
   m_Layer: 0
   m_Name: DragonSkill2_Launcheffect
   m_TagString: Untagged
@@ -46,7 +46,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3, y: 3, z: 3}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1186681402503756826
 MonoBehaviour:
@@ -61,7 +61,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skill_end_effect: {fileID: 1270614696217837274, guid: fe2733a2f43f31e4da389c4c5d76fcd8, type: 3}
---- !u!114 &8202453907957649623
+--- !u!114 &-7510685892513352142
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -70,7 +70,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2061247922298553343}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff84e780db32d0943b1c7ab28acacac2, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d34eece7f0766940be73ae469a19aca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &4458279005422449651

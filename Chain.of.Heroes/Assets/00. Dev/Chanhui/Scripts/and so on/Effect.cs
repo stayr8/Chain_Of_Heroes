@@ -17,7 +17,7 @@ public class Effect : MonoBehaviour
             Destroy(skill1EffectTransform.gameObject, 0.5f);
         }
 
-        if (other.transform.tag == "Character")
+        if (other.transform.tag == "Player")
         {
             Debug.Log("ลอมü");
             Transform skill1EffectTransform = Instantiate(skill_end_effect, transform.position, Quaternion.identity);

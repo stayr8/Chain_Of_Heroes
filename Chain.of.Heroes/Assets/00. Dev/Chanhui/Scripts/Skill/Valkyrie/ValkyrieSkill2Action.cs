@@ -175,8 +175,11 @@ public class ValkyrieSkill2Action : BaseAction
                     Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
                     if (targetUnit.IsEnemy())
                     {
-                        BaseAction StartAction = targetUnit.GetAction<StunAction>();
-                        StartAction.TakeAction(targetUnit.GetGridPosition(), onActionComplete);
+                        if (targetUnit.GetEnemyVisualType() != Unit.EnemyType.Dragon)
+                        {
+                            BaseAction StartAction = targetUnit.GetAction<StunAction>();
+                            StartAction.TakeAction(targetUnit.GetGridPosition(), onActionComplete);
+                        }
                         targetUnit.GetMonsterDataManager().SkillDamage();
                     }
                 }

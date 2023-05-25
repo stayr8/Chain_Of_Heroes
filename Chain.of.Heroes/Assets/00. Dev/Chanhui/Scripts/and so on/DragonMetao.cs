@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MetaoBulletProjjectile : MonoBehaviour
+public class DragonMetao : MonoBehaviour
 {
-
     private Vector3 targetPosition;
+    int count = 0;
 
     int maxMoveDistance = 1;
-    int count = 0;
 
     public void Setup(Vector3 targetPosition)
     {
@@ -25,13 +24,11 @@ public class MetaoBulletProjjectile : MonoBehaviour
 
         if (targetPosition.y >= transform.position.y)
         {
-            if (count <= 2)
+            if (count <= 0)
             {
                 GetValidActionGridPositionList();
-            }
-            else
-            {
                 Destroy(gameObject, 0.3f);
+                count++;
             }
         }
     }
@@ -55,13 +52,12 @@ public class MetaoBulletProjjectile : MonoBehaviour
                 if (LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition))
                 {
                     Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
-                    if (targetUnit.IsEnemy())
+                    if (!targetUnit.IsEnemy())
                     {
-                        targetUnit.GetMonsterDataManager().SkillDamage();
+                        targetUnit.GetCharacterDataManager().SkillDamage();
                     }
                 }
             }
         }
-        count++;
     }
 }

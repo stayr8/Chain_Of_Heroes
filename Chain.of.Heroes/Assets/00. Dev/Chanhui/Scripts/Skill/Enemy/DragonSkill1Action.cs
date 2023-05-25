@@ -129,12 +129,14 @@ public class DragonSkill1Action : BaseAction
 
     IEnumerator Effect()
     {
+        yield return new WaitForSeconds(1f);
         Transform skill1EffectTransform = Instantiate(skill1_effect, skill1_effect_transform.position, Quaternion.identity);
         skill1EffectTransform.transform.parent = skill1_effect_transform;
-        skill1EffectTransform.transform.rotation = Quaternion.Euler(70f, 0f, 0f);
-        Destroy(skill1EffectTransform.gameObject, 2f);
-        yield return new WaitForSeconds(1.0f);
+        skill1EffectTransform.transform.rotation = Quaternion.Euler(160f, 0f, 0f);
+        Destroy(skill1EffectTransform.gameObject, 1f);
+        yield return new WaitForSeconds(0.4f);
         GetPlayerStunGridPositionList();
+        
     }
 
     int stunDistance = 1;

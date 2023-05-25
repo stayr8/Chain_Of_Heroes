@@ -12,13 +12,13 @@ GameObject:
   - component: {fileID: 4487955735849804943}
   - component: {fileID: 787686133434753040}
   - component: {fileID: 1373308299882667326}
-  - component: {fileID: 1212361113084644278}
   - component: {fileID: 9054943789650772714}
   - component: {fileID: 6030806032592465833}
   - component: {fileID: 8681924711701863764}
   - component: {fileID: 8141815212963083106}
   - component: {fileID: -1416789301734179253}
   - component: {fileID: -1938835156559792284}
+  - component: {fileID: 1636758050125347454}
   - component: {fileID: -1152313772175514782}
   - component: {fileID: -2251350691966054075}
   m_Layer: 15
@@ -98,22 +98,6 @@ MonoBehaviour:
   enemyType: 5
   UnitName: "\uB808\uB4DC \uB4DC\uB798\uACE4"
   IsLongdistance: 1
---- !u!114 &1212361113084644278
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3695012023952319668}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23a8e64c32fff9740b3609ee3cb34945, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  obstaclesLayerMask:
-    serializedVersion: 2
-    m_Bits: 262144
-  maxReadyDistance: 2
 --- !u!114 &9054943789650772714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,10 +116,11 @@ MonoBehaviour:
   ArSkill_1_shootPointTransform: {fileID: 0}
   ArSkill_2_shootPointTransform: {fileID: 0}
   VkSkill_2_shootPointTransform: {fileID: 0}
-  bulletProjectilePrefab: {fileID: 8732296480811401870, guid: ed38717c6af161c4ab4f619260be292a, type: 3}
+  bulletProjectilePrefab: {fileID: 6632134890474384024, guid: 4dd9aca233f1a3246af8725c84aaf710, type: 3}
   ArSkill1_bulletProjectilePrefab: {fileID: 0}
   ArSkill2_bulletProjectilePrefab: {fileID: 0}
   WzSkill_2_bulletProjectilePrefab: {fileID: 0}
+  DragonbulletProjectilePrefab: {fileID: 6632134890474384024, guid: 4dd9aca233f1a3246af8725c84aaf710, type: 3}
   DGSkill_2_bulletProjectilePrefab: {fileID: 3002923411913306283, guid: 8480152615678154fab0bfe4c99b666a, type: 3}
 --- !u!114 &6030806032592465833
 MonoBehaviour:
@@ -218,6 +203,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d82f75a4a633cf44393c2c457f512c6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1636758050125347454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3695012023952319668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15aab7c9d02e129479bd9fdd1edc5903, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstaclesLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  maxReadyDistance: 6
 --- !u!114 &-1152313772175514782
 MonoBehaviour:
   m_ObjectHideFlags: 0

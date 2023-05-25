@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DragonSkill2Action : BaseAction
+public class DragonReadyAction : BaseAction
 {
     public event EventHandler<OnShootEventArgs> OnShoot;
 
@@ -13,56 +13,24 @@ public class DragonSkill2Action : BaseAction
         public Unit shootingUnit;
     }
 
-    [SerializeField] private Transform skill1_effect;
-    [SerializeField] private Transform skill1_effect_transform;
 
-
-
-    private int actionCoolTime;
     private enum State
     {
-        SwingingRSGSkill_2_LookAt,
-        SwingingRSGSkill_2_Attacking,
-        SwingingRSGSkill_2_AfterHit,
+        SwingingDragon_LookAt,
+        SwingingDragon_Attacking,
+        SwingingDragon_AfterHit,
     }
 
-    [SerializeField] private int maxDGSkill_2_Distance = 2;
+    [SerializeField] private LayerMask obstaclesLayerMask;
+    [SerializeField] private int maxReadyDistance = 1;
 
     private State state;
     private float stateTimer;
     private Unit targetUnit;
     private bool canShootBullet;
 
-    private List<Binding> Binds = new List<Binding>();
-
-
-    private void Start()
-    {
-        Binding Bind = BindingManager.Bind(TurnSystem.Property, "IsPlayerTurn", (object value) =>
-        {
-            if (TurnSystem.Property.IsPlayerTurn)
-            {
-                if (isSkill && isSkillCount > 0)
-                {
-                    isSkillCount -= 1;
-                }
-
-                if (isSkillCount <= 0)
-                {
-                    isSkill = false;
-                    actionCoolTime = 250;
-                }
-            }
-        });
-        Binds.Add(Bind);
-
-        isSkillCount = 0;
-        actionCoolTime = 250;
-    }
-
     private void Update()
     {
-
         if (!isActive)
         {
             return;
@@ -72,17 +40,17 @@ public class DragonSkill2Action : BaseAction
 
         switch (state)
         {
-            case State.SwingingRSGSkill_2_LookAt:
-                Vector3 targetDirection = targetUnit.transform.position;
-                Vector3 aimDir = (targetDirection - transform.position).normalized;
+            case State.SwingingDragon_LookAt:
+                Vector3 aimDir = (targetUnit.GetWorldPosition() - unit.GetWorldPosition()).normalized;
                 float rotateSpeed = 40f;
                 transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateSpeed);
 
                 break;
-            case State.SwingingRSGSkill_2_Attacking:
+            case State.SwingingDragon_Attacking:
+
 
                 break;
-            case State.SwingingRSGSkill_2_AfterHit:
+            case State.SwingingDragon_AfterHit:
 
                 break;
         }
@@ -97,33 +65,31 @@ public class DragonSkill2Action : BaseAction
     {
         switch (state)
         {
-            case State.SwingingRSGSkill_2_LookAt:
-                state = State.SwingingRSGSkill_2_Attacking;
+            case State.SwingingDragon_LookAt:
                 TimeAttack(0.5f);
+                state = State.SwingingDragon_Attacking;
 
                 break;
-            case State.SwingingRSGSkill_2_Attacking:
+            
+            case State.SwingingDragon_Attacking:
 
                 if (canShootBullet)
                 {
                     Shoot();
                     canShootBullet = false;
                 }
-                Debug.Log(targetUnit);
-                Transform skill1EffectTransform = Instantiate(skill1_effect, skill1_effect_transform.position, Quaternion.identity);
-                skill1EffectTransform.transform.parent = skill1_effect_transform;
-                Destroy(skill1EffectTransform.gameObject, 2f);
 
-                TimeAttack(4.0f);
-                state = State.SwingingRSGSkill_2_AfterHit;
+                TimeAttack(2.0f);
+                state = State.SwingingDragon_AfterHit;
 
                 break;
-            case State.SwingingRSGSkill_2_AfterHit:
+            
+            case State.SwingingDragon_AfterHit:
 
                 ActionComplete();
-                unit.GetMonsterDataManager().m_skilldamagecoefficient = 0f;
                 break;
         }
+
     }
     void TimeAttack(float StateTime)
     {
@@ -138,7 +104,9 @@ public class DragonSkill2Action : BaseAction
             targetUnit = targetUnit,
             shootingUnit = unit
         });
+
     }
+
 
     public override List<GridPosition> GetValidActionGridPositionList()
     {
@@ -150,9 +118,9 @@ public class DragonSkill2Action : BaseAction
     {
         List<GridPosition> validGridPositionList = new List<GridPosition>();
 
-        for (int x = -maxDGSkill_2_Distance; x <= maxDGSkill_2_Distance; x++)
+        for (int x = -maxReadyDistance; x <= maxReadyDistance; x++)
         {
-            for (int z = -maxDGSkill_2_Distance; z <= maxDGSkill_2_Distance; z++)
+            for (int z = -maxReadyDistance; z <= maxReadyDistance; z++)
             {
                 GridPosition offsetGridPosition = new GridPosition(x, z);
                 GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
@@ -161,12 +129,12 @@ public class DragonSkill2Action : BaseAction
                 {
                     continue;
                 }
-
-                if (unitGridPosition == testGridPosition)
+                /*
+                int testDistance = Mathf.Abs(x) + Mathf.Abs(z);
+                if(testDistance > maxReadyDistance)
                 {
-                    // Same Grid Position where the character is already at
                     continue;
-                }
+                }*/
 
                 if (!LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition))
                 {
@@ -203,6 +171,18 @@ public class DragonSkill2Action : BaseAction
                     continue;
                 }
 
+                Vector3 unitWorldPosition = LevelGrid.Instance.GetWorldPosition(unitGridPosition);
+                Vector3 shootDir = (targetUnit.GetWorldPosition() - unitWorldPosition).normalized;
+
+                float unitShoulderHeight = 1.7f;
+                if (Physics.Raycast(unitWorldPosition + Vector3.up * unitShoulderHeight, shootDir,
+                    Vector3.Distance(unitWorldPosition, targetUnit.GetWorldPosition()),
+                    obstaclesLayerMask))
+                {
+                    // Blocked by an Obstacle
+                    continue;
+                }
+
                 validGridPositionList.Add(testGridPosition);
             }
         }
@@ -212,71 +192,67 @@ public class DragonSkill2Action : BaseAction
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
-        isSkill = true;
-        actionCoolTime = 0;
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
-        unit.GetMonsterDataManager().m_skilldamagecoefficient = 3.0f;
 
-        if (isSkillCount <= 0)
-        {
-            isSkillCount = 3;
-        }
-
-        state = State.SwingingRSGSkill_2_LookAt;
         TimeAttack(0.7f);
+        state = State.SwingingDragon_LookAt;
 
         canShootBullet = true;
 
-        AttackActionSystem.Instance.SetUnitChainFind(targetUnit, unit);
-        AttackActionSystem.Instance.SetMonsterDataManager(unit.GetMonsterDataManager());
+        if (!unit.IsEnemy())
+        {
+            AttackActionSystem.Instance.SetIsAtk(true);
+            AttackActionSystem.Instance.SetUnitChainFind(targetUnit, unit);
+
+        }
+        else
+        {
+            AttackActionSystem.Instance.SetUnitChainFind(unit, targetUnit);
+        }
+
 
         ActionStart(onActionComplete);
     }
 
+    public int GetMaxShootDistance()
+    {
+        return maxReadyDistance;
+    }
+
+
+
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
     {
+        Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
+
         return new EnemyAIAction
         {
             gridPosition = gridPosition,
-            actionValue = actionCoolTime,
+            actionValue = 100 + Mathf.RoundToInt((1 - targetUnit.GetHealthNormalized()) * 100f),
         };
     }
 
-    public int GetMaxDGSkill_2_Distance()
+    public int GetTargetCountAtPosition(GridPosition gridPosition)
     {
-        return maxDGSkill_2_Distance;
-    }
-
-    public override string GetActionName()
-    {
-        return "È­¿°±¸";
-    }
-
-    public override string GetSingleActionPoint()
-    {
-        return "4";
+        return GetValidActionGridPositionList(gridPosition).Count;
     }
 
     public override int GetActionPointsCost()
     {
-        return 4;
+        return 1;
+    }
+    public override string GetActionName()
+    {
+        return "µå·¡°ï";
     }
 
-    public override int GetSkillCountPoint()
+    public override string GetSingleActionPoint()
     {
-        return isSkillCount;
+        return "1";
     }
 
     public override int GetMaxSkillCount()
     {
         return 0;
-    }
-
-    private void OnDisable()
-    {
-        foreach (var bind in Binds)
-        {
-            BindingManager.Unbind(TurnSystem.Property, bind);
-        }
     }
 }
