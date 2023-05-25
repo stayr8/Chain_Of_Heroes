@@ -308,6 +308,16 @@ public class GridSystemVisual : MonoBehaviour
             gridSystemVisualSingleArray[gridPosition.x, gridPosition.z].Show(GetGridVisualTypeMaterial(gridVisualType));
         }
     }
+    public void DestroyGridPositionList()
+    {
+        for (int x = 0; x < LevelGrid.Instance.GetWidth(); x++)
+        {
+            for (int z = 0; z < LevelGrid.Instance.GetHeight(); z++)
+            {
+                Destroy(gridSystemVisualSingleArray[x, z].gameObject);
+            }
+        }
+    }
 
     private void UpdateGridVisual()
     {

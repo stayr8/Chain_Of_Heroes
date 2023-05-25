@@ -121,7 +121,24 @@ public class MonsterDataManager : MonoBehaviour
 
     public void Damage()
     {
-        monsterBase.Calc_Attack(AttackActionSystem.Instance.GetCharacterDataManager(), this);
+        ScreenShake.Instance.Shake();
+        CharacterDataManager _cdm = AttackActionSystem.Instance.GetCharacterDataManager();
+        if (_cdm.m_property == "물리" && m_property == "사격")
+        {
+            monsterBase.Calc_Attack(_cdm, this, 1.15f);
+        }
+        else if (_cdm.m_property == "사격" && m_property == "마법")
+        {
+            monsterBase.Calc_Attack(_cdm, this, 1.15f);
+        }
+        else if (_cdm.m_property == "마법" && m_property == "물리")
+        {
+            monsterBase.Calc_Attack(_cdm, this, 1.15f);
+        }
+        else
+        {
+            monsterBase.Calc_Attack(_cdm, this, 1f);
+        }
 
         if (m_hp <= 0)
         {
@@ -142,8 +159,25 @@ public class MonsterDataManager : MonoBehaviour
 
     public void SkillDamage()
     {
-        Debug.Log("여기 들어옴?");
-        monsterBase.Calc_SkillAttack(AttackActionSystem.Instance.GetCharacterDataManager(), this);
+        ScreenShake.Instance.Shake();
+        CharacterDataManager _cdm = AttackActionSystem.Instance.GetCharacterDataManager();
+        if (_cdm.m_property == "물리" && m_property == "사격")
+        {
+            monsterBase.Calc_SkillAttack(_cdm, this, 1.15f);
+        }
+        else if (_cdm.m_property == "사격" && m_property == "마법")
+        {
+            monsterBase.Calc_SkillAttack(_cdm, this, 1.15f);
+        }
+        else if (_cdm.m_property == "마법" && m_property == "물리")
+        {
+            monsterBase.Calc_SkillAttack(_cdm, this, 1.15f);
+        }
+        else
+        {
+            monsterBase.Calc_SkillAttack(_cdm, this, 1f);
+        }
+        
 
         if (m_hp <= 0)
         {
@@ -165,14 +199,10 @@ public class MonsterDataManager : MonoBehaviour
     {
         if (other.transform.tag == "Melee")
         {
-            //Debug.Log(other.gameObject.name);
-            ScreenShake.Instance.Shake();
             Damage();
         }
         else if (other.transform.tag == "SkillMelee")
         {
-            //Debug.Log(other.gameObject.name);
-            ScreenShake.Instance.Shake();
             SkillDamage();
         }
     }

@@ -136,13 +136,22 @@ public partial class TurnSystem : MonoBehaviour
 
         Binding Binded = BindingManager.Bind(TurnSystem.Property, "IsTurnEnd", (object value) =>
         {
-            if (UnitManager.Instance.VictoryPlayer())
+            if (!InGame_UIManager.instance.GetIsinGameFall())
             {
-                OnVictorySystemUI();
-                OnVictoryPlayerVisual();
-                turnNumberText.text = "" + TurnSystem.Property.TurnNumber;
+                if (UnitManager.Instance.VictoryPlayer())
+                {
+                    OnVictorySystemUI();
+                    OnVictoryPlayerVisual();
+                    turnNumberText.text = "" + TurnSystem.Property.TurnNumber;
+                }
+                else if (UnitManager.Instance.VictoryEnemy())
+                {
+                    OnVictorySystemUI();
+                    OnVictoryEnemyVisual();
+                    turnNumberText.text = "" + TurnSystem.Property.TurnNumber;
+                }
             }
-            else if (UnitManager.Instance.VictoryEnemy())
+            else
             {
                 OnVictorySystemUI();
                 OnVictoryEnemyVisual();
@@ -153,9 +162,10 @@ public partial class TurnSystem : MonoBehaviour
         Binds.Add(Binded);
 
         Property.ActionPoints = Property.AllPlayerPoint;
-
+        //InGame_UIManager.instance.Onfall += InGame_UIManager_Onfall;
     }
 
+   
     public void NextTurn()
     {
         Property.TurnNumber++;
@@ -217,13 +227,19 @@ public partial class TurnSystem : MonoBehaviour
     {
         playerVictoryVisualGameObject.SetActive(true);
     }
-
     private void OnVictoryEnemyVisual()
     {
         enemyVictoryVisualGameObject.SetActive(true);
     }
 
-    
+    private void InGame_UIManager_Onfall(object sender, EventArgs e)
+    {
+        //OnVictorySystemUI();
+        OnVictoryEnemyVisual();
+        turnNumberText.text = "" + TurnSystem.Property.TurnNumber;
+    }
+
+
     private void OnDisable()
     {
         foreach (var bind in Binds)

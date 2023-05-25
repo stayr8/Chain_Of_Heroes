@@ -315,7 +315,7 @@ public class UnitAnimator : MonoBehaviour
 
     IEnumerator Dragonbullet(Vector3 e)
     {
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(0.8f);
         Transform bulletProjectileTransform =
             Instantiate(bulletProjectilePrefab, shootPointTransform.position, Quaternion.identity);
         BulletProjectile bulletProjectile = bulletProjectileTransform.GetComponent<BulletProjectile>();
@@ -558,7 +558,7 @@ public class UnitAnimator : MonoBehaviour
 
     IEnumerator DGSkill_2_Shoot(Vector3 e)
     {
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.8f);
 
         Vector3 MousePosition = e + new Vector3(0f, 20f, 0f);
         Transform bulletProjectileTransform =

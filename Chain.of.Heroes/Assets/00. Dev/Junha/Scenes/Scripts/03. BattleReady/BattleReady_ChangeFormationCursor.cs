@@ -118,6 +118,8 @@ public class BattleReady_ChangeFormationCursor : CursorBase
         {
             if(pos == _characterUi.GetCharUIpos())
             {
+                _characterUi = null;
+                _seletedImageMove = false;
                 return;
             }
 

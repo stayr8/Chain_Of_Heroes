@@ -13,7 +13,6 @@ public class RedStoneGolemSkill1Action : BaseAction
     [SerializeField] private Transform skill1_effect;
 
     private List<Vector3> positionList;
-    private int currentPositionIndex;
     private int actionCoolTime;
     private enum State
     {
@@ -108,7 +107,7 @@ public class RedStoneGolemSkill1Action : BaseAction
                 break;
             case State.SwingingRSGSkill_1_Attacking:
                 OnRSGSkill_1_Slash?.Invoke(this, EventArgs.Empty);
-                Debug.Log(targetUnit);
+                
                 Invoke("Effect", 0.4f);
 
                 TimeAttack(2.0f);
@@ -157,6 +156,7 @@ public class RedStoneGolemSkill1Action : BaseAction
                     Unit targetPlayer = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
                     if (!targetPlayer.IsEnemy())
                     {
+                        Debug.Log(targetPlayer);
                         BaseAction StartAction = targetPlayer.GetAction<StunAction>();
                         StartAction.TakeAction(targetPlayer.GetGridPosition(), onActionComplete);
                         StartAction.SetIsSkillCount(3);
@@ -260,7 +260,6 @@ public class RedStoneGolemSkill1Action : BaseAction
 
         List<GridPosition> pathgridPositionList = Pathfinding.Instance.AttackFindPath(unit.GetGridPosition(), gridPosition, out int pathLength);
 
-        currentPositionIndex = 0;
         positionList = new List<Vector3>();
 
         for (int i = 0; i < pathgridPositionList.Count; i++)

@@ -26,7 +26,7 @@ public class BattleReady_UIManager : MonoBehaviour
     {
         Max_Value = MapManager.Instance.mapData[MapManager.Instance.stageNum].Count_Unlock;
 
-        StartCoroutine(TalkStart());
+        //StartCoroutine(TalkStart());
     }
 
     private IEnumerator TalkStart()

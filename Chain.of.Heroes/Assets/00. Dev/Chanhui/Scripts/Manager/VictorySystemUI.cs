@@ -41,8 +41,13 @@ public class VictorySystemUI : MonoBehaviour
     {
         if(InputManager.Instance.IsMouseButtonDown())
         {
-            SceneManager.LoadScene("ChoiceScene");
+            Invoke("LoadScene", 5f);
         }
+    }
+
+    private void LoadScene()
+    {
+        SceneManager.LoadScene("WorldMapScene");
     }
 
 }

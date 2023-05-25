@@ -8,9 +8,12 @@ public class InGame_Cursor : CursorBase
 {
     private RectTransform rt;
     public static GameObject currentSelected;
+
+
     private void Awake()
     {
         rt = GetComponent<RectTransform>();
+        
     }
 
     public static bool isInitStart = false;
@@ -50,10 +53,14 @@ public class InGame_Cursor : CursorBase
 
                 case "_TurnEnd":
                     Debug.Log("턴 종료");
+                    InGame_UIManager.instance.OnTurnfo();
                     break;
 
                 case "_Surrender":
                     Debug.Log("포기");
+                    InGame_UIManager.instance.Onfallfo();
+
+                    Reset();
                     break;
             }
         }
@@ -62,5 +69,11 @@ public class InGame_Cursor : CursorBase
     public static GameObject GetCurrentSelected()
     {
         return currentSelected;
+    }
+
+    private void Reset()
+    {
+        UnitManager.Instance.OnDestroys();
+        GridSystemVisual.Instance.DestroyGridPositionList();
     }
 }

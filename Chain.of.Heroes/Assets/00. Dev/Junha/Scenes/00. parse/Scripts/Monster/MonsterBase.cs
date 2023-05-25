@@ -9,7 +9,8 @@ public class MonsterBase : MonoBehaviour
     private float characterCD; // 캐릭터 크리티컬 피해 증가량 (으로 수정해야 함.)
     private float monsterDP; // 대상 몬스터 방어력
     private bool isCritical; // 크리티컬인가?
-    public void Calc_Attack(CharacterDataManager CDM, MonsterDataManager MDM) // 공격 공식
+   
+    public void Calc_Attack(CharacterDataManager CDM, MonsterDataManager MDM, float propertyDamage) // 공격 공식
     {
         Debug.Log("몬스터 맞음");
         characterAP = CDM.m_attackPower;
@@ -17,16 +18,16 @@ public class MonsterBase : MonoBehaviour
 
         isCritical = Calc_Critical(CDM);
         if (!isCritical)
-        { 
+        {
             // 최종 데미지 결정
-            finalDamage = characterAP * (100 / (100 + (monsterDP / 10))) * (1 - MDM.m_damagereductionRate);
+            finalDamage = characterAP * (100 / (100 + (monsterDP / 10))) * (1 - MDM.m_damagereductionRate) * propertyDamage;
         }
         else if (isCritical)
         {
             characterCD = CDM.m_criticalDamage;
 
             // 크리티컬 최종 데미지 결정
-            finalDamage = (characterAP * (100 / (100 + (monsterDP / 10))) * (1 - MDM.m_damagereductionRate)) * (1.3f + characterCD);
+            finalDamage = (characterAP * (100 / (100 + (monsterDP / 10))) * (1 - MDM.m_damagereductionRate)) * (1.3f + characterCD) * propertyDamage;
         }
 
         // 데미지 넣기
@@ -58,13 +59,13 @@ public class MonsterBase : MonoBehaviour
     }
 
     private float characterSKD; // 크리티컬인가?
-    public void Calc_SkillAttack(CharacterDataManager CDM, MonsterDataManager MDM) // 스킬 공식
+    public void Calc_SkillAttack(CharacterDataManager CDM, MonsterDataManager MDM, float propertyDamage) // 스킬 공식
     {
         characterAP = CDM.m_attackPower;
         monsterDP = MDM.m_defensePower;
         characterSKD = CDM.m_skilldamagecoefficient;
 
-        finalDamage = (characterAP * characterSKD * (100 / (100 + (monsterDP / 10)))) * (1 - MDM.m_damagereductionRate);
+        finalDamage = (characterAP * characterSKD * (100 / (100 + (monsterDP / 10)))) * (1 - MDM.m_damagereductionRate) * propertyDamage;
 
         MDM.m_hp -= (int)finalDamage;
 

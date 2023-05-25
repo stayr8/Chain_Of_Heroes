@@ -29,23 +29,29 @@ public class UnitManager : MonoBehaviour
     public MapData mapData;
 
     [SerializeField] private List<GameObject> Character;
+    private List<Binding> Binds = new List<Binding>();
 
-    public int playerpos = 0;
-    public int enemypos = 0;
+    public int playerpos;
+    public int enemypos;
     private bool OnChangeFormation;
 
     private void Awake()
     {
+        
+    }
+
+    private void Start()
+    {
+        playerpos = 0;
+        enemypos = 0;
+
         unitList = new List<Unit>();
         friendlyUnitList = new List<Unit>();
         enemyUnitList = new List<Unit>();
         characterUiList = new List<CharacterUI>();
         OnChangeFormation = false;
         Character = new List<GameObject>();
-    }
 
-    private void Start()
-    {
         Character.Add(Resources.Load<GameObject>("SwordWoman"));
         Character.Add(Resources.Load<GameObject>("Knight"));
         Character.Add(Resources.Load<GameObject>("Samurai"));
@@ -54,12 +60,48 @@ public class UnitManager : MonoBehaviour
         Character.Add(Resources.Load<GameObject>("Priest"));
         Character.Add(Resources.Load<GameObject>("Wizard"));
         Character.Add(Resources.Load<GameObject>("Valkyrie"));
+
+        Binding Binded = BindingManager.Bind(TurnSystem.Property, "IsTurnEnd", (object value) =>
+        {
+            
+            
+            for (int i = unitList.Count; i > 0; i--)
+            {
+                //Debug.Log(i);
+                Unit unitToRemove = unitList[i - 1];
+                //Debug.Log(i);
+                if (unitList.Contains(unitToRemove))
+                {
+                    unitList.Remove(unitToRemove);
+                }
+
+                if (friendlyUnitList.Contains(unitToRemove))
+                {
+                    friendlyUnitList.Remove(unitToRemove);
+                }
+
+                if (enemyUnitList.Contains(unitToRemove))
+                {
+                    enemyUnitList.Remove(unitToRemove);
+                }
+                Destroy(unitToRemove.gameObject);
+            }
+
+            unitList.Clear();
+            friendlyUnitList.Clear();
+            enemyUnitList.Clear();
+            
+
+        });
+        Binds.Add(Binded);
+ 
     }
 
     public void UnitInitialize()
     {
+        Debug.Log("여기들어오냐?");
         // 임시로 저장
-        mapData = MapManager.Instance.mapData[0];
+        mapData = MapManager.Instance.mapData[MapManager.Instance.stageNum];
 
         playerpos = 0;
         enemypos = 0;
@@ -83,6 +125,7 @@ public class UnitManager : MonoBehaviour
 
         if(unit.IsEnemy())
         {
+            Debug.Log(enemypos);
             enemyUnitList.Add(unit);
             unit.SetPosition(mapData.EnemyXY[enemypos]);
             enemypos++;
@@ -91,7 +134,7 @@ public class UnitManager : MonoBehaviour
         else
         {
             friendlyUnitList.Add(unit);
-            //Debug.Log(characterUiList);
+            Debug.Log(unit);
             if(!OnChangeFormation)
             {
                 unit.SetPosition(ChangeFormationSystem.Instance.GetCharacterMovePos()[playerpos]);
@@ -194,8 +237,24 @@ public class UnitManager : MonoBehaviour
         this.OnChangeFormation =  OnChangeFormation;
     }
 
+    public void OnDestroys()
+    {
+        foreach (var bind in Binds)
+        {
+            BindingManager.Unbind(TurnSystem.Property, bind);
+        }
+
+        Unit.OnAnyUnitSpawned -= Unit_OnAnyUnitSpawned;
+        Unit.OnAnyUnitDead -= Unit_OnAnyUnitDead;
+    }
+
     private void OnDisable()
     {
+        foreach (var bind in Binds)
+        {
+            BindingManager.Unbind(TurnSystem.Property, bind);
+        }
+        
         Unit.OnAnyUnitSpawned -= Unit_OnAnyUnitSpawned;
         Unit.OnAnyUnitDead -= Unit_OnAnyUnitDead;
     }

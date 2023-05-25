@@ -9,7 +9,8 @@ public class CharacterBase : MonoBehaviour
     private float monsterCD; // 몬스터 크리티컬 피해 증가량 (으로 수정해야 함.)
     private float characterDP; // 대상 캐릭터 방어력
     private bool isCritical; // 크리티컬인가?
-    public void Calc_Attack(CharacterDataManager CDM, MonsterDataManager MDM) // 공격 공식
+
+    public void Calc_Attack(CharacterDataManager CDM, MonsterDataManager MDM, float propertyDamage) // 공격 공식
     {
         Debug.Log("플레이어 맞음");
         monsterAP = MDM.m_attackPower;
@@ -18,14 +19,14 @@ public class CharacterBase : MonoBehaviour
         if (!isCritical)
         {
             // 최종 데미지 결정
-            finalDamage = monsterAP * (100 / (100 + (characterDP / 10)));
+            finalDamage = monsterAP * (100 / (100 + (characterDP / 10))) * propertyDamage;
         }
         else if (isCritical)
         {
             monsterCD = MDM.m_criticalDamage;
 
             // 크리티컬 최종 데미지 결정
-            finalDamage = (monsterAP * (100 / (100 + (characterDP / 10)))) * (1.3f + monsterCD);
+            finalDamage = (monsterAP * (100 / (100 + (characterDP / 10)))) * (1.3f + monsterCD) * propertyDamage;
         }
 
         // 몬스터 데미지 결정
@@ -55,19 +56,21 @@ public class CharacterBase : MonoBehaviour
     }
 
     private float monsterSKD; // 크리티컬인가?
-    public void Calc_SkillAttack(CharacterDataManager CDM, MonsterDataManager MDM) // 스킬 공식
+    public void Calc_SkillAttack(CharacterDataManager CDM, MonsterDataManager MDM, float propertyDamage) // 스킬 공식
     {
         monsterAP = MDM.m_attackPower;
         characterDP = CDM.m_defensePower;
         monsterSKD = MDM.m_skilldamagecoefficient;
 
-        finalDamage = (monsterAP * monsterSKD * (100 / (100 + (characterDP / 10)))) * (1 - CDM.m_damagereductionRate);
+        finalDamage = (monsterAP * monsterSKD * (100 / (100 + (characterDP / 10)))) * (1 - CDM.m_damagereductionRate) * propertyDamage;
 
         CDM.m_hp -= (int)finalDamage;
 
         Vector3 pos = new Vector3(this.transform.position.x + 1f, this.transform.position.y + 1f, this.transform.position.z);
         DamagePopup.Create(pos, (int)finalDamage, isCritical);
     }
+
+   
 
     #region 개발 전
     // 레벨업 방식
