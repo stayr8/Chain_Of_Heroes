@@ -57,15 +57,14 @@ public class WorldMap_Cursor : CursorBase
 
                     break;
 
-                #region 미구현
                 case "_Party":
-                    Debug.Log("동료");
+                    
 
                     break;
+
                 case "_Save":
                     Debug.Log("저장");
                     break;
-                #endregion
 
                 case "_BaseCamp":
                     isBaseCamp = true;

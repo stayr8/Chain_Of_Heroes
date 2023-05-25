@@ -5,8 +5,8 @@ using UnityEngine;
 public class WorldMap_UIManager : MonoBehaviour
 {
     [SerializeField, Header("Select Menu UI")] private GameObject UI_SelectMenu;
-    [SerializeField, Header("\nChapterInfo UI")] private GameObject UI_ChapterInfo;
-    [SerializeField, Header("\nChapterInfo 배경")] private GameObject ChapterInfo_Background;
+    [SerializeField, Header("ChapterInfo UI")] private GameObject UI_ChapterInfo;
+    [SerializeField, Header("ChapterInfo 배경")] private GameObject ChapterInfo_Background;
     private RectTransform rt_ChapterInfo;
 
     private void Awake()
