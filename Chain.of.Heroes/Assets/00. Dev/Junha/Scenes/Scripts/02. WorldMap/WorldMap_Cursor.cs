@@ -23,13 +23,12 @@ public class WorldMap_Cursor : CursorBase
     }
 
     public static bool isChapterStart = false;
-    public static bool isBaseCamp = false;
     private const float MOVE_DISTANCE = 100f;
     private const float MAX_POSITION_X = -860f; private const float MAX_POSITION_Y = 200f;
-    private const float MIN_POSITION_X = -890f; private const float MIN_POSITION_Y = -100f;
+    private const float MIN_POSITION_X = -880f; private const float MIN_POSITION_Y = 0f;
     private void Update()
     {
-        if (!isChapterStart || !isBaseCamp)
+        if (!isChapterStart)
         {
             Movement(rt, ref currentSelected, MOVE_DISTANCE, MIN_POSITION_X, MAX_POSITION_X, MIN_POSITION_Y, MAX_POSITION_Y);
         }
@@ -66,12 +65,6 @@ public class WorldMap_Cursor : CursorBase
                     Debug.Log("저장");
                     break;
 
-                case "_BaseCamp":
-                    isBaseCamp = true;
-                    NextButton(true, "_Yes");
-                    text_nextButton.text = "베이스 캠프로 돌아가시겠습니까?";
-
-                    break;
                 case "_Yes":
                     SceneManager.LoadScene("Ch_01"); // map_id에 맞게 바꿔줘야 할 듯
                     // MapManager.Instance.mapData[MapManager.Instance.stageNum].Map_Id;
@@ -83,11 +76,7 @@ public class WorldMap_Cursor : CursorBase
                         isChapterStart = false;
                         NextButton(false, "_ChapterStart");
                     }
-                    else if (isBaseCamp)
-                    {
-                        isBaseCamp = false;
-                        NextButton(false, "_BaseCamp");
-                    }
+
                     ResetCursorPosition();
 
                     break;
@@ -117,10 +106,6 @@ public class WorldMap_Cursor : CursorBase
         if (currentSelected.name == "_ChapterStart")
         {
             rt.anchoredPosition = new Vector2(-860f, MAX_POSITION_Y);
-        }
-        else if (currentSelected.name == "_BaseCamp")
-        {
-            rt.anchoredPosition = new Vector2(-890f, MIN_POSITION_Y);
         }
     }
 }
