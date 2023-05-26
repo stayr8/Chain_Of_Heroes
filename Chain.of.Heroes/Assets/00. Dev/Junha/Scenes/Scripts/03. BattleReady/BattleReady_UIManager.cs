@@ -11,7 +11,6 @@ public class BattleReady_UIManager : MonoBehaviour
     #region instance화 :: Awake()함수 포함
     [Header("===== [instance 전용 property] =====")]
     [Header("[유닛 슬롯] 오브젝트")] public GameObject[] slot;
-    [Header("선택된 메뉴를 위한 임시")] public BattleReady_Cursor _cursor;
 
     public static BattleReady_UIManager instance;
     private void Awake()

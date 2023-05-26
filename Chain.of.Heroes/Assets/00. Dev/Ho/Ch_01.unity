@@ -315,7 +315,7 @@ GameObject:
   - component: {fileID: 18703412}
   - component: {fileID: 18703411}
   m_Layer: 5
-  m_Name: tmp_Lose
+  m_Name: '[Txt] Lose'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -951,7 +951,7 @@ GameObject:
   - component: {fileID: 62984368}
   - component: {fileID: 62984367}
   m_Layer: 5
-  m_Name: WorldMap_Image
+  m_Name: '[Image] Chapter'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1579,7 +1579,7 @@ GameObject:
   - component: {fileID: 93209825}
   - component: {fileID: 93209824}
   m_Layer: 5
-  m_Name: Condition_tmp
+  m_Name: '[Txt] Todo'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1625,7 +1625,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uBCF4\uC2A4 \uACA9\uD30C"
+  m_text: "\uBAA8\uB4E0 \uBAAC\uC2A4\uD130 \uCC98\uCE58"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 39f3a5613d621da4984f8ce772cf0d55, type: 2}
   m_sharedMaterial: {fileID: 5356817274813995832, guid: 39f3a5613d621da4984f8ce772cf0d55, type: 2}
@@ -1658,7 +1658,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -2957,7 +2957,7 @@ GameObject:
   - component: {fileID: 167756374}
   - component: {fileID: 167756373}
   m_Layer: 5
-  m_Name: Image_MenuSelectCursor
+  m_Name: _Cursor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5611,7 +5611,7 @@ GameObject:
   - component: {fileID: 371473777}
   - component: {fileID: 371473776}
   m_Layer: 5
-  m_Name: tmp_Count
+  m_Name: '[Txt] Count'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5630,7 +5630,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1129634500}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5692,7 +5692,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 1
   m_HorizontalAlignment: 4
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -8801,7 +8801,7 @@ GameObject:
   - component: {fileID: 533251201}
   - component: {fileID: 533251200}
   m_Layer: 5
-  m_Name: _tmp
+  m_Name: Txt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10196,7 +10196,7 @@ GameObject:
   - component: {fileID: 599211140}
   - component: {fileID: 599211139}
   m_Layer: 5
-  m_Name: _Background
+  m_Name: '[Image] Background'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11479,7 +11479,7 @@ GameObject:
   - component: {fileID: 649776218}
   - component: {fileID: 649776217}
   m_Layer: 5
-  m_Name: Condition_tmp
+  m_Name: '[Txt] Todo'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11558,7 +11558,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -11824,7 +11824,7 @@ GameObject:
   - component: {fileID: 656944757}
   - component: {fileID: 656944756}
   m_Layer: 5
-  m_Name: tmp_StageNum
+  m_Name: '[Txt] StageNum'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11848,7 +11848,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -149, y: 107}
+  m_AnchoredPosition: {x: -149, y: 100}
   m_SizeDelta: {x: 100, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &656944756
@@ -11906,7 +11906,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 1
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 1024
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -12055,7 +12055,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &660716414
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12918,7 +12918,7 @@ GameObject:
   - component: {fileID: 682445537}
   - component: {fileID: 682445536}
   m_Layer: 5
-  m_Name: _tmp
+  m_Name: Txt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20024,7 +20024,7 @@ GameObject:
   - component: {fileID: 972086464}
   - component: {fileID: 972086463}
   m_Layer: 5
-  m_Name: tmp_Count
+  m_Name: '[Txt] Count'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20043,7 +20043,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1401069805}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -20105,7 +20105,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 1
   m_HorizontalAlignment: 4
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -20159,7 +20159,7 @@ GameObject:
   - component: {fileID: 979289986}
   - component: {fileID: 979289985}
   m_Layer: 5
-  m_Name: Win_tmp
+  m_Name: '[Txt] Win'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20239,7 +20239,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -21183,7 +21183,7 @@ GameObject:
   - component: {fileID: 1029638515}
   - component: {fileID: 1029638514}
   m_Layer: 5
-  m_Name: _tmp
+  m_Name: Txt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21569,7 +21569,7 @@ GameObject:
   - component: {fileID: 1043813790}
   - component: {fileID: 1043813789}
   m_Layer: 5
-  m_Name: tmp_HowToWin
+  m_Name: '[Txt] Todo'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21588,12 +21588,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2029258610}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 181.5, y: 0}
-  m_SizeDelta: {x: 200, y: 25}
+  m_SizeDelta: {x: 225, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1043813789
 MonoBehaviour:
@@ -21615,7 +21615,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uBCF4\uC2A4 \uACA9\uD30C"
+  m_text: "\uBAA8\uB4E0 \uBAAC\uC2A4\uD130 \uCC98\uCE58"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 39f3a5613d621da4984f8ce772cf0d55, type: 2}
   m_sharedMaterial: {fileID: 5356817274813995832, guid: 39f3a5613d621da4984f8ce772cf0d55, type: 2}
@@ -22271,7 +22271,7 @@ GameObject:
   - component: {fileID: 1088409919}
   - component: {fileID: 1088409918}
   m_Layer: 5
-  m_Name: Lose_tmp
+  m_Name: '[Txt] Lose'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22351,7 +22351,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -22651,7 +22651,7 @@ GameObject:
   - component: {fileID: 1096566429}
   - component: {fileID: 1096566428}
   m_Layer: 5
-  m_Name: _Background
+  m_Name: '[Image] Background'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22959,7 +22959,7 @@ GameObject:
   - component: {fileID: 1129634502}
   - component: {fileID: 1129634501}
   m_Layer: 5
-  m_Name: tmp_ActionPoint
+  m_Name: '[Txt] ActionPoint'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23041,7 +23041,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 1
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -25487,7 +25487,7 @@ GameObject:
   - component: {fileID: 1257667610}
   - component: {fileID: 1257667609}
   m_Layer: 5
-  m_Name: Name_tmp
+  m_Name: '[Txt] Name'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25566,8 +25566,8 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_fontStyle: 1
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -26522,7 +26522,7 @@ GameObject:
   - component: {fileID: 1300166403}
   - component: {fileID: 1300166402}
   m_Layer: 5
-  m_Name: tmp_ChapterName
+  m_Name: '[Txt] ChapterName'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26601,9 +26601,9 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 4
-  m_VerticalAlignment: 1024
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -27378,7 +27378,7 @@ GameObject:
   - component: {fileID: 1340623512}
   - component: {fileID: 1340623511}
   m_Layer: 5
-  m_Name: Background_Image
+  m_Name: '[Image] Background'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27910,7 +27910,6 @@ MonoBehaviour:
   - {fileID: 717257222}
   - {fileID: 118676288}
   - {fileID: 1405254999}
-  _cursor: {fileID: 0}
   Max_Value: 0
   _Menu: {fileID: 914854331}
   _UnitFormation: {fileID: 667927023}
@@ -28585,7 +28584,7 @@ GameObject:
   - component: {fileID: 1401069807}
   - component: {fileID: 1401069806}
   m_Layer: 5
-  m_Name: tmp_Turn
+  m_Name: '[Txt] Turn'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28667,7 +28666,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 1
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -34099,7 +34098,7 @@ GameObject:
   - component: {fileID: 1685727426}
   - component: {fileID: 1685727425}
   m_Layer: 5
-  m_Name: tmp_HowToLose
+  m_Name: '[Txt] Todo'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34118,12 +34117,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 18703410}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 181.5, y: 0}
-  m_SizeDelta: {x: 200, y: 25}
+  m_SizeDelta: {x: 225, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1685727425
 MonoBehaviour:
@@ -38602,7 +38601,7 @@ GameObject:
   - component: {fileID: 1948123719}
   - component: {fileID: 1948123718}
   m_Layer: 5
-  m_Name: Chapter_tmp
+  m_Name: '[Txt] Number'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38682,7 +38681,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -39302,7 +39301,7 @@ GameObject:
   - component: {fileID: 2001877561}
   - component: {fileID: 2001877560}
   m_Layer: 5
-  m_Name: _tmp
+  m_Name: Txt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39562,7 +39561,7 @@ GameObject:
   - component: {fileID: 2029258612}
   - component: {fileID: 2029258611}
   m_Layer: 5
-  m_Name: tmp_Win
+  m_Name: '[Txt] Win'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

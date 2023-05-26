@@ -20,12 +20,31 @@ public class StageManager : MonoBehaviour
 {
     public static StageManager instance;
 
+    [Header("월드맵 데이터")]
+    public int m_id; // [아이디]
+    public int m_chapterNum; // [챕터 번호]
+    public string m_chapterName; // [챕터 이름]
+    public string m_resourcePath; // [챕터 이미지]
+
+    [SerializeField, Header("[챕터 이름] 텍스트")] private TMP_Text Txt_ChapterNum;
+    [SerializeField, Header("[챕터 대표] 이미지")] private Image Img_ChapterImage;
+    private const int STAGE_LENGTH = 10;
+
     private string ChapterName; // [JSON 파일 이름]
     private WorldMap[] _Array;
+    private WorldMap firstArray;
+
+    public int num;
+    private GameObject _nextChapter;
+
     public Info[] info;
+
     private void Awake()
     {
-        instance = this;
+        if(instance == null)
+        {
+            instance = this;
+        }
         DontDestroyOnLoad(gameObject);
 
         ChapterName = "WorldMap";
@@ -55,19 +74,8 @@ public class StageManager : MonoBehaviour
 
             Controller_Clear();
         }
-
     }
 
-    [Header("월드맵 데이터")]
-    public int m_id; // [아이디]
-    public int m_chapterNum; // [챕터 번호]
-    public string m_chapterName; // [챕터 이름]
-
-    public string m_resourcePath; // [챕터 이미지]
-
-    private WorldMap firstArray;
-    public int num;
-    private GameObject _nextChapter;
     private void initInfo()
     {
         firstArray = _Array[num];
@@ -81,9 +89,6 @@ public class StageManager : MonoBehaviour
         _nextChapter = WorldMap_PlayerController.GetRightChapter();
     }
 
-    [SerializeField, Header("[챕터 이름] 텍스트")] private TMP_Text Txt_ChapterNum;
-    [SerializeField, Header("[챕터 대표] 이미지")] private Image Img_ChapterImage;
-    private const int STAGE_LENGTH = 10;
     private void UpdateChapter()
     {
         initInfo();
@@ -122,13 +127,15 @@ public class StageManager : MonoBehaviour
         if (!PlayerCamera.isFree)
         {
             Txt_ChapterNum = GameObject.Find("_ChapterText").GetComponent<TMP_Text>();
-            Txt_ChapterNum.text = m_chapterName;
+            Txt_ChapterNum.text = m_chapterNum < 10 ? "Chapter. 0" + m_chapterNum + "\n" + m_chapterName:
+                                                      "Chapter. " + m_chapterNum + "\n" + m_chapterName;
 
             Img_ChapterImage = GameObject.Find("_ChapterImage").GetComponent<Image>();
             Img_ChapterImage.sprite = Resources.Load<Sprite>(m_resourcePath);
         }
     }
 
+    #region 치트키 요소
     private void Controller_Clear() // 숫자 키를 통한 챕터 해금
     {
         for (int i = 0; i < 10; ++i)
@@ -147,4 +154,5 @@ public class StageManager : MonoBehaviour
             }
         }
     }
+    #endregion
 }
