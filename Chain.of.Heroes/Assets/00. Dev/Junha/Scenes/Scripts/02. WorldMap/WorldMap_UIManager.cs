@@ -31,18 +31,7 @@ public class WorldMap_UIManager : MonoBehaviour
 
                 rt_ChapterInfo.anchoredPosition = new Vector2(rt_ChapterInfo.anchoredPosition.x, 0f);
             }
-            else if (isOnWorldMapMenu)
-            {
-                if (WorldMap_Cursor.isChapterStart || WorldMap_Cursor.isBaseCamp)
-                {
-                    return;
-                }
 
-                isOnWorldMapMenu = false;
-                UI_SelectMenu.gameObject.SetActive(false);
-
-                rt_ChapterInfo.anchoredPosition = new Vector2(rt_ChapterInfo.anchoredPosition.x, -315f);
-            }
             SoundManager.instance.Sound_WorldMapUIOpen();
         }
     }

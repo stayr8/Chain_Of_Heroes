@@ -49,7 +49,7 @@ public class StageManager : MonoBehaviour
 
     private void Update()
     {
-        if(SceneManager.GetActiveScene().name.Contains("WorldMapScene"))
+        if (SceneManager.GetActiveScene().name.Contains("WorldMapScene"))
         {
             UpdateChapter();
 
@@ -119,11 +119,14 @@ public class StageManager : MonoBehaviour
             }
         }
 
-        Txt_ChapterNum = GameObject.Find("_ChapterText").GetComponent<TMP_Text>();
-        Txt_ChapterNum.text = m_chapterName;
+        if (!PlayerCamera.isFree)
+        {
+            Txt_ChapterNum = GameObject.Find("_ChapterText").GetComponent<TMP_Text>();
+            Txt_ChapterNum.text = m_chapterName;
 
-        Img_ChapterImage = GameObject.Find("_ChapterImage").GetComponent<Image>();
-        Img_ChapterImage.sprite = Resources.Load<Sprite>(m_resourcePath);
+            Img_ChapterImage = GameObject.Find("_ChapterImage").GetComponent<Image>();
+            Img_ChapterImage.sprite = Resources.Load<Sprite>(m_resourcePath);
+        }
     }
 
     private void Controller_Clear() // 숫자 키를 통한 챕터 해금
