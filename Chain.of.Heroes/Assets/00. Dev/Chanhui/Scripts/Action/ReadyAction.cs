@@ -248,6 +248,18 @@ public class ReadyAction : BaseAction
                     }
                 }
 
+                if (!unit.IsEnemy())
+                {
+                    if (LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition).IsEnemy())
+                    {
+                        LevelGrid.Instance.GetChainStateGridPosition(testGridPosition);
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+
                 Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
                 if(targetUnit.IsEnemy() == unit.IsEnemy())
                 {

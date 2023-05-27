@@ -264,37 +264,24 @@ public class RookAction : BaseAction
                     continue;
                 }
 
-                Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
-                if (targetUnit.IsEnemy() == unit.IsEnemy())
+                if (LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition).IsEnemy())
                 {
-                    // Both Units on same 'team'
+                    LevelGrid.Instance.GetChainStateGridPosition(testGridPosition);
+                }
+                else
+                {
                     continue;
                 }
+                
 
                 if (!Pathfinding.Instance.HasAtPath(unitGridPosition, testGridPosition))
                 {
                     continue;
                 }
+
 
                 if (!Pathfinding.Instance.IsWalkableGridPosition(testGridPosition))
                 {
-                    continue;
-                }
-                /*
-                if (!Pathfinding.Instance.HasAtPath(unitGridPosition, testGridPosition))
-                {
-                    continue;
-                }*/
-
-                Vector3 unitWorldPosition = LevelGrid.Instance.GetWorldPosition(unitGridPosition);
-                Vector3 shootDir = (targetUnit.GetWorldPosition() - unitWorldPosition).normalized;
-
-                float unitShoulderHeight = 1.7f;
-                if (Physics.Raycast(unitWorldPosition + Vector3.up * unitShoulderHeight, shootDir,
-                    Vector3.Distance(unitWorldPosition, targetUnit.GetWorldPosition()),
-                    obstaclesLayerMask))
-                {
-                    // Blocked by an Obstacle
                     continue;
                 }
 

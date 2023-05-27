@@ -63,36 +63,8 @@ public class UnitManager : MonoBehaviour
 
         Binding Binded = BindingManager.Bind(TurnSystem.Property, "IsTurnEnd", (object value) =>
         {
-            
-            
-            for (int i = unitList.Count; i > 0; i--)
-            {
-                //Debug.Log(i);
-                Unit unitToRemove = unitList[i - 1];
-                //Debug.Log(i);
-                if (unitList.Contains(unitToRemove))
-                {
-                    unitList.Remove(unitToRemove);
-                }
-
-                if (friendlyUnitList.Contains(unitToRemove))
-                {
-                    friendlyUnitList.Remove(unitToRemove);
-                }
-
-                if (enemyUnitList.Contains(unitToRemove))
-                {
-                    enemyUnitList.Remove(unitToRemove);
-                }
-                Destroy(unitToRemove.gameObject);
-            }
-
-            unitList.Clear();
-            friendlyUnitList.Clear();
-            enemyUnitList.Clear();
-            
-
-        });
+            Invoke("UnitInit", 3f);
+        },false);
         Binds.Add(Binded);
  
     }
@@ -199,6 +171,35 @@ public class UnitManager : MonoBehaviour
         Unit cp = Instantiate(mapData.Enemy_pf[i], transform).GetComponent<Unit>();
 
         return cp;
+    }
+
+    private void UnitInit()
+    {
+        for (int i = unitList.Count; i > 0; i--)
+        {
+            //Debug.Log(i);
+            Unit unitToRemove = unitList[i - 1];
+            //Debug.Log(i);
+            if (unitList.Contains(unitToRemove))
+            {
+                unitList.Remove(unitToRemove);
+            }
+
+            if (friendlyUnitList.Contains(unitToRemove))
+            {
+                friendlyUnitList.Remove(unitToRemove);
+            }
+
+            if (enemyUnitList.Contains(unitToRemove))
+            {
+                enemyUnitList.Remove(unitToRemove);
+            }
+            Destroy(unitToRemove.gameObject);
+        }
+
+        unitList.Clear();
+        friendlyUnitList.Clear();
+        enemyUnitList.Clear();
     }
    
 

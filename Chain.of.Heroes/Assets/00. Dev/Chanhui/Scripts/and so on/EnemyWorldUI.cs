@@ -10,6 +10,7 @@ public class EnemyWorldUI : MonoBehaviour
     [SerializeField] private Unit enemy;
     [SerializeField] private MonsterDataManager monsterDataManager;
     [SerializeField] private Image healthBarImage;
+    [SerializeField] private GameObject propertyUI;
     [SerializeField] private GameObject healthbarUI;
 
 
@@ -34,10 +35,12 @@ public class EnemyWorldUI : MonoBehaviour
     private void AttackActionSystem_OnActionStarted(object sender, EventArgs e)
     {
         healthbarUI.SetActive(false);
+        propertyUI.SetActive(false);
     }
     private void AttackActionSystem_OnActionCompleted(object sender, EventArgs e)
     {
         healthbarUI.SetActive(true);
+        propertyUI.SetActive(true);
     }
 
     private void OnDisable()

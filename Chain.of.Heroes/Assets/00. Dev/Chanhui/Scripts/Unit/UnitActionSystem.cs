@@ -171,6 +171,7 @@ public class UnitActionSystem : MonoBehaviour
 
         SetSelectedAction(unit.GetAction<EmptyAction>());
 
+        UpdateChainStateUI();
         OffSelectedUnitChanged?.Invoke(this, EventArgs.Empty);
         OffSelectedActionChanged?.Invoke(this, EventArgs.Empty);
     }
@@ -178,8 +179,33 @@ public class UnitActionSystem : MonoBehaviour
     public void SetSelectedAction(BaseAction baseAction)
     {
         selectedAction = baseAction;
+        if(baseAction != selectedUnit.GetAction<KingAction>() || baseAction != selectedUnit.GetAction<BishopAction>() ||
+           baseAction != selectedUnit.GetAction<KnightAction>() || baseAction != selectedUnit.GetAction<KnightAttackAction>() ||
+           baseAction != selectedUnit.GetAction<QueenAction>() || baseAction != selectedUnit.GetAction<RookAction>() ||
+           baseAction != selectedUnit.GetAction<LongBishopAction>() || baseAction != selectedUnit.GetAction<LongKnightAction>())
+        {
+            UpdateChainStateUI();
+        }
 
         OnSelectedActionChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void UpdateChainStateUI()
+    {
+        List<Unit> playerUnit = UnitManager.Instance.GetFriendlyUnitList();
+
+        for (int i = playerUnit.Count; i > 0; i--)
+        {
+            Unit unit = playerUnit[i - 1];
+
+            if (playerUnit.Contains(unit))
+            {
+                if (unit.GetIsChainPossibleState())
+                {
+                    unit.SetIsChainPossibleState(false);
+                }
+            }
+        }
     }
 
     public Unit GetSelecterdUnit()

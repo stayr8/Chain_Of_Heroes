@@ -98,41 +98,70 @@ public class LevelGrid : MonoBehaviour
         GridObject gridObject = gridSystem.GetGridObject(gridPosition);
         return gridObject.GetUnit();
     }
-    /*
-    int maxDistance = 1;
-    public bool GetEnemyAtSurroundPosition(GridPosition gridPosition)
+
+    int chainDistance = 1;
+    public void GetChainStateGridPosition(GridPosition enemyGridPosition)
     {
-        int count = 0;
-        for (int x = -maxDistance; x <= maxDistance; x++)
+        for (int x = -chainDistance; x <= chainDistance; x++)
         {
-            for (int z = -maxDistance; z <= maxDistance; z++)
+            for (int z = -chainDistance; z <= chainDistance; z++)
             {
                 GridPosition offsetGridPosition = new GridPosition(x, z);
-                GridPosition testGridPosition = gridPosition + offsetGridPosition;
+                GridPosition testGridPosition = enemyGridPosition + offsetGridPosition;
 
                 if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition))
                 {
                     continue;
                 }
 
-                if (GetUnitAtGridPosition(testGridPosition))
+                if (enemyGridPosition == testGridPosition)
                 {
-                    if (HasAnyUnitOnGridPosition(testGridPosition))
-                    {
-                        count++;
-                    }
+                    // Same Grid Position where the character is already at
+                    continue;
                 }
+
+                int testDistance = Mathf.Abs(x) + Mathf.Abs(z);
+                if (testDistance > chainDistance)
+                {
+                    continue;
+                }
+
+                if (!LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition))
+                {
+                    // Grid Position already occupied with another Character
+                    continue;
+                }
+
+                Unit targetUnit = UnitActionSystem.Instance.GetSelecterdUnit();
+                Unit targetUnit2 = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
+                if (targetUnit == targetUnit2)
+                {
+                    continue;
+                }
+
+                Unit targetUnit3 = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
+                if (targetUnit3.GetIsStun())
+                {
+                    continue;
+                }
+
+                if (LevelGrid.Instance.HasAnyUnitAtEnemyGridPosition(testGridPosition))
+                {
+                    // Is the unit on the grid a monster
+                    continue;
+                }
+
+                if (!Pathfinding.Instance.IsWalkableGridPosition(testGridPosition))
+                {
+                    continue;
+                }
+
+                Debug.Log("주변에 플레이어가 있어요");
+
+                Unit chainstateUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
+                chainstateUnit.SetIsChainPossibleState(true);
             }
         }
-
-        if(count > 8)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }*/
+    }
 
 }

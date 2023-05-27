@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
@@ -23,6 +23,8 @@ public class InGame_UIManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI actionPointsText;
     [SerializeField] private TextMeshProUGUI turnPointsText;
+
+    [SerializeField] private Image speed_Image;
 
     [SerializeField] private LayerMask UILayerMask;
 
@@ -46,16 +48,6 @@ public class InGame_UIManager : MonoBehaviour
     private void Update()
     {
         UI_STATE();
-
-        if(isinGameFall)
-        {
-            /*
-            Ray ray = Camera.main.ScreenPointToRay(InputManager.Instance.GetMouseScreenPosition());
-            if (Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, UILayerMask))
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            }*/
-        }
     }
 
     private enum STATE { INGAME, MENU, PARTY_INFO }
@@ -195,16 +187,27 @@ public class InGame_UIManager : MonoBehaviour
     
     public void OnDoubleSpeed()
     {
-        worldSpeed += 0.1f;
-        Time.timeScale = worldSpeed;
-        Debug.Log(worldSpeed);
-    }
-
-    public void OnDeceleration()
-    {
-        worldSpeed -= 0.1f;
-        Time.timeScale = worldSpeed;
-        Debug.Log(worldSpeed);
+        if(worldSpeed <= 1)
+        {
+            speed_Image.sprite = Resources.Load<Sprite>("Speed_15");
+            worldSpeed = 1.5f;
+            Time.timeScale = worldSpeed;
+            Debug.Log(worldSpeed);
+        }
+        else if (worldSpeed <= 1.5f)
+        {
+            speed_Image.sprite = Resources.Load<Sprite>("Speed_20");
+            worldSpeed = 2f;
+            Time.timeScale = worldSpeed;
+            Debug.Log(worldSpeed);
+        }
+        else
+        {
+            speed_Image.sprite = Resources.Load<Sprite>("Speed_10");
+            worldSpeed = 1f;
+            Time.timeScale = worldSpeed;
+            Debug.Log(worldSpeed);
+        }
     }
 
     private void OnDisable()
