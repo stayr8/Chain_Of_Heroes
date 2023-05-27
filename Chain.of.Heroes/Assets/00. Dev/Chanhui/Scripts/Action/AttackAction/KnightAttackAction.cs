@@ -223,10 +223,12 @@ public class KnightAttackAction : BaseAction
                     continue;
                 }
 
-                Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
-                if (targetUnit.IsEnemy() == unit.IsEnemy())
+                if (LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition).IsEnemy())
                 {
-                    // Both Units on same 'team'
+                    LevelGrid.Instance.GetChainStateGridPosition(testGridPosition);
+                }
+                else
+                {
                     continue;
                 }
 

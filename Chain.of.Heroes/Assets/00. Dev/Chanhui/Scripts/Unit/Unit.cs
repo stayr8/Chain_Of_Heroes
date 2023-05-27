@@ -50,6 +50,7 @@ public class Unit : MonoBehaviour
     [SerializeField] private String UnitName;
     [SerializeField] private bool IsLongdistance;
     [SerializeField] private bool isChainPossiblestate;
+    [SerializeField] private int _killCount;
 
     private void Awake()
     {
@@ -106,7 +107,6 @@ public class Unit : MonoBehaviour
         }, false);
 
         OnAnyUnitSpawned?.Invoke(this, EventArgs.Empty);
-        BaseAction.OnAnyChainCompleted += BaseAction_OnAnyChainCompleted;
 
         gridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
         LevelGrid.Instance.AddUnitAtGridPosition(gridPosition, this);
@@ -118,7 +118,7 @@ public class Unit : MonoBehaviour
 
         SoloEnemyActionPoints = newEnemyActionPoints;
         IsGrid = false;
-
+        _killCount = 0;
     }
 
     private void Update()
@@ -273,11 +273,6 @@ public class Unit : MonoBehaviour
                 }
             }
         }
-    }
-
-    private void BaseAction_OnAnyChainCompleted(object sender, EventArgs e)
-    {
-        isChainPossiblestate = false;
     }
 
     // 플레이어 포인터 감소
@@ -439,6 +434,15 @@ public class Unit : MonoBehaviour
     public void SetChaintwo(bool isChaintwo)
     {
         this.isChaintwo = isChaintwo;
+    }
+
+    public int GetKillCount()
+    {
+        return _killCount;
+    }
+    public void SetKillCount()
+    {
+        _killCount++;
     }
 
     public void SetSoloEnemyActionPoints(int SoloEnemyActionPoints)

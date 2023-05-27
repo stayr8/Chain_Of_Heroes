@@ -142,6 +142,9 @@ public class MonsterDataManager : MonoBehaviour
 
         if (m_hp <= 0)
         {
+            Unit player = AttackActionSystem.Instance.GetCharacterChainFind();
+            player.SetKillCount();
+
             OnEnemyDie?.Invoke(this, EventArgs.Empty);
             monster.GetAnyUnitDead();
 
@@ -181,6 +184,9 @@ public class MonsterDataManager : MonoBehaviour
 
         if (m_hp <= 0)
         {
+            Unit player = AttackActionSystem.Instance.GetCharacterChainFind();
+            player.SetKillCount();
+
             OnEnemyDie?.Invoke(this, EventArgs.Empty);
             monster.GetAnyUnitDead();
 

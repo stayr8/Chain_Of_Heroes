@@ -85,7 +85,6 @@ public class ChangeFormationSystem : MonoBehaviour
         {
             if ((int)buttonTransform.ImageType() == type)
             {
-                Debug.Log(type);
                 Destroy(buttonTransform.gameObject);
                 
             }
