@@ -118,12 +118,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MapID: 0
   Img_Background: {fileID: 209555420220642304}
+  _Parent: {fileID: 1000355073824747254}
   Txt_Name: {fileID: 1000355075010834592}
   Txt_Text: {fileID: 1000355075013107568}
   Txt_Image: {fileID: 1000355074722645222}
-  _Panel: {fileID: 3421128383162258056}
-  _Background: {fileID: 4594678269260380439}
-  _chapterName: {fileID: 3616252957855268191}
+  _Panel: {fileID: 7239097990005054030}
+  _Background: {fileID: 8563631457855050077}
+  _chapterName: {fileID: 1002920799775808118}
 --- !u!1 &1000355073824747254
 GameObject:
   m_ObjectHideFlags: 0
@@ -615,7 +616,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8c4d1b4b530f79543ae5241137608f57, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -767,7 +768,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Chapter. 01\n\uBD88\uD0C0\uB294 \uC5D0\uB378\uB77C\uC778 \uD3C9\uC6D0"
+  m_text: "Chapter. 00\n\uCC55\uD130\uBA85"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 39f3a5613d621da4984f8ce772cf0d55, type: 2}
   m_sharedMaterial: {fileID: 5356817274813995832, guid: 39f3a5613d621da4984f8ce772cf0d55, type: 2}

@@ -1895,6 +1895,7 @@ GameObject:
   - component: {fileID: 373614260}
   - component: {fileID: 373614262}
   - component: {fileID: 373614261}
+  - component: {fileID: 373614263}
   m_Layer: 5
   m_Name: No.2 Kris
   m_TagString: Untagged
@@ -1960,6 +1961,39 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 373614259}
   m_CullTransparentMesh: 1
+--- !u!114 &373614263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 373614259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b16e8a715253953468b7872a3aa8e79a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CharacterName: Knight
+  m_id: 0
+  m_name: 
+  m_level: 0
+  m_maxLevel: 0
+  m_currentExp: 0
+  m_maxExp: 0
+  m_attackPower: 0
+  m_chainAttackPower: 0
+  m_defensePower: 0
+  m_hp: 0
+  m_criticalRate: 0
+  m_criticalDamage: 0
+  m_class: 
+  m_property: 
+  m_resourcePath: 
+  m_back_resourcePath: 
+  m_maxhp: 0
+  m_damagereductionRate: 0
+  m_skilldamagecoefficient: 0
+  m_UnlockMapID: 0
 --- !u!1 &506632422
 GameObject:
   m_ObjectHideFlags: 0
@@ -2822,6 +2856,7 @@ GameObject:
   - component: {fileID: 753787979}
   - component: {fileID: 753787981}
   - component: {fileID: 753787980}
+  - component: {fileID: 753787982}
   m_Layer: 5
   m_Name: No.5 Platin
   m_TagString: Untagged
@@ -2887,6 +2922,39 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 753787978}
   m_CullTransparentMesh: 1
+--- !u!114 &753787982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 753787978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b16e8a715253953468b7872a3aa8e79a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CharacterName: Guardian
+  m_id: 0
+  m_name: 
+  m_level: 0
+  m_maxLevel: 0
+  m_currentExp: 0
+  m_maxExp: 0
+  m_attackPower: 0
+  m_chainAttackPower: 0
+  m_defensePower: 0
+  m_hp: 0
+  m_criticalRate: 0
+  m_criticalDamage: 0
+  m_class: 
+  m_property: 
+  m_resourcePath: 
+  m_back_resourcePath: 
+  m_maxhp: 0
+  m_damagereductionRate: 0
+  m_skilldamagecoefficient: 0
+  m_UnlockMapID: 0
 --- !u!1 &819202365
 GameObject:
   m_ObjectHideFlags: 0
@@ -3663,6 +3731,7 @@ GameObject:
   - component: {fileID: 1009861534}
   - component: {fileID: 1009861536}
   - component: {fileID: 1009861535}
+  - component: {fileID: 1009861537}
   m_Layer: 5
   m_Name: No.4 Melissa
   m_TagString: Untagged
@@ -3728,6 +3797,39 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1009861533}
   m_CullTransparentMesh: 1
+--- !u!114 &1009861537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1009861533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b16e8a715253953468b7872a3aa8e79a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CharacterName: Archer
+  m_id: 0
+  m_name: 
+  m_level: 0
+  m_maxLevel: 0
+  m_currentExp: 0
+  m_maxExp: 0
+  m_attackPower: 0
+  m_chainAttackPower: 0
+  m_defensePower: 0
+  m_hp: 0
+  m_criticalRate: 0
+  m_criticalDamage: 0
+  m_class: 
+  m_property: 
+  m_resourcePath: 
+  m_back_resourcePath: 
+  m_maxhp: 0
+  m_damagereductionRate: 0
+  m_skilldamagecoefficient: 0
+  m_UnlockMapID: 0
 --- !u!1 &1026236450
 GameObject:
   m_ObjectHideFlags: 0
@@ -3883,6 +3985,7 @@ GameObject:
   - component: {fileID: 1026288208}
   - component: {fileID: 1026288210}
   - component: {fileID: 1026288209}
+  - component: {fileID: 1026288211}
   m_Layer: 5
   m_Name: No.7 Jave
   m_TagString: Untagged
@@ -3948,6 +4051,39 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1026288207}
   m_CullTransparentMesh: 1
+--- !u!114 &1026288211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1026288207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b16e8a715253953468b7872a3aa8e79a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CharacterName: Wizard
+  m_id: 0
+  m_name: 
+  m_level: 0
+  m_maxLevel: 0
+  m_currentExp: 0
+  m_maxExp: 0
+  m_attackPower: 0
+  m_chainAttackPower: 0
+  m_defensePower: 0
+  m_hp: 0
+  m_criticalRate: 0
+  m_criticalDamage: 0
+  m_class: 
+  m_property: 
+  m_resourcePath: 
+  m_back_resourcePath: 
+  m_maxhp: 0
+  m_damagereductionRate: 0
+  m_skilldamagecoefficient: 0
+  m_UnlockMapID: 0
 --- !u!1 &1106100309
 GameObject:
   m_ObjectHideFlags: 0
@@ -5150,6 +5286,7 @@ GameObject:
   - component: {fileID: 1439207302}
   - component: {fileID: 1439207304}
   - component: {fileID: 1439207303}
+  - component: {fileID: 1439207305}
   m_Layer: 5
   m_Name: No.1 Akame
   m_TagString: Untagged
@@ -5215,6 +5352,39 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1439207301}
   m_CullTransparentMesh: 1
+--- !u!114 &1439207305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1439207301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b16e8a715253953468b7872a3aa8e79a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CharacterName: SwordWoman
+  m_id: 0
+  m_name: 
+  m_level: 0
+  m_maxLevel: 0
+  m_currentExp: 0
+  m_maxExp: 0
+  m_attackPower: 0
+  m_chainAttackPower: 0
+  m_defensePower: 0
+  m_hp: 0
+  m_criticalRate: 0
+  m_criticalDamage: 0
+  m_class: 
+  m_property: 
+  m_resourcePath: 
+  m_back_resourcePath: 
+  m_maxhp: 0
+  m_damagereductionRate: 0
+  m_skilldamagecoefficient: 0
+  m_UnlockMapID: 0
 --- !u!1 &1499493468
 GameObject:
   m_ObjectHideFlags: 0
@@ -5413,6 +5583,7 @@ GameObject:
   - component: {fileID: 1588244423}
   - component: {fileID: 1588244425}
   - component: {fileID: 1588244424}
+  - component: {fileID: 1588244426}
   m_Layer: 5
   m_Name: No.3 Kamina
   m_TagString: Untagged
@@ -5478,6 +5649,39 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1588244422}
   m_CullTransparentMesh: 1
+--- !u!114 &1588244426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1588244422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b16e8a715253953468b7872a3aa8e79a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CharacterName: Samurai
+  m_id: 0
+  m_name: 
+  m_level: 0
+  m_maxLevel: 0
+  m_currentExp: 0
+  m_maxExp: 0
+  m_attackPower: 0
+  m_chainAttackPower: 0
+  m_defensePower: 0
+  m_hp: 0
+  m_criticalRate: 0
+  m_criticalDamage: 0
+  m_class: 
+  m_property: 
+  m_resourcePath: 
+  m_back_resourcePath: 
+  m_maxhp: 0
+  m_damagereductionRate: 0
+  m_skilldamagecoefficient: 0
+  m_UnlockMapID: 0
 --- !u!1 &1615998352
 GameObject:
   m_ObjectHideFlags: 0
@@ -6434,6 +6638,7 @@ GameObject:
   - component: {fileID: 1778668629}
   - component: {fileID: 1778668631}
   - component: {fileID: 1778668630}
+  - component: {fileID: 1778668632}
   m_Layer: 5
   m_Name: No.6 Ine
   m_TagString: Untagged
@@ -6499,6 +6704,39 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1778668628}
   m_CullTransparentMesh: 1
+--- !u!114 &1778668632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1778668628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b16e8a715253953468b7872a3aa8e79a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CharacterName: Priest
+  m_id: 0
+  m_name: 
+  m_level: 0
+  m_maxLevel: 0
+  m_currentExp: 0
+  m_maxExp: 0
+  m_attackPower: 0
+  m_chainAttackPower: 0
+  m_defensePower: 0
+  m_hp: 0
+  m_criticalRate: 0
+  m_criticalDamage: 0
+  m_class: 
+  m_property: 
+  m_resourcePath: 
+  m_back_resourcePath: 
+  m_maxhp: 0
+  m_damagereductionRate: 0
+  m_skilldamagecoefficient: 0
+  m_UnlockMapID: 0
 --- !u!1 &1786122712
 GameObject:
   m_ObjectHideFlags: 0
@@ -7316,6 +7554,7 @@ GameObject:
   - component: {fileID: 2044266707}
   - component: {fileID: 2044266706}
   - component: {fileID: 2044266705}
+  - component: {fileID: 2044266709}
   m_Layer: 5
   m_Name: ===== Party =====
   m_TagString: Untagged
@@ -7405,6 +7644,27 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &2044266709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2044266704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68ed21995a765b045a07412fd164d550, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Characters:
+  - {fileID: 1439207303}
+  - {fileID: 373614261}
+  - {fileID: 1588244424}
+  - {fileID: 1009861535}
+  - {fileID: 753787980}
+  - {fileID: 1778668630}
+  - {fileID: 1026288209}
+  - {fileID: 2059226662}
 --- !u!1 &2059226660
 GameObject:
   m_ObjectHideFlags: 0
@@ -7416,6 +7676,7 @@ GameObject:
   - component: {fileID: 2059226661}
   - component: {fileID: 2059226663}
   - component: {fileID: 2059226662}
+  - component: {fileID: 2059226664}
   m_Layer: 5
   m_Name: No.8 Vanessa
   m_TagString: Untagged
@@ -7481,6 +7742,39 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2059226660}
   m_CullTransparentMesh: 1
+--- !u!114 &2059226664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2059226660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b16e8a715253953468b7872a3aa8e79a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CharacterName: Valkyrie
+  m_id: 0
+  m_name: 
+  m_level: 0
+  m_maxLevel: 0
+  m_currentExp: 0
+  m_maxExp: 0
+  m_attackPower: 0
+  m_chainAttackPower: 0
+  m_defensePower: 0
+  m_hp: 0
+  m_criticalRate: 0
+  m_criticalDamage: 0
+  m_class: 
+  m_property: 
+  m_resourcePath: 
+  m_back_resourcePath: 
+  m_maxhp: 0
+  m_damagereductionRate: 0
+  m_skilldamagecoefficient: 0
+  m_UnlockMapID: 0
 --- !u!1 &2084144479
 GameObject:
   m_ObjectHideFlags: 0

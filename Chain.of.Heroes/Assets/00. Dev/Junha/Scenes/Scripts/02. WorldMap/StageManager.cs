@@ -53,6 +53,8 @@ public class StageManager : MonoBehaviour
     public int num;
     private GameObject _nextChapter;
 
+    public int ClearID { get; set; } = -1;
+
     private void Awake()
     {
         var data = Resources.Load<TextAsset>(ChapterName);
@@ -206,6 +208,7 @@ public class StageManager : MonoBehaviour
                 if (i == 0 || info[i - 1].isClear)
                 {
                     info[i].isClear = true;
+                    ClearID = i + 1;
                     break;
                 }
                 else

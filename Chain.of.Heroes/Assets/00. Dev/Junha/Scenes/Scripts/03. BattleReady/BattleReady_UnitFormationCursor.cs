@@ -12,6 +12,8 @@ public class BattleReady_UnitFormationCursor : CursorBase
     private void Awake()
     {
         rt = GetComponent<RectTransform>();
+
+        count = 0;
     }
 
     private bool isInitStart = false;

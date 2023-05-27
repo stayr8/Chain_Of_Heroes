@@ -9,14 +9,23 @@ public class BattleReady_FormationState : MonoBehaviour
     private void Awake()
     {
         instance = this;
+
+        CharacterData = GetComponent<CharacterDataManager>();
     }
     #endregion
 
     public bool isUnlock = false; // 동료를 조우했나, 안 했나
     public bool isFormationState = false; // 편성이 되었나, 안 되었나
 
+    private CharacterDataManager CharacterData { get; set; }
+    private void UpdateUnlock()
+    {
+        isUnlock = CharacterData.m_UnlockMapID <= StageManager.instance.ClearID;
+    }
+
     private void Update()
     {
+        UpdateUnlock();
         formationState();
     }
 
