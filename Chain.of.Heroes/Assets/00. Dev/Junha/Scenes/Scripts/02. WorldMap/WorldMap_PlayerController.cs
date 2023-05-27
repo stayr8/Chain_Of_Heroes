@@ -16,7 +16,7 @@ public class WorldMap_PlayerController : MonoBehaviour
 
     public static bool isCan = true;
 
-    private bool isMoving = false; // 움직임 상태를 나타내는 플래그
+    public static bool isMoving = false; // 움직임 상태를 나타내는 플래그
     private float moveDuration = 1.0f; // 움직임의 지속 시간, 클수록 느려짐
 
     private void Awake()

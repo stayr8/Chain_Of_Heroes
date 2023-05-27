@@ -26,6 +26,11 @@ public class WorldMap_UIManager : MonoBehaviour
 
     [SerializeField, Header("[프리 카메라 팁] 게임오브젝트")] private GameObject tip;
 
+    private void OnEnable()
+    {
+        StageManager.instance.isInitStart = false;
+    }
+
     private void Start()
     {
         rt_ChapterInfo = ChapterInfo_Background.GetComponent<RectTransform>();
@@ -67,7 +72,7 @@ public class WorldMap_UIManager : MonoBehaviour
     #region [메뉴]
     private void OnMenu() // InGame 상태일 때 ESC 키나 Enter 키 입력 시
     {
-        if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Return))
+        if(!WorldMap_PlayerController.isMoving && (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Return)))
         {
             SoundManager.instance.Sound_WorldMapUIOpen();
 

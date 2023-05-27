@@ -21,6 +21,7 @@ public class BattleReady_UIManager : MonoBehaviour
 
     public int Max_Value;
     private Talk TextBox;
+    private Talk ShowChapter;
 
     [Header("============================\n\n[UI Canvas] 오브젝트")]
     [SerializeField] private GameObject _Menu;

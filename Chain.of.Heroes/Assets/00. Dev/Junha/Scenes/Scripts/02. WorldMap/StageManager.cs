@@ -20,7 +20,22 @@ public class StageManager : MonoBehaviour
 {
     #region instance 화
     public static StageManager instance;
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    public static void Initialize()
+    {
+        if (instance == null)
+        {
+            GameObject Entity = new GameObject("StageManager");
+
+            instance = Entity.AddComponent<StageManager>();
+
+            DontDestroyOnLoad(Entity.gameObject);
+        }
+    }
     #endregion
+
+    private const int STAGE_LENGTH = 10;
+    public Info[] info;
 
     [Header("월드맵 데이터")]
     public int m_id; // [아이디]
@@ -28,33 +43,18 @@ public class StageManager : MonoBehaviour
     public string m_chapterName; // [챕터 이름]
     public string m_resourcePath; // [챕터 이미지]
 
-    [SerializeField, Header("[챕터 이름] 텍스트")] private TMP_Text Txt_ChapterNum;
-    [SerializeField, Header("[챕터 대표] 이미지")] private Image Img_ChapterImage;
-    private const int STAGE_LENGTH = 10;
-
-    private string ChapterName; // [JSON 파일 이름]
+    private string ChapterName = "WorldMap"; // [JSON 파일 이름]
     private WorldMap[] _Array;
     private WorldMap firstArray;
+
+    [SerializeField, Header("[챕터 이름] 텍스트")] public TMP_Text Txt_ChapterNum;
+    [SerializeField, Header("[챕터 대표] 이미지")] public Image Img_ChapterImage;
 
     public int num;
     private GameObject _nextChapter;
 
-    public Info[] info;
-
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else if (instance != this)
-        {
-            Destroy(gameObject);
-        }
-
-        ChapterName = "WorldMap";
-
         var data = Resources.Load<TextAsset>(ChapterName);
         var Root = SimpleJSON.JSON.Parse(data.text);
         _Array = new WorldMap[Root.Count];
@@ -74,13 +74,66 @@ public class StageManager : MonoBehaviour
 
     // private void Start() { }
 
+    public bool isInitStart = false;
     private void Update()
     {
+        InitData();
+
         if (SceneManager.GetActiveScene().name.Contains("WorldMapScene"))
         {
             UpdateChapter();
 
             Controller_Clear();
+        }
+    }
+
+    private void InitData()
+    {
+        if (!isInitStart)
+        {
+            if (info == null)
+            {
+                info = new Info[STAGE_LENGTH];
+
+                for (int i = 0; i < STAGE_LENGTH; i++)
+                {
+                    info[i] = new Info();
+                }
+            }
+
+            for (int i = 0; i < STAGE_LENGTH; i++)
+            {
+                if (info[i].Stage == null)
+                {
+                    GameObject stageObj = GameObject.Find("_" + (i + 1));
+                    if (stageObj != null)
+                    {
+                        info[i].Stage = stageObj;
+                    }
+                }
+            }
+
+            if (Txt_ChapterNum == null)
+            {
+                GameObject chapterTextObj = GameObject.Find("_ChapterText");
+
+                if (chapterTextObj != null)
+                {
+                    Txt_ChapterNum = chapterTextObj.GetComponent<TMP_Text>();
+                }
+            }
+
+            if (Img_ChapterImage == null)
+            {
+                GameObject chapterImageObj = GameObject.Find("_ChapterImage");
+
+                if (chapterImageObj != null)
+                {
+                    Img_ChapterImage = chapterImageObj.GetComponent<Image>();
+                }
+            }
+
+            isInitStart = true;
         }
     }
 

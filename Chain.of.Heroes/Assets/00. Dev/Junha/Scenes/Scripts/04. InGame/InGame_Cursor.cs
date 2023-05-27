@@ -2,18 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using UnityEngine.UI;
-
 public class InGame_Cursor : CursorBase
 {
     private RectTransform rt;
     public static GameObject currentSelected;
 
-
     private void Awake()
     {
         rt = GetComponent<RectTransform>();
-        
     }
 
     public static bool isInitStart = false;
@@ -57,12 +53,10 @@ public class InGame_Cursor : CursorBase
                     break;
 
                 case "_TurnEnd":
-                    Debug.Log("턴 종료");
                     InGame_UIManager.instance.OnTurnfo();
                     break;
 
                 case "_Surrender":
-                    Debug.Log("포기");
                     InGame_UIManager.instance.Onfallfo();
 
                     Reset();
