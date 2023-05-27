@@ -8,6 +8,8 @@ public class WorldMap_SelectedMenu : SelectMenuBase, ISelectHandler, IDeselectHa
 {
     // private void Awake() {}
 
+    // private void Start() {}
+
     private void OnEnable()
     {
         if (gameObject.name == "_ChapterStart")

@@ -12,6 +12,8 @@ public class WorldMap_Cursor : CursorBase
     private const float INIT_Y = 200f;
     private GameObject currentSelected;
 
+    public static bool isInitStart = false;
+
     public static bool isChapterStart = false;
     private const float MOVE_DISTANCE = 100f;
     private const float MAX_POSITION_X = -860f; private const float MAX_POSITION_Y = 200f;
@@ -28,7 +30,15 @@ public class WorldMap_Cursor : CursorBase
 
     private void OnEnable()
     {
-        Init(rt, INIT_X, INIT_Y, ref currentSelected, "_ChapterStart");
+        if(!isInitStart)
+        {
+            Init(rt, INIT_X, INIT_Y, ref currentSelected, "_ChapterStart");
+            isInitStart = true;
+        }
+        else // isInitStart
+        {
+
+        }
     }
 
     private void Update()
@@ -51,6 +61,8 @@ public class WorldMap_Cursor : CursorBase
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
+            SoundManager.instance.Sound_SelectMenu();
+
             switch (currentSelected.name)
             {
                 case "_ChapterStart":

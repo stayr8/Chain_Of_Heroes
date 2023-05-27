@@ -12,6 +12,7 @@ public class SpeechBubble
 	public float TalkSpeed;
 	public float TextSpeed;
 	public string ResourcePath;
+	public string BResourcePath;
 
 	public bool Parse(SimpleJSON.JSONNode Data)
 	{
@@ -22,6 +23,7 @@ public class SpeechBubble
 		TalkSpeed = Data["TalkSpeed"].AsFloat;
 		TextSpeed = Data["TextSpeed"].AsFloat;
 		ResourcePath = Data["ResourcePath"];
+		BResourcePath = Data["BResourcePath"];
 		return true;
 	}
 }

@@ -8,7 +8,6 @@ using TMPro;
 
 public class InGame_UIManager : MonoBehaviour
 {
-
     #region instance화 :: Awake()함수 포함
     public static InGame_UIManager instance;
     private void Awake()
@@ -46,7 +45,6 @@ public class InGame_UIManager : MonoBehaviour
 
     private void Update()
     {
-
         UI_STATE();
 
         if(isinGameFall)
@@ -60,59 +58,80 @@ public class InGame_UIManager : MonoBehaviour
         }
     }
 
-    private enum STATE { InGame, MENU, PARTY_INFO }
-    private STATE _state = STATE.InGame;
+    private enum STATE { INGAME, MENU, PARTY_INFO }
+    private STATE _state = STATE.INGAME;
     private void UI_STATE()
     {
         switch (_state)
         {
-            case STATE.InGame: // 인게임 상태에서 ESC키 입력
-                if(Input.GetKeyDown(KeyCode.Escape))
-                {
-                    InGame_Cursor.isInitStart = false;
-                    _Panel.SetActive(true);
-                    _Menu.SetActive(true);
-                    UpdateActionPoints();
-                    OnGameStop();
+            case STATE.INGAME: // 인게임 상태에서 ESC키 입력
 
-                    _state = STATE.MENU;
-                }
+                OnMenu();
+
                 break;
 
             case STATE.MENU: // 메뉴 상태에서 ESC키 입력
-                if(Input.GetKeyDown(KeyCode.Escape))
-                {
-                    _Menu.SetActive(false);
-                    _Panel.SetActive(false);
-                    OnGameStop();
 
-                    _state = STATE.InGame;
-                }
+                OffMenu();
+
                 break;
 
             case STATE.PARTY_INFO: // 아군 정보 상태에서 ESC키 입력
-                if(Input.GetKeyDown(KeyCode.Escape))
-                {
-                    _PartyInfo.SetActive(false);
-                    _Menu.SetActive(true);
 
-                    _state = STATE.MENU;
-                }
                 break;
         }
     }
 
-    public void OnInfo()
+    #region [메뉴 선택]
+    private void OnMenu()
     {
-        _state = STATE.PARTY_INFO;
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            InGame_Cursor.isInitStart = false;
+            _Panel.SetActive(true);
+            _Menu.SetActive(true);
+            UpdateActionPoints();
+            OnGameStop();
 
+            _state = STATE.MENU;
+        }
+    }
+    private void OffMenu()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            _Menu.SetActive(false);
+            _Panel.SetActive(false);
+            OnGameStop();
+
+            _state = STATE.INGAME;
+        }
+    }
+    #endregion
+
+    #region [아군 정보]
+    public void OnPartyInfo()
+    {
         _PartyInfo.SetActive(true);
         _Menu.SetActive(false);
+
+        _state = STATE.PARTY_INFO;
     }
+    private void OffPartyInfo()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            _PartyInfo.SetActive(false);
+            _Menu.SetActive(true);
+
+            _state = STATE.MENU;
+        }
+    }
+    #endregion
 
     public void OnTurnfo()
     {
-        _state = STATE.InGame;
+        _state = STATE.INGAME;
 
         _Menu.SetActive(false);
         _Panel.SetActive(false);
@@ -130,7 +149,7 @@ public class InGame_UIManager : MonoBehaviour
 
     public void Onfallfo()
     {
-        _state = STATE.InGame;
+        _state = STATE.INGAME;
 
         isinGameFall = true;
         TurnSystem.Property.IsTurnEnd = true;

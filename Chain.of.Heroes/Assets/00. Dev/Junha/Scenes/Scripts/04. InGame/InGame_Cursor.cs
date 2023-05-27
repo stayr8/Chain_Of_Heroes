@@ -53,7 +53,7 @@ public class InGame_Cursor : CursorBase
             switch (currentSelected.name)
             {
                 case "_Info":
-                    InGame_UIManager.instance.OnInfo();
+                    InGame_UIManager.instance.OnPartyInfo();
                     break;
 
                 case "_TurnEnd":

@@ -12,6 +12,9 @@ public class Talk : MonoBehaviour
     [SerializeField, Header("[맵 아아디]")] private int MapID;
     private List<SpeechBubble> Speeches = new List<SpeechBubble>();
 
+    [Header("배경화면")]
+    [SerializeField] private Image Img_Background; // 배경화면
+
     [Header("텍스트 박스")]
     [SerializeField] private TMP_Text Txt_Name; // 이름
     [SerializeField] private TMP_Text Txt_Text; // 내용
@@ -48,6 +51,10 @@ public class Talk : MonoBehaviour
         }
 
         CurrentIndex = 0;
+
+        string path = Speeches[CurrentIndex].BResourcePath;
+        Img_Background.sprite = Resources.Load<Sprite>(path);
+
         TalkCoroutine = StartCoroutine(Talking(Speeches[CurrentIndex].StringKR));
 
         Initialized = true;
