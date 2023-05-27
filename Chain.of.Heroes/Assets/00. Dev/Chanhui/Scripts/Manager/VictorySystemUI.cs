@@ -15,7 +15,12 @@ public class VictorySystemUI : MonoBehaviour
     [SerializeField] private GameObject enemyVictoryVisualGameObject;
     [SerializeField] private Image character_Image;
 
+    [SerializeField] private Transform LevelupPlayerPrefab;
+    [SerializeField] private Transform LevelupPlayersTransform;
+
     private Unit _mvpPlayer;
+
+    private bool _gameClear;
 
     private void Start()
     {
@@ -23,32 +28,41 @@ public class VictorySystemUI : MonoBehaviour
         {
             if (UnitManager.Instance.VictoryPlayer())
             {
+                Time.timeScale = 1.0f;
                 SoundManager.instance.Sound_StageWin();
                 MVPSelectPlayer();
                 Set_NameAndImage();
                 mvpPlayerText.text = "" + _mvpPlayer.GetCharacterDataManager().m_name.ToString();
                 turnNumberText.text = "" + TurnSystem.Property.TurnNumber;
+
+                UnitManager.Instance.OnDestroys();
+                _gameClear = true;
             }
             else if (UnitManager.Instance.VictoryEnemy())
             {
+                Time.timeScale = 1.0f;
                 SoundManager.instance.Sound_StageLose();
                 MVPSelectPlayer();
                 Set_NameAndImage();
                 mvpPlayerText.text = "" + _mvpPlayer.GetCharacterDataManager().m_name.ToString();
                 turnNumberText.text = "" + TurnSystem.Property.TurnNumber;
-            }
-    
-        });
 
+                UnitManager.Instance.OnDestroys();
+                _gameClear = true;
+            }
+
+        }, false);
+
+        _gameClear = false;
     }
 
     private void Update()
     {
-        /*
-        if(InputManager.Instance.IsMouseButtonDown())
+        
+        if(_gameClear)
         {
-            Invoke("LoadScene", 5f);
-        }*/
+            LoadScene();
+        }
     }
 
     private void MVPSelectPlayer()
@@ -61,7 +75,11 @@ public class VictorySystemUI : MonoBehaviour
 
             if (playerUnit.Contains(unit))
             {
-                if(_mvpPlayer == null)
+                unit.GetCharacterDataManager().m_currentExp = MapManager.Instance.mapData[MapManager.Instance.stageNum].Clear_Exp;
+                DataUpdate(unit.GetCharacterDataManager());
+                Set_LevelUPImage(unit);
+
+                if (_mvpPlayer == null)
                 {
                     _mvpPlayer = unit;
                 }
@@ -118,9 +136,73 @@ public class VictorySystemUI : MonoBehaviour
         }
     }
 
+    private void Set_LevelUPImage(Unit unit)
+    {
+        CharacterDataManager data = unit.GetCharacterDataManager();
+
+        if (data.m_currentExp > data.m_maxExp)
+        {
+            Transform actionButtonTransform = Instantiate(LevelupPlayerPrefab, LevelupPlayersTransform);
+            Image CharacterUI = actionButtonTransform.GetComponent<Image>();
+            
+            switch (data.m_name)
+            {
+                case "아카메": // _1
+                    CharacterUI.sprite = Resources.Load<Sprite>("SD_SwordWoman");
+                    break;
+
+                case "크리스": // _2
+                    CharacterUI.sprite = Resources.Load<Sprite>("SD_Night");
+                    break;
+
+                case "카미나": // _3
+                    CharacterUI.sprite = Resources.Load<Sprite>("SD_Samurai");
+                    break;
+
+                case "멜리사": // _4
+                    CharacterUI.sprite = Resources.Load<Sprite>("SD_Archer");
+                    break;
+
+                case "플라틴": // _5
+                    CharacterUI.sprite = Resources.Load<Sprite>("SD_Guardian");
+                    break;
+
+                case "아이네": // _6
+                    CharacterUI.sprite = Resources.Load<Sprite>("SD_Priest");
+                    break;
+
+                case "제이브": // _7
+                    CharacterUI.sprite = Resources.Load<Sprite>("SD_Wizard");
+                    break;
+
+                case "바네사": // _8
+                    CharacterUI.sprite = Resources.Load<Sprite>("SD_Valkyrie");
+                    break;
+            }
+
+            CharacterUI.SetNativeSize();
+        }
+    }
+
+    private void DataUpdate(CharacterDataManager cdm)
+    {
+        CharacterDataManager[] _initCDM = DataManager.Instance.GetInitCDM();
+        for (int i = 0; i < 8; i++)
+        {
+            if (_initCDM[i].CharacterName == cdm.CharacterName)
+            {
+                _initCDM[i].NumForLvUp = cdm.NumForLvUp;
+                _initCDM[i].m_currentExp = cdm.m_currentExp;
+            }
+        }
+    }
+
     private void LoadScene()
     {
-        SceneManager.LoadScene("WorldMapScene");
+        if (InputManager.Instance.IsMouseButtonDown())
+        {
+            SceneManager.LoadScene("WorldMapScene");
+        }
     }
 
 }

@@ -15,6 +15,21 @@ public class BattleReady_FormationState : MonoBehaviour
     public bool isUnlock = false; // 동료를 조우했나, 안 했나
     public bool isFormationState = false; // 편성이 되었나, 안 되었나
 
+    private CharacterDataManager _cmd;
+    private void Start()
+    {
+        _cmd = GetComponentInChildren<CharacterDataManager>();
+        CharacterDataManager[] _initCDM = DataManager.Instance.GetInitCDM();
+        for (int i = 0; i < 8; i++)
+        {
+            if (_initCDM[i].CharacterName == _cmd.CharacterName)
+            {
+                _cmd.NumForLvUp = _initCDM[i].NumForLvUp;
+                _cmd.m_currentExp = _initCDM[i].m_currentExp;
+            }
+        }
+    }
+
     private void Update()
     {
         formationState();
