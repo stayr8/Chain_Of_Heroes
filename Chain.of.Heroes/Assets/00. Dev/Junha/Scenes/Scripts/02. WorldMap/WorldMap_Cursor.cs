@@ -19,7 +19,7 @@ public class WorldMap_Cursor : CursorBase
     private const float MAX_POSITION_X = -860f; private const float MAX_POSITION_Y = 200f;
     private const float MIN_POSITION_X = -880f; private const float MIN_POSITION_Y = 0f;
 
-    [SerializeField] GameObject nextButton;
+    [SerializeField] private GameObject nextButton;
 
     private void Awake()
     {
@@ -30,15 +30,8 @@ public class WorldMap_Cursor : CursorBase
 
     private void OnEnable()
     {
-        if(!isInitStart)
-        {
-            Init(rt, INIT_X, INIT_Y, ref currentSelected, "_ChapterStart");
-            isInitStart = true;
-        }
-        else // isInitStart
-        {
-
-        }
+        Init(rt, INIT_X, INIT_Y, ref currentSelected, "_ChapterStart");
+        isInitStart = true;
     }
 
     private void Update()

@@ -116,6 +116,7 @@ public class WorldMap_UIManager : MonoBehaviour
         _ChapterInfo.SetActive(false);
 
         _Party.SetActive(true);
+        _Party.GetComponent<WorldMap_Party>().ForceUpdate();
 
         state = STATE.PARTY;
     }

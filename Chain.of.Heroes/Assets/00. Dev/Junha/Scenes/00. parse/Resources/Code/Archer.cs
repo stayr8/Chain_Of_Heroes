@@ -21,6 +21,7 @@ public class Archer
 	public string UnitProperty;
 	public string ResourcePath;
 	public string BResourcePath;
+	public int UnlockMapID;
 
 	public bool Parse(SimpleJSON.JSONNode Data)
 	{
@@ -40,6 +41,7 @@ public class Archer
 		UnitProperty = Data["UnitProperty"];
 		ResourcePath = Data["ResourcePath"];
 		BResourcePath = Data["BResourcePath"];
+		UnlockMapID = Data["UnlockMapID"].AsInt;
 		return true;
 	}
 }

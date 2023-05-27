@@ -24,7 +24,9 @@ public class WorldMap_PlayerController : MonoBehaviour
         _anim = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
 
-        currentSelected = GameObject.Find("_1");
+        currentSelected = GameObject.Find("_" + 
+            (StageManager.instance.m_chapterNum == 0 ? "1" : StageManager.instance.m_chapterNum.ToString()));
+
         selectable = currentSelected.GetComponent<Selectable>();
         selectableOnLeft = selectable.FindSelectableOnLeft();
         selectableOnRight = selectable.FindSelectableOnRight();
