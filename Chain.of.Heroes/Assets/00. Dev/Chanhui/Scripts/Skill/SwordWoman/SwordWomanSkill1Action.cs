@@ -291,10 +291,16 @@ public class SwordWomanSkill1Action : BaseAction
                     continue;
                 }
 
-                if(LevelGrid.Instance.GetEnemyAtSurroundPosition(testGridPosition))
+                if (!Pathfinding.Instance.HasAtPath(unitGridPosition, testGridPosition))
                 {
                     continue;
                 }
+
+                if (!Pathfinding.Instance.HasAtPath(unitGridPosition, testGridPosition))
+                {
+                    continue;
+                }
+
 
                 if (!Pathfinding.Instance.IsWalkableGridPosition(testGridPosition))
                 {

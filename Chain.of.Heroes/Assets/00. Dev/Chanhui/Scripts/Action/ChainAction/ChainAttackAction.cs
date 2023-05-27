@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -189,6 +190,10 @@ public class ChainAttackAction : BaseAction
                 if (unit.GetChainfirst())
                 {
                     OnChainAttackSwordSlash?.Invoke(this, EventArgs.Empty);
+                    if(unit.GetUnitName() == "农府胶")
+                    {
+                        StartCoroutine(AttackDamages());
+                    }
                     if (AttackActionSystem.Instance.GetTripleChain())
                     {
                         AttackActionSystem.Instance.SetTripleChainPosition();
@@ -198,6 +203,10 @@ public class ChainAttackAction : BaseAction
                 {
                     OnChainAttackSwordSlash?.Invoke(this, EventArgs.Empty);
                     AttackActionSystem.Instance.SetIsChainAtk_2(false);
+                    if (unit.GetUnitName() == "农府胶")
+                    {
+                        StartCoroutine(AttackDamages2());
+                    }
                 }
 
                 TimeAttack(1.0f);
@@ -267,6 +276,21 @@ public class ChainAttackAction : BaseAction
     {
         float afterHitStateTime = StateTime;
         stateTimer = afterHitStateTime;
+    }
+
+    IEnumerator AttackDamages()
+    {
+        yield return new WaitForSeconds(0.3f);
+        targetUnit.GetMonsterDataManager().Damage();
+        yield return new WaitForSeconds(0.3f);
+        targetUnit.GetMonsterDataManager().Damage();
+    }
+    IEnumerator AttackDamages2()
+    {
+        yield return new WaitForSeconds(0.4f);
+        targetUnit.GetMonsterDataManager().Damage();
+        yield return new WaitForSeconds(0.3f);
+        targetUnit.GetMonsterDataManager().Damage();
     }
 
     public override List<GridPosition> GetValidActionGridPositionList()

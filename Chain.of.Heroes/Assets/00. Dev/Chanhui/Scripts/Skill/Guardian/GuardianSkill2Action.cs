@@ -57,11 +57,11 @@ public class GuardianSkill2Action : BaseAction
 
                 if(lastTime <= 0)
                 {
-                    Debug.Log("도발 종료");
+                    //Debug.Log("도발 종료");
                     isProvoke = false;
                 }
             }
-        });
+        }, false);
         Binds.Add(Bind);
 
         isSkillCount = 0;

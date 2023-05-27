@@ -15,6 +15,8 @@ public class UnitActionSystemUI : MonoBehaviour
 
     private List<ActionButtonUI> actionButtonUIList;
 
+    private List<Binding> Binds = new List<Binding>();
+
     private void Awake()
     {
         actionButtonUIList = new List<ActionButtonUI>();
@@ -22,10 +24,11 @@ public class UnitActionSystemUI : MonoBehaviour
 
     private void Start()
     {
-        BindingManager.Bind(TurnSystem.Property, "IsPlayerTurn", (object value) =>
+        Binding Bind = BindingManager.Bind(TurnSystem.Property, "IsPlayerTurn", (object value) =>
         {
             UpdateActionPoints();
         });
+        Binds.Add(Bind);
 
         UnitActionSystem.Instance.OnSelectedUnitChanged += UnitActionSystem_OnSelectedUnitChanged;
         UnitActionSystem.Instance.OffSelectedUnitChanged += UnitActionSystem_OffSelectedUnitChanged;
@@ -148,6 +151,7 @@ public class UnitActionSystemUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI character_ChainAttackPower;
     [SerializeField] private TextMeshProUGUI character_DefensePower;
     [SerializeField] private Image character_Image;
+    [SerializeField] private Image property_Image;
     private CharacterDataManager data;
     private void Update_Data()
     {
@@ -169,7 +173,19 @@ public class UnitActionSystemUI : MonoBehaviour
         character_ChainAttackPower.text = ((int)data.m_chainAttackPower).ToString();
         character_DefensePower.text = ((int)data.m_defensePower).ToString();
 
-        
+        if(data.m_property == "물리")
+        {
+            property_Image.sprite = Resources.Load<Sprite>("Sword");
+        }
+        else if (data.m_property == "사격")
+        {
+            property_Image.sprite = Resources.Load<Sprite>("Bow");
+        }
+        else if (data.m_property == "마법")
+        {
+            property_Image.sprite = Resources.Load<Sprite>("Magic");
+        }
+
     }
 
     private RectTransform rt;
@@ -197,7 +213,7 @@ public class UnitActionSystemUI : MonoBehaviour
                 break;
 
             case "플라틴": // _5
-                //rt.anchoredPosition = new Vector2(433f, -415f);
+                rt.anchoredPosition = new Vector2(-584f, -415f);
                 break;
 
             case "아이네": // _6
@@ -205,7 +221,7 @@ public class UnitActionSystemUI : MonoBehaviour
                 break;
 
             case "제이브": // _7
-                //rt.anchoredPosition = new Vector2(433f, -415f);
+                rt.anchoredPosition = new Vector2(-584f, -415f);
                 break;
 
             case "바네사": // _8
@@ -218,6 +234,11 @@ public class UnitActionSystemUI : MonoBehaviour
 
     private void OnDisable()
     {
+        foreach (var bind in Binds)
+        {
+            BindingManager.Unbind(TurnSystem.Property, bind);
+        }
+
         UnitActionSystem.Instance.OnSelectedUnitChanged -= UnitActionSystem_OnSelectedUnitChanged;
         UnitActionSystem.Instance.OffSelectedUnitChanged -= UnitActionSystem_OffSelectedUnitChanged;
         UnitActionSystem.Instance.OnSelectedActionChanged -= UnitActionSystem_OnSelectedActionChanged;

@@ -197,7 +197,8 @@ public class StageUI : MonoBehaviour
         Panel.gameObject.SetActive(false);
 
         yield return null;
-    } 
+    }
+
 
     private void OnDisable()
     {

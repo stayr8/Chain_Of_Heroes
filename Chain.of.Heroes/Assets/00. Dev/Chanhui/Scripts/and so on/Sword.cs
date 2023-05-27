@@ -10,6 +10,7 @@ public class Sword : MonoBehaviour
 
     public void Use()
     {
+        Debug.Log("°ø°Ý ÄÑÁü");
         StopCoroutine("Slash");
         StartCoroutine("Slash");
     }

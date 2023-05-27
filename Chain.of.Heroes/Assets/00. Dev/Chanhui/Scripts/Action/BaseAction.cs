@@ -7,6 +7,7 @@ public abstract class BaseAction : MonoBehaviour
 {
     public static event EventHandler OnAnyAttackStarted;
     public static event EventHandler OnAnyAttackCompleted;
+    public static event EventHandler OnAnyChainCompleted;
 
     public static event EventHandler OnAnyActionStarted_1;
     public static event EventHandler OnAnyActionCompleted_1;
@@ -67,6 +68,7 @@ public abstract class BaseAction : MonoBehaviour
     {
         isActive = false;
         onActionComplete();
+        OnAnyChainCompleted?.Invoke(this, EventArgs.Empty);
         UnitActionSystem.Instance.SetCameraPointchange(false);
         if (!TurnSystem.Property.IsTurnEnd && (TurnSystem.Property.IsPlayerTurn && (TurnSystem.Property.ActionPoints < 1)))
         {
@@ -90,6 +92,7 @@ public abstract class BaseAction : MonoBehaviour
         if (!unit.IsEnemy())
         {
             ChainSystem.Instance.SetChain(false);
+            TurnSystem.Property.IsPointUse = !TurnSystem.Property.IsPointUse;
         }
 
     }

@@ -17,7 +17,8 @@ public partial class TurnSystem : MonoBehaviour
         public bool _isPlayerTurn = true;
         public bool _isEnemyPointCheck = false;
         public bool _isTurnEnd = false;
-        
+        public bool _isPointUse = false;
+
         public int TurnNumber
         {
             get
@@ -93,6 +94,17 @@ public partial class TurnSystem : MonoBehaviour
             set
             {
                 Set<bool>(ref _isTurnEnd, value);
+            }
+        }
+        public bool IsPointUse
+        {
+            get
+            {
+                return _isPointUse;
+            }
+            set
+            {
+                Set<bool>(ref _isPointUse, value);
             }
         }
     }
@@ -176,7 +188,7 @@ public partial class TurnSystem : MonoBehaviour
         if (!Property.IsPlayerTurn)
         {
             Property.ActionPoints = Property.AllEnemyPoint;
-
+            Property.IsPointUse = !Property.IsPointUse;
             OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
         }
         else
@@ -254,6 +266,7 @@ public partial class TurnSystem : MonoBehaviour
         Property.IsPlayerTurn = true;
         Property.IsEnemyPointCheck = false;
         Property.IsTurnEnd = false;
+        Property.IsPointUse = false;
     }
 
 }

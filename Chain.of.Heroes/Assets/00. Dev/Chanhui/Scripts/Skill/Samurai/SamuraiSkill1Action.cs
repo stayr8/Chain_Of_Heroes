@@ -306,7 +306,7 @@ public class SamuraiSkill1Action : BaseAction
                     continue;
                 }
 
-                if (LevelGrid.Instance.GetEnemyAtSurroundPosition(testGridPosition))
+                if (!Pathfinding.Instance.HasAtPath(unitGridPosition, testGridPosition))
                 {
                     continue;
                 }

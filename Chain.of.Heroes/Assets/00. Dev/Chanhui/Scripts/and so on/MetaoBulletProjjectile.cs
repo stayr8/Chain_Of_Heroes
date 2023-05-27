@@ -36,6 +36,7 @@ public class MetaoBulletProjjectile : MonoBehaviour
         }
     }
 
+    int BossAttckCount = 0;
     public void GetValidActionGridPositionList()
     {
         GridPosition unitGridPosition = AttackActionSystem.Instance.GetenemyChainFind().GetGridPosition();
@@ -57,7 +58,19 @@ public class MetaoBulletProjjectile : MonoBehaviour
                     Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
                     if (targetUnit.IsEnemy())
                     {
-                        targetUnit.GetMonsterDataManager().SkillDamage();
+                        if (targetUnit.GetEnemyVisualType() == Unit.EnemyType.Dragon ||
+                            targetUnit.GetEnemyVisualType() == Unit.EnemyType.RedStoneGolem)
+                        {
+                            if (BossAttckCount <= 0)
+                            {
+                                targetUnit.GetMonsterDataManager().SkillDamage();
+                                BossAttckCount++;
+                            }
+                        }
+                        else
+                        {
+                            targetUnit.GetMonsterDataManager().SkillDamage();
+                        }
                     }
                 }
             }

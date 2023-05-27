@@ -49,6 +49,7 @@ public class Unit : MonoBehaviour
 
     [SerializeField] private String UnitName;
     [SerializeField] private bool IsLongdistance;
+    [SerializeField] private bool isChainPossiblestate;
 
     private void Awake()
     {
@@ -79,6 +80,7 @@ public class Unit : MonoBehaviour
             TurnSystem.Property.IsEnemyPointCheck = false;
         });
 
+        
         BindingManager.Bind(TurnSystem.Property, "IsTurnEnd", (object value) =>
         {
             newEnemyActionPoints = 0;
@@ -104,6 +106,7 @@ public class Unit : MonoBehaviour
         }, false);
 
         OnAnyUnitSpawned?.Invoke(this, EventArgs.Empty);
+        BaseAction.OnAnyChainCompleted += BaseAction_OnAnyChainCompleted;
 
         gridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
         LevelGrid.Instance.AddUnitAtGridPosition(gridPosition, this);
@@ -130,6 +133,11 @@ public class Unit : MonoBehaviour
 
                 LevelGrid.Instance.UnitMovedGridPosition(this, oldGridPosition, newGridPosition);
             }
+        }
+
+        if(isChainPossiblestate)
+        {
+
         }
     }
 
@@ -267,6 +275,11 @@ public class Unit : MonoBehaviour
         }
     }
 
+    private void BaseAction_OnAnyChainCompleted(object sender, EventArgs e)
+    {
+        isChainPossiblestate = false;
+    }
+
     // 플레이어 포인터 감소
     private void SpendActionPoints(int amount)
     {
@@ -357,6 +370,11 @@ public class Unit : MonoBehaviour
     {
         return characterDataManager.GetHealthNormalized();
     }
+
+    public float GetEnemyHealthNormalized()
+    {
+        return monsterDataManager.GetHealthNormalized();
+    }
     public float GetHealth()
     {
         if (!isEnemy)
@@ -391,6 +409,16 @@ public class Unit : MonoBehaviour
     public void SetIsStun(bool IsStun)
     {
         this.IsStun = IsStun;
+    }
+
+    public bool GetIsChainPossibleState()
+    {
+        return isChainPossiblestate;
+    }
+
+    public void SetIsChainPossibleState(bool isChainPossiblestate)
+    {
+        this.isChainPossiblestate = isChainPossiblestate;
     }
 
     public bool GetChainfirst()

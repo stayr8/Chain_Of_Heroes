@@ -99,7 +99,7 @@ public class UnitManager : MonoBehaviour
 
     public void UnitInitialize()
     {
-        Debug.Log("여기들어오냐?");
+
         // 임시로 저장
         mapData = MapManager.Instance.mapData[MapManager.Instance.stageNum];
 
@@ -125,7 +125,6 @@ public class UnitManager : MonoBehaviour
 
         if(unit.IsEnemy())
         {
-            Debug.Log(enemypos);
             enemyUnitList.Add(unit);
             unit.SetPosition(mapData.EnemyXY[enemypos]);
             enemypos++;
@@ -134,7 +133,7 @@ public class UnitManager : MonoBehaviour
         else
         {
             friendlyUnitList.Add(unit);
-            Debug.Log(unit);
+
             if(!OnChangeFormation)
             {
                 unit.SetPosition(ChangeFormationSystem.Instance.GetCharacterMovePos()[playerpos]);

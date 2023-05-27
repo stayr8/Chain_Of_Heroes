@@ -88,6 +88,13 @@ public class UnitAnimator : MonoBehaviour
             knightAction.OnKnightSwordSlash += Action_OnSwordSlash;
         }
 
+        if (TryGetComponent<KnightAttackAction>(out KnightAttackAction knightAttackAction))
+        {
+            knightAttackAction.OnKnightAttackSwordSlash += Action_OnSwordSlash;
+            knightAttackAction.OnKnightAttackStartMoving += MoveAction_OnStartMoving;
+            knightAttackAction.OnKnightAttackStopMoving += MoveAction_OnStopMoving;
+        }
+
         if (TryGetComponent<ChainAttackAction>(out ChainAttackAction chainAttackAction))
         {
             chainAttackAction.OnChainAttackStartMoving += MoveAction_OnStartMoving;
@@ -317,7 +324,7 @@ public class UnitAnimator : MonoBehaviour
     {
         yield return new WaitForSeconds(0.8f);
         Transform bulletProjectileTransform =
-            Instantiate(bulletProjectilePrefab, shootPointTransform.position, Quaternion.identity);
+            Instantiate(DragonbulletProjectilePrefab, shootPointTransform.position, Quaternion.identity);
         BulletProjectile bulletProjectile = bulletProjectileTransform.GetComponent<BulletProjectile>();
 
         Vector3 targetUnitShootAtPosition = e;
@@ -361,7 +368,7 @@ public class UnitAnimator : MonoBehaviour
         animator.SetTrigger("Shoot");
 
         Transform bulletProjectileTransform =
-            Instantiate(DragonbulletProjectilePrefab, shootPointTransform.position, Quaternion.identity);
+            Instantiate(bulletProjectilePrefab, shootPointTransform.position, Quaternion.identity);
         BulletProjectile bulletProjectile = bulletProjectileTransform.GetComponent<BulletProjectile>();
 
         Vector3 targetUnitShootAtPosition = e.targetUnit.GetWorldPosition();
@@ -384,7 +391,7 @@ public class UnitAnimator : MonoBehaviour
                 Instantiate(bulletProjectilePrefab, shootPointTransform.position, Quaternion.identity);
         RangeBulletProjectile bulletProjectile = bulletProjectileTransform.GetComponent<RangeBulletProjectile>();
         float random = UnityEngine.Random.Range(-45f, 45f);
-        bulletProjectile.transform.rotation = Quaternion.Euler(random, -75f, 0);
+        bulletProjectile.transform.rotation = Quaternion.Euler(random, 0f, 0);
 
         Vector3 targetUnitShootAtPosition = e;
 
@@ -396,7 +403,7 @@ public class UnitAnimator : MonoBehaviour
                 Instantiate(bulletProjectilePrefab, shootPointTransform.position, Quaternion.identity);
         RangeBulletProjectile bulletProjectile2 = bulletProjectileTransform2.GetComponent<RangeBulletProjectile>();
         float random2 = UnityEngine.Random.Range(-45f, 45f);
-        bulletProjectile2.transform.rotation = Quaternion.Euler(random2, -75f, 0);
+        bulletProjectile2.transform.rotation = Quaternion.Euler(random2, 0f, 0);
 
         Vector3 targetUnitShootAtPosition2 = e;
 
@@ -409,7 +416,7 @@ public class UnitAnimator : MonoBehaviour
                 Instantiate(bulletProjectilePrefab, shootPointTransform.position, Quaternion.identity);
         RangeBulletProjectile bulletProjectile3 = bulletProjectileTransform3.GetComponent<RangeBulletProjectile>();
         float random3 = UnityEngine.Random.Range(-45f, 45f);
-        bulletProjectile3.transform.rotation = Quaternion.Euler(random3, -75f, 0);
+        bulletProjectile3.transform.rotation = Quaternion.Euler(random3, 0f, 0);
 
         Vector3 targetUnitShootAtPosition3 = e;
 
@@ -422,7 +429,7 @@ public class UnitAnimator : MonoBehaviour
                 Instantiate(bulletProjectilePrefab, shootPointTransform.position, Quaternion.identity);
         RangeBulletProjectile bulletProjectile4 = bulletProjectileTransform4.GetComponent<RangeBulletProjectile>();
         float random4 = UnityEngine.Random.Range(-45f, 45f);
-        bulletProjectile4.transform.rotation = Quaternion.Euler(random4, -75f, 0);
+        bulletProjectile4.transform.rotation = Quaternion.Euler(random4, 0f, 0);
         Vector3 targetUnitShootAtPosition4 = e;
 
         targetUnitShootAtPosition4.y = shootPointTransform.position.y;

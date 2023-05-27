@@ -274,7 +274,7 @@ public class KnightAction : BaseAction
                     continue;
                 }
 
-                if (LevelGrid.Instance.GetEnemyAtSurroundPosition(testGridPosition))
+                if (!Pathfinding.Instance.HasAtPath(unitGridPosition, testGridPosition))
                 {
                     continue;
                 }

@@ -98,7 +98,7 @@ public class LevelGrid : MonoBehaviour
         GridObject gridObject = gridSystem.GetGridObject(gridPosition);
         return gridObject.GetUnit();
     }
-
+    /*
     int maxDistance = 1;
     public bool GetEnemyAtSurroundPosition(GridPosition gridPosition)
     {
@@ -133,6 +133,6 @@ public class LevelGrid : MonoBehaviour
         {
             return false;
         }
-    }
+    }*/
 
 }

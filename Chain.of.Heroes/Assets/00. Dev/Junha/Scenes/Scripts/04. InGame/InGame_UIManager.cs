@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class InGame_UIManager : MonoBehaviour
 {
-    public event EventHandler Onfall;
 
     #region instance화 :: Awake()함수 포함
     public static InGame_UIManager instance;
@@ -22,12 +22,31 @@ public class InGame_UIManager : MonoBehaviour
     [SerializeField] private GameObject _PartyInfo;
     [SerializeField] private GameObject _fallUI;
 
+    [SerializeField] private TextMeshProUGUI actionPointsText;
+    [SerializeField] private TextMeshProUGUI turnPointsText;
+
     [SerializeField] private LayerMask UILayerMask;
 
+    private List<Binding> Binds = new List<Binding>();
+
     private bool isinGameFall;
+    private bool isgamestop;
+    private float worldSpeed;
+
+    private void Start()
+    {
+        Binding Bind = BindingManager.Bind(TurnSystem.Property, "IsPlayerTurn", (object value) =>
+        {
+            UpdateActionPoints();
+        });
+        Binds.Add(Bind);
+
+        worldSpeed = 1;
+    }
 
     private void Update()
     {
+
         UI_STATE();
 
         if(isinGameFall)
@@ -53,6 +72,8 @@ public class InGame_UIManager : MonoBehaviour
                     InGame_Cursor.isInitStart = false;
                     _Panel.SetActive(true);
                     _Menu.SetActive(true);
+                    UpdateActionPoints();
+                    OnGameStop();
 
                     _state = STATE.MENU;
                 }
@@ -63,6 +84,7 @@ public class InGame_UIManager : MonoBehaviour
                 {
                     _Menu.SetActive(false);
                     _Panel.SetActive(false);
+                    OnGameStop();
 
                     _state = STATE.InGame;
                 }
@@ -90,8 +112,11 @@ public class InGame_UIManager : MonoBehaviour
 
     public void OnTurnfo()
     {
+        _state = STATE.InGame;
+
         _Menu.SetActive(false);
         _Panel.SetActive(false);
+        OnGameStop();
         if (!TurnSystem.Property.IsTurnEnd && (TurnSystem.Property.IsPlayerTurn && (TurnSystem.Property.ActionPoints > 0)))
         {
             if (!AttackActionSystem.Instance.GetIsChainAtk_1() && !AttackActionSystem.Instance.GetIsChainAtk_2())
@@ -105,13 +130,14 @@ public class InGame_UIManager : MonoBehaviour
 
     public void Onfallfo()
     {
+        _state = STATE.InGame;
+
         isinGameFall = true;
         TurnSystem.Property.IsTurnEnd = true;
         _Menu.SetActive(false);
         _Panel.SetActive(false);
         _fallUI.SetActive(true);
-        Onfall?.Invoke(this, EventArgs.Empty);
-        
+        OnGameStop();
     }
 
     public bool GetIsinGameFall()
@@ -119,4 +145,54 @@ public class InGame_UIManager : MonoBehaviour
         return isinGameFall;
     }
 
+    private void UpdateActionPoints()
+    {
+        if (TurnSystem.Property.IsPlayerTurn)
+        {
+            actionPointsText.text = "" + TurnSystem.Property.ActionPoints;
+            turnPointsText.text = "" + TurnSystem.Property.TurnNumber;
+        }
+        else
+        {
+            actionPointsText.text = "0";
+            turnPointsText.text = "" + TurnSystem.Property.TurnNumber;
+        }
+    }
+
+    private void OnGameStop()
+    {
+        if (!isgamestop)
+        {
+            Time.timeScale = 0f;
+            isgamestop = true;
+        }
+        else
+        {
+            Time.timeScale = worldSpeed;
+            isgamestop = false;
+        }
+    }
+
+    
+    public void OnDoubleSpeed()
+    {
+        worldSpeed += 0.1f;
+        Time.timeScale = worldSpeed;
+        Debug.Log(worldSpeed);
+    }
+
+    public void OnDeceleration()
+    {
+        worldSpeed -= 0.1f;
+        Time.timeScale = worldSpeed;
+        Debug.Log(worldSpeed);
+    }
+
+    private void OnDisable()
+    {
+        foreach (var bind in Binds)
+        {
+            BindingManager.Unbind(TurnSystem.Property, bind);
+        }
+    }
 }

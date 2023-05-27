@@ -141,14 +141,7 @@ public class ChainAction : BaseAction
                 {
                     continue;
                 }
-
-
-                int pathfindingDistanceMultiplier = 12;
-                if (Pathfinding.Instance.GetPathLength(unitGridPosition, testGridPosition) > maxChainDistance * pathfindingDistanceMultiplier)
-                {
-                    // Path length is too long
-                    continue;
-                }
+                
                 validGridPositionList.Add(testGridPosition);
             }
         }

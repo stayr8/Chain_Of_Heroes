@@ -384,6 +384,11 @@ public class GridSystemVisual : MonoBehaviour
                 ShowGridPositionKingRange(selectedUnit.GetGridPosition(), longBishopAction.GetMaxWizardDistance(), GridVisualType.RedSoft);
                 ShowGridPositionBishopRange(selectedUnit.GetGridPosition(), longBishopAction.GetMaxWizardDistance(), GridVisualType.RedMiddle);
                 break;
+            case KnightAttackAction knightAttackAction:
+                gridVisualType = GridVisualType.Red;
+
+                ShowGridPositionKingRange(selectedUnit.GetGridPosition(), knightAttackAction.GetMaxKingDistance(), GridVisualType.RedMiddle);
+                break;
             case ChainAction chainAction:
                 gridVisualType = GridVisualType.Red;
 
