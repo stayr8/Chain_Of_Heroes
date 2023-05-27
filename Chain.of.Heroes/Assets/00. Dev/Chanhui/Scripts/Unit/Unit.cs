@@ -119,6 +119,19 @@ public class Unit : MonoBehaviour
         SoloEnemyActionPoints = newEnemyActionPoints;
         IsGrid = false;
         _killCount = 0;
+
+        if (!isEnemy)
+        {
+            CharacterDataManager[] _initCDM = DataManager.Instance.GetInitCDM();
+            for (int i = 0; i < 8; i++)
+            {
+                if (_initCDM[i].CharacterName == characterDataManager.CharacterName)
+                {
+                    characterDataManager.NumForLvUp = _initCDM[i].NumForLvUp;
+                    characterDataManager.m_currentExp = _initCDM[i].m_currentExp;
+                }
+            }
+        }
     }
 
     private void Update()

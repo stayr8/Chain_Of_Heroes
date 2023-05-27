@@ -6,62 +6,33 @@ using UnityEngine.UI;
 public class CharacterUI : MonoBehaviour
 {
 
-    private Image Image;
+    [SerializeField] private Image image;
     [SerializeField] private CharacterTypeManager.CharacterType characterType;
     [SerializeField] private int UIPosNumber;
     [SerializeField] private Vector3 characterUimovepos;
 
+    private CharacterDataManager _cdm;
+
     private void Awake()
     {
-        Image = GetComponent<Image>();
+        //image = GetComponent<Image>();
     }
 
-
-    public void SelectedImage(int number)
+    private void Start()
     {
-        switch(number)
+        _cdm = GetComponent<CharacterDataManager>();
+
+        CharacterDataManager[] _initCDM = DataManager.Instance.GetInitCDM();
+        for (int i = 0; i < 8; i++)
         {
-            case 0:
-                Image.sprite = GameAssets.i.characterUI[0];
-                characterType = CharacterTypeManager.CharacterType.SwordWoman;
-                break;
-
-            case 1:
-                Image.sprite = GameAssets.i.characterUI[1];
-                characterType = CharacterTypeManager.CharacterType.Knight;
-                break;
-
-            case 2:
-                Image.sprite = GameAssets.i.characterUI[2];
-                characterType = CharacterTypeManager.CharacterType.Samurai;
-                break;
-
-            case 3:
-                Image.sprite = GameAssets.i.characterUI[3];
-                characterType = CharacterTypeManager.CharacterType.Archer;
-                break;
-
-            case 4:
-                Image.sprite = GameAssets.i.characterUI[4];
-                characterType = CharacterTypeManager.CharacterType.Guardian;
-                break;
-
-            case 5:
-                Image.sprite = GameAssets.i.characterUI[5];
-                characterType = CharacterTypeManager.CharacterType.Priest;
-                break;
-
-            case 6:
-                Image.sprite = GameAssets.i.characterUI[6];
-                characterType = CharacterTypeManager.CharacterType.Wizard;
-                break;
-
-            case 7:
-                Image.sprite = GameAssets.i.characterUI[7];
-                characterType = CharacterTypeManager.CharacterType.Valkyrie;
-                break;
+            if (_initCDM[i].CharacterName == _cdm.CharacterName)
+            {
+                _cdm.NumForLvUp = _initCDM[i].NumForLvUp;
+                _cdm.m_currentExp = _initCDM[i].m_currentExp;
+            }
         }
     }
+
 
     public CharacterTypeManager.CharacterType ImageType()
     {
@@ -76,6 +47,16 @@ public class CharacterUI : MonoBehaviour
     public void SetCharUIpos(int UIPosNumber)
     {
         this.UIPosNumber = UIPosNumber;
+    }
+
+    public Image GetCharacterUI()
+    {
+        return image;
+    }
+
+    public void SetCharacterUI(Sprite image)
+    {
+        this.image.sprite = image;
     }
 
     public Vector3 GetCharacterUIMovePos()

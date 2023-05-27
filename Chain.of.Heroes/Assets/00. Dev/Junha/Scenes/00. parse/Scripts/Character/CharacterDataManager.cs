@@ -35,8 +35,8 @@ public class CharacterDataManager : MonoBehaviour
     public float m_maxhp; // [최대 체력]
     public float m_damagereductionRate; // [데미지 감소율]
     public float m_skilldamagecoefficient; // [스킬 데미지 계수]
-    public int m_UnlockMapID;
-
+    public int NumForLvUp = 0; // [플레이어 진짜 레벨]
+    private int previousNumLv = 0;
 
 
     private SwordWoman[] _Array;
@@ -94,7 +94,10 @@ public class CharacterDataManager : MonoBehaviour
         m_maxhp = m_hp;
         m_damagereductionRate = 0;
         m_skilldamagecoefficient = 0;
+        previousNumLv = NumForLvUp;
     }
+
+
 
     private void Update()
     {
@@ -104,13 +107,36 @@ public class CharacterDataManager : MonoBehaviour
             initInfo();
         }
 
+        LevelUp();
+        
+        if((m_currentExp == 0) && (previousNumLv != NumForLvUp))
+        {
+            initInfo();
+            m_maxhp = m_hp;
+            previousNumLv = NumForLvUp;
+        }
+
         if (m_hp <= 0)
         {
             m_hp = 0;
         }
     }
 
-    private int NumForLvUp = 0;
+    public void LevelUp()
+    {
+        while (m_currentExp >= m_maxExp)
+        {
+            ++NumForLvUp;
+            previousNumLv = NumForLvUp;
+            m_currentExp -= m_maxExp;
+            float exp = m_currentExp;
+            initInfo();
+            m_maxhp = m_hp;
+            m_currentExp = exp;
+        }
+    }
+
+    
     private void initInfo()
     {
         firstArray = _Array[NumForLvUp];
@@ -138,8 +164,6 @@ public class CharacterDataManager : MonoBehaviour
 
         m_resourcePath = firstArray.ResourcePath;
         m_back_resourcePath = firstArray.BResourcePath;
-
-        m_UnlockMapID = firstArray.UnlockMapID;
     }
 
     public float GetHealthNormalized()

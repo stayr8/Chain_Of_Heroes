@@ -78,7 +78,7 @@ public class CameraController : MonoBehaviour
 
     private void UnitActionSystem_OnSelectedUnitChanged(object sender, EventArgs empty)
     {
-        mousepos = MouseWorld.GetPosition();
+        mousepos = UnitActionSystem.Instance.GetSelecterdUnit().transform.position;
     }
 
     private void ScenesSystem_OnScenesChange(object sender, EventArgs e)

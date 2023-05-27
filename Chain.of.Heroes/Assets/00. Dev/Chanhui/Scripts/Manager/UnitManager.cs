@@ -63,7 +63,7 @@ public class UnitManager : MonoBehaviour
 
         Binding Binded = BindingManager.Bind(TurnSystem.Property, "IsTurnEnd", (object value) =>
         {
-            Invoke("UnitInit", 3f);
+            Invoke("UnitInit", 2f);
         },false);
         Binds.Add(Binded);
  
@@ -243,6 +243,9 @@ public class UnitManager : MonoBehaviour
         {
             BindingManager.Unbind(TurnSystem.Property, bind);
         }
+
+        playerpos = 0;
+        enemypos = 0;
 
         Unit.OnAnyUnitSpawned -= Unit_OnAnyUnitSpawned;
         Unit.OnAnyUnitDead -= Unit_OnAnyUnitDead;

@@ -22,6 +22,9 @@ public class MapData : ScriptableObject
     [SerializeField] private int count_unlock;
     public int Count_Unlock { get { return count_unlock; } }
 
+    [SerializeField] private int clear_exp;
+    public int Clear_Exp { get { return clear_exp; } }
+
 
 
     [Header("Monster_Information")]
