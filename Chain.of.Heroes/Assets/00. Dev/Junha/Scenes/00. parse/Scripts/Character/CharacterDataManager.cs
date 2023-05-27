@@ -35,6 +35,7 @@ public class CharacterDataManager : MonoBehaviour
     public float m_maxhp; // [최대 체력]
     public float m_damagereductionRate; // [데미지 감소율]
     public float m_skilldamagecoefficient; // [스킬 데미지 계수]
+    public int m_UnlockMapID;
     public int NumForLvUp = 0; // [플레이어 진짜 레벨]
     private int previousNumLv = 0;
 
@@ -164,6 +165,8 @@ public class CharacterDataManager : MonoBehaviour
 
         m_resourcePath = firstArray.ResourcePath;
         m_back_resourcePath = firstArray.BResourcePath;
+
+        m_UnlockMapID = firstArray.UnlockMapID;
     }
 
     public float GetHealthNormalized()
