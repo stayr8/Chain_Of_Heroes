@@ -4,35 +4,130 @@ using UnityEngine;
 
 public class WorldMap_UIManager : MonoBehaviour
 {
-    [SerializeField, Header("Select Menu UI")] private GameObject UI_SelectMenu;
-    [SerializeField, Header("ChapterInfo UI")] private GameObject UI_ChapterInfo;
-    [SerializeField, Header("ChapterInfo 배경")] private GameObject ChapterInfo_Background;
+    #region instance화 :: Awake()함수 포함
+    public static WorldMap_UIManager instance;
+    private void Awake()
+    {
+        instance = this;
+    }
+    #endregion
+
+    [SerializeField] private GameObject _Menu;
+    [SerializeField] private GameObject _Party;
+    [SerializeField] private GameObject _ChapterInfo;
+    [SerializeField] private GameObject ChapterInfo_Background;
     private RectTransform rt_ChapterInfo;
 
-    private void Awake()
+    private enum STATE { INGAME, MENU, PARTY, SAVE }
+    private STATE state = STATE.INGAME;
+
+    public bool isMenuState = false;
+    public bool isOnParty = false;
+
+    [SerializeField, Header("[프리 카메라 팁] 게임오브젝트")] private GameObject tip;
+
+    private void Start()
     {
         rt_ChapterInfo = ChapterInfo_Background.GetComponent<RectTransform>();
     }
 
     private void Update()
     {
-        Controller_WorldMapMenu();
+        UI_STATE();
     }
 
-    public static bool isOnWorldMapMenu = false;
-    private void Controller_WorldMapMenu()
+    private void UI_STATE()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) || (!isOnWorldMapMenu && Input.GetKeyDown(KeyCode.Return)))
+        switch (state)
         {
-            if (!isOnWorldMapMenu)
-            {
-                isOnWorldMapMenu = true;
-                UI_SelectMenu.gameObject.SetActive(true);
+            case STATE.INGAME:
 
-                rt_ChapterInfo.anchoredPosition = new Vector2(rt_ChapterInfo.anchoredPosition.x, 0f);
-            }
+                OnMenu();
 
-            SoundManager.instance.Sound_WorldMapUIOpen();
+                break;
+
+            case STATE.MENU:
+
+                OffMenu();
+
+                break;
+
+            case STATE.PARTY:
+
+                OffParty();
+
+                break;
+
+            case STATE.SAVE:
+
+                break;
         }
     }
+
+    #region [메뉴]
+    private void OnMenu() // InGame 상태일 때 ESC 키나 Enter 키 입력 시
+    {
+        if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Return))
+        {
+            SoundManager.instance.Sound_WorldMapUIOpen();
+
+            isMenuState = true;
+
+            _Menu.SetActive(true);
+            rt_ChapterInfo.anchoredPosition = new Vector2(rt_ChapterInfo.anchoredPosition.x, 0f);
+
+            tip.SetActive(false);
+
+            state = STATE.MENU;
+        }
+    }
+    private void OffMenu() // Menu 상태일 때 ESC 키 입력 시
+    {
+        if (!WorldMap_Cursor.isOnNextButton && (Input.GetKeyDown(KeyCode.Escape)))
+        {
+            SoundManager.instance.Sound_WorldMapUIOpen();
+
+            isMenuState = false;
+
+            _Menu.SetActive(false);
+            rt_ChapterInfo.anchoredPosition = new Vector2(rt_ChapterInfo.anchoredPosition.x, -315f);
+
+            tip.SetActive(true);
+
+            state = STATE.INGAME;
+        }
+    }
+    #endregion
+
+    #region [동료]
+    public void OnParty() // Menu 상태일 때 동료 버튼 클릭 시
+    {
+        SoundManager.instance.Sound_SelectMenu();
+
+        isOnParty = true;
+
+        _Menu.SetActive(false);
+        _ChapterInfo.SetActive(false);
+
+        _Party.SetActive(true);
+
+        state = STATE.PARTY;
+    }
+    private void OffParty() // Party 상태일 때 ESC 키 입력 시
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SoundManager.instance.Sound_SelectMenu();
+
+            isOnParty = false;
+
+            _Party.SetActive(false);
+
+            _Menu.SetActive(true);
+            _ChapterInfo.SetActive(true);
+
+            state = STATE.MENU;
+        }
+    }
+    #endregion
 }

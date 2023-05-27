@@ -21,9 +21,64 @@ public class BattleReady_UIManager : MonoBehaviour
 
     public int Max_Value;
     private Talk TextBox;
+
+    [Header("============================\n\n[UI Canvas] 오브젝트")]
+    [SerializeField] private GameObject _Menu;
+    [SerializeField] private GameObject _UnitFormation;
+    [SerializeField] private GameObject _ChangeFormation;
+
+    [SerializeField] private bool ischange_formationCamera;
+
+    public event EventHandler OnCharacterChangeFormation;
+
+    private enum STATE { MENU, UNIT_FORMATION, CHANGE_FORMATION }
+    private STATE state = STATE.MENU;
+
+    [SerializeField, Header("현재 편성 유닛 수")] private TMP_Text _Current; // "n"
+    [SerializeField, Header("총 조우한 유닛 수")] private TMP_Text _Max; // "/ n"
+
+    [SerializeField, Header("[편성 / 스킬 확인] 오브젝트")] private GameObject menuSelected;
+
+    [Header("[캐릭터 정보] 텍스트")]
+    [SerializeField] private TextMeshProUGUI character_Name;
+    [SerializeField] private TextMeshProUGUI character_Class;
+    [SerializeField] private TextMeshProUGUI character_Level;
+    [SerializeField] private TextMeshProUGUI character_HP;
+    [SerializeField] private TextMeshProUGUI character_AttackPower;
+    [SerializeField] private TextMeshProUGUI character_ChainAttackPower;
+    [SerializeField] private TextMeshProUGUI character_DefensePower;
+    private CharacterDataManager data;
+    private BattleReady_FormationState form_State;
+    private Sprite no_Skill;
+    [Header("캐릭터 스킬 이미지")]
+    [SerializeField] private Image[] character_Skill_Image;
+    [Header("캐릭터 스킬 이름")]
+    [SerializeField] private TextMeshProUGUI[] character_Skill_Name;
+    [Header("캐릭터 이미지")]
+    [SerializeField] private Image character_Background;
+    [SerializeField] private Image character_Image;
+    private RectTransform rt;
+
+    private string path = "Character/Skill/";
+    private string skill_Content_1;
+    private string skill_Content_2;
+    private string skill_Content_3;
+
+    [Header("스킬 확인 정보")]
+    [SerializeField] private Image skill_Image;
+    [SerializeField] private TextMeshProUGUI skill_Name;
+    [SerializeField] private TextMeshProUGUI skill_Content;
+
+    [SerializeField, Header("[챕터 장] 텍스트")] private TMP_Text Txt_chapterNum;
+    [SerializeField, Header("[챕터명] 텍스트")] private TMP_Text Txt_chapterName;
+
+    [SerializeField, Header("[스킬 커서] 오브젝트")] private GameObject Skill_Cursor;
+    [SerializeField, Header("[스킬 설명] 오브젝트")] private GameObject Skill_Detail;
+
     private void Start()
     {
         Max_Value = MapManager.Instance.mapData[MapManager.Instance.stageNum].Count_Unlock;
+        Set_ChapterNumName();
 
         //StartCoroutine(TalkStart());
     }
@@ -41,78 +96,87 @@ public class BattleReady_UIManager : MonoBehaviour
         Destroy(TextBox.gameObject);
     }
 
-    [Header("============================\n\n[UI Canvas] 오브젝트")]
-    [SerializeField] private GameObject _Menu;
-    [SerializeField] private GameObject _UnitFormation;
-    [SerializeField] private GameObject _ChangeFormation;
-
-    [SerializeField] private bool ischange_formationCamera;
-
     private void Update()
     {
         UI_STATE();
     }
 
-    private enum STATE { MENU, UNIT_FORMATION, CHANGE_FORMATION }
-    private STATE state = STATE.MENU;
     private void UI_STATE()
     {
         switch (state)
         {
             case STATE.MENU:
+
+
+
                 break;
 
             case STATE.UNIT_FORMATION:
-                if (!BattleReady_UnitFormationCursor.isOnMenuSelect && Input.GetKeyDown(KeyCode.Escape))
-                {
-                    _UnitFormation.SetActive(false);
-                    _Menu.SetActive(true);
 
-                    state = STATE.MENU;
-                }
+                OffUnitFormation();
+
                 Update_Formation();
                 Update_Data();
+
                 break;
 
             case STATE.CHANGE_FORMATION:
-                if (Input.GetKeyDown(KeyCode.Escape))
-                {
-                    _ChangeFormation.SetActive(false);
-                    _Menu.SetActive(true);
-                    ischange_formationCamera = false;
 
-                    state = STATE.MENU;
-                }
-                else
-                {
-                    ischange_formationCamera = true;
-                }
+                OffChangeFormation();
+
                 break;
         }
     }
 
+    #region [유닛 편성]
     public void OnUnitFormation()
     {
-        state = STATE.UNIT_FORMATION;
-
         _Menu.SetActive(false);
         _UnitFormation.SetActive(true);
-    }
 
-    public event EventHandler OnCharacterChangeFormation;
+        state = STATE.UNIT_FORMATION;
+    }
+    private void OffUnitFormation()
+    {
+        if (!BattleReady_UnitFormationCursor.isOnMenuSelect && Input.GetKeyDown(KeyCode.Escape))
+        {
+            _UnitFormation.SetActive(false);
+            _Menu.SetActive(true);
+
+            state = STATE.MENU;
+        }
+    }
+    #endregion
+
+    #region [배치 변경]
     public void OnChangeFormation()
     {
-        state = STATE.CHANGE_FORMATION;
-
         _Menu.SetActive(false);
         _ChangeFormation.SetActive(true);
         OnCharacterChangeFormation?.Invoke(this, EventArgs.Empty);
+
+        state = STATE.CHANGE_FORMATION;
     }
+    private void OffChangeFormation()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            _ChangeFormation.SetActive(false);
+            _Menu.SetActive(true);
+            ischange_formationCamera = false;
+
+            state = STATE.MENU;
+        }
+        else
+        {
+            ischange_formationCamera = true;
+        }
+    }
+    #endregion
+
+
 
     #region [현재 편성된 유닛 수 / 총 조우한 유닛 수]
-    [SerializeField, Header("현재 편성 유닛 수")] private TMP_Text _Current; // "n"
-    [SerializeField, Header("총 조우한 유닛 수")] private TMP_Text _Max; // "/ n"
-
     private void Update_Formation()
     {
         _Current.text = BattleReady_UnitFormationCursor.count.ToString();
@@ -121,7 +185,6 @@ public class BattleReady_UIManager : MonoBehaviour
     #endregion
 
     #region [편성 / 스킬 확인]
-    [SerializeField, Header("[편성 / 스킬 확인] 오브젝트")] private GameObject menuSelected;
     public void OnMenuSelected()
     {
         SoundManager.instance.Sound_SelectMenu();
@@ -146,8 +209,6 @@ public class BattleReady_UIManager : MonoBehaviour
             child.SetActive(false);
         }
     }
-    [SerializeField, Header("[미편성] 스프라이트")] private Sprite Img_OffFormation;
-    [SerializeField, Header("[편성 완료] 스프라이트")] private Sprite Img_OnFormation;
     public void Formation(GameObject obj)
     {
         GameObject child = obj.transform.GetChild(1).gameObject;
@@ -162,7 +223,7 @@ public class BattleReady_UIManager : MonoBehaviour
             ChangeColor(obj, 255f, 255f, 255f, 255f);
 
             //편성 스프라이트 변경 및 포지션 변경
-            img.sprite = Img_OnFormation;
+            img.sprite = Resources.Load<Sprite>("team_forming");
             childRT.anchoredPosition = new Vector2(-59.5f, 19f);
 
             ChangeFormationSystem.Instance.AnyDestroyCharacterUI();
@@ -173,7 +234,7 @@ public class BattleReady_UIManager : MonoBehaviour
             ChangeColor(obj, 48f, 48f, 48f, 255f);
 
             //편성 스프라이트 변경 및 포지션 변경
-            img.sprite = Img_OffFormation;
+            img.sprite = Resources.Load<Sprite>("team_unforming");
             childRT.anchoredPosition = new Vector2(-41.5f, 18.5f);
         }
         img.SetNativeSize();
@@ -188,25 +249,6 @@ public class BattleReady_UIManager : MonoBehaviour
     #endregion
 
     #region 유닛 편성: 캐릭터 정보 갱신
-    [Header("[캐릭터 정보] 텍스트")]
-    [SerializeField] private TextMeshProUGUI character_Name;
-    [SerializeField] private TextMeshProUGUI character_Class;
-    [SerializeField] private TextMeshProUGUI character_Level;
-    [SerializeField] private TextMeshProUGUI character_HP;
-    [SerializeField] private TextMeshProUGUI character_AttackPower;
-    [SerializeField] private TextMeshProUGUI character_ChainAttackPower;
-    [SerializeField] private TextMeshProUGUI character_DefensePower;
-    private CharacterDataManager data;
-    private BattleReady_FormationState form_State;
-    private Sprite no_Skill;
-    [Header("캐릭터 스킬 이미지")]
-    [SerializeField] private Image[] character_Skill_Image;
-    [Header("캐릭터 스킬 이름")]
-    [SerializeField] private TextMeshProUGUI[] character_Skill_Name;
-    [Header("캐릭터 이미지")]
-    [SerializeField] private Image character_Background;
-    [SerializeField] private Image character_Image;
-    private RectTransform rt;
     private void Update_Data()
     {
         GameObject obj = BattleReady_UnitFormationCursor.currentSelected;
@@ -259,10 +301,6 @@ public class BattleReady_UIManager : MonoBehaviour
     #endregion
 
     #region 유닛 편성: 캐릭터 스킬 관련
-    private string path = "Character/Skill/";
-    private string skill_Content_1;
-    private string skill_Content_2;
-    private string skill_Content_3;
     private void Set_NameAndImage()
     {
         character_Background.sprite = Resources.Load<Sprite>(data.m_back_resourcePath);
@@ -436,10 +474,6 @@ public class BattleReady_UIManager : MonoBehaviour
         }
     }
 
-    [Header("스킬 확인 정보")]
-    [SerializeField] private Image skill_Image;
-    [SerializeField] private TextMeshProUGUI skill_Name;
-    [SerializeField] private TextMeshProUGUI skill_Content;
     public void Set_SkillContent(string _num)
     {
         switch (_num)
@@ -466,7 +500,6 @@ public class BattleReady_UIManager : MonoBehaviour
     #endregion
 
     #region 유닛 편성: 스킬 확인
-    [SerializeField, Header("[스킬 커서] 오브젝트")] private GameObject Skill_Cursor;
     public void OnSkillCursor()
     {
         Skill_Cursor.SetActive(true);
@@ -476,7 +509,6 @@ public class BattleReady_UIManager : MonoBehaviour
         Skill_Cursor.SetActive(false);
     }
 
-    [SerializeField, Header("[스킬 설명] 오브젝트")] private GameObject Skill_Detail;
     public void OnSkillDetail()
     {
         Skill_Detail.SetActive(true);
@@ -484,6 +516,14 @@ public class BattleReady_UIManager : MonoBehaviour
     public void OffSkillDetail()
     {
         Skill_Detail.SetActive(false);
+    }
+    #endregion
+
+    #region 챕터명
+    private void Set_ChapterNumName()
+    {
+        Txt_chapterNum.text = "제 " + StageManager.instance.m_chapterNum.ToString() + "장";
+        Txt_chapterName.text = StageManager.instance.m_chapterName.ToString();
     }
     #endregion
 

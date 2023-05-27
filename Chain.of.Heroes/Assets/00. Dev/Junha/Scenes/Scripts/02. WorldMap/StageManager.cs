@@ -18,7 +18,9 @@ public class Info
 
 public class StageManager : MonoBehaviour
 {
+    #region instance 화
     public static StageManager instance;
+    #endregion
 
     [Header("월드맵 데이터")]
     public int m_id; // [아이디]
@@ -41,11 +43,15 @@ public class StageManager : MonoBehaviour
 
     private void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
-        DontDestroyOnLoad(gameObject);
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
 
         ChapterName = "WorldMap";
 
@@ -63,8 +69,10 @@ public class StageManager : MonoBehaviour
             _Array[i] = WorldMap;
         }
 
-        initInfo();
+        // initInfo();
     }
+
+    // private void Start() { }
 
     private void Update()
     {
@@ -124,10 +132,10 @@ public class StageManager : MonoBehaviour
             }
         }
 
-        if (!PlayerCamera.isFree)
+        if (!PlayerCamera.isFree && !WorldMap_UIManager.instance.isOnParty)
         {
             Txt_ChapterNum = GameObject.Find("_ChapterText").GetComponent<TMP_Text>();
-            Txt_ChapterNum.text = m_chapterNum < 10 ? "Chapter. 0" + m_chapterNum + "\n" + m_chapterName:
+            Txt_ChapterNum.text = m_chapterNum < 10 ? "Chapter. 0" + m_chapterNum + "\n" + m_chapterName :
                                                       "Chapter. " + m_chapterNum + "\n" + m_chapterName;
 
             Img_ChapterImage = GameObject.Find("_ChapterImage").GetComponent<Image>();

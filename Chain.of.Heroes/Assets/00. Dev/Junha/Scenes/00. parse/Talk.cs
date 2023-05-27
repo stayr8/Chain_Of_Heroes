@@ -56,13 +56,9 @@ public class Talk : MonoBehaviour
     private void Update()
     {
         if(Initialized == false || IsEnd) { return; }
-        /*
-        currentindex 가 최대일때 씬 넘어가기 or 전투 준비 UI 켜기
-        */
+
         if(Speeches.Count == CurrentIndex)
         {
-            //LoadingSceneController.LoadScene("WorldMapScene");
-
             IsEnd = true;
 
             return;
@@ -78,14 +74,6 @@ public class Talk : MonoBehaviour
             if(TalkCoroutine != null)
             {
                 PressedEnter = true;
-                
-                /*
-                StopCoroutine(TalkCoroutine);
-                TalkCoroutine = null;
-                Txt_Text.text = Speeches[CurrentIndex].StringKR;
-                CurrentIndex++;
-                TalkCoroutine = StartCoroutine(Talking(Speeches[CurrentIndex].StringKR));
-                */
             }
         }
     }
@@ -117,15 +105,4 @@ public class Talk : MonoBehaviour
 
         PressedEnter = false;
     }
-
-    /*
-    IEnumerator StartTalk()
-    {
-        foreach (var talk in Talks)
-        {
-            Txt_Text.text = talk;
-            yield return new WaitForSeconds(1.5f); // talk.waitTime;
-        }
-    }
-    */
 }

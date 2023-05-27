@@ -181,4 +181,18 @@ public class CursorBase : MonoBehaviour
             _currentSelected.GetComponent<Selectable>().Select();
         }
     }
+
+    /// <summary>
+    /// use. WorldMap_Cursor
+    /// use. BattleReady_Cursor
+    /// </summary>
+    protected virtual void OnNextButton(GameObject _obj, bool _isCheck, GameObject _this, ref GameObject _currentSelected, string _name)
+    {
+        _obj.SetActive(_isCheck); // NextButton 활성
+
+        _this.GetComponent<Image>().enabled = _isCheck ? false : true; // 커서 오브젝트의 이미지 컴포넌트 활성/비활성
+
+        _currentSelected = GameObject.Find(_name);
+        _currentSelected.GetComponent<Selectable>().Select();
+    }
 }

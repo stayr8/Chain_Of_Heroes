@@ -60,15 +60,18 @@ public class PlayerCamera : MonoBehaviour
             CameraZoom();
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (!WorldMap_UIManager.instance.isMenuState)
         {
-            if (!isFree)
+            if (Input.GetKeyDown(KeyCode.R))
             {
-                isFree = true;
-            }
-            else // isFree
-            {
-                isFree = false;
+                if (!isFree)
+                {
+                    isFree = true;
+                }
+                else // isFree
+                {
+                    isFree = false;
+                }
             }
         }
     }
