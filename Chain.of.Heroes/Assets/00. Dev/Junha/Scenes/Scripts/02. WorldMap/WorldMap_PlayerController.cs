@@ -13,6 +13,12 @@ public class WorldMap_PlayerController : MonoBehaviour
     private Selectable selectable;
     private Selectable selectableOnLeft;
     public static Selectable selectableOnRight;
+
+    public static bool isCan = true;
+
+    private bool isMoving = false; // 움직임 상태를 나타내는 플래그
+    private float moveDuration = 1.0f; // 움직임의 지속 시간, 클수록 느려짐
+
     private void Awake()
     {
         _anim = GetComponent<Animator>();
@@ -24,19 +30,17 @@ public class WorldMap_PlayerController : MonoBehaviour
         selectableOnRight = selectable.FindSelectableOnRight();
 
         transform.position = new Vector2(currentSelected.transform.position.x,
-                                        currentSelected.transform.position.y + 0.4f);
+                                         currentSelected.transform.position.y + 0.4f);
     }
 
     private void Update()
     {
-        if (!PlayerCamera.isFree)
+        if (!PlayerCamera.isFree && !WorldMap_UIManager.instance.isMenuState)
         {
             Move();
         }
     }
 
-
-    public static bool isCan = true;
     private void OnTriggerEnter2D(Collider2D coll)
     {
         if (coll.gameObject.CompareTag("Chapter"))
@@ -100,8 +104,6 @@ public class WorldMap_PlayerController : MonoBehaviour
         }
     }
     #region 움직임 애니메이션
-    private bool isMoving = false; // 움직임 상태를 나타내는 플래그
-    private float moveDuration = 1.0f; // 움직임의 지속 시간, 클수록 느려짐
     private IEnumerator MoveObject(Vector3 targetPosition)
     {
         isMoving = true;

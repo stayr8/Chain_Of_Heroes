@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    #region instanceȭ
+    #region instance화
     public static SoundManager instance;
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     public static void Initialize()
@@ -27,42 +27,40 @@ public class SoundManager : MonoBehaviour
         _thisObject = GetComponent<AudioSource>();
     }
 
-    #region ===== SelectMenu Sound =====
+    #region [월드맵 메뉴 열림/닫힘] 사운드
+    public void Sound_WorldMapUIOpen()
+    {
+        _SelectMenu = Resources.Load<AudioClip>("AudioSource/WorldMapUIOpen");
+
+        _thisObject.PlayOneShot(_SelectMenu);
+    }
+    #endregion
+
+    #region [메뉴 선택] 사운드
     private AudioClip _SelectMenu;
     public void Sound_SelectMenu()
     {
-        _SelectMenu = Resources.Load<AudioClip>("SelectMenu");
-        if(_SelectMenu != null)
-        {
-            _thisObject.PlayOneShot(_SelectMenu);
-        }
-    }
-    #endregion
-
-    #region ===== WorldMap UI Open Sound =====
-    public void Sound_WorldMapUIOpen()
-    {
-        _SelectMenu = Resources.Load<AudioClip>("WorldMapUIOpen");
+        _SelectMenu = Resources.Load<AudioClip>("AudioSource/SelectMenu");
 
         _thisObject.PlayOneShot(_SelectMenu);
     }
     #endregion
 
-    #region ===== Battle Sound =====
+    #region [인게임 전투] 사운드
     public void Sound_Battle()
     {
-        _SelectMenu = Resources.Load<AudioClip>("BattleSound");
+        _SelectMenu = Resources.Load<AudioClip>("AudioSource/BattleSound");
 
         _thisObject.PlayOneShot(_SelectMenu);
     }
     #endregion
 
-    #region ===== Win / Lose Sound =====
+    #region [승리/패배] 사운드
     public void Sound_StageWin()
     {
         _thisObject.Stop();
 
-        _SelectMenu = Resources.Load<AudioClip>("StageWin");
+        _SelectMenu = Resources.Load<AudioClip>("AudioSource/StageWin");
 
         _thisObject.PlayOneShot(_SelectMenu);
     }
@@ -70,7 +68,7 @@ public class SoundManager : MonoBehaviour
     {
         _thisObject.Stop();
 
-        _SelectMenu = Resources.Load<AudioClip>("StageLose");
+        _SelectMenu = Resources.Load<AudioClip>("AudioSource/StageLose");
 
         _thisObject.PlayOneShot(_SelectMenu);
     }

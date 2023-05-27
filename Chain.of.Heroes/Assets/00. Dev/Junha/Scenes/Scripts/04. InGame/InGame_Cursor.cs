@@ -41,6 +41,11 @@ public class InGame_Cursor : CursorBase
         Movement(rt, ref currentSelected, MOVE_DISTANCE, MIN_POSITION_Y, MAX_POSITION_Y);
     }
 
+    private void LateUpdate()
+    {
+        rt.Rotate(150f * Time.deltaTime, 0f, 0f);
+    }
+
     private void MenuFunction()
     {
         if (Input.GetKeyDown(KeyCode.Return))
