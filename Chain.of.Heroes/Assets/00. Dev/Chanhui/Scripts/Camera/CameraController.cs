@@ -184,5 +184,6 @@ public class CameraController : MonoBehaviour
     {
         UnitActionSystem.Instance.OnSelectedUnitChanged -= UnitActionSystem_OnSelectedUnitChanged;
         ScenesSystem.Instance.OnScenesChange -= ScenesSystem_OnScenesChange;
+        AttackActionSystem.OnActionStarted -= AttackActionSystem_OnActionStarted;
     }
 }

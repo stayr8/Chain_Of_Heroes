@@ -27,7 +27,6 @@ public class ChainSystem : MonoBehaviour
     {
         if (AttackActionSystem.Instance.GetIsAtk() && !IsChain)
         {
-            Debug.Log("체인 시스템 온");
             IsChain = true;
             TryTakeEnemyAIAction(Chain);
         }

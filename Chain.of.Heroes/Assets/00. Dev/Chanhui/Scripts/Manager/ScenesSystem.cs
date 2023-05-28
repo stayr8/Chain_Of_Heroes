@@ -37,7 +37,6 @@ public class ScenesSystem : MonoBehaviour
         //MapManager.Instance.MapDataInitialize();
         if (MapManager.Instance.stageNum == 1 || MapManager.Instance.stageNum == 2 || MapManager.Instance.stageNum == 3)
         {
-            Debug.Log("여기서는 들어오잖아!");
             GameObject map = Resources.Load<GameObject>("Map/Region01");
             Instantiate(map);
 

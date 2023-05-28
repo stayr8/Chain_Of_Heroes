@@ -26,7 +26,6 @@ public class DataManager : MonoBehaviour
     private void Start()
     {
         _initcdm = GetComponents<CharacterDataManager>();
-
     }
 
 

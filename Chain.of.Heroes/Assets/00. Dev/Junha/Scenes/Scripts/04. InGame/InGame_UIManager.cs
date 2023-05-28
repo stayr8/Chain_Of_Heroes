@@ -192,21 +192,18 @@ public class InGame_UIManager : MonoBehaviour
             speed_Image.sprite = Resources.Load<Sprite>("Speed_15");
             worldSpeed = 1.5f;
             Time.timeScale = worldSpeed;
-            Debug.Log(worldSpeed);
         }
         else if (worldSpeed <= 1.5f)
         {
             speed_Image.sprite = Resources.Load<Sprite>("Speed_20");
             worldSpeed = 2f;
             Time.timeScale = worldSpeed;
-            Debug.Log(worldSpeed);
         }
         else
         {
             speed_Image.sprite = Resources.Load<Sprite>("Speed_10");
             worldSpeed = 1f;
             Time.timeScale = worldSpeed;
-            Debug.Log(worldSpeed);
         }
     }
 

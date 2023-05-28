@@ -20,11 +20,13 @@ public class VictorySystemUI : MonoBehaviour
 
     private Unit _mvpPlayer;
 
+    private List<Binding> Binds = new List<Binding>();
+
     private bool _gameClear;
 
     private void Start()
     {
-        BindingManager.Bind(TurnSystem.Property, "IsTurnEnd", (object value) =>
+        Binding Bind = BindingManager.Bind(TurnSystem.Property, "IsTurnEnd", (object value) =>
         {
             if (UnitManager.Instance.VictoryPlayer())
             {
@@ -52,6 +54,7 @@ public class VictorySystemUI : MonoBehaviour
             }
 
         }, false);
+        Binds.Add(Bind);
 
         _gameClear = false;
     }
@@ -216,6 +219,14 @@ public class VictorySystemUI : MonoBehaviour
         DestroyActionButton();
         yield return new WaitForSeconds(0.1f);
         SceneManager.LoadScene("WorldMapScene");
+    }
+
+    private void OnDisable()
+    {
+        foreach (var bind in Binds)
+        {
+            BindingManager.Unbind(TurnSystem.Property, bind);
+        }
     }
 
 }
