@@ -7,7 +7,7 @@ using Cinemachine;
 public class CameraController : MonoBehaviour
 {
     private const float MIN_FOLLOW_Y_OFFSET = 11f;
-    private const float MAX_FOLLOW_Y_OFFSET = 20f;
+    private const float MAX_FOLLOW_Y_OFFSET = 16f;
 
     [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
     [SerializeField] private CinemachineVirtualCamera cinemachineVirtualingCamera;
@@ -143,7 +143,7 @@ public class CameraController : MonoBehaviour
         float moveSpeed = 10f;
 
         // Y-axis 범위 제한
-        float clampedY = Mathf.Clamp(transform.position.y + inputMoveDir * moveSpeed * Time.deltaTime, 1f, 3f);
+        float clampedY = Mathf.Clamp(transform.position.y + inputMoveDir * moveSpeed * Time.deltaTime, 1f, 2f);
         float deltaY = clampedY - transform.position.y;
 
         Vector3 moveVector = new Vector3(0f, deltaY, 0f);

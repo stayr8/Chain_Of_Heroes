@@ -35,28 +35,28 @@ public class ScenesSystem : MonoBehaviour
         camSkybox = GameObject.Find("Main Camera");
 
         //MapManager.Instance.MapDataInitialize();
-        if (MapManager.Instance.stageNum == 0 || MapManager.Instance.stageNum == 1 || MapManager.Instance.stageNum == 2)
+        if (MapManager.Instance.stageNum == 1 || MapManager.Instance.stageNum == 2 || MapManager.Instance.stageNum == 3)
         {
             GameObject map = Resources.Load<GameObject>("Map/Region01");
             Instantiate(map);
 
             camSkybox.AddComponent<Skybox>().material = _skyboxmaterial[0];
         }
-        else if (MapManager.Instance.stageNum == 3 || MapManager.Instance.stageNum == 4 || MapManager.Instance.stageNum == 5)
+        else if (MapManager.Instance.stageNum == 4 || MapManager.Instance.stageNum == 5 || MapManager.Instance.stageNum == 6)
         {
             GameObject map = Resources.Load<GameObject>("Map/Region02");
             Instantiate(map);
 
             camSkybox.AddComponent<Skybox>().material = _skyboxmaterial[1];
         }
-        else if (MapManager.Instance.stageNum == 6 || MapManager.Instance.stageNum == 7 )
+        else if (MapManager.Instance.stageNum == 7 || MapManager.Instance.stageNum == 8 )
         {
             GameObject map = Resources.Load<GameObject>("Map/Region03");
             Instantiate(map);
 
             camSkybox.AddComponent<Skybox>().material = _skyboxmaterial[2];
         }
-        else if (MapManager.Instance.stageNum == 8 || MapManager.Instance.stageNum == 9)
+        else if (MapManager.Instance.stageNum == -1 || MapManager.Instance.stageNum == 9 || MapManager.Instance.stageNum == 10)
         {
             GameObject map = Resources.Load<GameObject>("Map/Region04");
             Instantiate(map);
