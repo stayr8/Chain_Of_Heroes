@@ -317,7 +317,7 @@ public class KingAction : BaseAction
 
     public override string GetActionName()
     {
-        return "킹";
+        return "공격";
     }
 
     public int GetMaxKingDistance()
@@ -332,12 +332,12 @@ public class KingAction : BaseAction
 
     public override int GetActionPointsCost()
     {
-        return 1;
+        return 2;
     }
 
     public override string GetSingleActionPoint()
     {
-        return "1";
+        return "2";
     }
 
     public override int GetMaxSkillCount()

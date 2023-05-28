@@ -15,6 +15,6 @@ public class WaitTransition : MonoBehaviour
     {
         yield return new WaitForSeconds(32.5f);
         //SceneManager.LoadScene("TalkTest");
-        LoadingSceneController.LoadScene("TalkTest");
+        LoadingSceneController.LoadScene("WorldMapScene");
     }
 }

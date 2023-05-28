@@ -55,7 +55,16 @@ public class MonsterBase : MonoBehaviour
 
     public void Calc_ChainAttack(CharacterDataManager CDM, MonsterDataManager MDM) // 체인 어택 공식
     {
-        
+        characterAP = CDM.m_attackPower;
+        monsterDP = MDM.m_defensePower;
+
+        finalDamage = characterAP * (100 / (100 + (monsterDP / 10))) * 0.7f;
+
+        // 데미지 넣기
+        MDM.m_hp -= (int)finalDamage;
+
+        Vector3 pos = new Vector3(this.transform.position.x + 1f, this.transform.position.y + 1f, this.transform.position.z);
+        DamagePopup.Create(pos, (int)finalDamage, isCritical);
     }
 
     private float characterSKD; // 크리티컬인가?
