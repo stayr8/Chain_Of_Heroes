@@ -13,16 +13,24 @@ MonoBehaviour:
   m_Name: Stage_1
   m_EditorClassIdentifier: 
   Map_Name: Stage_1
-  map_stage_number: 0
+  map_stage_number: 1
   Map_Clear_Confirm: 1
   player_actionpoint: 8
-  enemy_actionpoint: 4
-  map_id: 0
+  enemy_actionpoint: 12
+  map_id: 1
   count_unlock: 2
-  clear_exp: 1515
+  clear_exp: 1516
   enemy_pf:
-  - {fileID: 7244344358574414659, guid: d377caaf916402f4095ca7f0c3364730, type: 3}
+  - {fileID: 7244344358574414659, guid: fe49e693c12cd514eb307112bed8ea9a, type: 3}
+  - {fileID: 7244344358574414659, guid: fe49e693c12cd514eb307112bed8ea9a, type: 3}
+  - {fileID: 7244344358574414659, guid: fe49e693c12cd514eb307112bed8ea9a, type: 3}
+  - {fileID: 7244344358574414659, guid: fe49e693c12cd514eb307112bed8ea9a, type: 3}
+  - {fileID: 3695012023952319668, guid: 55797141069490440a424becdc2700ea, type: 3}
+  - {fileID: 3695012023952319668, guid: 55797141069490440a424becdc2700ea, type: 3}
   enemyXY:
-  - {x: 2, y: 0, z: 8}
-  - {x: 4, y: 0, z: 8}
-  - {x: 6, y: 0, z: 8}
+  - {x: 12, y: 0, z: 4}
+  - {x: 12, y: 0, z: 6}
+  - {x: 4, y: 0, z: 10}
+  - {x: 6, y: 0, z: 10}
+  - {x: 24, y: 0, z: 2}
+  - {x: 8, y: 0, z: 16}
