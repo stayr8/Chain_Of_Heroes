@@ -8,7 +8,7 @@ public class BattleReady_SelectedMenu : SelectMenuBase, ISelectHandler, IDeselec
 {
     public void OnSelect(BaseEventData eventData)
     {
-        Select(true, gameObject,
+        Select(gameObject,
             "_BattleStart", 55f,
             "_UnitFormation", 45f,
             "_ChangeFormation", 35f,
@@ -16,7 +16,7 @@ public class BattleReady_SelectedMenu : SelectMenuBase, ISelectHandler, IDeselec
     }
     public void OnDeselect(BaseEventData eventData)
     {
-        Select(false, gameObject,
+        Select(gameObject,
             "_BattleStart", -45f,
             "_UnitFormation", -55f,
             "_ChangeFormation", -65f,

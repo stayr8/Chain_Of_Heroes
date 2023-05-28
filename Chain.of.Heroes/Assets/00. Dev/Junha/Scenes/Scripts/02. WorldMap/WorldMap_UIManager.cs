@@ -104,7 +104,6 @@ public class WorldMap_UIManager : MonoBehaviour
             SoundManager.instance.Sound_WorldMapUIOpen();
 
             isMenuState = false;
-            WorldMap_Cursor.isInitStart = false;
 
             _Menu.SetActive(false);
             chapterInfoRT.anchoredPosition = new Vector2(chapterInfoRT.anchoredPosition.x, -315f);

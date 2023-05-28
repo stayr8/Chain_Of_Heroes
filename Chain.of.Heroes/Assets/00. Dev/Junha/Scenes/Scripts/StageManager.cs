@@ -1,6 +1,6 @@
-using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 using System;
 using UnityEngine.UI;
@@ -53,7 +53,10 @@ public class StageManager : MonoBehaviour
     public int num;
     private GameObject _nextChapter;
 
+    public bool isInitStart = false;
+
     public int ClearID { get; set; } = -1;
+    public int TotalUnlock = 0;
 
     private void Awake()
     {
@@ -70,16 +73,23 @@ public class StageManager : MonoBehaviour
 
             _Array[i] = WorldMap;
         }
-
-        // initInfo();
     }
 
-    // private void Start() { }
-
-    public bool isInitStart = false;
     private void Update()
     {
         InitData();
+        if(ClearID == -1)
+        {
+            TotalUnlock = 2;
+        }
+        else if(ClearID > 6)
+        {
+            TotalUnlock = 8;
+        }
+        else
+        {
+            TotalUnlock = ClearID + 2;
+        }
 
         if (SceneManager.GetActiveScene().name.Contains("WorldMapScene"))
         {

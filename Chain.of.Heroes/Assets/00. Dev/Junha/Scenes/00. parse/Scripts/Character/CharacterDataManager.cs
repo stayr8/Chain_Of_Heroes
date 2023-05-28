@@ -29,6 +29,7 @@ public class CharacterDataManager : MonoBehaviour
     public string m_property; // [속성]
 
     public string m_resourcePath; // [캐릭터 이미지]
+    public string m_char_resourcePath; // [캐릭터 편성 이미지]
     public string m_back_resourcePath; // [캐릭터 배경 이미지]
 
     [Header("별도의 데이터")]
@@ -38,7 +39,6 @@ public class CharacterDataManager : MonoBehaviour
     public int m_UnlockMapID;
     public int NumForLvUp = 0; // [플레이어 진짜 레벨]
     private int previousNumLv = 0;
-
 
     private SwordWoman[] _Array;
     private SwordWoman firstArray;
@@ -57,23 +57,6 @@ public class CharacterDataManager : MonoBehaviour
         var Root = SimpleJSON.JSON.Parse(data.text);
         _Array = new SwordWoman[Root.Count];
 
-        /*
-        //foreach (var node in Root.AsArray)
-        //{
-        //    //Debug.Log("노드: " + node);
-        //    // 한 뭉탱이의 자료
-
-        //    //var _sheet1 = new Sheet1();
-        //    var _sheet1 = new Sheet1();
-
-        //    _sheet1.Parse(node.Value);
-
-        //    //Debug.Log(_sheet1.ID);
-        //    //Debug.Log(_sheet1.Name);
-        //    //_sheet1.DebugInfo();
-        //}
-        */
-
         for (int i = 0; i < Root.Count; ++i)
         {
             var node = Root[i];
@@ -90,7 +73,6 @@ public class CharacterDataManager : MonoBehaviour
             this.characterBase = characterBase;
         }
 
-        //firstArray = _Array[0]; // Init
         initInfo();
         m_maxhp = m_hp;
         m_damagereductionRate = 0;
@@ -164,6 +146,7 @@ public class CharacterDataManager : MonoBehaviour
         m_property = firstArray.UnitProperty;
 
         m_resourcePath = firstArray.ResourcePath;
+        m_char_resourcePath = firstArray.CResourcePath;
         m_back_resourcePath = firstArray.BResourcePath;
 
         m_UnlockMapID = firstArray.UnlockMapID;

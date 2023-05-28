@@ -19,9 +19,8 @@ public class BattleReady_UIManager : MonoBehaviour
     }
     #endregion
 
-    public int Max_Value;
+    private int Max_Value;
     private Talk TextBox;
-    private Talk ShowChapter;
 
     [Header("============================\n\n[UI Canvas] 오브젝트")]
     [SerializeField] private GameObject _Menu;
@@ -78,7 +77,7 @@ public class BattleReady_UIManager : MonoBehaviour
 
     private void Start()
     {
-        Max_Value = MapManager.Instance.mapData[MapManager.Instance.stageNum].Count_Unlock;
+        Max_Value = StageManager.instance.TotalUnlock;
         Set_ChapterNumName();
 
         StartCoroutine(TalkStart());

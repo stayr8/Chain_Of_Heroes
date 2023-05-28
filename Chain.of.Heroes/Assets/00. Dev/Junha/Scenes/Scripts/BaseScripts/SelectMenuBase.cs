@@ -26,65 +26,29 @@ public class SelectMenuBase : MonoBehaviour
     /// </summary>
     protected virtual void Select(float m_x)
     {
+        rt.anchoredPosition = new Vector2(m_x, rt.anchoredPosition.y);
         image.sprite = Selected;
 
-        rt.anchoredPosition = new Vector2(m_x, rt.anchoredPosition.y);
-
-        image.SetNativeSize();
+        SetSize();
     }
     protected virtual void DeSelect(float m_x)
     {
+        rt.anchoredPosition = new Vector2(m_x, rt.anchoredPosition.y);
         image.sprite = DeSelected;
 
-        rt.anchoredPosition = new Vector2(m_x, rt.anchoredPosition.y);
-
-        image.SetNativeSize();
+        SetSize();
     }
 
     /// <summary>
     /// use. WorldMap_SelectedMenu
     /// use. BattleReady_SelectedMEnu
     /// </summary>
-    protected virtual void Select(bool isSelect, GameObject _obj, 
-                                string m1, float m1_x, 
-                                string m2, float m2_x, 
-                                string m3, float m3_x, 
-                                string m4, float m4_x)
-    {
-        image.sprite = isSelect ? Selected : DeSelected;
-
-        if (_obj.name == m1)
-        {
-            rt.anchoredPosition = new Vector2(m1_x, rt.anchoredPosition.y);
-        }
-        else if (_obj.name == m2)
-        {
-            rt.anchoredPosition = new Vector2(m2_x, rt.anchoredPosition.y);
-        }
-        else if (_obj.name == m3)
-        {
-            rt.anchoredPosition = new Vector2(m3_x, rt.anchoredPosition.y);
-        }
-        else if (_obj.name == m4)
-        {
-            rt.anchoredPosition = new Vector2(m4_x, rt.anchoredPosition.y);
-        }
-
-        image.SetNativeSize();
-    }
-
-    /// <summary>
-    /// use. BattleReady_SelectedMenu
-    /// </summary>
-    protected virtual void Select(bool isSelect, GameObject _obj,
-                                string SelectSprite, string DeSelectSprite,
+    protected virtual void Select(GameObject _obj,
                                 string m1, float m1_x,
                                 string m2, float m2_x,
                                 string m3, float m3_x,
                                 string m4, float m4_x)
     {
-        image.sprite = isSelect ? Resources.Load<Sprite>(SelectSprite) : Resources.Load<Sprite>(DeSelectSprite);
-
         if (_obj.name == m1)
         {
             rt.anchoredPosition = new Vector2(m1_x, rt.anchoredPosition.y);
@@ -102,6 +66,14 @@ public class SelectMenuBase : MonoBehaviour
             rt.anchoredPosition = new Vector2(m4_x, rt.anchoredPosition.y);
         }
 
+        SetSize();
+    }
+
+    /// <summary>
+    /// use. nextButtonSelectedMenu
+    /// </summary>
+    protected virtual void SetSize()
+    {
         image.SetNativeSize();
     }
 }

@@ -21,10 +21,6 @@ public class InGame_Cursor : CursorBase
             Init(rt, INIT_X, INIT_Y, ref currentSelected, "_Info");
             isInitStart = true;
         }
-        else
-        {
-            return;
-        }
     }
 
     private const float MOVE_DISTANCE = 100f;

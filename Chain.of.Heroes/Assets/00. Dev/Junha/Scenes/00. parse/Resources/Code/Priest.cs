@@ -20,6 +20,7 @@ public class Priest
 	public string Class;
 	public string UnitProperty;
 	public string ResourcePath;
+	public string CResourcePath;
 	public string BResourcePath;
 	public int UnlockMapID;
 
@@ -40,6 +41,7 @@ public class Priest
 		Class = Data["Class"];
 		UnitProperty = Data["UnitProperty"];
 		ResourcePath = Data["ResourcePath"];
+		CResourcePath = Data["CResourcePath"];
 		BResourcePath = Data["BResourcePath"];
 		UnlockMapID = Data["UnlockMapID"].AsInt;
 		return true;

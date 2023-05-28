@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,7 +28,7 @@ public class PartyInfoCell : MonoBehaviour
 
         var CharData = unit.GetCharacterDataManager();
 
-        Img.sprite = Resources.Load<Sprite>(CharData.m_resourcePath);
+        Img.sprite = Resources.Load<Sprite>(CharData.m_char_resourcePath);
         Txt_Name.text = CharData.m_name;
         Txt_ClassType.text = CharData.m_class;
         Txt_Level.text = CharData.m_level.ToString();
