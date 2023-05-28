@@ -18,10 +18,6 @@ public class BattleReady_FormationState : MonoBehaviour
     public bool isFormationState = false; // 편성이 되었나, 안 되었나
 
     private CharacterDataManager CharacterData { get; set; }
-    private void UpdateUnlock()
-    {
-        isUnlock = CharacterData.m_UnlockMapID <= StageManager.instance.ClearID;
-    }
 
     private void Start()
     {
@@ -39,20 +35,26 @@ public class BattleReady_FormationState : MonoBehaviour
     private void Update()
     {
         UpdateUnlock();
+
         formationState();
+    }
+
+    private void UpdateUnlock()
+    {
+        isUnlock = CharacterData.m_UnlockMapID <= StageManager.instance.ClearID;
+
+        if (isUnlock)
+        {
+            BattleReady_UIManager.instance.Formation(gameObject);
+        }
+        else // !isUnlock
+        {
+            BattleReady_UIManager.instance.UnlockCharacter(gameObject);
+        }
     }
 
     private void formationState()
     {
-        //if (isUnlock)
-        //{
-        //    BattleReady_UIManager.instance.Formation(gameObject);
-        //}
-        //else // !isUnlock
-        //{
-        //    BattleReady_UIManager.instance.UnlockCharacter(gameObject);
-        //}
-
         switch (gameObject.name)
         {
             case "_1":
