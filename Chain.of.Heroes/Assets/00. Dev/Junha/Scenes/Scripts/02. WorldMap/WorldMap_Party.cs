@@ -18,12 +18,10 @@ public class WorldMap_Party : MonoBehaviour
                 if(Data.m_UnlockMapID <= StageManager.instance.ClearID)
                 {
                     Unlock(Data, character);
-                    Debug.Log("Unlock");
                 }
                 else
                 {
                     Lock(Data, character);
-                    Debug.Log("lock");
                 }
             }
         }

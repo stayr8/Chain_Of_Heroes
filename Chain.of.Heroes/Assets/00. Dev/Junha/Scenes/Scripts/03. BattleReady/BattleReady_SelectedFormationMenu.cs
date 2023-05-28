@@ -10,6 +10,7 @@ using UnityEngine.EventSystems;
 public class BattleReady_SelectedFormationMenu : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
     private Image image;
+
     private Sprite Selected;
     private Sprite DeSelected;
     private void Awake()
@@ -18,18 +19,6 @@ public class BattleReady_SelectedFormationMenu : MonoBehaviour, ISelectHandler, 
 
         Selected = Resources.Load<Sprite>("J_B_next_SelectMenu");
         DeSelected = Resources.Load<Sprite>("J_B_next_DeSelectMenu");
-    }
-
-    private void OnEnable()
-    {
-        
-    }
-
-    // private void Update() {}
-
-    private void OnDisable()
-    {
-        DeSelect();
     }
 
     public void OnSelect(BaseEventData eventData)

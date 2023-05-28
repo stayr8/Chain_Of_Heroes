@@ -14,6 +14,7 @@ public class WorldMap_UIManager : MonoBehaviour
 
     [SerializeField] private GameObject _Menu;
     [SerializeField] private GameObject _Party;
+    [SerializeField] private GameObject _Save;
     [SerializeField] private GameObject _ChapterInfo;
     [SerializeField] private GameObject ChapterInfo_Background;
     private RectTransform rt_ChapterInfo;
@@ -23,6 +24,7 @@ public class WorldMap_UIManager : MonoBehaviour
 
     public bool isMenuState = false;
     public bool isOnParty = false;
+    public bool isOnSave = false;
 
     [SerializeField, Header("[프리 카메라 팁] 게임오브젝트")] private GameObject tip;
 
@@ -46,25 +48,19 @@ public class WorldMap_UIManager : MonoBehaviour
         switch (state)
         {
             case STATE.INGAME:
-
                 OnMenu();
-
                 break;
 
             case STATE.MENU:
-
                 OffMenu();
-
                 break;
 
             case STATE.PARTY:
-
                 OffParty();
-
                 break;
 
             case STATE.SAVE:
-
+                //OffSave();
                 break;
         }
     }
@@ -72,7 +68,7 @@ public class WorldMap_UIManager : MonoBehaviour
     #region [메뉴]
     private void OnMenu() // InGame 상태일 때 ESC 키나 Enter 키 입력 시
     {
-        if(!WorldMap_PlayerController.isMoving && (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Return)))
+        if (!WorldMap_PlayerController.isMoving && (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Return)))
         {
             SoundManager.instance.Sound_WorldMapUIOpen();
 
@@ -108,8 +104,6 @@ public class WorldMap_UIManager : MonoBehaviour
     #region [동료]
     public void OnParty() // Menu 상태일 때 동료 버튼 클릭 시
     {
-        SoundManager.instance.Sound_SelectMenu();
-
         isOnParty = true;
 
         _Menu.SetActive(false);
@@ -129,6 +123,36 @@ public class WorldMap_UIManager : MonoBehaviour
             isOnParty = false;
 
             _Party.SetActive(false);
+
+            _Menu.SetActive(true);
+            _ChapterInfo.SetActive(true);
+
+            state = STATE.MENU;
+        }
+    }
+    #endregion
+
+    #region [세이브]
+    public void OnSave()
+    {
+        isOnSave = true;
+
+        _Menu.SetActive(false);
+        _ChapterInfo.SetActive(false);
+
+        _Save.SetActive(true);
+
+        state = STATE.SAVE;
+    }
+    private void OffSave()
+    {
+        if(Input.GetKey(KeyCode.Escape))
+        {
+            SoundManager.instance.Sound_SelectMenu();
+
+            isOnSave = false;
+
+            _Save.SetActive(false);
 
             _Menu.SetActive(true);
             _ChapterInfo.SetActive(true);

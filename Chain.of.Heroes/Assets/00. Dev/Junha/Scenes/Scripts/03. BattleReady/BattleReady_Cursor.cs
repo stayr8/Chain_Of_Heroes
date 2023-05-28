@@ -8,10 +8,14 @@ using UnityEngine.SceneManagement;
 public class BattleReady_Cursor : CursorBase
 {
     private RectTransform rt;
-    public static GameObject currentSelected;
+    [SerializeField, Header("nextButton")] private GameObject nextButton;
+    [SerializeField, Header("nextButton Text")] private TMP_Text text_nextButton;
 
     private const float INIT_X = -860f;
     private const float INIT_Y = 200f;
+    private GameObject currentSelected;
+
+    private bool isInitStart = false;
 
     private bool isBattleStart = false;
     private bool isBack = false;
@@ -26,18 +30,26 @@ public class BattleReady_Cursor : CursorBase
 
     private void OnEnable()
     {
-        Init(rt, INIT_X, INIT_Y, ref currentSelected, "_BattleStart");
+        if(!isInitStart)
+        {
+            Init(rt, INIT_X, INIT_Y, ref currentSelected, "_BattleStart");
+            isInitStart = true;
+        }
     }
-
 
     private void Update()
     {
+        MenuFunction();
+
         if (!isBattleStart || !isBack)
         {
             Movement(rt, ref currentSelected, MOVE_DISTANCE, MIN_POSITION_X, MAX_POSITION_X, MIN_POSITION_Y, MAX_POSITION_Y);
         }
+        else if(isBattleStart || isBack)
+        {
+            Movement(ref currentSelected);
+        }
 
-        MenuFunction();
     }
 
     private void LateUpdate()
@@ -45,8 +57,6 @@ public class BattleReady_Cursor : CursorBase
         rt.Rotate(150f * Time.deltaTime, 0f, 0f);
     }
 
-    [SerializeField, Header("nextButton")] private GameObject nextButton;
-    [SerializeField, Header("nextButton Text")] private TextMeshProUGUI text_nextButton;
     private void MenuFunction()
     {
         if (Input.GetKeyDown(KeyCode.Return))
@@ -60,19 +70,14 @@ public class BattleReady_Cursor : CursorBase
                     OnNextButton(nextButton, isBattleStart, gameObject, ref currentSelected, "_Yes");
 
                     text_nextButton.text = "전투를 진행하시겠습니까?";
-
                     break;
 
                 case "_UnitFormation":
-
                     BattleReady_UIManager.instance.OnUnitFormation();
-
                     break;
 
                 case "_ChangeFormation":
-
                     BattleReady_UIManager.instance.OnChangeFormation();
-
                     break;
 
                 case "_Back":
@@ -80,7 +85,6 @@ public class BattleReady_Cursor : CursorBase
                     OnNextButton(nextButton, isBack, gameObject, ref currentSelected, "_Yes");
 
                     text_nextButton.text = "월드 맵으로 돌아가시겠습니까?";
-
                     break;
 
                 case "_Yes":
@@ -109,7 +113,6 @@ public class BattleReady_Cursor : CursorBase
                         isBack = false;
                         OnNextButton(nextButton, isBack, gameObject, ref currentSelected, "_Back");
                     }
-                    ResetCursorPosition();
                     break;
             }
         }
@@ -123,22 +126,5 @@ public class BattleReady_Cursor : CursorBase
     void Hide()
     {
         StageUI.Instance.ConditionHide();
-    }
-
-    private void ResetCursorPosition()
-    {
-        if (currentSelected.name == "_BattleStart")
-        {
-            rt.anchoredPosition = new Vector2(-860f, MAX_POSITION_Y);
-        }
-        else if (currentSelected.name == "_Back")
-        {
-            rt.anchoredPosition = new Vector2(-890f, MIN_POSITION_Y);
-        }
-    }
-
-    public static GameObject GetCurrentSelected()
-    {
-        return currentSelected;
     }
 }

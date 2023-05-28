@@ -6,8 +6,6 @@ using UnityEngine.EventSystems;
 
 public class InGame_SelectedMenu : SelectMenuBase, ISelectHandler, IDeselectHandler
 {
-    // private void Awake() {}
-
     private void OnEnable()
     {
         if (gameObject == InGame_Cursor.GetCurrentSelected())
@@ -15,8 +13,6 @@ public class InGame_SelectedMenu : SelectMenuBase, ISelectHandler, IDeselectHand
             Select(110f);
         }
     }
-
-    // private void Update() {}
 
     private void OnDisable()
     {

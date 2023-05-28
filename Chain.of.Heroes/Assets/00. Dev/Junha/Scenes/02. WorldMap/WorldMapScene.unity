@@ -292,7 +292,7 @@ GameObject:
   - component: {fileID: 20915638}
   - component: {fileID: 20915637}
   m_Layer: 5
-  m_Name: _tmp
+  m_Name: '[Txt]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -723,7 +723,7 @@ GameObject:
   - component: {fileID: 57543702}
   - component: {fileID: 57543701}
   m_Layer: 5
-  m_Name: ===== Select Menu =====
+  m_Name: '[ Menu ]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1994,6 +1994,7 @@ MonoBehaviour:
   m_damagereductionRate: 0
   m_skilldamagecoefficient: 0
   m_UnlockMapID: 0
+  NumForLvUp: 0
 --- !u!1 &506632422
 GameObject:
   m_ObjectHideFlags: 0
@@ -2058,7 +2059,7 @@ GameObject:
   - component: {fileID: 522684636}
   - component: {fileID: 522684635}
   m_Layer: 5
-  m_Name: ===== Next Button =====
+  m_Name: === Next Button ===
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2132,15 +2133,15 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 522684634}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1615998353}
   - {fileID: 2111842449}
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_Father: {fileID: 1118811417}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2426,7 +2427,7 @@ GameObject:
   - component: {fileID: 575132042}
   - component: {fileID: 575132041}
   m_Layer: 5
-  m_Name: _tmp
+  m_Name: '[Txt] Continue'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2955,6 +2956,7 @@ MonoBehaviour:
   m_damagereductionRate: 0
   m_skilldamagecoefficient: 0
   m_UnlockMapID: 0
+  NumForLvUp: 0
 --- !u!1 &819202365
 GameObject:
   m_ObjectHideFlags: 0
@@ -2967,7 +2969,7 @@ GameObject:
   - component: {fileID: 819202368}
   - component: {fileID: 819202367}
   m_Layer: 5
-  m_Name: _Panel
+  m_Name: '[Image] Panel'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3630,7 +3632,7 @@ GameObject:
   - component: {fileID: 991732170}
   - component: {fileID: 991732169}
   m_Layer: 5
-  m_Name: ======= Button =======
+  m_Name: '[ Button ]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3830,6 +3832,7 @@ MonoBehaviour:
   m_damagereductionRate: 0
   m_skilldamagecoefficient: 0
   m_UnlockMapID: 0
+  NumForLvUp: 0
 --- !u!1 &1026236450
 GameObject:
   m_ObjectHideFlags: 0
@@ -4084,6 +4087,7 @@ MonoBehaviour:
   m_damagereductionRate: 0
   m_skilldamagecoefficient: 0
   m_UnlockMapID: 0
+  NumForLvUp: 0
 --- !u!1 &1106100309
 GameObject:
   m_ObjectHideFlags: 0
@@ -4220,6 +4224,38 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1106100309}
   m_CullTransparentMesh: 1
+--- !u!1 &1118811416
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1118811417}
+  m_Layer: 0
+  m_Name: '[ Next Button ]'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1118811417
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1118811416}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 522684638}
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1126806496
 GameObject:
   m_ObjectHideFlags: 0
@@ -4232,7 +4268,7 @@ GameObject:
   - component: {fileID: 1126806499}
   - component: {fileID: 1126806498}
   m_Layer: 5
-  m_Name: Background_Image
+  m_Name: '[Image] Background'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4792,10 +4828,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f012dc27c8f61145894208d3f7bf2b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Selected: {fileID: 0}
-  DeSelected: {fileID: 0}
-  rt: {fileID: 0}
-  image: {fileID: 0}
 --- !u!1 &1407188616
 GameObject:
   m_ObjectHideFlags: 0
@@ -4809,7 +4841,7 @@ GameObject:
   - component: {fileID: 1407188618}
   - component: {fileID: 1407188617}
   m_Layer: 5
-  m_Name: ===== Save =====
+  m_Name: '[ Save ]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5385,6 +5417,7 @@ MonoBehaviour:
   m_damagereductionRate: 0
   m_skilldamagecoefficient: 0
   m_UnlockMapID: 0
+  NumForLvUp: 0
 --- !u!1 &1499493468
 GameObject:
   m_ObjectHideFlags: 0
@@ -5398,7 +5431,7 @@ GameObject:
   - component: {fileID: 1499493470}
   - component: {fileID: 1499493469}
   m_Layer: 5
-  m_Name: ===== ChapterInfo =====
+  m_Name: '[ ChapterInfo ]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5682,6 +5715,7 @@ MonoBehaviour:
   m_damagereductionRate: 0
   m_skilldamagecoefficient: 0
   m_UnlockMapID: 0
+  NumForLvUp: 0
 --- !u!1 &1615998352
 GameObject:
   m_ObjectHideFlags: 0
@@ -5895,7 +5929,7 @@ GameObject:
   - component: {fileID: 1655525587}
   - component: {fileID: 1655525586}
   m_Layer: 5
-  m_Name: _tmp
+  m_Name: '[Txt]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6550,7 +6584,7 @@ GameObject:
   - component: {fileID: 1772577754}
   - component: {fileID: 1772577756}
   m_Layer: 5
-  m_Name: Image_MenuSelectCursor
+  m_Name: _Cursor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6626,7 +6660,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26743024fbf073e4d8cb01b428024d2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextButton: {fileID: 522684634}
 --- !u!1 &1778668628
 GameObject:
   m_ObjectHideFlags: 0
@@ -6737,6 +6770,7 @@ MonoBehaviour:
   m_damagereductionRate: 0
   m_skilldamagecoefficient: 0
   m_UnlockMapID: 0
+  NumForLvUp: 0
 --- !u!1 &1786122712
 GameObject:
   m_ObjectHideFlags: 0
@@ -7071,7 +7105,7 @@ GameObject:
   - component: {fileID: 1829896963}
   - component: {fileID: 1829896962}
   m_Layer: 5
-  m_Name: _tmp
+  m_Name: '[Txt]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7538,10 +7572,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f012dc27c8f61145894208d3f7bf2b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Selected: {fileID: 0}
-  DeSelected: {fileID: 0}
-  rt: {fileID: 0}
-  image: {fileID: 0}
 --- !u!1 &2044266704
 GameObject:
   m_ObjectHideFlags: 0
@@ -7556,7 +7586,7 @@ GameObject:
   - component: {fileID: 2044266705}
   - component: {fileID: 2044266709}
   m_Layer: 5
-  m_Name: ===== Party =====
+  m_Name: '[ Party ]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7775,6 +7805,7 @@ MonoBehaviour:
   m_damagereductionRate: 0
   m_skilldamagecoefficient: 0
   m_UnlockMapID: 0
+  NumForLvUp: 0
 --- !u!1 &2084144479
 GameObject:
   m_ObjectHideFlags: 0
@@ -8004,7 +8035,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2097534320}
   m_Layer: 0
-  m_Name: ===== Stage Object =====
+  m_Name: '[ Stage Object ]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8066,8 +8097,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 55, y: 200}
-  m_SizeDelta: {x: 557, y: 61}
+  m_AnchoredPosition: {x: -45, y: 200}
+  m_SizeDelta: {x: 335, y: 61}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2105260679
 MonoBehaviour:
@@ -8160,10 +8191,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f012dc27c8f61145894208d3f7bf2b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Selected: {fileID: 0}
-  DeSelected: {fileID: 0}
-  rt: {fileID: 0}
-  image: {fileID: 0}
 --- !u!1 &2111842448
 GameObject:
   m_ObjectHideFlags: 0
@@ -8176,7 +8203,7 @@ GameObject:
   - component: {fileID: 2111842451}
   - component: {fileID: 2111842450}
   m_Layer: 5
-  m_Name: _Image
+  m_Name: '[Image] Background'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
