@@ -37,7 +37,7 @@ public class ScenesSystem : MonoBehaviour
         //MapManager.Instance.MapDataInitialize();
         if (MapManager.Instance.stageNum == 0 || MapManager.Instance.stageNum == 1 || MapManager.Instance.stageNum == 2)
         {
-            GameObject map = Resources.Load<GameObject>("Map/Region04");
+            GameObject map = Resources.Load<GameObject>("Map/Region01");
             Instantiate(map);
 
             camSkybox.AddComponent<Skybox>().material = _skyboxmaterial[0];
