@@ -6,18 +6,19 @@ using UnityEngine.UI;
 
 public class SelectMenuBase : MonoBehaviour
 {
-    public Sprite Selected;
-    public Sprite DeSelected;
+    private RectTransform rt;
+    private Image image;
 
-    public RectTransform rt;
-    public Image image;
+    private Sprite Selected;
+    private Sprite DeSelected;
+
     private void Awake()
     {
-        Selected = Resources.Load<Sprite>("J_SelectMenu");
-        DeSelected = Resources.Load<Sprite>("J_DeSelectMenu");
-
         rt = GetComponent<RectTransform>();
         image = GetComponent<Image>();
+
+        Selected = Resources.Load<Sprite>("J_SelectMenu");
+        DeSelected = Resources.Load<Sprite>("J_DeSelectMenu");
     }
 
     /// <summary>

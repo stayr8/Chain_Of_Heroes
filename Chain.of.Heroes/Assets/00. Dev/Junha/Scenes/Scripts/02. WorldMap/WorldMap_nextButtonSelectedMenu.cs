@@ -1,6 +1,6 @@
-using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -10,6 +10,7 @@ using UnityEngine.EventSystems;
 public class WorldMap_nextButtonSelectedMenu : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
     private Image image;
+
     private Sprite Selected;
     private Sprite DeSelected;
     private void Awake()
@@ -20,25 +21,13 @@ public class WorldMap_nextButtonSelectedMenu : MonoBehaviour, ISelectHandler, ID
         DeSelected = Resources.Load<Sprite>("J_next_DeSelectMenu");
     }
 
-    private void OnEnable()
-    {
-
-    }
-
-    // private void Update() {}
-
-    private void OnDisable()
-    {
-        notSelect();
-    }
-
     public void OnSelect(BaseEventData eventData)
     {
         Select();
     }
     public void OnDeselect(BaseEventData eventData)
     {
-        notSelect();
+        DeSelect();
     }
 
     private void Select()
@@ -47,7 +36,7 @@ public class WorldMap_nextButtonSelectedMenu : MonoBehaviour, ISelectHandler, ID
 
         image.SetNativeSize();
     }
-    private void notSelect()
+    private void DeSelect()
     {
         image.sprite = DeSelected;
 

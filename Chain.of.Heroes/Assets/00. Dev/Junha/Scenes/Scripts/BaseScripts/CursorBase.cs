@@ -162,6 +162,7 @@ public class CursorBase : MonoBehaviour
     }
 
     /// <summary>
+    /// use. WorldMap_Cursor
     /// use. BattleReady_UnitFormationCursor
     /// </summary>
     protected virtual void Movement(ref GameObject _currentSelected)
