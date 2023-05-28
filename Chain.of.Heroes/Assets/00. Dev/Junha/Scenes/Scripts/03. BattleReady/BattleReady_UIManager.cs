@@ -41,20 +41,20 @@ public class BattleReady_UIManager : MonoBehaviour
     [SerializeField, Header("[편성 / 스킬 확인] 오브젝트")] private GameObject menuSelected;
 
     [Header("[캐릭터 정보] 텍스트")]
-    [SerializeField] private TextMeshProUGUI character_Name;
-    [SerializeField] private TextMeshProUGUI character_Class;
-    [SerializeField] private TextMeshProUGUI character_Level;
-    [SerializeField] private TextMeshProUGUI character_HP;
-    [SerializeField] private TextMeshProUGUI character_AttackPower;
-    [SerializeField] private TextMeshProUGUI character_ChainAttackPower;
-    [SerializeField] private TextMeshProUGUI character_DefensePower;
+    [SerializeField] private TMP_Text character_Name;
+    [SerializeField] private TMP_Text character_Class;
+    [SerializeField] private TMP_Text character_Level;
+    [SerializeField] private TMP_Text character_HP;
+    [SerializeField] private TMP_Text character_AttackPower;
+    [SerializeField] private TMP_Text character_ChainAttackPower;
+    [SerializeField] private TMP_Text character_DefensePower;
     private CharacterDataManager data;
     private BattleReady_FormationState form_State;
     private Sprite no_Skill;
     [Header("캐릭터 스킬 이미지")]
     [SerializeField] private Image[] character_Skill_Image;
     [Header("캐릭터 스킬 이름")]
-    [SerializeField] private TextMeshProUGUI[] character_Skill_Name;
+    [SerializeField] private TMP_Text[] character_Skill_Name;
     [Header("캐릭터 이미지")]
     [SerializeField] private Image character_Background;
     [SerializeField] private Image character_Image;
@@ -67,8 +67,8 @@ public class BattleReady_UIManager : MonoBehaviour
 
     [Header("스킬 확인 정보")]
     [SerializeField] private Image skill_Image;
-    [SerializeField] private TextMeshProUGUI skill_Name;
-    [SerializeField] private TextMeshProUGUI skill_Content;
+    [SerializeField] private TMP_Text skill_Name;
+    [SerializeField] private TMP_Text skill_Content;
 
     [SerializeField, Header("[챕터 장] 텍스트")] private TMP_Text Txt_chapterNum;
     [SerializeField, Header("[챕터명] 텍스트")] private TMP_Text Txt_chapterName;
@@ -113,18 +113,14 @@ public class BattleReady_UIManager : MonoBehaviour
                 break;
 
             case STATE.UNIT_FORMATION:
-
                 OffUnitFormation();
 
                 Update_Formation();
                 Update_Data();
-
                 break;
 
             case STATE.CHANGE_FORMATION:
-
                 OffChangeFormation();
-
                 break;
         }
     }

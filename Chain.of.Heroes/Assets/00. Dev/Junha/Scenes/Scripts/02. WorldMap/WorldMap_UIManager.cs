@@ -4,38 +4,53 @@ using UnityEngine;
 
 public class WorldMap_UIManager : MonoBehaviour
 {
-    #region instance화 :: Awake()함수 포함
     public static WorldMap_UIManager instance;
-    private void Awake()
-    {
-        instance = this;
-    }
-    #endregion
 
     [SerializeField] private GameObject _Menu;
     [SerializeField] private GameObject _Party;
     [SerializeField] private GameObject _Save;
     [SerializeField] private GameObject _ChapterInfo;
-    [SerializeField] private GameObject ChapterInfo_Background;
-    private RectTransform rt_ChapterInfo;
+    private RectTransform chapterInfoRT;
 
     private enum STATE { INGAME, MENU, PARTY, SAVE }
     private STATE state = STATE.INGAME;
 
-    public bool isMenuState = false;
-    public bool isOnParty = false;
-    public bool isOnSave = false;
-
-    [SerializeField, Header("[프리 카메라 팁] 게임오브젝트")] private GameObject tip;
-
-    private void OnEnable()
+    private bool isMenuState = false;
+    private bool isOnParty = false;
+    private bool isOnSave = false;
+    public bool GetBool(string _bool)
     {
-        StageManager.instance.isInitStart = false;
+        if(_bool == "isMenuState")
+        {
+            return isMenuState;
+        }
+        else if (_bool == "isOnParty")
+        {
+            return isOnParty;
+        }
+        else if (_bool == "isOnSave")
+        {
+            return isOnSave;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    [SerializeField, Header("[프리 카메라 팁] 게임오브젝트")] private GameObject Obj_Tip;
+
+    private void Awake()
+    {
+        instance = this;
+        
+        chapterInfoRT = GameObject.Find("[Image] Info Background").GetComponent<RectTransform>();
+        Obj_Tip = GameObject.Find("Main Camera").transform.GetChild(0).gameObject;
     }
 
     private void Start()
     {
-        rt_ChapterInfo = ChapterInfo_Background.GetComponent<RectTransform>();
+        StageManager.instance.isInitStart = false;
     }
 
     private void Update()
@@ -66,7 +81,7 @@ public class WorldMap_UIManager : MonoBehaviour
     }
 
     #region [메뉴]
-    private void OnMenu() // InGame 상태일 때 ESC 키나 Enter 키 입력 시
+    private void OnMenu()
     {
         if (!WorldMap_PlayerController.isMoving && (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Return)))
         {
@@ -75,14 +90,14 @@ public class WorldMap_UIManager : MonoBehaviour
             isMenuState = true;
 
             _Menu.SetActive(true);
-            rt_ChapterInfo.anchoredPosition = new Vector2(rt_ChapterInfo.anchoredPosition.x, 0f);
+            chapterInfoRT.anchoredPosition = new Vector2(chapterInfoRT.anchoredPosition.x, 0f);
 
-            tip.SetActive(false);
+            Obj_Tip.SetActive(false);
 
             state = STATE.MENU;
         }
     }
-    private void OffMenu() // Menu 상태일 때 ESC 키 입력 시
+    private void OffMenu()
     {
         if (!WorldMap_Cursor.isOnNextButton && (Input.GetKeyDown(KeyCode.Escape)))
         {
@@ -92,9 +107,9 @@ public class WorldMap_UIManager : MonoBehaviour
             WorldMap_Cursor.isInitStart = false;
 
             _Menu.SetActive(false);
-            rt_ChapterInfo.anchoredPosition = new Vector2(rt_ChapterInfo.anchoredPosition.x, -315f);
+            chapterInfoRT.anchoredPosition = new Vector2(chapterInfoRT.anchoredPosition.x, -315f);
 
-            tip.SetActive(true);
+            Obj_Tip.SetActive(true);
 
             state = STATE.INGAME;
         }
@@ -102,7 +117,7 @@ public class WorldMap_UIManager : MonoBehaviour
     #endregion
 
     #region [동료]
-    public void OnParty() // Menu 상태일 때 동료 버튼 클릭 시
+    public void OnParty()
     {
         isOnParty = true;
 
@@ -114,7 +129,7 @@ public class WorldMap_UIManager : MonoBehaviour
 
         state = STATE.PARTY;
     }
-    private void OffParty() // Party 상태일 때 ESC 키 입력 시
+    private void OffParty()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {

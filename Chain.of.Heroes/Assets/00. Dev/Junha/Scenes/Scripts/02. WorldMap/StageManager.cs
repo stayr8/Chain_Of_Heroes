@@ -187,7 +187,7 @@ public class StageManager : MonoBehaviour
             }
         }
 
-        if (!PlayerCamera.isFree && !WorldMap_UIManager.instance.isOnParty)
+        if (!PlayerCamera.isFree && !WorldMap_UIManager.instance.GetBool("isOnParty"))
         {
             Txt_ChapterNum = GameObject.Find("_ChapterText").GetComponent<TMP_Text>();
             Txt_ChapterNum.text = m_chapterNum < 10 ? "Chapter. 0" + m_chapterNum + "\n" + m_chapterName :

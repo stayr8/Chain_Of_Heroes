@@ -2,27 +2,49 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEngine.UI;
+
 public class PlayerCamera : MonoBehaviour
 {
+    private Transform playerTr;
     private float targetZoom;
-    [SerializeField, Header("카메라 영역 제한/영역 중심")] private Vector2 mapSize;
+
+    private RectTransform chapterInfoRT;
+    private const float maxPosY = -315f; private const float minPosY = -1080f;
+
+    private Image Img_Tip;
+    private Sprite focusMode;
+    private Sprite freeMode;
+
+    [Header("카메라 영역 사이즈/영역 중심")]
+    [SerializeField] private Vector2 mapSize;
     [SerializeField] private Vector2 center;
 
-    [SerializeField, Header("[플레이어 오브젝트] 트랜스폼")] private Transform tr;
-    [SerializeField, Header("카메라 이동 속도")] private float cameraMoveSpeed;
-    [SerializeField, Header("카메라 위치")] private Vector3 cameraPosition;
+    [Header("카메라 이동 속도/중심 위치")]
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private Vector3 cameraPosition;
 
     public static bool isFree = false;
-    [SerializeField, Header("프리 카메라 시 이동 속도")] private float moveSpeed;
-    [SerializeField, Header("프리 카메라 시 줌 속도")] private float zoomSpeed;
-    [SerializeField, Header("최소/최대 줌")] private float minZoom;
+    [Header("프리 카메라 시 이동 속도/줌 속도")]
+    [SerializeField] private float freeMoveSpeed;
+    [SerializeField] private float freeZoomSpeed;
+
+    [Header("최소/최대 줌 배율")]
+    [SerializeField] private float minZoom;
     [SerializeField] private float maxZoom;
-    [SerializeField, Header("보간 정도")] private float zoomSmoothness;
 
-    //private void Awake() { }
+    [Header("보간 정도")]
+    [SerializeField] private float zoomSmoothness;
 
-    private void Start()
+    private void Awake()
     {
+        chapterInfoRT = GameObject.Find("[Image] Info Background").GetComponent<RectTransform>();
+
+        Img_Tip = GameObject.Find("[Image] Tip").GetComponent<Image>();
+        focusMode = Resources.Load<Sprite>("Camera_Focus");
+        freeMode = Resources.Load<Sprite>("Camera_Free");
+
+        playerTr = GameObject.Find("_player").GetComponent<Transform>();
         targetZoom = Camera.main.orthographicSize;
     }
 
@@ -30,7 +52,10 @@ public class PlayerCamera : MonoBehaviour
     {
         CameraArea();
 
-        FreeCamera();
+        if (!WorldMap_UIManager.instance.GetBool("isMenuState"))
+        {
+            CameraMode();
+        }
     }
 
     private void CameraArea()
@@ -47,66 +72,70 @@ public class PlayerCamera : MonoBehaviour
         transform.position = new Vector3(clampX, clampY, -10f);
     }
 
-    private void FreeCamera()
+    private void CameraMode()
     {
         if (!isFree)
         {
-            targetZoom = 5f;
-            playerCamera();
+            FocusCameraMode();
         }
         else // isFree
         {
-            CameraMove();
-            CameraZoom();
+            FreeCameraMode();
         }
 
-        if (!WorldMap_UIManager.instance.isMenuState)
+        if (!WorldMap_PlayerController.isMoving && Input.GetKeyDown(KeyCode.R))
         {
-            if (Input.GetKeyDown(KeyCode.R))
+            if (!isFree)
             {
-                if (!isFree)
-                {
-                    isFree = true;
-                }
-                else // isFree
-                {
-                    isFree = false;
-                }
+                isFree = true;
+            }
+            else // isFree
+            {
+                isFree = false;
             }
         }
     }
 
-    private void playerCamera()
+    private void FocusCameraMode()
     {
+        chapterInfoRT.anchoredPosition = new Vector2(chapterInfoRT.anchoredPosition.x, maxPosY);
+
+        Img_Tip.sprite = focusMode;
+        Img_Tip.SetNativeSize();
+
+        targetZoom = 5f;
+
         Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, 5f, zoomSmoothness * Time.deltaTime);
 
         transform.position = Vector3.Lerp(transform.position,
-                                          tr.position + cameraPosition,
-                                          Time.deltaTime * cameraMoveSpeed);
+                                          playerTr.position + cameraPosition,
+                                          Time.deltaTime * moveSpeed);
     }
-
-    #region 프리 카메라 로직
-    private void CameraMove()
+    private void FreeCameraMode()
     {
+        chapterInfoRT.anchoredPosition = new Vector2(chapterInfoRT.anchoredPosition.x, minPosY);
+
+        Img_Tip.sprite = freeMode;
+        Img_Tip.SetNativeSize();
+
+        // 프리 카메라 이동 //
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
         Vector2 direction = new Vector2(horizontalInput, verticalInput);
-        Vector2 velocity = direction * moveSpeed * Time.deltaTime;
+        Vector2 velocity = direction * freeMoveSpeed * Time.deltaTime;
 
         transform.Translate(velocity);
-    }
-    private void CameraZoom()
-    {
+
+        // 프리 카메라 줌 //
         float scrollInput = Input.GetAxis("Mouse ScrollWheel");
-        float zoomAmount = scrollInput * zoomSpeed * Time.deltaTime;
+        float zoomAmount = scrollInput * freeZoomSpeed * Time.deltaTime;
 
         targetZoom -= zoomAmount;
         targetZoom = Mathf.Clamp(targetZoom, minZoom, maxZoom);
 
         Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, targetZoom, zoomSmoothness * Time.deltaTime);
     }
-    #endregion
 
     private void OnDrawGizmos()
     {

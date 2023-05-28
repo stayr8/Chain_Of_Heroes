@@ -44,14 +44,14 @@ public class BattleReady_FormationState : MonoBehaviour
 
     private void formationState()
     {
-        if (isUnlock)
-        {
-            BattleReady_UIManager.instance.Formation(gameObject);
-        }
-        else // !isUnlock
-        {
-            BattleReady_UIManager.instance.UnlockCharacter(gameObject);
-        }
+        //if (isUnlock)
+        //{
+        //    BattleReady_UIManager.instance.Formation(gameObject);
+        //}
+        //else // !isUnlock
+        //{
+        //    BattleReady_UIManager.instance.UnlockCharacter(gameObject);
+        //}
 
         switch (gameObject.name)
         {

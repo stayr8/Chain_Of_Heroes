@@ -826,7 +826,7 @@ GameObject:
   - component: {fileID: 69573013}
   - component: {fileID: 69573012}
   m_Layer: 5
-  m_Name: Background_Image
+  m_Name: '[Image] Info Background'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1467,7 +1467,7 @@ GameObject:
   - component: {fileID: 197817543}
   - component: {fileID: 197817542}
   m_Layer: 0
-  m_Name: _img
+  m_Name: '[Image] Tip'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1631,11 +1631,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapSize: {x: 28.8, y: 16.2}
   center: {x: 0, y: 0}
-  tr: {fileID: 7824754}
-  cameraMoveSpeed: 5
-  cameraPosition: {x: 0, y: 0, z: 0}
   moveSpeed: 10
-  zoomSpeed: 2500
+  cameraPosition: {x: 0, y: 0, z: 0}
+  freeMoveSpeed: 10
+  freeZoomSpeed: 2500
   minZoom: 3
   maxZoom: 7
   zoomSmoothness: 10
@@ -2041,10 +2040,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Menu: {fileID: 57543700}
   _Party: {fileID: 2044266704}
+  _Save: {fileID: 1407188616}
   _ChapterInfo: {fileID: 1499493468}
-  ChapterInfo_Background: {fileID: 69573010}
-  isMenuState: 0
-  isOnParty: 0
   tip: {fileID: 166002061}
 --- !u!1 &522684634
 GameObject:
@@ -2160,7 +2157,7 @@ GameObject:
   - component: {fileID: 545901825}
   - component: {fileID: 545901824}
   m_Layer: 5
-  m_Name: _tmp
+  m_Name: '[Txt]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4268,7 +4265,7 @@ GameObject:
   - component: {fileID: 1126806499}
   - component: {fileID: 1126806498}
   m_Layer: 5
-  m_Name: '[Image] Background'
+  m_Name: '[Image] Menu Background'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4479,7 +4476,7 @@ GameObject:
   - component: {fileID: 1190694928}
   - component: {fileID: 1190694929}
   m_Layer: 0
-  m_Name: _Background
+  m_Name: '[Image] Stage Background'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8203,7 +8200,7 @@ GameObject:
   - component: {fileID: 2111842451}
   - component: {fileID: 2111842450}
   m_Layer: 5
-  m_Name: '[Image] Background'
+  m_Name: '[Image] Next Background'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
