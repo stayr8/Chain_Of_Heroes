@@ -280,12 +280,12 @@ public class KnightAttackAction : BaseAction
 
     public override int GetActionPointsCost()
     {
-        return 1;
+        return 2;
     }
 
     public override string GetSingleActionPoint()
     {
-        return "1";
+        return "2";
     }
 
     public override int GetMaxSkillCount()

@@ -322,12 +322,16 @@ public class QueenAction : BaseAction
 
     public override string GetActionName()
     {
-        return "Äý";
+        return "°ø°Ý";
     }
 
     public override string GetSingleActionPoint()
     {
-        return "1";
+        return "2";
+    }
+    public override int GetActionPointsCost()
+    {
+        return 2;
     }
 
     public override int GetMaxSkillCount()

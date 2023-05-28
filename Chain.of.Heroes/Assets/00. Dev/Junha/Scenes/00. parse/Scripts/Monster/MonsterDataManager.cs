@@ -123,26 +123,33 @@ public class MonsterDataManager : MonoBehaviour
     {
         ScreenShake.Instance.Shake();
         CharacterDataManager _cdm = AttackActionSystem.Instance.GetCharacterDataManager();
-        if (_cdm.m_property == "물리" && m_property == "사격")
-        {
-            monsterBase.Calc_Attack(_cdm, this, 1.15f);
-        }
-        else if (_cdm.m_property == "사격" && m_property == "마법")
-        {
-            monsterBase.Calc_Attack(_cdm, this, 1.15f);
-        }
-        else if (_cdm.m_property == "마법" && m_property == "물리")
-        {
-            monsterBase.Calc_Attack(_cdm, this, 1.15f);
+        Unit player = AttackActionSystem.Instance.GetCharacterChainFind();
+
+        if (!player.GetChainfirst() || !player.GetChaintwo()) {
+            if (_cdm.m_property == "물리" && m_property == "사격")
+            {
+                monsterBase.Calc_Attack(_cdm, this, 1.15f);
+            }
+            else if (_cdm.m_property == "사격" && m_property == "마법")
+            {
+                monsterBase.Calc_Attack(_cdm, this, 1.15f);
+            }
+            else if (_cdm.m_property == "마법" && m_property == "물리")
+            {
+                monsterBase.Calc_Attack(_cdm, this, 1.15f);
+            }
+            else
+            {
+                monsterBase.Calc_Attack(_cdm, this, 1f);
+            }
         }
         else
         {
-            monsterBase.Calc_Attack(_cdm, this, 1f);
+            monsterBase.Calc_ChainAttack(_cdm, this);
         }
 
         if (m_hp <= 0)
         {
-            Unit player = AttackActionSystem.Instance.GetCharacterChainFind();
             player.SetKillCount();
 
             OnEnemyDie?.Invoke(this, EventArgs.Empty);

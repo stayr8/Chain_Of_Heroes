@@ -275,7 +275,12 @@ public class LongKnightAction : BaseAction
 
     public override string GetSingleActionPoint()
     {
-        return "1";
+        return "2";
+    }
+
+    public override int GetActionPointsCost()
+    {
+        return 2;
     }
 
     public override int GetMaxSkillCount()

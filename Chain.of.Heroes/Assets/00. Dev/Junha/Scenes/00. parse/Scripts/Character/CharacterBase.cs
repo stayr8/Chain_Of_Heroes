@@ -14,23 +14,22 @@ public class CharacterBase : MonoBehaviour
     {
         Debug.Log("플레이어 맞음");
         monsterAP = MDM.m_attackPower;
+        characterDP = CDM.m_defensePower;
 
         isCritical = Calc_Critical(MDM);
         if (!isCritical)
         {
             // 최종 데미지 결정
-            finalDamage = monsterAP * (100 / (100 + (characterDP / 10))) * propertyDamage;
+            finalDamage = monsterAP * (100 / (100 + (characterDP / 10))) * (1 - CDM.m_damagereductionRate) * propertyDamage;
         }
         else if (isCritical)
         {
             monsterCD = MDM.m_criticalDamage;
 
             // 크리티컬 최종 데미지 결정
-            finalDamage = (monsterAP * (100 / (100 + (characterDP / 10)))) * (1.3f + monsterCD) * propertyDamage;
+            finalDamage = (monsterAP * (100 / (100 + (characterDP / 10)))) * (1 - CDM.m_damagereductionRate) * (1.3f + monsterCD) * propertyDamage;
         }
 
-        // 몬스터 데미지 결정
-        finalDamage = monsterAP * (100 / (100 + (characterDP / 10))) * (1 - CDM.m_damagereductionRate);
 
         // 데미지 넣기
         CDM.m_hp -= (int)finalDamage;
