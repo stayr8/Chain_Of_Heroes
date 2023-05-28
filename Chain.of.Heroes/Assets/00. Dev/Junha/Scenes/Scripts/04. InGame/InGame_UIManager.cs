@@ -57,19 +57,15 @@ public class InGame_UIManager : MonoBehaviour
         switch (_state)
         {
             case STATE.INGAME: // 인게임 상태에서 ESC키 입력
-
                 OnMenu();
-
                 break;
 
             case STATE.MENU: // 메뉴 상태에서 ESC키 입력
-
                 OffMenu();
-
                 break;
 
             case STATE.PARTY_INFO: // 아군 정보 상태에서 ESC키 입력
-
+                OffPartyInfo();
                 break;
         }
     }
@@ -184,7 +180,6 @@ public class InGame_UIManager : MonoBehaviour
         }
     }
 
-    
     public void OnDoubleSpeed()
     {
         if(worldSpeed <= 1)

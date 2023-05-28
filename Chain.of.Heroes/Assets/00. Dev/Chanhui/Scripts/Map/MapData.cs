@@ -17,8 +17,6 @@ public class MapData : ScriptableObject
     [SerializeField] private int enemy_actionpoint;
     public int Enemy_ActionPoint { get { return enemy_actionpoint; } }
 
-    [SerializeField] private int map_id;
-    public int Map_Id { get { return map_id; } }
     [SerializeField] private int count_unlock;
     public int Count_Unlock { get { return count_unlock; } }
 

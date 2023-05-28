@@ -10,8 +10,6 @@ public class WorldMap_Cursor : CursorBase
 
     private GameObject nextButton;
 
-    public static bool isInitStart = false;
-
     private const float INIT_X = -860f;
     private const float INIT_Y = 200f;
     private GameObject currentSelected;
@@ -27,28 +25,22 @@ public class WorldMap_Cursor : CursorBase
         rt = GetComponent<RectTransform>();
 
         nextButton = GameObject.Find("[ Next Button ]").transform.GetChild(0).gameObject;
-
-        isInitStart = false;
     }
 
     private void OnEnable()
     {
-        if(!isInitStart)
-        {
-            Init(rt, INIT_X, INIT_Y, ref currentSelected, "_ChapterStart");
-            isInitStart = true;
-        }
+        Init(rt, INIT_X, INIT_Y, ref currentSelected, "_ChapterStart");
     }
 
     private void Update()
     {
         MenuFunction();
 
-        if(!isOnNextButton)
+        if (!isOnNextButton)
         {
             Movement(rt, ref currentSelected, MOVE_DISTANCE, MIN_POSITION_X, MAX_POSITION_X, MIN_POSITION_Y, MAX_POSITION_Y);
         }
-        else
+        else // isOnNextButton
         {
             Movement(ref currentSelected);
         }
