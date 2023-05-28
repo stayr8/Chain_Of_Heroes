@@ -6,8 +6,8 @@ using Cinemachine;
 
 public class CameraController : MonoBehaviour
 {
-    private const float MIN_FOLLOW_Y_OFFSET = 2f;
-    private const float MAX_FOLLOW_Y_OFFSET = 12f;
+    private const float MIN_FOLLOW_Y_OFFSET = 11f;
+    private const float MAX_FOLLOW_Y_OFFSET = 20f;
 
     [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
     [SerializeField] private CinemachineVirtualCamera cinemachineVirtualingCamera;
@@ -28,6 +28,7 @@ public class CameraController : MonoBehaviour
 
         UnitActionSystem.Instance.OnSelectedUnitChanged += UnitActionSystem_OnSelectedUnitChanged;
         ScenesSystem.Instance.OnScenesChange += ScenesSystem_OnScenesChange;
+        AttackActionSystem.OnActionStarted += AttackActionSystem_OnActionStarted;
     }
 
     private void Update()
@@ -79,6 +80,7 @@ public class CameraController : MonoBehaviour
     private void UnitActionSystem_OnSelectedUnitChanged(object sender, EventArgs empty)
     {
         mousepos = UnitActionSystem.Instance.GetSelecterdUnit().transform.position;
+        mousepos.y = transform.position.y;
     }
 
     private void ScenesSystem_OnScenesChange(object sender, EventArgs e)
@@ -88,6 +90,11 @@ public class CameraController : MonoBehaviour
         transform.position = new Vector3(4.9f, 0.5f, 2.3f);
     }
 
+    private void AttackActionSystem_OnActionStarted(object sender, EventArgs e)
+    {
+        TopViewVirtualingCamera.SetActive(false);
+    }
+
     // 카메라 이동
     private void HandleMovement()
     {
@@ -95,9 +102,17 @@ public class CameraController : MonoBehaviour
 
         float moveSpeed = 10f;
 
-        Vector3 moveVector = transform.forward * inputMoveDir.y + transform.right * inputMoveDir.x;
-        transform.position += moveVector * moveSpeed * Time.deltaTime;
+        // X-axis 범위 제한
+        float clampedX = Mathf.Clamp(transform.position.x + inputMoveDir.x * moveSpeed * Time.deltaTime, 0f, 60f);
+        float deltaX = clampedX - transform.position.x;
 
+        // Y-axis 범위 제한
+        float clampedY = Mathf.Clamp(transform.position.z + inputMoveDir.y * moveSpeed * Time.deltaTime, 0f, 60f);
+        float deltaY = clampedY - transform.position.z;
+
+        Vector3 moveVector = new Vector3(deltaX, 0f, deltaY);
+
+        transform.position += moveVector;
     }
 
     // 카메라 회전
@@ -114,13 +129,26 @@ public class CameraController : MonoBehaviour
     // 마우스 휠(줌)
     private void HandleZoom()
     {
-        float zoomIncreaseAmount = 1f;
-        targetFollowOffset.y += InputManager.Instance.GetCameraZoomAmount() * zoomIncreaseAmount;
+        float speed = 1.5f;
+        targetFollowOffset.y += InputManager.Instance.GetCameraZoomAmount() * speed;
 
         targetFollowOffset.y = Mathf.Clamp(targetFollowOffset.y, MIN_FOLLOW_Y_OFFSET, MAX_FOLLOW_Y_OFFSET);
 
         float zoomSpeed = 5f;
         cinemachineTransposer.m_FollowOffset = Vector3.Lerp(cinemachineTransposer.m_FollowOffset, targetFollowOffset, Time.deltaTime * zoomSpeed);
+
+
+        float inputMoveDir = InputManager.Instance.GetCameraZoomAmount();
+
+        float moveSpeed = 10f;
+
+        // Y-axis 범위 제한
+        float clampedY = Mathf.Clamp(transform.position.y + inputMoveDir * moveSpeed * Time.deltaTime, 1f, 3f);
+        float deltaY = clampedY - transform.position.y;
+
+        Vector3 moveVector = new Vector3(0f, deltaY, 0f);
+
+        transform.position += moveVector;
     }
 
     private void TopView()
@@ -131,15 +159,25 @@ public class CameraController : MonoBehaviour
             {
                 TopViewVirtualingCamera.SetActive(true);
                 Debug.Log("켜짐");
-                camerazoom = true;
+                StartCoroutine(TimeStart());
             }
             else
             {
                 TopViewVirtualingCamera.SetActive(false);
                 Debug.Log("꺼짐");
-                camerazoom = false;
+                StartCoroutine(TimeStart());
             }
         }
+    }
+
+    IEnumerator TimeStart()
+    {
+        yield return new WaitForSeconds(2f);
+
+        if (!camerazoom)
+            camerazoom = true;
+        else
+            camerazoom = false;
     }
 
     private void OnDestroy()

@@ -3876,7 +3876,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &210868553
 Transform:
   m_ObjectHideFlags: 0
@@ -12748,7 +12748,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 671234029}
-  m_LocalRotation: {x: 0.4045538, y: -0.00000003147096, z: 0.000000013921811, w: 0.91451424}
+  m_LocalRotation: {x: 0.4045538, y: 0.000000031470965, z: -0.000000013921814, w: 0.91451424}
   m_LocalPosition: {x: 0.18081789, y: 11.50001, z: -7.6287823}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -25808,6 +25808,12 @@ MonoBehaviour:
   turnSystem: {fileID: 452943061}
   ChanScene: {fileID: 388667717}
   JunScene: {fileID: 1031165841}
+  camSkybox: {fileID: 0}
+  _skyboxmaterial:
+  - {fileID: 2100000, guid: 9873fbde6fe03504a9da2612241c5d71, type: 2}
+  - {fileID: 2100000, guid: 9873fbde6fe03504a9da2612241c5d71, type: 2}
+  - {fileID: 2100000, guid: 42d82a4dd81f71f4bb534641cbb934f0, type: 2}
+  - {fileID: 2100000, guid: 93b728e0b006d684783b38f2502714ca, type: 2}
   isInGame: 0
 --- !u!1 &1244344343
 GameObject:

@@ -13,6 +13,9 @@ public class ScenesSystem : MonoBehaviour
 
     [SerializeField] private GameObject ChanScene;
     [SerializeField] private GameObject JunScene;
+    [SerializeField] private GameObject camSkybox;
+
+    [SerializeField] private Material[] _skyboxmaterial;
 
     [SerializeField] private bool isInGame;
 
@@ -29,7 +32,38 @@ public class ScenesSystem : MonoBehaviour
 
     private void Start()
     {
+        camSkybox = GameObject.Find("Main Camera");
+
         //MapManager.Instance.MapDataInitialize();
+        if (MapManager.Instance.stageNum == 0 || MapManager.Instance.stageNum == 1 || MapManager.Instance.stageNum == 2)
+        {
+            GameObject map = Resources.Load<GameObject>("Map/Region04");
+            Instantiate(map);
+
+            camSkybox.AddComponent<Skybox>().material = _skyboxmaterial[0];
+        }
+        else if (MapManager.Instance.stageNum == 3 || MapManager.Instance.stageNum == 4 || MapManager.Instance.stageNum == 5)
+        {
+            GameObject map = Resources.Load<GameObject>("Map/Region02");
+            Instantiate(map);
+
+            camSkybox.AddComponent<Skybox>().material = _skyboxmaterial[1];
+        }
+        else if (MapManager.Instance.stageNum == 6 || MapManager.Instance.stageNum == 7 )
+        {
+            GameObject map = Resources.Load<GameObject>("Map/Region03");
+            Instantiate(map);
+
+            camSkybox.AddComponent<Skybox>().material = _skyboxmaterial[2];
+        }
+        else if (MapManager.Instance.stageNum == 8 || MapManager.Instance.stageNum == 9)
+        {
+            GameObject map = Resources.Load<GameObject>("Map/Region04");
+            Instantiate(map);
+
+            camSkybox.AddComponent<Skybox>().material = _skyboxmaterial[3];
+        }
+
         UnitManager.Instance.UnitInitialize();
         turnSystem.Initialize();
 
