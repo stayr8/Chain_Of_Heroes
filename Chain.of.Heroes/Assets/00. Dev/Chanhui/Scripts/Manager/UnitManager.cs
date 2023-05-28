@@ -61,9 +61,13 @@ public class UnitManager : MonoBehaviour
         Character.Add(Resources.Load<GameObject>("Wizard"));
         Character.Add(Resources.Load<GameObject>("Valkyrie"));
 
+        Unit.OnAnyUnitSpawned += Unit_OnAnyUnitSpawned;
+        Unit.OnAnyUnitDead += Unit_OnAnyUnitDead;
+
         Binding Binded = BindingManager.Bind(TurnSystem.Property, "IsTurnEnd", (object value) =>
         {
             Invoke("UnitInit", 2f);
+            Debug.Log("Bind Entered");
         },false);
         Binds.Add(Binded);
  
@@ -82,10 +86,6 @@ public class UnitManager : MonoBehaviour
 
         //SpawnAllPlayer();
         SpawnAllEnemy();
-
-        Unit.OnAnyUnitSpawned += Unit_OnAnyUnitSpawned;
-        Unit.OnAnyUnitDead += Unit_OnAnyUnitDead;
- 
     }
 
 
@@ -105,7 +105,7 @@ public class UnitManager : MonoBehaviour
         else
         {
             friendlyUnitList.Add(unit);
-
+            Debug.Log(playerpos);
             if(!OnChangeFormation)
             {
                 unit.SetPosition(ChangeFormationSystem.Instance.GetCharacterMovePos()[playerpos]);
@@ -175,11 +175,22 @@ public class UnitManager : MonoBehaviour
 
     private void UnitInit()
     {
+        Debug.Log("Unit Init Entered");
+        /*
+        foreach(var unit in unitList)
+        {
+            unitList.Remove(unit);
+            friendlyUnitList.Remove(unit);
+            enemyUnitList.Remove(unit);
+
+            Destroy(unit.gameObject);
+        }*/
+        
         for (int i = unitList.Count; i > 0; i--)
         {
-            //Debug.Log(i);
+
             Unit unitToRemove = unitList[i - 1];
-            //Debug.Log(i);
+
             if (unitList.Contains(unitToRemove))
             {
                 unitList.Remove(unitToRemove);
@@ -239,17 +250,10 @@ public class UnitManager : MonoBehaviour
 
     public void OnDestroys()
     {
-        foreach (var bind in Binds)
-        {
-            BindingManager.Unbind(TurnSystem.Property, bind);
-        }
-
         playerpos = 0;
         enemypos = 0;
-
-        Unit.OnAnyUnitSpawned -= Unit_OnAnyUnitSpawned;
-        Unit.OnAnyUnitDead -= Unit_OnAnyUnitDead;
     }
+    
 
     private void OnDisable()
     {

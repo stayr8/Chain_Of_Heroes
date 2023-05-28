@@ -61,7 +61,11 @@ public class VictorySystemUI : MonoBehaviour
         
         if(_gameClear)
         {
-            LoadScene();
+            if (InputManager.Instance.IsMouseButtonDown())
+            {
+                
+                StartCoroutine(LoadScene());
+            }
         }
     }
 
@@ -197,12 +201,21 @@ public class VictorySystemUI : MonoBehaviour
         }
     }
 
-    private void LoadScene()
+    private void DestroyActionButton()
     {
-        if (InputManager.Instance.IsMouseButtonDown())
+        foreach (Transform buttonTransform in LevelupPlayersTransform)
         {
-            SceneManager.LoadScene("WorldMapScene");
+            Destroy(buttonTransform.gameObject);
         }
+
+    }
+
+    IEnumerator LoadScene()
+    {
+        yield return new WaitForSeconds(1f);
+        DestroyActionButton();
+        yield return new WaitForSeconds(0.1f);
+        SceneManager.LoadScene("WorldMapScene");
     }
 
 }
