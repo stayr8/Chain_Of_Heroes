@@ -1,27 +1,20 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+using System;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using TMPro;
-using ES3Types;
 
 public class InGame_UIManager : MonoBehaviour
 {
-    public event EventHandler OnCharacterInstance;
-
     #region instance화 :: Awake()함수 포함
     public static InGame_UIManager instance;
     private void Awake()
     {
-        if (instance != null)
-        {
-            Debug.LogError("There's more than one CharacterActionSystem! " + transform + " - " + instance);
-            Destroy(gameObject);
-            return;
-        }
         instance = this;
+
+        Set_ChapterNumName();
     }
     #endregion
 
@@ -32,10 +25,15 @@ public class InGame_UIManager : MonoBehaviour
     private enum STATE { INGAME, MENU, PARTY_INFO }
     private STATE state = STATE.INGAME;
 
+    [SerializeField, Header("[챕터 장] 텍스트")] private TMP_Text Txt_chapterNum;
+    [SerializeField, Header("[챕터명] 텍스트")] private TMP_Text Txt_chapterName;
+
+    public event EventHandler OnCharacterInstance;
+
     [SerializeField] private GameObject _fallUI;
 
-    [SerializeField] private TextMeshProUGUI actionPointsText;
-    [SerializeField] private TextMeshProUGUI turnPointsText;
+    [SerializeField] private TMP_Text actionPointsText;
+    [SerializeField] private TMP_Text turnPointsText;
 
     [SerializeField] private Image speed_Image;
 
@@ -64,7 +62,6 @@ public class InGame_UIManager : MonoBehaviour
         {
             if (InputManager.Instance.IsMouseButtonDown())
             {
-
                 StartCoroutine(LoadScene());
             }
         }
@@ -151,6 +148,7 @@ public class InGame_UIManager : MonoBehaviour
     }
     #endregion
 
+    #region [턴 종료]
     public void OnTurnfo()
     {
         if (!TurnSystem.Property.IsTurnEnd && (TurnSystem.Property.IsPlayerTurn && (TurnSystem.Property.ActionPoints > 0)))
@@ -170,7 +168,9 @@ public class InGame_UIManager : MonoBehaviour
 
         state = STATE.INGAME;
     }
+    #endregion
 
+    #region [포기]
     public void Onfallfo()
     {
         isinGameFall = true;
@@ -183,6 +183,15 @@ public class InGame_UIManager : MonoBehaviour
         OnGameStop();
 
         state = STATE.INGAME;
+    }
+    #endregion
+
+
+
+    private void Set_ChapterNumName()
+    {
+        Txt_chapterNum.text = "제 " + StageManager.instance.m_chapterNum.ToString() + "장";
+        Txt_chapterName.text = StageManager.instance.m_chapterName.ToString();
     }
 
     public bool GetIsinGameFall()

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SaveManager : MonoBehaviour
 {
+    #region instance ȭ
     public static SaveManager Instance = null;
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     public static void Initialize()
@@ -17,6 +18,7 @@ public class SaveManager : MonoBehaviour
             DontDestroyOnLoad(Entity.gameObject);
         }
     }
+    #endregion
 
     public void Save(SimpleJSON.JSONNode Node, string Key, int SlotIndex)
     {

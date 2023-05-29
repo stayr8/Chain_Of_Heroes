@@ -5,7 +5,6 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System;
-using Unity.VisualScripting;
 
 public class BattleReady_UIManager : MonoBehaviour
 {
@@ -17,6 +16,8 @@ public class BattleReady_UIManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+
+        Set_ChapterNumName();
     }
     #endregion
 
@@ -30,22 +31,6 @@ public class BattleReady_UIManager : MonoBehaviour
 
     private enum STATE { TALK, MENU, UNIT_FORMATION, CHANGE_FORMATION }
     private STATE state = STATE.TALK;
-
-    private bool isTalk = false;
-    private bool isMenuState = false;
-    private bool isOnFormation = false;
-    private bool isOnChange = false;
-    public bool GetBool(string _bool)
-    {
-        if (_bool == "isMenuState")
-        {
-            return isMenuState;
-        }
-        else
-        {
-            return false;
-        }
-    }
 
     [SerializeField] private bool ischange_formationCamera;
 
@@ -86,8 +71,8 @@ public class BattleReady_UIManager : MonoBehaviour
     [SerializeField] private TMP_Text skill_Name;
     [SerializeField] private TMP_Text skill_Content;
 
-    [SerializeField, Header("[챕터 장] 텍스트")] private TMP_Text Txt_chapterNum;
-    [SerializeField, Header("[챕터명] 텍스트")] private TMP_Text Txt_chapterName;
+    [SerializeField, Header("[챕터 장] 텍스트")] public TMP_Text Txt_chapterNum;
+    [SerializeField, Header("[챕터명] 텍스트")] public TMP_Text Txt_chapterName;
 
     [SerializeField, Header("[스킬 커서] 오브젝트")] private GameObject Skill_Cursor;
     [SerializeField, Header("[스킬 설명] 오브젝트")] private GameObject Skill_Detail;
@@ -95,14 +80,12 @@ public class BattleReady_UIManager : MonoBehaviour
     private void Start()
     {
         Max_Value = StageManager.instance.TotalUnlock;
-        Set_ChapterNumName();
 
         StartCoroutine(TalkStart());
     }
 
     private IEnumerator TalkStart()
     {
-        //_Menu.SetActive(false);
         TextBox = Instantiate(Resources.Load<GameObject>("TextBox")).GetComponent<Talk>();
 
         TextBox.Initialize(MapManager.Instance.stageNum);
@@ -110,7 +93,6 @@ public class BattleReady_UIManager : MonoBehaviour
 
         _Menu.SetActive(true);
 
-        isMenuState = true;
         state = STATE.MENU;
 
         Destroy(TextBox.gameObject);
@@ -197,7 +179,7 @@ public class BattleReady_UIManager : MonoBehaviour
     private void Update_Formation()
     {
         _Current.text = BattleReady_UnitFormationCursor.count.ToString();
-        _Max.text = "/ " + Max_Value; // 총 캐릭터 수가 9명임.
+        _Max.text = "/ " + Max_Value; // 총 캐릭터 수가 8명임.
     }
     #endregion
 

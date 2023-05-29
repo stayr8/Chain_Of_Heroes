@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class WorldMap_UIManager : MonoBehaviour
@@ -13,6 +14,7 @@ public class WorldMap_UIManager : MonoBehaviour
     [SerializeField] private GameObject _Party;
     [SerializeField] private GameObject _Save;
     [SerializeField] private GameObject _ChapterInfo;
+    private TMP_Text _ExpInfo;
 
     private enum STATE { INGAME, MENU, PARTY, SAVE }
     private STATE state = STATE.INGAME;
@@ -46,6 +48,7 @@ public class WorldMap_UIManager : MonoBehaviour
 
         chapterInfoRT = GameObject.Find("[Image] Info Background").GetComponent<RectTransform>();
         Obj_Tip = GameObject.Find("Main Camera").transform.GetChild(0).gameObject;
+        _ExpInfo = GameObject.Find("[Txt] Exp").GetComponent<TMP_Text>();
     }
 
     private void Start()
@@ -67,6 +70,8 @@ public class WorldMap_UIManager : MonoBehaviour
                 break;
 
             case STATE.MENU:
+                _ExpInfo.text = MapManager.Instance.mapData[MapManager.Instance.stageNum].Clear_Exp.ToString();
+
                 OffMenu();
                 break;
 
