@@ -643,6 +643,7 @@ MonoBehaviour:
   UnitName: "\uC544\uCE74\uBA54"
   IsLongdistance: 0
   isChainPossiblestate: 0
+  _killCount: 0
 --- !u!114 &1704985716213964383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -720,10 +721,13 @@ MonoBehaviour:
   m_class: 
   m_property: 
   m_resourcePath: 
+  m_char_resourcePath: 
   m_back_resourcePath: 
   m_maxhp: 0
   m_damagereductionRate: 0
   m_skilldamagecoefficient: 0
+  m_UnlockMapID: 0
+  NumForLvUp: 0
 --- !u!114 &1024481362807706275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -763,7 +767,7 @@ MonoBehaviour:
   obstaclesLayerMask:
     serializedVersion: 2
     m_Bits: 262144
-  maxRookDistance: 3
+  maxRookDistance: 2
 --- !u!114 &1888060841966501051
 MonoBehaviour:
   m_ObjectHideFlags: 0

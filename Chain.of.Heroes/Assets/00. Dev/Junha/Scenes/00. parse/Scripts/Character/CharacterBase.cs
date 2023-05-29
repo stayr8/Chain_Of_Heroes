@@ -12,7 +12,6 @@ public class CharacterBase : MonoBehaviour
 
     public void Calc_Attack(CharacterDataManager CDM, MonsterDataManager MDM, float propertyDamage) // 공격 공식
     {
-        Debug.Log("플레이어 맞음");
         monsterAP = MDM.m_attackPower;
         characterDP = CDM.m_defensePower;
 

@@ -27,7 +27,7 @@ public class RookAction : BaseAction
     }
 
     [SerializeField] private LayerMask obstaclesLayerMask;
-    [SerializeField] private int maxRookDistance = 3;
+    [SerializeField] private int maxRookDistance = 2;
 
     private State state;
     private float stateTimer;
@@ -183,6 +183,7 @@ public class RookAction : BaseAction
                 break;
             case State.SwingingRookBeforeHit:
                 OnRookSwordSlash?.Invoke(this, EventArgs.Empty);
+                Invoke("damage", 0.5f);
 
                 TimeAttack(1.0f);
                 state = State.SwingingRookAfterCamera;
@@ -217,10 +218,15 @@ public class RookAction : BaseAction
         }
     }
 
-    void TimeAttack(float StateTime)
+    private void TimeAttack(float StateTime)
     {
         float afterHitStateTime = StateTime;
         stateTimer = afterHitStateTime;
+    }
+
+    private void damage()
+    {
+        targetUnit.GetMonsterDataManager().Damage();
     }
 
     public override List<GridPosition> GetValidActionGridPositionList()

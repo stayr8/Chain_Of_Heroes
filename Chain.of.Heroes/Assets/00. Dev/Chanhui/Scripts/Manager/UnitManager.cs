@@ -105,7 +105,7 @@ public class UnitManager : MonoBehaviour
         else
         {
             friendlyUnitList.Add(unit);
-            Debug.Log(playerpos);
+            //Debug.Log(playerpos);
             if(!OnChangeFormation)
             {
                 unit.SetPosition(ChangeFormationSystem.Instance.GetCharacterMovePos()[playerpos]);
