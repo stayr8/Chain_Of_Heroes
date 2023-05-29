@@ -13,8 +13,7 @@ public class WaitTransition : MonoBehaviour
 
     private IEnumerator goToScene()
     {
-        yield return new WaitForSeconds(32.5f);
-        //SceneManager.LoadScene("TalkTest");
+        yield return new WaitForSeconds(31f);
         LoadingSceneController.LoadScene("WorldMapScene");
     }
 }

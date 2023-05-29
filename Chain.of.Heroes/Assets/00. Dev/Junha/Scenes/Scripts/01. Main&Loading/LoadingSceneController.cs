@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class LoadingSceneController : MonoBehaviour
 {
     private static string nextScene;
 
-    [SerializeField] private Image progressBar;
+    private void Start()
+    {
+        StartCoroutine(LoadSceneProcess());
+    }
 
     public static void LoadScene(string sceneName)
     {
@@ -17,34 +19,24 @@ public class LoadingSceneController : MonoBehaviour
         SceneManager.LoadScene("Loading");
     }
 
-    private void Start()
-    {
-        StartCoroutine(LoadSceneProcess());
-    }
-
     private IEnumerator LoadSceneProcess()
     {
-        AsyncOperation op = SceneManager.LoadSceneAsync(nextScene);
-        op.allowSceneActivation = false;
+        yield return new WaitForSeconds(1); // 임의로 1초 대기
 
-        float time = 0f;
-        while (!op.isDone)
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(nextScene);
+        asyncLoad.allowSceneActivation = false;
+
+        while (!asyncLoad.isDone)
         {
             yield return null;
 
-            if (op.progress < 0.9f)
+            float progress = Mathf.Clamp01(asyncLoad.progress / 0.9f);
+            Debug.Log("로딩 진행도: " + (progress * 100) + "%");
+
+            if(progress >= 1f)
             {
-                progressBar.fillAmount = op.progress;
-            }
-            else
-            {
-                time += Time.unscaledDeltaTime;
-                progressBar.fillAmount = Mathf.Lerp(0.9f, 1f, time);
-                if(progressBar.fillAmount >= 1f)
-                {
-                    op.allowSceneActivation = true;
-                    yield break;
-                }
+                asyncLoad.allowSceneActivation = true;
+                yield break;
             }
         }
     }
