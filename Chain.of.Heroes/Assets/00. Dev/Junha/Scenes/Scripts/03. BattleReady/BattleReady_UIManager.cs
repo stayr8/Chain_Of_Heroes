@@ -87,10 +87,13 @@ public class BattleReady_UIManager : MonoBehaviour
     private IEnumerator TalkStart()
     {
         TextBox = Instantiate(Resources.Load<GameObject>("TextBox")).GetComponent<Talk>();
-
         TextBox.Initialize(MapManager.Instance.stageNum);
+        SoundManager.instance.Sound_TalkBGM();
         yield return new WaitUntil(() => TextBox.IsEnd);
 
+        SoundManager.instance.Sound_ForceStop();
+        SoundManager.instance.Sound_StageBGM();
+        //SoundManager.instance.Sound_BossStageBGM(); 보스 스테이지 전용 브금
         _Menu.SetActive(true);
 
         state = STATE.MENU;

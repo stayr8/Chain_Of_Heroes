@@ -17,7 +17,7 @@ public class Dragon
 	public float Monster_Speed;
 	public int Monster_MovementRange;
 	public int Monster_AttackRange;
-	public string Monster_Rank;
+	public int Monster_Rank;
 	public string UnitProperty;
 
 	public bool Parse(SimpleJSON.JSONNode Data)
@@ -34,7 +34,7 @@ public class Dragon
 		Monster_Speed = Data["Monster_Speed"].AsFloat;
 		Monster_MovementRange = Data["Monster_MovementRange"].AsInt;
 		Monster_AttackRange = Data["Monster_AttackRange"].AsInt;
-		Monster_Rank = Data["Monster_Rank"];
+		Monster_Rank = Data["Monster_Rank"].AsInt;
 		UnitProperty = Data["UnitProperty"];
 		return true;
 	}

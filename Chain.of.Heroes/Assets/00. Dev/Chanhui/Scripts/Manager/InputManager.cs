@@ -29,7 +29,7 @@ public class InputManager : MonoBehaviour
 
     public bool GetOnCamera()
     {
-        return Input.GetKey(KeyCode.R);
+        return Input.GetKeyDown(KeyCode.R);
     }
     
     public Vector2 GetCameraMoveVector()
