@@ -21,7 +21,6 @@ public class DragonReadyAction : BaseAction
         SwingingDragon_AfterHit,
     }
 
-    [SerializeField] private LayerMask obstaclesLayerMask;
     [SerializeField] private int maxReadyDistance = 1;
 
     private State state;
@@ -168,18 +167,6 @@ public class DragonReadyAction : BaseAction
 
                 if (!Pathfinding.Instance.IsWalkableGridPosition(testGridPosition))
                 {
-                    continue;
-                }
-
-                Vector3 unitWorldPosition = LevelGrid.Instance.GetWorldPosition(unitGridPosition);
-                Vector3 shootDir = (targetUnit.GetWorldPosition() - unitWorldPosition).normalized;
-
-                float unitShoulderHeight = 1.7f;
-                if (Physics.Raycast(unitWorldPosition + Vector3.up * unitShoulderHeight, shootDir,
-                    Vector3.Distance(unitWorldPosition, targetUnit.GetWorldPosition()),
-                    obstaclesLayerMask))
-                {
-                    // Blocked by an Obstacle
                     continue;
                 }
 

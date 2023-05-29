@@ -194,6 +194,10 @@ public class ChainAttackAction : BaseAction
                     {
                         StartCoroutine(AttackDamages());
                     }
+                    else if(unit.GetUnitName() == "아카네")
+                    {
+                        StartCoroutine(AttackDamages3());
+                    }
                     if (AttackActionSystem.Instance.GetTripleChain())
                     {
                         AttackActionSystem.Instance.SetTripleChainPosition();
@@ -206,6 +210,10 @@ public class ChainAttackAction : BaseAction
                     if (unit.GetUnitName() == "크리스")
                     {
                         StartCoroutine(AttackDamages2());
+                    }
+                    else if (unit.GetUnitName() == "아카네")
+                    {
+                        StartCoroutine(AttackDamages4());
                     }
                 }
 
@@ -290,6 +298,17 @@ public class ChainAttackAction : BaseAction
         yield return new WaitForSeconds(0.4f);
         targetUnit.GetMonsterDataManager().Damage();
         yield return new WaitForSeconds(0.3f);
+        targetUnit.GetMonsterDataManager().Damage();
+    }
+
+    IEnumerator AttackDamages3()
+    {
+        yield return new WaitForSeconds(0.3f);
+        targetUnit.GetMonsterDataManager().Damage();
+    }
+    IEnumerator AttackDamages4()
+    {
+        yield return new WaitForSeconds(0.4f);
         targetUnit.GetMonsterDataManager().Damage();
     }
 

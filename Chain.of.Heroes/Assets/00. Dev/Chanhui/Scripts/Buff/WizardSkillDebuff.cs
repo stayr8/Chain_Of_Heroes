@@ -6,7 +6,7 @@ public class WizardSkillDebuff : BaseBuff
 {
     private List<Binding> Binds = new List<Binding>();
 
-    int defense;
+    private float defense;
 
     private void Start()
     {
@@ -19,7 +19,7 @@ public class WizardSkillDebuff : BaseBuff
                     buffTurnCount--;
                     if (buffTurnCount <= 0)
                     {
-                        //_mdm.m_DefensePower = defense;
+                        _mdm.m_defensePower = defense;
                         ActionComplete();
                     }
                 }
@@ -28,6 +28,7 @@ public class WizardSkillDebuff : BaseBuff
         Binds.Add(Bind);
 
         buffTurnCount = 0;
+        defense = 0;
     }
 
     private void Update()
@@ -42,8 +43,8 @@ public class WizardSkillDebuff : BaseBuff
     {
         buffTurnCount = 2;
 
-        //defense = _mdm.m_DefensePower;
-        //_mdm.m_DefensePower -= _mdm.m_DefensePower * 0.1f;
+        defense = _mdm.m_defensePower;
+        _mdm.m_defensePower -= _mdm.m_defensePower * 0.1f;
 
         ActionStart();
     }

@@ -513,6 +513,7 @@ GameObject:
   - component: {fileID: 5665712486550008810}
   - component: {fileID: 3622615075190272887}
   - component: {fileID: 5798749009640988830}
+  - component: {fileID: 6596508590731296865}
   m_Layer: 16
   m_Name: Priest
   m_TagString: Player
@@ -597,6 +598,7 @@ MonoBehaviour:
   UnitName: "\uD504\uB9AC\uC2A4\uD2B8"
   IsLongdistance: 1
   isChainPossiblestate: 0
+  _killCount: 0
 --- !u!114 &523425581823623685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -621,6 +623,7 @@ MonoBehaviour:
   WzSkill_2_bulletProjectilePrefab: {fileID: 0}
   DragonbulletProjectilePrefab: {fileID: 0}
   DGSkill_2_bulletProjectilePrefab: {fileID: 0}
+  SPSkill_1_bulletProjectilePrefab: {fileID: 0}
 --- !u!114 &2431518821814102591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -674,10 +677,13 @@ MonoBehaviour:
   m_class: 
   m_property: 
   m_resourcePath: 
+  m_char_resourcePath: 
   m_back_resourcePath: 
   m_maxhp: 0
   m_damagereductionRate: 0
   m_skilldamagecoefficient: 0
+  m_UnlockMapID: 0
+  NumForLvUp: 0
 --- !u!114 &6228714327043162098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -714,9 +720,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e750ad8e9739ac4694de8e6db42d739, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstaclesLayerMask:
-    serializedVersion: 2
-    m_Bits: 262144
   maxBishopDistance: 2
 --- !u!114 &-8058097746937334391
 MonoBehaviour:
@@ -785,6 +788,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skill1_effect: {fileID: 9197206113158755842, guid: 007a549e4b4ab614790069285901ffe7, type: 3}
   skill1_effect_transform: {fileID: 2436716443099116938}
+--- !u!114 &6596508590731296865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9108872348708313369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f4f7392dc42adc44b83e5ac494a96fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2003859914626563003
 PrefabInstance:
   m_ObjectHideFlags: 0

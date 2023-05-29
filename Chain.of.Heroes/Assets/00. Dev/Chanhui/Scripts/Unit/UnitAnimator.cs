@@ -21,6 +21,7 @@ public class UnitAnimator : MonoBehaviour
     [SerializeField] private Transform WzSkill_2_bulletProjectilePrefab;
     [SerializeField] private Transform DragonbulletProjectilePrefab;
     [SerializeField] private Transform DGSkill_2_bulletProjectilePrefab;
+    [SerializeField] private Transform SPSkill_1_bulletProjectilePrefab;
 
     private void Awake()
     {
@@ -214,36 +215,34 @@ public class UnitAnimator : MonoBehaviour
             goblinLoadSkill1Action.OnGLSkill_1_StartMoving += MoveAction_OnStartMoving;
             goblinLoadSkill1Action.OnGLSkill_1_StopMoving += MoveAction_OnStopMoving;
             goblinLoadSkill1Action.OnGLSkill_1_Slash += Action_OnSkill_1;
-
         }
         if (TryGetComponent<SalamanderLoadSkill1Action>(out SalamanderLoadSkill1Action salamanderLoadSkill1Action))
         {
             salamanderLoadSkill1Action.OnSLSkill_1_StartMoving += MoveAction_OnStartMoving;
             salamanderLoadSkill1Action.OnSLSkill_1_StopMoving += MoveAction_OnStopMoving;
             salamanderLoadSkill1Action.OnSLSkill_1_Slash += Action_OnSkill_1;
-
         }
         if (TryGetComponent<RedStoneGolemSkill1Action>(out RedStoneGolemSkill1Action redStoneGolemSkill1Action))
         {
             redStoneGolemSkill1Action.OnRSGSkill_1_StartMoving += MoveAction_OnStartMoving;
             redStoneGolemSkill1Action.OnRSGSkill_1_StopMoving += MoveAction_OnStopMoving;
             redStoneGolemSkill1Action.OnRSGSkill_1_Slash += Action_OnSkill_1;
-
         }
         if (TryGetComponent<DragonReadyAction>(out DragonReadyAction dragonReadyAction))
         {
             dragonReadyAction.OnShoot += dragonshootAction_OnShoot;
-
         }
         if (TryGetComponent<DragonSkill1Action>(out DragonSkill1Action dragonSkill1Action))
         {
             dragonSkill1Action.OnDGSkill_1_Bress += Action_OnSkill_1;
-
         }
         if (TryGetComponent<DragonSkill2Action>(out DragonSkill2Action dragonSkill2Action))
         {
             dragonSkill2Action.OnShoot += DGSkill1_2_Action_OnShoot;
-
+        }
+        if (TryGetComponent<StripedCaveSpiderSkill1Action>(out StripedCaveSpiderSkill1Action stripedCaveSpiderSkill1Action))
+        {
+            stripedCaveSpiderSkill1Action.OnShoot += SPSkill_1_Action_OnShoot;
         }
 
         if (TryGetComponent<StunAction>(out StunAction stunAction))
@@ -571,6 +570,27 @@ public class UnitAnimator : MonoBehaviour
         Transform bulletProjectileTransform =
             Instantiate(DGSkill_2_bulletProjectilePrefab, MousePosition, Quaternion.identity);
         DragonMetao bulletProjectile = bulletProjectileTransform.GetComponent<DragonMetao>();
+
+        Vector3 targetUnitShootAtPosition = e;
+
+        targetUnitShootAtPosition.y = e.y;
+
+        bulletProjectile.Setup(targetUnitShootAtPosition);
+    }
+
+    private void SPSkill_1_Action_OnShoot(object sender, StripedCaveSpiderSkill1Action.OnShootEventArgs e)
+    {
+        animator.SetTrigger("IsSkill_1");
+
+        StartCoroutine(SPSkill_1_Shoot(e.targetUnit.GetWorldPosition()));
+    }
+
+    IEnumerator SPSkill_1_Shoot(Vector3 e)
+    {
+        yield return new WaitForSeconds(0.5f);
+        Transform bulletProjectileTransform =
+            Instantiate(SPSkill_1_bulletProjectilePrefab, shootPointTransform.position, Quaternion.identity);
+        SpiderDebuffBulletProjectile bulletProjectile = bulletProjectileTransform.GetComponent<SpiderDebuffBulletProjectile>();
 
         Vector3 targetUnitShootAtPosition = e;
 

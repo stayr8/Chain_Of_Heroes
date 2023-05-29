@@ -560,6 +560,7 @@ GameObject:
   - component: {fileID: 5998044038719003112}
   - component: {fileID: -3242751013431176123}
   - component: {fileID: 7692247596701879093}
+  - component: {fileID: 8847199275060152903}
   m_Layer: 16
   m_Name: SwordWoman
   m_TagString: Player
@@ -668,6 +669,7 @@ MonoBehaviour:
   WzSkill_2_bulletProjectilePrefab: {fileID: 0}
   DragonbulletProjectilePrefab: {fileID: 0}
   DGSkill_2_bulletProjectilePrefab: {fileID: 0}
+  SPSkill_1_bulletProjectilePrefab: {fileID: 0}
 --- !u!114 &3554671403889899109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -834,6 +836,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skill1_effect: {fileID: 9197206113158755842, guid: 007a549e4b4ab614790069285901ffe7, type: 3}
   skill1_effect_transform: {fileID: 3042390767902205441}
+--- !u!114 &8847199275060152903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7963473072988374339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f4f7392dc42adc44b83e5ac494a96fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8193418529294817411
 GameObject:
   m_ObjectHideFlags: 0
