@@ -15,9 +15,6 @@ public class SelectMenuBase : MonoBehaviour
         image = GetComponent<Image>();
     }
 
-    /// <summary>
-    /// use. InGame_SelectedMenu
-    /// </summary>
     protected virtual void Select(float m_x)
     {
         rt.anchoredPosition = new Vector2(m_x, rt.anchoredPosition.y);
@@ -31,9 +28,6 @@ public class SelectMenuBase : MonoBehaviour
         SetSize();
     }
 
-    /// <summary>
-    /// use. WorldMap_SelectedMenu
-    /// </summary>
     protected virtual void Select(GameObject _obj,
                             string m1, float m1_x,
                             string m2, float m2_x,
@@ -55,9 +49,6 @@ public class SelectMenuBase : MonoBehaviour
         SetSize();
     }
 
-    /// <summary>
-    /// use. BattleReady_SelectedMEnu
-    /// </summary>
     protected virtual void Select(GameObject _obj,
                                 string m1, float m1_x,
                                 string m2, float m2_x,
@@ -84,9 +75,6 @@ public class SelectMenuBase : MonoBehaviour
         SetSize();
     }
 
-    /// <summary>
-    /// use. nextButtonSelectedMenu
-    /// </summary>
     protected virtual void SetSize()
     {
         image.SetNativeSize();

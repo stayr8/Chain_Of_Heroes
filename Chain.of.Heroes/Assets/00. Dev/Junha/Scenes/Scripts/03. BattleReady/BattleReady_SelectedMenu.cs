@@ -6,16 +6,26 @@ using UnityEngine.EventSystems;
 
 public class BattleReady_SelectedMenu : SelectMenuBase, ISelectHandler, IDeselectHandler
 {
+    private void OnEnable()
+    {
+        if (gameObject.name == "_BattleStart")
+        {
+            Select(55f);
+        }
+    }
+
+    private void Update()
+    {
+        SetSize();
+    }
+
     private void OnDisable()
     {
-        if(BattleReady_UIManager.instance.GetBool("isMenuState"))
-        {
-            Select(gameObject,
-                "_BattleStart", -45f,
-                "_UnitFormation", -55f,
-                "_ChangeFormation", -65f,
-                "_Back", -75f);
-        }
+        Select(gameObject,
+            "_BattleStart", -45f,
+            "_UnitFormation", -55f,
+            "_ChangeFormation", -65f,
+            "_Back", -75f);
     }
 
     public void OnSelect(BaseEventData eventData)

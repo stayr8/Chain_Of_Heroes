@@ -32,21 +32,6 @@ public class InGame_UIManager : MonoBehaviour
     private enum STATE { INGAME, MENU, PARTY_INFO }
     private STATE state = STATE.INGAME;
 
-    private bool isInGame = false;
-    private bool isMenuState = false;
-    private bool isPartyInfo = false;
-    public bool GetBool(string _string)
-    {
-        if(_string == "isMenuState")
-        {
-            return isMenuState;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
     [SerializeField] private GameObject _fallUI;
 
     [SerializeField] private TextMeshProUGUI actionPointsText;
@@ -122,8 +107,6 @@ public class InGame_UIManager : MonoBehaviour
 
             OnCharacterInstance?.Invoke(this, EventArgs.Empty);
 
-            isMenuState = true;
-
             _Panel.SetActive(true);
             _Menu.SetActive(true);
 
@@ -138,8 +121,6 @@ public class InGame_UIManager : MonoBehaviour
         {
             SoundManager.instance.Sound_MenuUIOpen();
             
-            isMenuState = false;
-
             _Menu.SetActive(false);
             _Panel.SetActive(false);
 

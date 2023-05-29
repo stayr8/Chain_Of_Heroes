@@ -6,15 +6,25 @@ using UnityEngine.EventSystems;
 
 public class WorldMap_SelectedMenu : SelectMenuBase, ISelectHandler, IDeselectHandler
 {
+    private void OnEnable()
+    {
+        if (gameObject.name == "_ChapterStart")
+        {
+            Select(55f);
+        }
+    }
+
+    private void Update()
+    {
+        SetSize();
+    }
+
     private void OnDisable()
     {
-        if(WorldMap_UIManager.instance.GetBool("isMenuState"))
-        {
-            Select(gameObject,
-                "_ChapterStart", -45f,
-                "_Party", -55f,
-                "_Save", -65f);
-        }
+        Select(gameObject,
+            "_ChapterStart", -45f,
+            "_Party", -55f,
+            "_Save", -65f);
     }
 
     public void OnSelect(BaseEventData eventData)

@@ -74,7 +74,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 297
+  controlID: 192
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -125,7 +125,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 400
+  controlID: 198
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -227,7 +227,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 276
+  controlID: 191
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -365,7 +365,7 @@ MonoBehaviour:
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
-  m_LastVerticalScrollValue: 42
+  m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:
@@ -412,22 +412,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/00. Dev/Junha
+    - Assets/00. Dev/Junha/Scenes/Scripts/01. Main&Loading
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 96
   m_LastFolders:
-  - Assets/00. Dev/Junha/gameScenes/test/InGame
+  - Assets/00. Dev/Junha/Scenes/Scripts/01. Main&Loading
   m_LastFoldersGridSize: 96
   m_LastProjectPath: "C:\\Users\\junha\\OneDrive\\\uBB38\uC11C\\GitHub\\Chain_Of_Heroes\\Chain.of.Heroes"
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 19}
-    m_SelectedIDs: 90650000
-    m_LastClickedID: 26000
-    m_ExpandedIDs: 000000008c6500008e650000
+    scrollPos: {x: 0, y: 303}
+    m_SelectedIDs: a66d0e00
+    m_LastClickedID: 945574
+    m_ExpandedIDs: 00000000b8690000c0690000e0690000e2690000e6690000ea690000b66a0e00ea6a0e00
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -455,7 +455,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: ae610000
     m_LastClickedID: 25006
-    m_ExpandedIDs: 000000008c650000
+    m_ExpandedIDs: 00000000b8690000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -482,7 +482,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c623000000000000d6d10000d2880000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -863,7 +863,7 @@ MonoBehaviour:
   m_Position:
     m_Target: {x: -59.448627, y: 20.36288, z: 29.228125}
     speed: 2
-    m_Value: {x: -29.604488, y: 40.12767, z: 17.548822}
+    m_Value: {x: -59.448627, y: 20.36288, z: 29.228125}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -902,7 +902,7 @@ MonoBehaviour:
       m_Fade:
         m_Target: 0
         speed: 2
-        m_Value: 1
+        m_Value: 0
       m_Color: {r: 0.5, g: 0.5, b: 0.5, a: 0.4}
       m_Pivot: {x: 0, y: 0, z: 0}
       m_Size: {x: 1, y: 1}
@@ -912,11 +912,11 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: -0.039294414, y: 0.015584209, z: -0.0006120021, w: -0.9990995}
     speed: 2
-    m_Value: {x: 0, y: 0, z: 0, w: 1}
+    m_Value: {x: -0.039294668, y: 0.01558431, z: -0.00061200606, w: -0.99910593}
   m_Size:
     m_Target: 9.658589
     speed: 2
-    m_Value: 17.288277
+    m_Value: 9.658589
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -974,7 +974,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: b6a7feffee10ffffb015ffffcc3effffee7cffffc0ccffff12ecffffceefffff06faffff1afbffff52b4000078b500004cb60000a4f20000eaf2000042f3000038f4000036f50000de0c0100240d01007c0d0100720e0100700f0100a6120100d613010004140100361401009a140100f21c01001e2001002a2101002e2101004e2101007c210100ae21010012220100c63d0100583e0100063f0100fe3f010068400100
+      m_ExpandedIDs: b6a7feffee10ffffb015ffffcc3effffee7cffff9ac1ffff8ec4ffffc0ccffff12ecffffceefffff32f7ffff06faffff1afbffff52b4000078b500004cb60000a4f20000eaf2000042f3000038f4000036f50000de0c0100240d01007c0d0100720e0100700f0100a6120100d613010004140100361401009a140100f21c01001e2001002a2101002e2101004e2101007c210100ae21010012220100c63d0100583e0100063f0100fe3f010068400100286b0e00126c0e008c920e00be920e00aa960e00dc960e00
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
