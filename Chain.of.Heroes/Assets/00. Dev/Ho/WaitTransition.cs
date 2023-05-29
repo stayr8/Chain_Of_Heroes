@@ -14,6 +14,6 @@ public class WaitTransition : MonoBehaviour
     private IEnumerator goToScene()
     {
         yield return new WaitForSeconds(31f);
-        LoadingSceneController.LoadScene("WorldMapScene");
+        LoadingSceneController.LoadScene("WorldMapScene"); // 튜토리얼 씬으로 연결해야 함
     }
 }

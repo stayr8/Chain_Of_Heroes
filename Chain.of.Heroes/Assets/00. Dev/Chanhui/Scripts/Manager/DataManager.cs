@@ -1,15 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DataManager : MonoBehaviour
 {
+    #region instance ȭ
     public static DataManager Instance { get; private set; }
-
-
-
-    [SerializeField] private CharacterDataManager[] _initcdm;
-
     private void Awake()
     {
         if (Instance != null)
@@ -19,9 +16,11 @@ public class DataManager : MonoBehaviour
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(this.gameObject);
-
+        DontDestroyOnLoad(gameObject);
     }
+    #endregion
+
+    [SerializeField] private CharacterDataManager[] _initcdm;
 
     private void Start()
     {

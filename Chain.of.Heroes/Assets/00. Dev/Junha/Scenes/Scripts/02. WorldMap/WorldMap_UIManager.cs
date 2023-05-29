@@ -15,6 +15,7 @@ public class WorldMap_UIManager : MonoBehaviour
     [SerializeField] private GameObject _Save;
     [SerializeField] private GameObject _ChapterInfo;
     private TMP_Text _ExpInfo;
+    private RectTransform _Guide;
 
     private enum STATE { INGAME, MENU, PARTY, SAVE }
     private STATE state = STATE.INGAME;
@@ -49,11 +50,18 @@ public class WorldMap_UIManager : MonoBehaviour
         chapterInfoRT = GameObject.Find("[Image] Info Background").GetComponent<RectTransform>();
         Obj_Tip = GameObject.Find("Main Camera").transform.GetChild(0).gameObject;
         _ExpInfo = GameObject.Find("[Txt] Exp").GetComponent<TMP_Text>();
+        _Guide = GameObject.Find("[ Party ]").transform.GetChild(0)
+                                             .transform.GetChild(0)
+                                             .transform.GetChild(1)
+                                             .transform.GetChild(0)
+                                             .transform.GetChild(0).GetComponent<RectTransform>();
     }
 
     private void Start()
     {
         StageManager.instance.isInitStart = false;
+
+        SoundManager.instance.Sound_WorldMapBGM();
     }
 
     private void Update()
@@ -71,6 +79,7 @@ public class WorldMap_UIManager : MonoBehaviour
 
             case STATE.MENU:
                 _ExpInfo.text = MapManager.Instance.mapData[MapManager.Instance.stageNum].Clear_Exp.ToString();
+                _Guide.anchoredPosition = new Vector2(0f, _Guide.anchoredPosition.y);
 
                 OffMenu();
                 break;

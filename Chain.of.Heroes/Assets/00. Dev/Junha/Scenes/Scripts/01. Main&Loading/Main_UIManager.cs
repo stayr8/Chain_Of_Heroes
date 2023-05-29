@@ -1,18 +1,12 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using UnityEngine.SceneManagement;
+using System;
 using UnityEngine.UI;
 
 public class Main_UIManager : MonoBehaviour
 {
-    [SerializeField, Header("[메인 화면] 오브젝트")] private GameObject Main;
-    [SerializeField, Header("[메뉴 화면] 오브젝트")] private GameObject Menu;
-    [SerializeField, Header("[이어서 시작 화면] 오브젝트")] private GameObject Continue;
-    [SerializeField, Header("[크레딧 화면] 오브젝트")] private GameObject Credit;
-
     #region instance화 :: Awake()함수 포함
     public static Main_UIManager instance;
     private void Awake()
@@ -21,10 +15,18 @@ public class Main_UIManager : MonoBehaviour
     }
     #endregion
 
+    [SerializeField, Header("[메인 화면] 오브젝트")] private GameObject Main;
+    [SerializeField, Header("[메뉴 화면] 오브젝트")] private GameObject Menu;
+    [SerializeField, Header("[이어서 시작 화면] 오브젝트")] private GameObject Continue;
+    [SerializeField, Header("[크레딧 화면] 오브젝트")] private GameObject Credit;
+
+    private Image _image;
+
     private void Start()
     {
-        // 이미지 알파값 0으로 초기화
-        _image.color = new Color(_image.color.r, _image.color.g, _image.color.b, 0f);
+        _image = GameObject.Find("[Image] Fade").GetComponent<Image>();
+
+        SoundManager.instance.Sound_MainSceneBGM();
     }
 
     private void Update()
@@ -48,7 +50,6 @@ public class Main_UIManager : MonoBehaviour
 
                     state = STATE.MENU;
                 }
-
                 break;
 
             case STATE.MENU:
@@ -57,8 +58,6 @@ public class Main_UIManager : MonoBehaviour
 
             case STATE.START:
                 StartCoroutine(ImageFadeIn());
-                StartCoroutine(SoundFadeIn());
-
                 break;
 
             case STATE.CONTINUE:
@@ -69,7 +68,6 @@ public class Main_UIManager : MonoBehaviour
 
                     state = STATE.MENU;
                 }
-
                 break;
 
             case STATE.CREDIT:
@@ -80,7 +78,6 @@ public class Main_UIManager : MonoBehaviour
 
                     state = STATE.MENU;
                 }
-
                 break;
         }
     }
@@ -91,10 +88,10 @@ public class Main_UIManager : MonoBehaviour
         Menu.SetActive(false);
 
         SoundManager.instance.Sound_SelectMenu();
+        SoundManager.instance.Sound_FadeStop();
 
         state = STATE.START;
     }
-
     public void GameContinue() // 이어서 시작
     {
         Menu.SetActive(false);
@@ -104,7 +101,6 @@ public class Main_UIManager : MonoBehaviour
 
         state = STATE.CONTINUE;
     }
-
     public void GameCredit() // 크레딧
     {
         Menu.SetActive(false);
@@ -114,7 +110,6 @@ public class Main_UIManager : MonoBehaviour
 
         state = STATE.CREDIT;
     }
-
     public void GameExit() // 게임 종료
     {
 #if UNITY_EDITOR
@@ -129,13 +124,11 @@ public class Main_UIManager : MonoBehaviour
     }
     #endregion
 
-    [SerializeField, Header("===============\n\n[페이드 인/아웃] 이미지")] private Image _image;
-    [SerializeField, Header("[배경 음악] 오디오 소스")] private AudioSource _background;
+
+
     #region FadeIn / FadeOut
     private IEnumerator ImageFadeIn()
     {
-        _image.gameObject.SetActive(true);
-
         float time = 1f; // FadeIn에 걸리는 시간
         float alphaValue = 0f; // 알파값
 
@@ -147,7 +140,7 @@ public class Main_UIManager : MonoBehaviour
         }
 
         yield return new WaitForSeconds(1f);
-        LoadingSceneController.LoadScene("Cinematic"); // [05.02] 나중에 호진이가 튜토리얼 씬 만들어주면 해당 씬으로 가도록 하기.
+        LoadingSceneController.LoadScene("Cinematic");
     }
     private IEnumerator SoundFadeIn()
     {
@@ -159,11 +152,9 @@ public class Main_UIManager : MonoBehaviour
         {
             time += Time.deltaTime;
             float temp = Mathf.Lerp(currentVolume, targetVolume, time / value);
-            _background.volume = temp;
+            //_background.volume = temp;
             yield return null;
         }
-
-        _background.Stop(); // @@@@@ 이건 필요한 부분인가? @@@@@
     }
 
     private IEnumerator ImageFadeOut()
@@ -188,11 +179,9 @@ public class Main_UIManager : MonoBehaviour
         {
             time += Time.deltaTime;
             float temp = Mathf.Lerp(currentVolume, targetVolume, time / value);
-            _background.volume = temp;
+            //_background.volume = temp;
             yield return null;
         }
-
-        _background.Stop(); // @@@@@ 이건 필요한 부분인가? @@@@@
     }
     #endregion
 }

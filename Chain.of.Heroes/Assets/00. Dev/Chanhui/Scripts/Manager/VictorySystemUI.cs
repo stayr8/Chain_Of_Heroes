@@ -29,47 +29,58 @@ public class VictorySystemUI : MonoBehaviour
     {
         Binding Bind = BindingManager.Bind(TurnSystem.Property, "IsTurnEnd", (object value) =>
         {
-            if (!InGame_UIManager.instance.GetIsinGameFall())
+            if (TurnSystem.Property.IsTurnEnd)
             {
-                if (UnitManager.Instance.VictoryPlayer())
+                if (!InGame_UIManager.instance.GetIsinGameFall())
                 {
-                    _gameClear = true;
-                    Time.timeScale = 1.0f;
-                    SoundManager.instance.Sound_StageWin();
-                    MVPSelectPlayer();
-                    Set_NameAndImage();
-                    mvpPlayerText.text = "" + _mvpPlayer.GetCharacterDataManager().m_name.ToString();
-                    turnNumberText.text = "" + TurnSystem.Property.TurnNumber;
+                    if (UnitManager.Instance.VictoryPlayer())
+                    {
+                        _gameClear = true;
+                        Time.timeScale = 1.0f;
+                        SoundManager.instance.Sound_FadeStop();
+                        SoundManager.instance.Sound_StageWin();
+                        MVPSelectPlayer();
+                        Set_NameAndImage();
+                        mvpPlayerText.text = "" + _mvpPlayer.GetCharacterDataManager().m_name.ToString();
+                        turnNumberText.text = "" + TurnSystem.Property.TurnNumber;
 
-                    StageManager.instance.StageClear(MapManager.Instance.stageNum - 1);
+                        StageManager.instance.StageClear(MapManager.Instance.stageNum - 1);
 
-                    UnitManager.Instance.OnDestroys();
+                        UnitManager.Instance.OnDestroys();
+                    }
+                    else if (UnitManager.Instance.VictoryEnemy())
+                    {
+                        _gameFall = true;
+                        Time.timeScale = 1.0f;
+                        SoundManager.instance.Sound_FadeStop();
+                        SoundManager.instance.Sound_StageLose();
+                        MVPSelectPlayer();
+                        Set_NameAndImage();
+                        mvpPlayerText.text = "" + _mvpPlayer.GetCharacterDataManager().m_name.ToString();
+                        turnNumberText.text = "" + TurnSystem.Property.TurnNumber;
+
+
+
+                        UnitManager.Instance.OnDestroys();
+
+                    }
                 }
-                else if (UnitManager.Instance.VictoryEnemy())
+                else
                 {
-                    _gameFall = true;
                     Time.timeScale = 1.0f;
+                    SoundManager.instance.Sound_FadeStop();
                     SoundManager.instance.Sound_StageLose();
                     MVPSelectPlayer();
                     Set_NameAndImage();
                     mvpPlayerText.text = "" + _mvpPlayer.GetCharacterDataManager().m_name.ToString();
                     turnNumberText.text = "" + TurnSystem.Property.TurnNumber;
 
-                    UnitManager.Instance.OnDestroys();
-                   
-                }
-            }
-            else
-            {
-                Time.timeScale = 1.0f;
-                SoundManager.instance.Sound_StageLose();
-                MVPSelectPlayer();
-                Set_NameAndImage();
-                mvpPlayerText.text = "" + _mvpPlayer.GetCharacterDataManager().m_name.ToString();
-                turnNumberText.text = "" + TurnSystem.Property.TurnNumber;
+                    Debug.Log("Áü");
 
-                UnitManager.Instance.OnDestroys();
-                //_gameClear = true;
+
+                    UnitManager.Instance.OnDestroys();
+                    //_gameClear = true;
+                }
             }
 
         }, false);

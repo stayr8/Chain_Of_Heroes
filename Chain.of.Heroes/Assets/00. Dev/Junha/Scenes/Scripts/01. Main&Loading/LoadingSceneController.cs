@@ -12,6 +12,8 @@ public class LoadingSceneController : MonoBehaviour
 
     private void Start()
     {
+        SoundManager.instance.Sound_ForceStop();
+
         Txt_Loading = GameObject.Find("[Txt] Loading").GetComponent<TMP_Text>();
         
         StartCoroutine(LoadSceneProcess());
@@ -57,7 +59,8 @@ public class LoadingSceneController : MonoBehaviour
                              "LOADING",
                              "LOADING.",
                              "LOADING..",
-                             "LOADING..." }; // 로딩 텍스트의 각 단계를 정의합니다.
+                             "LOADING...",
+                             "LOADING...." }; // 로딩 텍스트의 각 단계를 정의합니다.
         int currentPhraseIndex = 0;
 
         while (true)
