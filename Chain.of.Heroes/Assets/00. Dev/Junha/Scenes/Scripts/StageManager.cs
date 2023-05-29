@@ -95,7 +95,7 @@ public class StageManager : MonoBehaviour
         {
             UpdateChapter();
 
-            Controller_Clear();
+            StageCheat();
         }
     }
 
@@ -209,39 +209,56 @@ public class StageManager : MonoBehaviour
     }
 
     #region 치트키 요소
-    public int clearNum = 0;
-    private void Controller_Clear() // 숫자 키를 통한 챕터 해금
+    public void StageClear(int _stageNumber)
     {
-        for (clearNum = 0; clearNum < 10; ++clearNum)
+        if (_stageNumber == 0 || info[_stageNumber - 1].isClear)
         {
-
-
-            if (clearNum == 0 || info[clearNum - 1].isClear)
-            {
-                info[clearNum].isClear = true;
-                ClearID = clearNum;
-                break;
-            }
-            else
-            {
-                return;
-            }
+            info[_stageNumber].isClear = true;
+            ClearID = _stageNumber + 1;
         }
     }
 
-    private void Cheat()
+    private void StageCheat()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1 + clearNum))
+        if(Input.GetKeyDown(KeyCode.Alpha1))
         {
-            if (clearNum == 0 || info[clearNum - 1].isClear)
-            {
-                info[clearNum].isClear = true;
-                ClearID = clearNum + 1;
-            }
-            else
-            {
-                return;
-            }
+            StageClear(0);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            StageClear(1);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            StageClear(2);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            StageClear(3);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            StageClear(4);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            StageClear(5);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            StageClear(6);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            StageClear(7);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            StageClear(8);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            StageClear(9);
         }
     }
     #endregion
