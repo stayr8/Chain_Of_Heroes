@@ -39,6 +39,8 @@ public class ScenesSystem : MonoBehaviour
         {
             GameObject map = Resources.Load<GameObject>("Map/Region01");
             Instantiate(map);
+            GameObject attack_map = Resources.Load<GameObject>("Map/Region01_Attack");
+            Instantiate(attack_map);
 
             camSkybox.AddComponent<Skybox>().material = _skyboxmaterial[0];
         }
@@ -46,6 +48,8 @@ public class ScenesSystem : MonoBehaviour
         {
             GameObject map = Resources.Load<GameObject>("Map/Region02");
             Instantiate(map);
+            GameObject attack_map = Resources.Load<GameObject>("Map/Region02_Attack");
+            Instantiate(attack_map);
 
             camSkybox.AddComponent<Skybox>().material = _skyboxmaterial[1];
         }
@@ -53,13 +57,17 @@ public class ScenesSystem : MonoBehaviour
         {
             GameObject map = Resources.Load<GameObject>("Map/Region03");
             Instantiate(map);
+            GameObject attack_map = Resources.Load<GameObject>("Map/Region03_Attack");
+            Instantiate(attack_map);
 
             camSkybox.AddComponent<Skybox>().material = _skyboxmaterial[2];
         }
-        else if (MapManager.Instance.stageNum == -1 || MapManager.Instance.stageNum == 9 || MapManager.Instance.stageNum == 10)
+        else if (MapManager.Instance.stageNum == 0 || MapManager.Instance.stageNum == 9 || MapManager.Instance.stageNum == 10)
         {
             GameObject map = Resources.Load<GameObject>("Map/Region04");
             Instantiate(map);
+            GameObject attack_map = Resources.Load<GameObject>("Map/Region04_Attack");
+            Instantiate(attack_map);
 
             camSkybox.AddComponent<Skybox>().material = _skyboxmaterial[3];
         }

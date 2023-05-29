@@ -218,6 +218,32 @@ public class MonsterDataManager : MonoBehaviour
         }
     }
 
+    public void ChainDamage()
+    {
+        ScreenShake.Instance.Shake();
+        CharacterDataManager _cdm = AttackActionSystem.Instance.GetCharacterDataManager();
+
+        monsterBase.Calc_ChainAttack(_cdm, this);
+
+        if (m_hp <= 0)
+        {
+            Unit player = AttackActionSystem.Instance.GetCharacterChainFind();
+            player.SetKillCount();
+
+            OnEnemyDie?.Invoke(this, EventArgs.Empty);
+            monster.GetAnyUnitDead();
+
+            LevelGrid.Instance.RemoveUnitAtGridPosition(monster.GetGridPosition(), monster);
+            monster.MonsterGridPosition(monster.GetGridPosition(), false);
+            Destroy(gameObject, 4.0f);
+
+        }
+        else
+        {
+            OnEnemyDamage?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.transform.tag == "Melee")
