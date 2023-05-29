@@ -92,7 +92,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8218204736594854035}
-  - component: {fileID: 8218204736610210867}
   m_Layer: 0
   m_Name: TFF_Flower_Patch_02A
   m_TagString: Untagged
@@ -117,29 +116,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!205 &8218204736610210867
-LODGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8218204736594959539}
-  serializedVersion: 2
-  m_LocalReferencePoint: {x: -0.004467249, y: 0.45209154, z: -0.02075243}
-  m_Size: 1.131485
-  m_FadeMode: 1
-  m_AnimateCrossFading: 0
-  m_LastLODIsBillboard: 0
-  m_LODs:
-  - screenRelativeHeight: 0.35138118
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 8218204736592953971}
-  - screenRelativeHeight: 0.04517927
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 8218204736592953969}
-  m_Enabled: 1
 --- !u!1 &8218204736594959543
 GameObject:
   m_ObjectHideFlags: 0

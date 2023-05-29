@@ -258,7 +258,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5386681439893192499}
-  - component: {fileID: 5386681439879900051}
   m_Layer: 0
   m_Name: TFF_Grass_Patch_01A
   m_TagString: Untagged
@@ -285,37 +284,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!205 &5386681439879900051
-LODGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5386681439892955923}
-  serializedVersion: 2
-  m_LocalReferencePoint: {x: 0.069016755, y: 0.25162184, z: -0.0029432178}
-  m_Size: 1.915409
-  m_FadeMode: 1
-  m_AnimateCrossFading: 0
-  m_LastLODIsBillboard: 0
-  m_LODs:
-  - screenRelativeHeight: 0.60110813
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 7926031885590932024}
-  - screenRelativeHeight: 0.29760554
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 13910374518697841}
-  - screenRelativeHeight: 0.1453167
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 4063103414038616506}
-  - screenRelativeHeight: 0.0432608
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 1414009625774255285}
-  m_Enabled: 0
 --- !u!1 &7397621893800062094
 GameObject:
   m_ObjectHideFlags: 0
