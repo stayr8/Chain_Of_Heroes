@@ -77,11 +77,15 @@ public class BattleReady_UIManager : MonoBehaviour
     [SerializeField, Header("[스킬 커서] 오브젝트")] private GameObject Skill_Cursor;
     [SerializeField, Header("[스킬 설명] 오브젝트")] private GameObject Skill_Detail;
 
+    private bool _sceneback;
+
     private void Start()
     {
         Max_Value = StageManager.instance.TotalUnlock;
 
         StartCoroutine(TalkStart());
+
+        _sceneback = false;
     }
 
     private IEnumerator TalkStart()
@@ -532,5 +536,14 @@ public class BattleReady_UIManager : MonoBehaviour
     public bool GetChange_FormationCamera()
     {
         return ischange_formationCamera;
+    }
+
+    public bool GetSceneback()
+    {
+        return _sceneback;
+    }
+    public void SetSceneback(bool _sceneback)
+    {
+        this._sceneback = _sceneback;
     }
 }
