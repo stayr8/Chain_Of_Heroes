@@ -183,7 +183,7 @@ public class RookAction : BaseAction
                 break;
             case State.SwingingRookBeforeHit:
                 OnRookSwordSlash?.Invoke(this, EventArgs.Empty);
-                Invoke("damage", 0.5f);
+                Invoke("damage", 0.3f);
 
                 TimeAttack(1.0f);
                 state = State.SwingingRookAfterCamera;

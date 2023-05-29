@@ -289,27 +289,27 @@ public class ChainAttackAction : BaseAction
     IEnumerator AttackDamages()
     {
         yield return new WaitForSeconds(0.3f);
-        targetUnit.GetMonsterDataManager().Damage();
+        targetUnit.GetMonsterDataManager().ChainDamage();
         yield return new WaitForSeconds(0.3f);
-        targetUnit.GetMonsterDataManager().Damage();
+        targetUnit.GetMonsterDataManager().ChainDamage();
     }
     IEnumerator AttackDamages2()
     {
         yield return new WaitForSeconds(0.4f);
-        targetUnit.GetMonsterDataManager().Damage();
+        targetUnit.GetMonsterDataManager().ChainDamage();
         yield return new WaitForSeconds(0.3f);
-        targetUnit.GetMonsterDataManager().Damage();
+        targetUnit.GetMonsterDataManager().ChainDamage();
     }
 
     IEnumerator AttackDamages3()
     {
         yield return new WaitForSeconds(0.3f);
-        targetUnit.GetMonsterDataManager().Damage();
+        targetUnit.GetMonsterDataManager().ChainDamage();
     }
     IEnumerator AttackDamages4()
     {
         yield return new WaitForSeconds(0.4f);
-        targetUnit.GetMonsterDataManager().Damage();
+        targetUnit.GetMonsterDataManager().ChainDamage();
     }
 
     public override List<GridPosition> GetValidActionGridPositionList()
