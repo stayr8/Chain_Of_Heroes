@@ -96,6 +96,7 @@ public class BattleReady_Cursor : CursorBase
                     else if (isBack)
                     {
                         LoadingSceneController.LoadScene("WorldMapScene");
+                        BattleReady_UIManager.instance.SetSceneback(true);
                         TurnSystem.Property.IsTurnEnd = true;
                     }
                     break;

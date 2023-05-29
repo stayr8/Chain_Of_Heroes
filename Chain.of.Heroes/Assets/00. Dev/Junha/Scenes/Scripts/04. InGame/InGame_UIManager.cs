@@ -98,7 +98,7 @@ public class InGame_UIManager : MonoBehaviour
     #region [메뉴 선택]
     private void OnMenu()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (ScenesSystem.Instance.GetIsInGame() && Input.GetKeyDown(KeyCode.Escape))
         {
             SoundManager.instance.Sound_MenuUIOpen();
 

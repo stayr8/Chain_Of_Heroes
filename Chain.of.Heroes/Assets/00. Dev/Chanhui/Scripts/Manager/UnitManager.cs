@@ -61,8 +61,16 @@ public class UnitManager : MonoBehaviour
 
         Binding Binded = BindingManager.Bind(TurnSystem.Property, "IsTurnEnd", (object value) =>
         {
-            Invoke("UnitInit", 2f);
-            Debug.Log("Bind Entered");
+            if(BattleReady_UIManager.instance.GetSceneback() && TurnSystem.Property.IsTurnEnd)
+            {
+                UnitInit();
+                BattleReady_UIManager.instance.SetSceneback(false);
+            }
+            else if (TurnSystem.Property.IsTurnEnd)
+            {
+                Invoke("UnitInit", 2f);
+                Debug.Log("Bind Entered");
+            }
         },false);
         Binds.Add(Binded);
  
@@ -172,15 +180,7 @@ public class UnitManager : MonoBehaviour
     private void UnitInit()
     {
         Debug.Log("Unit Init Entered");
-        /*
-        foreach(var unit in unitList)
-        {
-            unitList.Remove(unit);
-            friendlyUnitList.Remove(unit);
-            enemyUnitList.Remove(unit);
-
-            Destroy(unit.gameObject);
-        }*/
+        
         
         for (int i = unitList.Count; i > 0; i--)
         {
