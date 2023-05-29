@@ -33,7 +33,6 @@ public class UnitSelectedVisual : MonoBehaviour
         OffVisual();
     }
 
-
     private void UpdateVisual()
     {
         if (UnitActionSystem.Instance.GetSelecterdUnit() == unit)

@@ -35,6 +35,7 @@ public class UnitActionSystemUI : MonoBehaviour
         UnitActionSystem.Instance.OnSelectedActionChanged += UnitActionSystem_OnSelectedActionChanged;
         UnitActionSystem.Instance.OnActionStarted += UnitActionSystem_OnActionStarted;
         Unit.OnAnyActionPointsChanged += Unit_OnAnyActionPointsChanged;
+        InGame_UIManager.instance.OnCharacterInstance += InGame_UIManager_OnCharacterInstance;
 
         UpdateActionPoints();
 
@@ -140,6 +141,12 @@ public class UnitActionSystemUI : MonoBehaviour
         UpdateActionPoints();
     }
 
+    private void InGame_UIManager_OnCharacterInstance(object sender, EventArgs e)
+    {
+        DestroyActionButton();
+    }
+
+
     #region 유닛 편성: 캐릭터 정보 갱신
     [Header("[캐릭터 정보] 텍스트")]
     [SerializeField] private TextMeshProUGUI character_Name;
@@ -244,5 +251,6 @@ public class UnitActionSystemUI : MonoBehaviour
         UnitActionSystem.Instance.OnSelectedActionChanged -= UnitActionSystem_OnSelectedActionChanged;
         UnitActionSystem.Instance.OnActionStarted -= UnitActionSystem_OnActionStarted;
         Unit.OnAnyActionPointsChanged -= Unit_OnAnyActionPointsChanged;
+        InGame_UIManager.instance.OnCharacterInstance -= InGame_UIManager_OnCharacterInstance;
     }
 }

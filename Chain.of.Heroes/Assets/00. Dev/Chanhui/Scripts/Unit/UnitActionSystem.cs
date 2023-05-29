@@ -67,6 +67,14 @@ public class UnitActionSystem : MonoBehaviour
             return;
         }
 
+        if (selectedUnit != null)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                OutSelectedUnit(selectedUnit);
+            }
+        }
+
         if (TryHandleUnitSelection())
         { 
             return; 
@@ -165,6 +173,7 @@ public class UnitActionSystem : MonoBehaviour
 
     public void OutSelectedUnit(Unit unit)
     {
+        Debug.Log("Ä³¸¯ÅÍ ²¨Áü");
         //selectedUnit = unit;
         DoubleSelectedUnit = true;
         characterHill = false;
@@ -251,5 +260,10 @@ public class UnitActionSystem : MonoBehaviour
     public void SetCharacterHill(bool characterHill)
     {
         this.characterHill = characterHill;
+    }
+
+    private void OnDisable()
+    {
+
     }
 }
