@@ -6,6 +6,18 @@ using UnityEngine.EventSystems;
 
 public class BattleReady_SelectedMenu : SelectMenuBase, ISelectHandler, IDeselectHandler
 {
+    private void OnDisable()
+    {
+        if(BattleReady_UIManager.instance.GetBool("isMenuState"))
+        {
+            Select(gameObject,
+                "_BattleStart", -45f,
+                "_UnitFormation", -55f,
+                "_ChangeFormation", -65f,
+                "_Back", -75f);
+        }
+    }
+
     public void OnSelect(BaseEventData eventData)
     {
         Select(gameObject,

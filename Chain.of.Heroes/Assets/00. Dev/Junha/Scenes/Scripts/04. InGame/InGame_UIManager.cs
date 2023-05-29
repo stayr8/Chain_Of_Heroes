@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using ES3Types;
 
 public class InGame_UIManager : MonoBehaviour
 {
@@ -19,6 +20,25 @@ public class InGame_UIManager : MonoBehaviour
     [SerializeField] private GameObject _Panel;
     [SerializeField] private GameObject _Menu;
     [SerializeField] private GameObject _PartyInfo;
+
+    private enum STATE { INGAME, MENU, PARTY_INFO }
+    private STATE state = STATE.INGAME;
+
+    private bool isInGame = false;
+    private bool isMenuState = false;
+    private bool isPartyInfo = false;
+    public bool GetBool(string _string)
+    {
+        if(_string == "isMenuState")
+        {
+            return isMenuState;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     [SerializeField] private GameObject _fallUI;
 
     [SerializeField] private TextMeshProUGUI actionPointsText;
@@ -50,17 +70,17 @@ public class InGame_UIManager : MonoBehaviour
         UI_STATE();
     }
 
-    private enum STATE { INGAME, MENU, PARTY_INFO }
-    private STATE _state = STATE.INGAME;
     private void UI_STATE()
     {
-        switch (_state)
+        switch (state)
         {
             case STATE.INGAME: // 인게임 상태에서 ESC키 입력
                 OnMenu();
                 break;
 
             case STATE.MENU: // 메뉴 상태에서 ESC키 입력
+                UpdateActionPoints();
+
                 OffMenu();
                 break;
 
@@ -75,24 +95,32 @@ public class InGame_UIManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            InGame_Cursor.isInitStart = false;
+            SoundManager.instance.Sound_MenuUIOpen();
+
+            isMenuState = true;
+
             _Panel.SetActive(true);
             _Menu.SetActive(true);
-            UpdateActionPoints();
+
             OnGameStop();
 
-            _state = STATE.MENU;
+            state = STATE.MENU;
         }
     }
     private void OffMenu()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            SoundManager.instance.Sound_MenuUIOpen();
+            
+            isMenuState = false;
+
             _Menu.SetActive(false);
             _Panel.SetActive(false);
+
             OnGameStop();
 
-            _state = STATE.INGAME;
+            state = STATE.INGAME;
         }
     }
     #endregion
@@ -103,7 +131,7 @@ public class InGame_UIManager : MonoBehaviour
         _PartyInfo.SetActive(true);
         _Menu.SetActive(false);
 
-        _state = STATE.PARTY_INFO;
+        state = STATE.PARTY_INFO;
     }
     private void OffPartyInfo()
     {
@@ -112,18 +140,13 @@ public class InGame_UIManager : MonoBehaviour
             _PartyInfo.SetActive(false);
             _Menu.SetActive(true);
 
-            _state = STATE.MENU;
+            state = STATE.MENU;
         }
     }
     #endregion
 
     public void OnTurnfo()
     {
-        _state = STATE.INGAME;
-
-        _Menu.SetActive(false);
-        _Panel.SetActive(false);
-        OnGameStop();
         if (!TurnSystem.Property.IsTurnEnd && (TurnSystem.Property.IsPlayerTurn && (TurnSystem.Property.ActionPoints > 0)))
         {
             if (!AttackActionSystem.Instance.GetIsChainAtk_1() && !AttackActionSystem.Instance.GetIsChainAtk_2())
@@ -133,18 +156,27 @@ public class InGame_UIManager : MonoBehaviour
                 TurnSystem.Property.IsPlayerTurn = false;
             }
         }
+
+        _Menu.SetActive(false);
+        _Panel.SetActive(false);
+
+        OnGameStop();
+
+        state = STATE.INGAME;
     }
 
     public void Onfallfo()
     {
-        _state = STATE.INGAME;
-
         isinGameFall = true;
         TurnSystem.Property.IsTurnEnd = true;
+
         _Menu.SetActive(false);
         _Panel.SetActive(false);
         _fallUI.SetActive(true);
+
         OnGameStop();
+
+        state = STATE.INGAME;
     }
 
     public bool GetIsinGameFall()

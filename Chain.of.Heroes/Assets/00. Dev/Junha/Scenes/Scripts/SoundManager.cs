@@ -28,9 +28,9 @@ public class SoundManager : MonoBehaviour
     }
 
     #region [월드맵 메뉴 열림/닫힘] 사운드
-    public void Sound_WorldMapUIOpen()
+    public void Sound_MenuUIOpen()
     {
-        _SelectMenu = Resources.Load<AudioClip>("AudioSource/WorldMapUIOpen");
+        _SelectMenu = Resources.Load<AudioClip>("AudioSource/MenuUIOpen");
 
         _thisObject.PlayOneShot(_SelectMenu);
     }

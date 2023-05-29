@@ -3,20 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using TMPro;
-using UnityEngine.SceneManagement;
 
 public class BattleReady_Cursor : CursorBase
 {
     private RectTransform rt;
-
     private GameObject nextButton;
     private TMP_Text Txt_nextButton;
-
-    //private bool isInitStart = false;
+    private GameObject currentSelected;
 
     private const float INIT_X = -860f;
     private const float INIT_Y = 200f;
-    private GameObject currentSelected;
 
     private const float MOVE_DISTANCE = 100f;
     private const float MAX_POSITION_X = -860f; private const float MAX_POSITION_Y = 200f;
@@ -32,11 +28,9 @@ public class BattleReady_Cursor : CursorBase
         nextButton = GameObject.Find("[ Next Button ]").transform.GetChild(0).gameObject;
         Txt_nextButton = nextButton.transform.GetChild(1).
                                     transform.GetChild(0).GetComponent<TMP_Text>();
-
-        //isInitStart = false;
     }
 
-    private void Start()
+    private void OnEnable()
     {
         Init(rt, INIT_X, INIT_Y, ref currentSelected, "_BattleStart");
     }
@@ -101,7 +95,7 @@ public class BattleReady_Cursor : CursorBase
                     }
                     else if (isBack)
                     {
-                        SceneManager.LoadScene("WorldMapScene");
+                        LoadingSceneController.LoadScene("WorldMapScene");
                     }
                     break;
 

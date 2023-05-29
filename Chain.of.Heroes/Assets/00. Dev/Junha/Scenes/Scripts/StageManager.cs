@@ -209,22 +209,38 @@ public class StageManager : MonoBehaviour
     }
 
     #region 치트키 요소
+    public int clearNum = 0;
     private void Controller_Clear() // 숫자 키를 통한 챕터 해금
     {
-        for (int i = 0; i < 10; ++i)
+        for (clearNum = 0; clearNum < 10; ++clearNum)
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1 + i))
+
+
+            if (clearNum == 0 || info[clearNum - 1].isClear)
             {
-                if (i == 0 || info[i - 1].isClear)
-                {
-                    info[i].isClear = true;
-                    ClearID = i + 1;
-                    break;
-                }
-                else
-                {
-                    return;
-                }
+                info[clearNum].isClear = true;
+                ClearID = clearNum;
+                break;
+            }
+            else
+            {
+                return;
+            }
+        }
+    }
+
+    private void Cheat()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1 + clearNum))
+        {
+            if (clearNum == 0 || info[clearNum - 1].isClear)
+            {
+                info[clearNum].isClear = true;
+                ClearID = clearNum + 1;
+            }
+            else
+            {
+                return;
             }
         }
     }

@@ -1988,6 +1988,7 @@ MonoBehaviour:
   m_class: 
   m_property: 
   m_resourcePath: 
+  m_char_resourcePath: 
   m_back_resourcePath: 
   m_maxhp: 0
   m_damagereductionRate: 0
@@ -2042,7 +2043,6 @@ MonoBehaviour:
   _Party: {fileID: 2044266704}
   _Save: {fileID: 1407188616}
   _ChapterInfo: {fileID: 1499493468}
-  Obj_Tip: {fileID: 0}
 --- !u!1 &522684634
 GameObject:
   m_ObjectHideFlags: 0
@@ -2948,6 +2948,7 @@ MonoBehaviour:
   m_class: 
   m_property: 
   m_resourcePath: 
+  m_char_resourcePath: 
   m_back_resourcePath: 
   m_maxhp: 0
   m_damagereductionRate: 0
@@ -3824,6 +3825,7 @@ MonoBehaviour:
   m_class: 
   m_property: 
   m_resourcePath: 
+  m_char_resourcePath: 
   m_back_resourcePath: 
   m_maxhp: 0
   m_damagereductionRate: 0
@@ -4079,6 +4081,7 @@ MonoBehaviour:
   m_class: 
   m_property: 
   m_resourcePath: 
+  m_char_resourcePath: 
   m_back_resourcePath: 
   m_maxhp: 0
   m_damagereductionRate: 0
@@ -4791,7 +4794,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 2007657507}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 0
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -4811,7 +4814,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 1342539688}
 --- !u!114 &1342539691
 MonoBehaviour:
@@ -5409,6 +5412,7 @@ MonoBehaviour:
   m_class: 
   m_property: 
   m_resourcePath: 
+  m_char_resourcePath: 
   m_back_resourcePath: 
   m_maxhp: 0
   m_damagereductionRate: 0
@@ -5707,6 +5711,7 @@ MonoBehaviour:
   m_class: 
   m_property: 
   m_resourcePath: 
+  m_char_resourcePath: 
   m_back_resourcePath: 
   m_maxhp: 0
   m_damagereductionRate: 0
@@ -6762,6 +6767,7 @@ MonoBehaviour:
   m_class: 
   m_property: 
   m_resourcePath: 
+  m_char_resourcePath: 
   m_back_resourcePath: 
   m_maxhp: 0
   m_damagereductionRate: 0
@@ -7535,7 +7541,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 2105260681}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 0
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -7555,7 +7561,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 2007657505}
 --- !u!114 &2007657508
 MonoBehaviour:
@@ -7797,6 +7803,7 @@ MonoBehaviour:
   m_class: 
   m_property: 
   m_resourcePath: 
+  m_char_resourcePath: 
   m_back_resourcePath: 
   m_maxhp: 0
   m_damagereductionRate: 0
@@ -8154,7 +8161,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 1342539690}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 0
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -8174,7 +8181,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 2105260679}
 --- !u!114 &2105260682
 MonoBehaviour:

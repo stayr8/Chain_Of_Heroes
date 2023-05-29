@@ -6,11 +6,13 @@ public class WorldMap_UIManager : MonoBehaviour
 {
     public static WorldMap_UIManager instance;
 
+    private RectTransform chapterInfoRT;
+    private GameObject Obj_Tip;
+
     [SerializeField] private GameObject _Menu;
     [SerializeField] private GameObject _Party;
     [SerializeField] private GameObject _Save;
     [SerializeField] private GameObject _ChapterInfo;
-    private RectTransform chapterInfoRT;
 
     private enum STATE { INGAME, MENU, PARTY, SAVE }
     private STATE state = STATE.INGAME;
@@ -20,7 +22,7 @@ public class WorldMap_UIManager : MonoBehaviour
     private bool isOnSave = false;
     public bool GetBool(string _bool)
     {
-        if(_bool == "isMenuState")
+        if (_bool == "isMenuState")
         {
             return isMenuState;
         }
@@ -38,12 +40,10 @@ public class WorldMap_UIManager : MonoBehaviour
         }
     }
 
-    [SerializeField, Header("[프리 카메라 팁] 게임오브젝트")] private GameObject Obj_Tip;
-
     private void Awake()
     {
         instance = this;
-        
+
         chapterInfoRT = GameObject.Find("[Image] Info Background").GetComponent<RectTransform>();
         Obj_Tip = GameObject.Find("Main Camera").transform.GetChild(0).gameObject;
     }
@@ -85,7 +85,7 @@ public class WorldMap_UIManager : MonoBehaviour
     {
         if (!WorldMap_PlayerController.isMoving && (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Return)))
         {
-            SoundManager.instance.Sound_WorldMapUIOpen();
+            SoundManager.instance.Sound_MenuUIOpen();
 
             isMenuState = true;
 
@@ -101,7 +101,7 @@ public class WorldMap_UIManager : MonoBehaviour
     {
         if (!WorldMap_Cursor.isOnNextButton && (Input.GetKeyDown(KeyCode.Escape)))
         {
-            SoundManager.instance.Sound_WorldMapUIOpen();
+            SoundManager.instance.Sound_MenuUIOpen();
 
             isMenuState = false;
 
@@ -160,7 +160,7 @@ public class WorldMap_UIManager : MonoBehaviour
     }
     private void OffSave()
     {
-        if(Input.GetKey(KeyCode.Escape))
+        if (Input.GetKey(KeyCode.Escape))
         {
             SoundManager.instance.Sound_SelectMenu();
 

@@ -6,6 +6,11 @@ using UnityEngine.EventSystems;
 
 public class nextButtonSelectedMenu : SelectMenuBase, ISelectHandler, IDeselectHandler
 {
+    private void OnDisable()
+    {
+        SetSize();
+    }
+
     public void OnSelect(BaseEventData eventData)
     {
         SetSize();
