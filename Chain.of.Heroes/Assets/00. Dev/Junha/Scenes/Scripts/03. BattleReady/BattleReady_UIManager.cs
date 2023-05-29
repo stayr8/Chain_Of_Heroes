@@ -5,6 +5,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System;
+using Unity.VisualScripting;
 
 public class BattleReady_UIManager : MonoBehaviour
 {
@@ -27,12 +28,28 @@ public class BattleReady_UIManager : MonoBehaviour
     [SerializeField] private GameObject _UnitFormation;
     [SerializeField] private GameObject _ChangeFormation;
 
+    private enum STATE { TALK, MENU, UNIT_FORMATION, CHANGE_FORMATION }
+    private STATE state = STATE.TALK;
+
+    private bool isTalk = false;
+    private bool isMenuState = false;
+    private bool isOnFormation = false;
+    private bool isOnChange = false;
+    public bool GetBool(string _bool)
+    {
+        if (_bool == "isMenuState")
+        {
+            return isMenuState;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     [SerializeField] private bool ischange_formationCamera;
 
     public event EventHandler OnCharacterChangeFormation;
-
-    private enum STATE { MENU, UNIT_FORMATION, CHANGE_FORMATION }
-    private STATE state = STATE.MENU;
 
     [SerializeField, Header("ÇöÀç Æí¼º À¯´Ö ¼ö")] private TMP_Text _Current; // "n"
     [SerializeField, Header("ÃÑ Á¶¿ìÇÑ À¯´Ö ¼ö")] private TMP_Text _Max; // "/ n"
@@ -85,13 +102,16 @@ public class BattleReady_UIManager : MonoBehaviour
 
     private IEnumerator TalkStart()
     {
-        _Menu.SetActive(false);
+        //_Menu.SetActive(false);
         TextBox = Instantiate(Resources.Load<GameObject>("TextBox")).GetComponent<Talk>();
 
         TextBox.Initialize(MapManager.Instance.stageNum);
         yield return new WaitUntil(() => TextBox.IsEnd);
 
         _Menu.SetActive(true);
+
+        isMenuState = true;
+        state = STATE.MENU;
 
         Destroy(TextBox.gameObject);
     }
@@ -105,10 +125,10 @@ public class BattleReady_UIManager : MonoBehaviour
     {
         switch (state)
         {
+            case STATE.TALK:
+                break;
+
             case STATE.MENU:
-
-
-
                 break;
 
             case STATE.UNIT_FORMATION:
@@ -149,6 +169,7 @@ public class BattleReady_UIManager : MonoBehaviour
     {
         _Menu.SetActive(false);
         _ChangeFormation.SetActive(true);
+
         OnCharacterChangeFormation?.Invoke(this, EventArgs.Empty);
 
         state = STATE.CHANGE_FORMATION;

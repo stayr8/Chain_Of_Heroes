@@ -7,12 +7,11 @@ using UnityEngine.SceneManagement;
 public class WorldMap_Cursor : CursorBase
 {
     private RectTransform rt;
-
     private GameObject nextButton;
+    private GameObject currentSelected;
 
     private const float INIT_X = -860f;
     private const float INIT_Y = 200f;
-    private GameObject currentSelected;
 
     private const float MOVE_DISTANCE = 100f;
     private const float MAX_POSITION_X = -860f; private const float MAX_POSITION_Y = 200f;
@@ -23,7 +22,6 @@ public class WorldMap_Cursor : CursorBase
     private void Awake()
     {
         rt = GetComponent<RectTransform>();
-
         nextButton = GameObject.Find("[ Next Button ]").transform.GetChild(0).gameObject;
     }
 
@@ -73,7 +71,8 @@ public class WorldMap_Cursor : CursorBase
                     break;
 
                 case "_Yes":
-                    SceneManager.LoadScene("Ch_01");
+                    isOnNextButton = false;
+                    LoadingSceneController.LoadScene("Ch_01");
                     break;
 
                 case "_No":

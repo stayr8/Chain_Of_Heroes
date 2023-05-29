@@ -5,22 +5,18 @@ using UnityEngine;
 public class InGame_Cursor : CursorBase
 {
     private RectTransform rt;
-    public static GameObject currentSelected;
+    private GameObject currentSelected;
+
+    private const float INIT_X = -920f; private const float INIT_Y = 100f;
 
     private void Awake()
     {
         rt = GetComponent<RectTransform>();
     }
 
-    public static bool isInitStart = false;
-    private const float INIT_X = -920f; private const float INIT_Y = 100f;
     private void OnEnable()
     {
-        if (!isInitStart)
-        {
-            Init(rt, INIT_X, INIT_Y, ref currentSelected, "_Info");
-            isInitStart = true;
-        }
+        Init(rt, INIT_X, INIT_Y, ref currentSelected, "_Info");
     }
 
     private const float MOVE_DISTANCE = 100f;
@@ -31,11 +27,6 @@ public class InGame_Cursor : CursorBase
         MenuFunction();
 
         Movement(rt, ref currentSelected, MOVE_DISTANCE, MIN_POSITION_Y, MAX_POSITION_Y);
-    }
-
-    private void LateUpdate()
-    {
-        rt.Rotate(150f * Time.deltaTime, 0f, 0f);
     }
 
     private void MenuFunction()
@@ -59,11 +50,6 @@ public class InGame_Cursor : CursorBase
                     break;
             }
         }
-    }
-
-    public static GameObject GetCurrentSelected()
-    {
-        return currentSelected;
     }
 
     private void Reset()
