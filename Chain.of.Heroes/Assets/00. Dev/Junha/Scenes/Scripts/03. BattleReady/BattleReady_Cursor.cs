@@ -85,7 +85,7 @@ public class BattleReady_Cursor : CursorBase
                     break;
 
                 case "_Yes":
-                    if (isBattleStart)
+                    if (isBattleStart && BattleReady_UnitFormationCursor.count > 0)
                     {
                         ScenesSystem.Instance.ScenesChange();
                         UnitManager.Instance.SpawnAllPlayer();
@@ -96,6 +96,7 @@ public class BattleReady_Cursor : CursorBase
                     else if (isBack)
                     {
                         LoadingSceneController.LoadScene("WorldMapScene");
+                        TurnSystem.Property.IsTurnEnd = true;
                     }
                     break;
 

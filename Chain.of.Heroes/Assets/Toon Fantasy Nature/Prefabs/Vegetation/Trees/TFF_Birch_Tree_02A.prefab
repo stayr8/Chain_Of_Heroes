@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7398156219902357113}
   - component: {fileID: 7398156219901554265}
   - component: {fileID: 7398156219900587161}
-  - component: {fileID: 3181524711366856215}
   - component: {fileID: 4559714142314007740}
   m_Layer: 0
   m_Name: TFF_Birch_Tree_02A
@@ -88,20 +87,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &3181524711366856215
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7398156219902849625}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: d9cfd624df7f68d40968fd1ce326a59d, type: 3}
 --- !u!205 &4559714142314007740
 LODGroup:
   m_ObjectHideFlags: 0
