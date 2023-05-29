@@ -385,6 +385,7 @@ GameObject:
   - component: {fileID: -8077675777750156433}
   - component: {fileID: 980143029882267657}
   - component: {fileID: 8815204463872245549}
+  - component: {fileID: 5442472733777292399}
   m_Layer: 16
   m_Name: Guardian
   m_TagString: Player
@@ -470,6 +471,7 @@ MonoBehaviour:
   UnitName: "\uD50C\uB77C\uD2F4"
   IsLongdistance: 0
   isChainPossiblestate: 0
+  _killCount: 0
 --- !u!114 &2663218170832813530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -494,6 +496,7 @@ MonoBehaviour:
   WzSkill_2_bulletProjectilePrefab: {fileID: 0}
   DragonbulletProjectilePrefab: {fileID: 0}
   DGSkill_2_bulletProjectilePrefab: {fileID: 0}
+  SPSkill_1_bulletProjectilePrefab: {fileID: 0}
 --- !u!114 &146454294639285728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -547,10 +550,13 @@ MonoBehaviour:
   m_class: 
   m_property: 
   m_resourcePath: 
+  m_char_resourcePath: 
   m_back_resourcePath: 
   m_maxhp: 0
   m_damagereductionRate: 0
   m_skilldamagecoefficient: 0
+  m_UnlockMapID: 0
+  NumForLvUp: 0
 --- !u!114 &8486722018696413229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -662,6 +668,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skill1_effect: {fileID: 9197206113158755842, guid: 007a549e4b4ab614790069285901ffe7, type: 3}
   skill1_effect_transform: {fileID: 6415742258664692458}
+--- !u!114 &5442472733777292399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6764130903679231686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f4f7392dc42adc44b83e5ac494a96fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7431582752401372534
 GameObject:
   m_ObjectHideFlags: 0

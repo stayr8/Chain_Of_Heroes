@@ -251,8 +251,8 @@ public partial class TurnSystem : MonoBehaviour
         turnNumberText.text = "" + TurnSystem.Property.TurnNumber;
     }
 
-
-    private void OnDisable()
+    
+    private void OnDestroy()
     {
         foreach (var bind in Binds)
         {

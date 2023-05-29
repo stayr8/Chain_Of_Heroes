@@ -35,15 +35,16 @@ public class UnitBuffSystemUI : MonoBehaviour
 
         foreach (BaseBuff baseBuff in selectedUnit.GetBaseBuffArray())
         {
-            if(baseBuff == selectedUnit.GetBuff<KnightSkillBuff>() && baseBuff.GetBuffTurnCount() == 0)
+            if((baseBuff == selectedUnit.GetBuff<KnightSkillBuff>() && baseBuff.GetBuffTurnCount() == 0) ||
+                (baseBuff == selectedUnit.GetBuff<SpiderSkillDebuff>() && baseBuff.GetBuffTurnCount() == 0) ||
+                (baseBuff == selectedUnit.GetBuff<WizardSkillDebuff>() && baseBuff.GetBuffTurnCount() == 0))
             {
                 continue;
             }
 
             Transform buffButtonTransform = Instantiate(CharacterBuffImagePrefab, CharacterBuffContainerTransform);
             CharacterBuffUI buffButtonUI = buffButtonTransform.GetComponent<CharacterBuffUI>();
-            buffButtonUI.Set_NameAndImage(selectedUnit.GetCharacterDataManager());
-            buffButtonUI.SetBaseAction(baseBuff);
+            buffButtonUI.Set_NameAndImage(baseBuff, selectedUnit);
 
             characterBuffUIList.Add(buffButtonUI);
         }
@@ -67,10 +68,14 @@ public class UnitBuffSystemUI : MonoBehaviour
 
         foreach (BaseBuff baseBuff in selectedUnit.GetBaseBuffArray())
         {
+            if (baseBuff == selectedUnit.GetBuff<WizardSkillDebuff>() && baseBuff.GetBuffTurnCount() == 0)
+            {
+                continue;
+            }
+
             Transform buffButtonTransform = Instantiate(EnemyBuffImagePrefab, EnemyBuffContainerTransform);
             EnemyBuffUI buffUI = buffButtonTransform.GetComponent<EnemyBuffUI>();
-            //buffButtonUI.Set_NameAndImage(selectedUnit.GetCharacterDataManager());
-            buffUI.SetBaseAction(baseBuff);
+            buffUI.Set_NameAndImage(baseBuff, selectedUnit);
 
             enemyBuffUIList.Add(buffUI);
         }
