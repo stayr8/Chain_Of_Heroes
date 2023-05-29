@@ -35,11 +35,6 @@ public class UnitManager : MonoBehaviour
     public int enemypos;
     private bool OnChangeFormation;
 
-    private void Awake()
-    {
-        
-    }
-
     private void Start()
     {
         playerpos = 0;
@@ -98,6 +93,7 @@ public class UnitManager : MonoBehaviour
         if(unit.IsEnemy())
         {
             enemyUnitList.Add(unit);
+            unit.GetMonsterDataManager().StageLevel = mapData.Stage_MonsterLV;
             unit.SetPosition(mapData.EnemyXY[enemypos]);
             enemypos++;
 

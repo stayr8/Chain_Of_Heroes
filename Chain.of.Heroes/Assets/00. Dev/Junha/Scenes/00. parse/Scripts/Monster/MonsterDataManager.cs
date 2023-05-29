@@ -34,6 +34,8 @@ public class MonsterDataManager : MonoBehaviour
     public float m_maxhp; // [최대 체력]
     public float m_damagereductionRate; // [데미지 감소율]
     public float m_skilldamagecoefficient; // [스킬 데미지 계수]
+    public int StageLevel = 0; // [몬스터 진짜 레벨]
+    private int previousNumLv = 0;
 
     private GoblinWarrior[] _Array;
     private GoblinWarrior firstArray;
@@ -69,10 +71,18 @@ public class MonsterDataManager : MonoBehaviour
         m_maxhp = m_hp;
         m_damagereductionRate = 0;
         m_skilldamagecoefficient = 0;
+        previousNumLv = StageLevel;
     }
 
     private void Update()
     {
+        if ((previousNumLv != StageLevel))
+        {
+            initInfo();
+            m_maxhp = m_hp;
+            previousNumLv = StageLevel;
+        }
+
         if (m_hp <= 0)
         {
             m_hp = 0;
@@ -80,7 +90,7 @@ public class MonsterDataManager : MonoBehaviour
     }
 
 
-    private int StageLevel = 0;
+    
     private void initInfo()
     {
         firstArray = _Array[StageLevel];

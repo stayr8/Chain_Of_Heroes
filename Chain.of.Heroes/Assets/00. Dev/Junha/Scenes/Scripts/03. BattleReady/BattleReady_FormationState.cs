@@ -21,15 +21,15 @@ public class BattleReady_FormationState : MonoBehaviour
 
     private void Start()
     {
-        //CharacterDataManager[] _initCDM = DataManager.Instance.GetInitCDM();
-        //for (int i = 0; i < 8; i++)
-        //{
-        //    if (_initCDM[i].CharacterName == CharacterData.CharacterName)
-        //    {
-        //        CharacterData.NumForLvUp = _initCDM[i].NumForLvUp;
-        //        CharacterData.m_currentExp = _initCDM[i].m_currentExp;
-        //    }
-        //}
+        CharacterDataManager[] _initCDM = DataManager.Instance.GetInitCDM();
+        for (int i = 0; i < 8; i++)
+        {
+            if (_initCDM[i].CharacterName == CharacterData.CharacterName)
+            {
+                CharacterData.NumForLvUp = _initCDM[i].NumForLvUp;
+                CharacterData.m_currentExp = _initCDM[i].m_currentExp;
+            }
+        }
     }
 
     private void Update()

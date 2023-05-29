@@ -173,7 +173,6 @@ public class UnitActionSystem : MonoBehaviour
 
     public void OutSelectedUnit(Unit unit)
     {
-        Debug.Log("Ä³¸¯ÅÍ ²¨Áü");
         //selectedUnit = unit;
         DoubleSelectedUnit = true;
         characterHill = false;

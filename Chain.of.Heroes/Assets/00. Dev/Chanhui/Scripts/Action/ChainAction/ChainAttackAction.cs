@@ -194,7 +194,7 @@ public class ChainAttackAction : BaseAction
                     {
                         StartCoroutine(AttackDamages());
                     }
-                    else if(unit.GetUnitName() == "아카네")
+                    else if(unit.GetUnitName() == "아카메")
                     {
                         StartCoroutine(AttackDamages3());
                     }
@@ -211,7 +211,7 @@ public class ChainAttackAction : BaseAction
                     {
                         StartCoroutine(AttackDamages2());
                     }
-                    else if (unit.GetUnitName() == "아카네")
+                    else if (unit.GetUnitName() == "아카메")
                     {
                         StartCoroutine(AttackDamages4());
                     }
