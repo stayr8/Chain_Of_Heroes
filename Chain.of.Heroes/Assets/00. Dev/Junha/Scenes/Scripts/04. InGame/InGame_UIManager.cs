@@ -9,10 +9,18 @@ using ES3Types;
 
 public class InGame_UIManager : MonoBehaviour
 {
+    public event EventHandler OnCharacterInstance;
+
     #region instance화 :: Awake()함수 포함
     public static InGame_UIManager instance;
     private void Awake()
     {
+        if (instance != null)
+        {
+            Debug.LogError("There's more than one CharacterActionSystem! " + transform + " - " + instance);
+            Destroy(gameObject);
+            return;
+        }
         instance = this;
     }
     #endregion
@@ -67,7 +75,22 @@ public class InGame_UIManager : MonoBehaviour
 
     private void Update()
     {
+        if (isinGameFall)
+        {
+            if (InputManager.Instance.IsMouseButtonDown())
+            {
+
+                StartCoroutine(LoadScene());
+            }
+        }
+
         UI_STATE();
+    }
+
+    IEnumerator LoadScene()
+    {
+        yield return new WaitForSeconds(1f);
+        LoadingSceneController.LoadScene("WorldMapScene");
     }
 
     private void UI_STATE()
@@ -96,6 +119,8 @@ public class InGame_UIManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             SoundManager.instance.Sound_MenuUIOpen();
+
+            OnCharacterInstance?.Invoke(this, EventArgs.Empty);
 
             isMenuState = true;
 
@@ -173,7 +198,7 @@ public class InGame_UIManager : MonoBehaviour
         _Menu.SetActive(false);
         _Panel.SetActive(false);
         _fallUI.SetActive(true);
-
+        
         OnGameStop();
 
         state = STATE.INGAME;

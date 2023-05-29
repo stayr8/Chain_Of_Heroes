@@ -507,9 +507,6 @@ public class GridSystemVisual : MonoBehaviour
         UpdateGridVisual();
     }
 
-    
-
-
     private Material GetGridVisualTypeMaterial(GridVisualType gridVisualType)
     {
         foreach(GridVisualTypeMaterial gridVisualTypeMaterial in gridVisualTypeMaterialList)

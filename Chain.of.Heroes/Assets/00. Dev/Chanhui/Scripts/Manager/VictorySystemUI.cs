@@ -23,26 +23,43 @@ public class VictorySystemUI : MonoBehaviour
     private List<Binding> Binds = new List<Binding>();
 
     private bool _gameClear;
+    private bool _gameFall;
 
     private void Start()
     {
         Binding Bind = BindingManager.Bind(TurnSystem.Property, "IsTurnEnd", (object value) =>
         {
-            if (UnitManager.Instance.VictoryPlayer())
+            if (!InGame_UIManager.instance.GetIsinGameFall())
             {
-                Time.timeScale = 1.0f;
-                SoundManager.instance.Sound_StageWin();
-                MVPSelectPlayer();
-                Set_NameAndImage();
-                mvpPlayerText.text = "" + _mvpPlayer.GetCharacterDataManager().m_name.ToString();
-                turnNumberText.text = "" + TurnSystem.Property.TurnNumber;
+                if (UnitManager.Instance.VictoryPlayer())
+                {
+                    _gameClear = true;
+                    Time.timeScale = 1.0f;
+                    SoundManager.instance.Sound_StageWin();
+                    MVPSelectPlayer();
+                    Set_NameAndImage();
+                    mvpPlayerText.text = "" + _mvpPlayer.GetCharacterDataManager().m_name.ToString();
+                    turnNumberText.text = "" + TurnSystem.Property.TurnNumber;
 
-                StageManager.instance.clearNum++;
+                    StageManager.instance.clearNum++;
 
-                UnitManager.Instance.OnDestroys();
-                _gameClear = true;
+                    UnitManager.Instance.OnDestroys();
+                }
+                else if (UnitManager.Instance.VictoryEnemy())
+                {
+                    _gameFall = true;
+                    Time.timeScale = 1.0f;
+                    SoundManager.instance.Sound_StageLose();
+                    MVPSelectPlayer();
+                    Set_NameAndImage();
+                    mvpPlayerText.text = "" + _mvpPlayer.GetCharacterDataManager().m_name.ToString();
+                    turnNumberText.text = "" + TurnSystem.Property.TurnNumber;
+
+                    UnitManager.Instance.OnDestroys();
+                   
+                }
             }
-            else if (UnitManager.Instance.VictoryEnemy())
+            else
             {
                 Time.timeScale = 1.0f;
                 SoundManager.instance.Sound_StageLose();
@@ -52,19 +69,20 @@ public class VictorySystemUI : MonoBehaviour
                 turnNumberText.text = "" + TurnSystem.Property.TurnNumber;
 
                 UnitManager.Instance.OnDestroys();
-                _gameClear = true;
+                //_gameClear = true;
             }
 
         }, false);
         Binds.Add(Bind);
 
         _gameClear = false;
+        _gameFall = false;
     }
 
     private void Update()
     {
         
-        if(_gameClear)
+        if(_gameClear || _gameFall)
         {
             if (InputManager.Instance.IsMouseButtonDown())
             {
@@ -84,9 +102,13 @@ public class VictorySystemUI : MonoBehaviour
 
             if (playerUnit.Contains(unit))
             {
-                unit.GetCharacterDataManager().m_currentExp = MapManager.Instance.mapData[MapManager.Instance.stageNum].Clear_Exp;
-                DataUpdate(unit.GetCharacterDataManager());
-                Set_LevelUPImage(unit);
+                if (_gameClear)
+                {
+                    unit.GetCharacterDataManager().m_currentExp = MapManager.Instance.mapData[MapManager.Instance.stageNum].Clear_Exp;
+                    DataUpdate(unit.GetCharacterDataManager());
+                    Set_LevelUPImage(unit);
+
+                }
 
                 if (_mvpPlayer == null)
                 {
