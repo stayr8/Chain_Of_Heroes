@@ -156,8 +156,6 @@ public class LevelGrid : MonoBehaviour
                     continue;
                 }
 
-                Debug.Log("주변에 플레이어가 있어요");
-
                 Unit chainstateUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
                 chainstateUnit.SetIsChainPossibleState(true);
             }

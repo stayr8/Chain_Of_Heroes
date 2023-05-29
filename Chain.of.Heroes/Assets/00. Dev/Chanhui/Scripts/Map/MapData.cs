@@ -20,6 +20,9 @@ public class MapData : ScriptableObject
     [SerializeField] private int clear_exp;
     public int Clear_Exp { get { return clear_exp; } }
 
+    [SerializeField] private int stage_monsterLV;
+    public int Stage_MonsterLV { get { return stage_monsterLV; } }
+
 
 
     [Header("Monster_Information")]
