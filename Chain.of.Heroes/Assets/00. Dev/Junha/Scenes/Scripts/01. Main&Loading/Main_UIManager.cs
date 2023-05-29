@@ -41,7 +41,7 @@ public class Main_UIManager : MonoBehaviour
         switch (state)
         {
             case STATE.MAIN:
-                if (Input.anyKeyDown)
+                if (Input.GetMouseButton(0))
                 {
                     Main.SetActive(false);
                     Menu.SetActive(true);
@@ -58,59 +58,73 @@ public class Main_UIManager : MonoBehaviour
 
             case STATE.START:
                 StartCoroutine(ImageFadeIn());
+                SoundManager.instance.Sound_FadeStop();
                 break;
 
             case STATE.CONTINUE:
-                if (Input.GetKeyDown(KeyCode.Escape))
-                {
-                    Continue.SetActive(false);
-                    Menu.SetActive(true);
-
-                    state = STATE.MENU;
-                }
+                OffContinue();
                 break;
 
             case STATE.CREDIT:
-                if (Input.GetKeyDown(KeyCode.Escape))
-                {
-                    Credit.SetActive(false);
-                    Menu.SetActive(true);
-
-                    state = STATE.MENU;
-                }
+                OffCredit();
                 break;
         }
     }
 
     #region 메뉴 화면에서 각 버튼에 대한 동작
-    public void GameStart() // 처음부터 시작
+    public void GameStart()
     {
-        Menu.SetActive(false);
-
         SoundManager.instance.Sound_SelectMenu();
-        SoundManager.instance.Sound_FadeStop();
+
+        Menu.SetActive(false);
 
         state = STATE.START;
     }
-    public void GameContinue() // 이어서 시작
+
+    public void OnContiune()
     {
+        SoundManager.instance.Sound_SelectMenu();
+
         Menu.SetActive(false);
         Continue.SetActive(true);
 
-        SoundManager.instance.Sound_SelectMenu();
-
         state = STATE.CONTINUE;
     }
-    public void GameCredit() // 크레딧
+    private void OffContinue()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SoundManager.instance.Sound_SelectMenu();
+
+            Continue.SetActive(false);
+            Menu.SetActive(true);
+
+            state = STATE.MENU;
+        }
+    }
+
+    public void OnCredit()
+    {
+        SoundManager.instance.Sound_SelectMenu();
+
         Menu.SetActive(false);
         Credit.SetActive(true);
 
-        SoundManager.instance.Sound_SelectMenu();
-
         state = STATE.CREDIT;
     }
-    public void GameExit() // 게임 종료
+    private void OffCredit()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SoundManager.instance.Sound_SelectMenu();
+
+            Credit.SetActive(false);
+            Menu.SetActive(true);
+
+            state = STATE.MENU;
+        }
+    }
+    public void GameExit()
     {
 #if UNITY_EDITOR
         SoundManager.instance.Sound_SelectMenu();
@@ -124,9 +138,7 @@ public class Main_UIManager : MonoBehaviour
     }
     #endregion
 
-
-
-    #region FadeIn / FadeOut
+    #region [페이드 인] 로직
     private IEnumerator ImageFadeIn()
     {
         float time = 1f; // FadeIn에 걸리는 시간
@@ -141,47 +153,6 @@ public class Main_UIManager : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
         LoadingSceneController.LoadScene("Cinematic");
-    }
-    private IEnumerator SoundFadeIn()
-    {
-        float time = 0f; // time부터 value까지
-        float value = 1f; // FadeIn에 걸리는 시간 
-        float currentVolume = 0.2f; float targetVolume = 0f; // 현재 볼륨과 타겟 볼륨
-
-        while (time < value)
-        {
-            time += Time.deltaTime;
-            float temp = Mathf.Lerp(currentVolume, targetVolume, time / value);
-            //_background.volume = temp;
-            yield return null;
-        }
-    }
-
-    private IEnumerator ImageFadeOut()
-    {
-        float time = 0f; // FadeOut에 걸리는 시간
-        float alphaValue = 1f; // 알파값
-
-        while (alphaValue > 0f)
-        {
-            alphaValue -= Time.deltaTime / time;
-            _image.color = new Color(_image.color.r, _image.color.g, _image.color.b, alphaValue);
-            yield return null;
-        }
-    }
-    private IEnumerator SoundFadeOut()
-    {
-        float time = 0f; // time부터 value까지
-        float value = 1f; // FadeIn에 걸리는 시간 
-        float currentVolume = 0f; float targetVolume = 1f; // 현재 볼륨과 타겟 볼륨
-
-        while (time < value)
-        {
-            time += Time.deltaTime;
-            float temp = Mathf.Lerp(currentVolume, targetVolume, time / value);
-            //_background.volume = temp;
-            yield return null;
-        }
     }
     #endregion
 }

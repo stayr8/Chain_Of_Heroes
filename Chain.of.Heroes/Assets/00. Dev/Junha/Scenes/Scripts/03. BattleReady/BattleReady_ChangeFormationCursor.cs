@@ -44,7 +44,9 @@ public class BattleReady_ChangeFormationCursor : CursorBase
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            if(_seleted)
+            SoundManager.instance.Sound_SelectMenu();
+
+            if (_seleted)
             {
                 _seleted = false;
                 cursorSeleted();

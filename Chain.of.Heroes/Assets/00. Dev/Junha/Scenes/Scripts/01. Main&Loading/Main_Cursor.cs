@@ -42,11 +42,11 @@ public class Main_Cursor : CursorBase
 
                     break;
                 case "Continue":
-                    Main_UIManager.instance.GameContinue();
+                    Main_UIManager.instance.OnContiune();
 
                     break;
                 case "Credit":
-                    Main_UIManager.instance.GameCredit();
+                    Main_UIManager.instance.OnCredit();
 
                     break;
                 case "Exit":

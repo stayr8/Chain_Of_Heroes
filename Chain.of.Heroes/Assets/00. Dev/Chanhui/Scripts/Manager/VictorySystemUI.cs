@@ -37,7 +37,7 @@ public class VictorySystemUI : MonoBehaviour
                     {
                         _gameClear = true;
                         Time.timeScale = 1.0f;
-                        SoundManager.instance.Sound_FadeStop();
+                        SoundManager.instance.Sound_ForceStop();
                         SoundManager.instance.Sound_StageWin();
                         MVPSelectPlayer();
                         Set_NameAndImage();
@@ -52,7 +52,7 @@ public class VictorySystemUI : MonoBehaviour
                     {
                         _gameFall = true;
                         Time.timeScale = 1.0f;
-                        SoundManager.instance.Sound_FadeStop();
+                        SoundManager.instance.Sound_ForceStop();
                         SoundManager.instance.Sound_StageLose();
                         MVPSelectPlayer();
                         Set_NameAndImage();
@@ -68,7 +68,7 @@ public class VictorySystemUI : MonoBehaviour
                 else
                 {
                     Time.timeScale = 1.0f;
-                    SoundManager.instance.Sound_FadeStop();
+                    SoundManager.instance.Sound_ForceStop();
                     SoundManager.instance.Sound_StageLose();
                     MVPSelectPlayer();
                     Set_NameAndImage();

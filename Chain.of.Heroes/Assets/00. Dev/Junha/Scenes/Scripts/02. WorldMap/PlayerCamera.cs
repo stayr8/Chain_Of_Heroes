@@ -85,6 +85,8 @@ public class PlayerCamera : MonoBehaviour
 
         if (!WorldMap_PlayerController.isMoving && Input.GetKeyDown(KeyCode.R))
         {
+            SoundManager.instance.Sound_SelectMenu();
+
             if (!isFree)
             {
                 isFree = true;

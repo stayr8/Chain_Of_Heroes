@@ -34,6 +34,8 @@ public class Main_SlotSelectCursor : CursorBase
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
+            SoundManager.instance.Sound_SelectMenu();
+
             switch (currentSelected.name)
             {
                 case "DataSlot1":

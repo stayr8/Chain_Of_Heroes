@@ -25,7 +25,7 @@ public class SoundManager : MonoBehaviour
 
     private AudioSource[] _audioSources;
     private AudioClip[] _audioClips;
-    private const int ARRAY_SIZE = 2;
+    private const int ARRAY_SIZE = 3;
 
     private void Start()
     {
@@ -48,7 +48,13 @@ public class SoundManager : MonoBehaviour
         _audioSources[1].clip = _audioClips[1];
         _audioSources[1].PlayOneShot(_audioClips[1]);
     }
-    
+    private void SkillSound(string _name)
+    {
+        _audioClips[2] = Resources.Load<AudioClip>("AudioSource/Character/" + _name);
+        _audioSources[2].clip = _audioClips[2];
+        _audioSources[2].PlayOneShot(_audioClips[2]);
+    }
+
 
 
     #region [스테이지] 사운드
@@ -130,6 +136,78 @@ public class SoundManager : MonoBehaviour
     public void Sound_ForceStop()
     {
         _audioSources[0].Stop();
+    }
+    #endregion
+
+
+
+    #region [캐릭터 스킬] 사운드
+    public void SwordWoman_1()
+    {
+        SkillSound("SwordWoman_Skill01");
+    }
+    public void SwordWoman_2()
+    {
+        SkillSound("SwordWoman_Skill02");
+    }
+
+    public void Knight_1()
+    {
+        SkillSound("WarrioKc_Skill01");
+    }
+    public void Knight_2()
+    {
+        SkillSound("WarrioKc_Skill02");
+    }
+
+    public void Samurai_1()
+    {
+        SkillSound("Samurai_Skill01");
+    }
+    public void Samurai_2()
+    {
+        SkillSound("Samurai_Skill02");
+    }
+
+    public void Archer()
+    {
+        SkillSound("Archer_Skill");
+    }
+
+    public void Guardian_1()
+    {
+        SkillSound("Guardian_Skill01");
+    }
+    public void Guardian_2()
+    {
+        SkillSound("Guardian_Skill02");
+    }
+
+    public void Priest_1()
+    {
+        SkillSound("Priest_Skill01");
+    }
+    public void Priest_2()
+    {
+        SkillSound("Priest_Skill02");
+    }
+
+    public void Wizard_1()
+    {
+        SkillSound("Wizard_Skill01");
+    }
+    public void Wizard_2()
+    {
+        SkillSound("Wizard_Skill02");
+    }
+
+    public void Valkyrie_1()
+    {
+        SkillSound("Valkyrie_Skill01");
+    }
+    public void Valkyrie_2()
+    {
+        SkillSound("Valkyrie_Skill02");
     }
     #endregion
 }
