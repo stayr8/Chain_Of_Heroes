@@ -29,27 +29,6 @@ public class SelectMenuBase : MonoBehaviour
     }
 
     protected virtual void Select(GameObject _obj,
-                            string m1, float m1_x,
-                            string m2, float m2_x,
-                            string m3, float m3_x)
-    {
-        if (_obj.name == m1)
-        {
-            rt.anchoredPosition = new Vector2(m1_x, rt.anchoredPosition.y);
-        }
-        else if (_obj.name == m2)
-        {
-            rt.anchoredPosition = new Vector2(m2_x, rt.anchoredPosition.y);
-        }
-        else if (_obj.name == m3)
-        {
-            rt.anchoredPosition = new Vector2(m3_x, rt.anchoredPosition.y);
-        }
-
-        SetSize();
-    }
-
-    protected virtual void Select(GameObject _obj,
                                 string m1, float m1_x,
                                 string m2, float m2_x,
                                 string m3, float m3_x,

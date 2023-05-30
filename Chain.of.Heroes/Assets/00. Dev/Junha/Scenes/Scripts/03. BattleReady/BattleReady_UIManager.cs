@@ -94,13 +94,26 @@ public class BattleReady_UIManager : MonoBehaviour
         TextBox.Initialize(MapManager.Instance.stageNum);
         SoundManager.instance.Sound_TalkBGM();
         yield return new WaitUntil(() => TextBox.IsEnd);
-
         SoundManager.instance.Sound_ForceStop();
-        SoundManager.instance.Sound_StageBGM();
-        //SoundManager.instance.Sound_BossStageBGM(); 보스 스테이지 전용 브금
-        _Menu.SetActive(true);
 
-        state = STATE.MENU;
+        if(StageManager.instance.m_chapterNum == 0 || StageManager.instance.m_chapterNum == 10)
+        {
+            SoundManager.instance.Sound_BossStageBGM();
+
+            ScenesSystem.Instance.ScenesChange();
+
+            CharacterTypeManager.Instance.GetIsCharacter()[0] = true;
+            CharacterTypeManager.Instance.GetIsCharacter()[1] = true;
+            UnitManager.Instance.SpawnAllPlayer();
+
+            GridSystemVisual.Instance.HideAllGridPosition();
+        }
+        else if(StageManager.instance.m_chapterNum > 0 && StageManager.instance.m_chapterNum < 10)
+        {
+            SoundManager.instance.Sound_StageBGM();
+            _Menu.SetActive(true);
+            state = STATE.MENU;
+        }
 
         Destroy(TextBox.gameObject);
     }

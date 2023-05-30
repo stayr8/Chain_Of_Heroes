@@ -4,8 +4,6 @@ using UnityEngine;
 
 using TMPro;
 using UnityEngine.UI;
-using Unity.VisualScripting;
-using System.IO;
 
 public class Talk : MonoBehaviour
 {

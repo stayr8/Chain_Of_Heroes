@@ -15,7 +15,7 @@ public class WorldMap_Cursor : CursorBase
 
     private const float MOVE_DISTANCE = 100f;
     private const float MAX_POSITION_X = -860f; private const float MAX_POSITION_Y = 200f;
-    private const float MIN_POSITION_X = -880f; private const float MIN_POSITION_Y = 0f;
+    private const float MIN_POSITION_X = -890f; private const float MIN_POSITION_Y = -100f;
 
     public static bool isOnNextButton = false;
 
@@ -68,6 +68,10 @@ public class WorldMap_Cursor : CursorBase
 
                 case "_Save":
                     Debug.Log("¿˙¿Â");
+                    break;
+
+                case "_Title":
+                    LoadingSceneController.LoadScene("Main");
                     break;
 
                 case "_Yes":

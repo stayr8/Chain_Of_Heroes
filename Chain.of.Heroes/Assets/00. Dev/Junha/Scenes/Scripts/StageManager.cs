@@ -50,7 +50,7 @@ public class StageManager : MonoBehaviour
     [SerializeField, Header("[챕터 이름] 텍스트")] public TMP_Text Txt_ChapterNum;
     [SerializeField, Header("[챕터 대표] 이미지")] public Image Img_ChapterImage;
 
-    public int num;
+    public int num = 0;
     private GameObject _nextChapter;
 
     public bool isInitStart = false;
@@ -73,6 +73,8 @@ public class StageManager : MonoBehaviour
 
             _Array[i] = WorldMap;
         }
+
+        initInfo();
     }
 
     private void Update()
@@ -112,7 +114,6 @@ public class StageManager : MonoBehaviour
                     info[i] = new Info();
                 }
             }
-
             for (int i = 0; i < STAGE_LENGTH; i++)
             {
                 if (info[i].Stage == null)
