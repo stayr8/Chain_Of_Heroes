@@ -151,8 +151,10 @@ public class InGame_UIManager : MonoBehaviour
     #region [턴 종료]
     public void OnTurnfo()
     {
+        Debug.Log("턴 종료에는 들어오고");
         if (!TurnSystem.Property.IsTurnEnd && (TurnSystem.Property.IsPlayerTurn && (TurnSystem.Property.ActionPoints > 0)))
         {
+            Debug.Log("여기까지는 문제 없다.");
             if (!AttackActionSystem.Instance.GetIsChainAtk_1() && !AttackActionSystem.Instance.GetIsChainAtk_2())
             {
                 Debug.Log("턴 교체");
