@@ -20,7 +20,7 @@ public class MapManager : MonoBehaviour
     }
 
     public List<MapData> mapData = new List<MapData>();
-    public int stageNum = 1;
+    public int stageNum = 0;
 
     //전투씬에만 초기화
 

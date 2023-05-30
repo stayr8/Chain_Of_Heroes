@@ -8,9 +8,6 @@ public class MapData : ScriptableObject
 {
     [Header("Map_Information")]
     [SerializeField] private string Map_Name;
-    [SerializeField] private int map_stage_number;
-    public int Map_Stage_Number { get { return map_stage_number; } }
-    [SerializeField] private bool Map_Clear_Confirm;
 
     [SerializeField] private int player_actionpoint;
     public int Player_ActionPoint { get { return player_actionpoint; } }
@@ -31,13 +28,4 @@ public class MapData : ScriptableObject
 
     [SerializeField] private Vector3[] enemyXY;
     public Vector3[] EnemyXY { get { return enemyXY; } }
-
-    /*
-    [Header("Player_Information")]
-    [SerializeField] private GameObject[] player_pf;
-    public GameObject[] Player_pf { get { return player_pf; } }
-
-    [SerializeField] private Vector3[] playerXY;
-    public Vector3[] PlayerXY { get { return playerXY; } }
-    */
 }

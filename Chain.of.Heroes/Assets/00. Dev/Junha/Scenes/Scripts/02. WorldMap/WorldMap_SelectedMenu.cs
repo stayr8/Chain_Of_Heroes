@@ -24,7 +24,8 @@ public class WorldMap_SelectedMenu : SelectMenuBase, ISelectHandler, IDeselectHa
         Select(gameObject,
             "_ChapterStart", -45f,
             "_Party", -55f,
-            "_Save", -65f);
+            "_Save", -65f,
+            "_Title", -75f);
     }
 
     public void OnSelect(BaseEventData eventData)
@@ -32,13 +33,15 @@ public class WorldMap_SelectedMenu : SelectMenuBase, ISelectHandler, IDeselectHa
         Select(gameObject,
             "_ChapterStart", 55f,
             "_Party", 45f,
-            "_Save", 35f);
+            "_Save", 35f,
+            "_Title", 25f);
     }
     public void OnDeselect(BaseEventData eventData)
     {
         Select(gameObject,
             "_ChapterStart", -45f,
             "_Party", -55f,
-            "_Save", -65f);
+            "_Save", -65f,
+            "_Title", -75f);
     }
 }
