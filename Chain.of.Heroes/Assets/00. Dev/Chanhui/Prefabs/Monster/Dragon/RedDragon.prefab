@@ -348,6 +348,7 @@ MonoBehaviour:
   UnitName: "\uB808\uB4DC \uB4DC\uB798\uACE4"
   IsLongdistance: 1
   isChainPossiblestate: 0
+  _killCount: 0
 --- !u!114 &9054943789650772714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -372,6 +373,7 @@ MonoBehaviour:
   WzSkill_2_bulletProjectilePrefab: {fileID: 0}
   DragonbulletProjectilePrefab: {fileID: 6632134890474384024, guid: 4dd9aca233f1a3246af8725c84aaf710, type: 3}
   DGSkill_2_bulletProjectilePrefab: {fileID: 3002923411913306283, guid: 8480152615678154fab0bfe4c99b666a, type: 3}
+  SPSkill_1_bulletProjectilePrefab: {fileID: 0}
 --- !u!114 &6030806032592465833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -384,7 +386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 929d06271f7cc2e4fbf2d2b7ef58bdd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxMoveDistance: 6
+  maxMoveDistance: 8
   minMoveDistance: 3
 --- !u!114 &8681924711701863764
 MonoBehaviour:
@@ -416,6 +418,7 @@ MonoBehaviour:
   m_maxhp: 0
   m_damagereductionRate: 0
   m_skilldamagecoefficient: 0
+  StageLevel: 0
 --- !u!114 &8141815212963083106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -428,7 +431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a55ed3e7872199d4dae47195b73f6098, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxChainDistance: 1
+  maxChainDistance: 2
 --- !u!114 &-1416789301734179253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -465,9 +468,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15aab7c9d02e129479bd9fdd1edc5903, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstaclesLayerMask:
-    serializedVersion: 2
-    m_Bits: 0
   maxReadyDistance: 6
 --- !u!114 &-1152313772175514782
 MonoBehaviour:

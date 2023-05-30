@@ -71,8 +71,8 @@ public class UnitManager : MonoBehaviour
             else if (TurnSystem.Property.IsTurnEnd)
             {
                 Debug.Log("여기로 들어오지?");
-                Invoke("UnitInit", 2f);
-                Invoke("PlayerDeadUnitInit", 2f);
+                Invoke("UnitInit", 1f);
+                Invoke("PlayerDeadUnitInit", 1f);
                 Debug.Log("Bind Entered");
             }
         },false);
