@@ -24,14 +24,14 @@ public class SoundManager : MonoBehaviour
     }
     #endregion
 
-    private AudioSource[] _audioSources;
-    private AudioClip[] _audioClips;
+    public AudioSource[] _audioSources;
+    public AudioClip[] _audioClips;
     private const int ARRAY_SIZE = 3;
 
     private void Start()
     {
+        _audioSources = new AudioSource[ARRAY_SIZE];
         _audioSources = GetComponents<AudioSource>();
-        _audioSources[0].loop = true;
 
         _audioClips = new AudioClip[ARRAY_SIZE];
     }
@@ -41,7 +41,8 @@ public class SoundManager : MonoBehaviour
         _audioClips[0] = Resources.Load<AudioClip>("AudioSource/" + _name);
         _audioSources[0].clip = _audioClips[0];
         _audioSources[0].volume = _volume;
-        _audioSources[0].PlayOneShot(_audioClips[0]);
+        _audioSources[0].loop = _loop;
+        _audioSources[0].Play();
     }
     private void EtcSound(string _name)
     {
@@ -84,6 +85,7 @@ public class SoundManager : MonoBehaviour
     {
         BGMSound("BossStage_BGM", 0.375f, true);
     }
+    // 시네마틱 BGM은 자체적으로 실행
     #endregion
 
 

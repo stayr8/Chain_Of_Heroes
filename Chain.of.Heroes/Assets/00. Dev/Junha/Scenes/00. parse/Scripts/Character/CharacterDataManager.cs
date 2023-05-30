@@ -86,6 +86,10 @@ public class CharacterDataManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.L))
         {
+            if(NumForLvUp >= 39)
+            {
+                NumForLvUp = 40;
+            }
             ++NumForLvUp;
             initInfo();
         }
