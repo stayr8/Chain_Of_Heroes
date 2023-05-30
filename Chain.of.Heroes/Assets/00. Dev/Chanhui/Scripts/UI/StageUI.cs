@@ -65,16 +65,11 @@ public class StageUI : MonoBehaviour
         },false);
         Binds.Add(Bind);
 
-        Binding Bind2 = BindingManager.Bind(TurnSystem.Property, "ActionPoints", (object value) =>
-        {
-            monsterNumberText.text = "" + UnitManager.Instance.GetEnemyCount();
-        });
-        Binds.Add(Bind2);
-
-
+        Unit.OnAnyActionPointsChanged += Unit_OnAnyActionPointsChanged;
 
         PlayerHide();
         EnemyHide();
+        SetEnemyCount();
         turnNumberText.text = "TURN " + TurnSystem.Property.TurnNumber;
     }
 
@@ -143,7 +138,15 @@ public class StageUI : MonoBehaviour
         StartCoroutine(Fadeout());
     }
 
+    private void Unit_OnAnyActionPointsChanged(object sender, EventArgs e)
+    {
+        SetEnemyCount();
+    }
 
+    private void SetEnemyCount()
+    {
+        monsterNumberText.text = "" + UnitManager.Instance.GetEnemyCount();
+    }
     IEnumerator Fadein()
     {
         Panel.gameObject.SetActive(true);
@@ -216,6 +219,8 @@ public class StageUI : MonoBehaviour
         {
             BindingManager.Unbind(TurnSystem.Property, bind);
         }
+
+        Unit.OnAnyActionPointsChanged -= Unit_OnAnyActionPointsChanged;
     }
 
 }

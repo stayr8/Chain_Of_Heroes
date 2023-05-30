@@ -222,6 +222,7 @@ public class ChainLongAttackAction : BaseAction
 
                         TimeAttack(0.5f);
                         state = State.SwingingChainLongAttackOffLocationMove;
+
                     }
                 }
                 else if (unit.GetChaintwo())
@@ -240,6 +241,7 @@ public class ChainLongAttackAction : BaseAction
                     if (!AttackActionSystem.Instance.GetTripleChain())
                     {
                         AttackActionSystem.Instance.SetChainStart(false);
+                        AttackActionSystem.Instance.SetIsChainAtk_2(false);
                         ActionCameraComplete();
                     }
                 }
@@ -256,7 +258,7 @@ public class ChainLongAttackAction : BaseAction
 
                 break;
             case State.SwingingChainLongAttackComplete:
-
+                
                 ActionComplete();
 
                 break;
