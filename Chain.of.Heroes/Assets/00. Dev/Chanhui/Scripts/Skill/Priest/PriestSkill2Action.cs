@@ -99,6 +99,7 @@ public class PriestSkill2Action : BaseAction
                 GetCharacterHillOn();
                 Transform skill1EffectTransform = Instantiate(skill2_effect, skill2_effect_transform.position, Quaternion.identity);
                 Destroy(skill1EffectTransform.gameObject, 1.5f);
+                SoundManager.instance.Priest_2();
 
                 TimeAttack(1.0f);
                 state = State.SwingingPsSkill_2_AfterHit;

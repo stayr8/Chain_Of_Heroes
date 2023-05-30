@@ -212,6 +212,7 @@ public class GuardianSkill1Action : BaseAction
             case State.SwingingGdSkill_1_BeforeHit:
                 OnGdSkill_1_Slash?.Invoke(this, EventArgs.Empty);
                 StartCoroutine(Effect());
+                SoundManager.instance.Guardian_1();
 
                 TimeAttack(2.0f);
                 state = State.SwingingGdSkill_1_AfterCamera;

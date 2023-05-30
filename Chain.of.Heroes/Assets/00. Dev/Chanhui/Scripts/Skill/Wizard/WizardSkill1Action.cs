@@ -147,6 +147,7 @@ public class WizardSkill1Action : BaseAction
                 OnWzSkill_1_Debuff?.Invoke(this, EventArgs.Empty);
                 GetCharacterBuffOn();
                 Invoke("Effect", 0.5f);
+                SoundManager.instance.Wizard_1();
 
                 TimeAttack(1.0f);
                 state = State.SwingingWzSkill_1_AfterHit;

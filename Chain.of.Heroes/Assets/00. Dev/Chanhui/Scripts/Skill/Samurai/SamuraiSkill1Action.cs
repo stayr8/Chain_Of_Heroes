@@ -213,6 +213,7 @@ public class SamuraiSkill1Action : BaseAction
             case State.SwingingSrSkill_1_BeforeHit:
                 OnSrSkill_1_Slash?.Invoke(this, EventArgs.Empty);
                 StartCoroutine(Effect());
+                SoundManager.instance.Samurai_1();
 
                 TimeAttack(1.0f);
                 state = State.SwingingSrSkill_1_AfterCamera;

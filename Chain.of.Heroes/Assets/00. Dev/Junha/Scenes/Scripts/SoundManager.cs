@@ -17,6 +17,7 @@ public class SoundManager : MonoBehaviour
             instance = Entity.AddComponent<SoundManager>();
             Entity.AddComponent<AudioSource>();
             Entity.AddComponent<AudioSource>();
+            Entity.AddComponent<AudioSource>();
 
             DontDestroyOnLoad(Entity.gameObject);
         }

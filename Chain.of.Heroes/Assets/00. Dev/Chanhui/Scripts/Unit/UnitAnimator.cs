@@ -391,7 +391,7 @@ public class UnitAnimator : MonoBehaviour
         RangeBulletProjectile bulletProjectile = bulletProjectileTransform.GetComponent<RangeBulletProjectile>();
         float random = UnityEngine.Random.Range(-45f, 45f);
         bulletProjectile.transform.rotation = Quaternion.Euler(random, 0f, 0);
-
+        SoundManager.instance.SwordWoman_2();
         Vector3 targetUnitShootAtPosition = e;
 
         targetUnitShootAtPosition.y = shootPointTransform.position.y;
@@ -403,7 +403,7 @@ public class UnitAnimator : MonoBehaviour
         RangeBulletProjectile bulletProjectile2 = bulletProjectileTransform2.GetComponent<RangeBulletProjectile>();
         float random2 = UnityEngine.Random.Range(-45f, 45f);
         bulletProjectile2.transform.rotation = Quaternion.Euler(random2, 0f, 0);
-
+        SoundManager.instance.SwordWoman_2();
         Vector3 targetUnitShootAtPosition2 = e;
 
         targetUnitShootAtPosition2.y = shootPointTransform.position.y;
@@ -416,7 +416,7 @@ public class UnitAnimator : MonoBehaviour
         RangeBulletProjectile bulletProjectile3 = bulletProjectileTransform3.GetComponent<RangeBulletProjectile>();
         float random3 = UnityEngine.Random.Range(-45f, 45f);
         bulletProjectile3.transform.rotation = Quaternion.Euler(random3, 0f, 0);
-
+        SoundManager.instance.SwordWoman_2();
         Vector3 targetUnitShootAtPosition3 = e;
 
         targetUnitShootAtPosition3.y = shootPointTransform.position.y;
@@ -430,7 +430,7 @@ public class UnitAnimator : MonoBehaviour
         float random4 = UnityEngine.Random.Range(-45f, 45f);
         bulletProjectile4.transform.rotation = Quaternion.Euler(random4, 0f, 0);
         Vector3 targetUnitShootAtPosition4 = e;
-
+        SoundManager.instance.SwordWoman_2();
         targetUnitShootAtPosition4.y = shootPointTransform.position.y;
 
         bulletProjectile4.Setup(targetUnitShootAtPosition4);
@@ -448,7 +448,7 @@ public class UnitAnimator : MonoBehaviour
         Transform bulletProjectileTransform =
                 Instantiate(ArSkill1_bulletProjectilePrefab, ArSkill_1_shootPointTransform.position, Quaternion.identity);
         BulletProjectile bulletProjectile = bulletProjectileTransform.GetComponent<BulletProjectile>();
-
+        SoundManager.instance.Archer();
         Vector3 targetUnitShootAtPosition = e;
 
         targetUnitShootAtPosition.y = ArSkill_1_shootPointTransform.position.y;
@@ -458,7 +458,7 @@ public class UnitAnimator : MonoBehaviour
         Transform bulletProjectileTransform2 =
                 Instantiate(ArSkill1_bulletProjectilePrefab, ArSkill_1_shootPointTransform.position, Quaternion.identity);
         BulletProjectile bulletProjectile2 = bulletProjectileTransform2.GetComponent<BulletProjectile>();
-
+        SoundManager.instance.Archer();
         Vector3 targetUnitShootAtPosition2 = e;
 
         targetUnitShootAtPosition2.y = ArSkill_1_shootPointTransform.position.y;
@@ -469,7 +469,7 @@ public class UnitAnimator : MonoBehaviour
         Transform bulletProjectileTransform3 =
                 Instantiate(ArSkill1_bulletProjectilePrefab, ArSkill_1_shootPointTransform.position, Quaternion.identity);
         BulletProjectile bulletProjectile3 = bulletProjectileTransform3.GetComponent<BulletProjectile>();
-
+        SoundManager.instance.Archer();
         Vector3 targetUnitShootAtPosition3 = e;
 
         targetUnitShootAtPosition3.y = ArSkill_1_shootPointTransform.position.y;
@@ -480,7 +480,7 @@ public class UnitAnimator : MonoBehaviour
         Transform bulletProjectileTransform4 =
                 Instantiate(ArSkill1_bulletProjectilePrefab, ArSkill_1_shootPointTransform.position, Quaternion.identity);
         BulletProjectile bulletProjectile4 = bulletProjectileTransform4.GetComponent<BulletProjectile>();
-
+        SoundManager.instance.Archer();
         Vector3 targetUnitShootAtPosition4 = e;
 
         targetUnitShootAtPosition4.y = ArSkill_1_shootPointTransform.position.y;
@@ -498,7 +498,7 @@ public class UnitAnimator : MonoBehaviour
     IEnumerator ArSkill_2_Shoot(Vector3 e)
     {
         yield return new WaitForSeconds(0.4f);
-
+        SoundManager.instance.Archer();
         Transform bulletProjectileTransform =
             Instantiate(ArSkill2_bulletProjectilePrefab, ArSkill_2_shootPointTransform.position, Quaternion.identity);
         BulletProjectile bulletProjectile = bulletProjectileTransform.GetComponent<BulletProjectile>();
@@ -521,6 +521,7 @@ public class UnitAnimator : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
 
+        SoundManager.instance.Wizard_2();
         Vector3 MousePosition = e + new Vector3(0f,20f,0f);
         Transform bulletProjectileTransform =
             Instantiate(WzSkill_2_bulletProjectilePrefab, MousePosition, Quaternion.identity);
@@ -542,7 +543,7 @@ public class UnitAnimator : MonoBehaviour
     IEnumerator VkSkill_2_Shoot(Vector3 e)
     {
         yield return new WaitForSeconds(1f);
-
+        SoundManager.instance.Valkyrie_2();
         Vector3 MousePosition = e;
         Transform bulletProjectileTransform =
             Instantiate(VkeffectTransform, MousePosition, Quaternion.identity);

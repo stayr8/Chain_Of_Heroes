@@ -110,6 +110,7 @@ public class GuardianSkill2Action : BaseAction
                 OnGdSkill_2_provoke?.Invoke(this, EventArgs.Empty);
                 isProvoke = true;
                 Invoke("Effect", 0.3f);
+                SoundManager.instance.Guardian_2();
 
                 TimeAttack(2.0f);
                 state = State.SwingingGdSkill_2_AfterHit;
@@ -229,11 +230,12 @@ public class GuardianSkill2Action : BaseAction
         return 0;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         foreach (var bind in Binds)
         {
             BindingManager.Unbind(TurnSystem.Property, bind);
         }
+        isProvoke = false;
     }
 }

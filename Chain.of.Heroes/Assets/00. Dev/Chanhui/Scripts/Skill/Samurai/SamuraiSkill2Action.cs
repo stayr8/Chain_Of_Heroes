@@ -149,6 +149,7 @@ public class SamuraiSkill2Action : BaseAction
                 OnSrSkill_2_Slash?.Invoke(this, EventArgs.Empty);
                 Invoke("Effect", 0.1f);
                 GetSkill2EnemyGridPositionList();
+                SoundManager.instance.Samurai_2();
 
                 TimeAttack(1.0f);
                 state = State.SwingingSrSkill_2_AfterHit;

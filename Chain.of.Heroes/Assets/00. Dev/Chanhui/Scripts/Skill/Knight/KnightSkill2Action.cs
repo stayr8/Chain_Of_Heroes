@@ -96,6 +96,7 @@ public class KnightSkill2Action : BaseAction
                 break;
             case State.SwingingKnSkill_2_Buff:
                 OnKnSkill_2_Buff?.Invoke(this, EventArgs.Empty);
+                SoundManager.instance.Knight_2();
                 GetCharacterBuffOn();
 
                 Transform skill1EffectTransform = Instantiate(skill2_effect, skill2_effect_transform.position, Quaternion.identity);

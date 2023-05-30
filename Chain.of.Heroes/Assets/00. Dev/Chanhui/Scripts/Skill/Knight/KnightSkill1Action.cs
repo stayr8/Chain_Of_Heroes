@@ -151,6 +151,7 @@ public class KnightSkill1Action : BaseAction
                 break;
             case State.SwingingKnSkill_1_Attacking:
                 OnKnSkill_1_Stun?.Invoke(this, EventArgs.Empty);
+                SoundManager.instance.Knight_1();
                 if (targetUnit.GetEnemyVisualType() != Unit.EnemyType.Dragon) 
                 {
                     BaseAction StartAction = targetUnit.GetAction<StunAction>();

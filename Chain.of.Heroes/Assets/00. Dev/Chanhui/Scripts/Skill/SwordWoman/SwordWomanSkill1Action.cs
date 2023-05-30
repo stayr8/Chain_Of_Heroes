@@ -213,6 +213,7 @@ public class SwordWomanSkill1Action : BaseAction
                 break;
             case State.SwingingSWSkill_1_BeforeHit:
                 OnSWSkill_1_Slash?.Invoke(this, EventArgs.Empty);
+                SoundManager.instance.SwordWoman_1();
                 Transform skill1EffectTransform = Instantiate(skill1_effect, skill1_effect_transform.position, Quaternion.identity);
                 skill1EffectTransform.transform.rotation = Quaternion.Euler(-30f, -75f, 0);
                 Destroy(skill1EffectTransform.gameObject, 0.2f);

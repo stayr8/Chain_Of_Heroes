@@ -202,6 +202,7 @@ public class ValkyrieSkill1Action : BaseAction
             case State.SwingingVkSkill_1_AfterMoving:
                 AttackCameraComplete();
                 OnVkSkill_1_Dash?.Invoke(this, EventArgs.Empty);
+                SoundManager.instance.Valkyrie_1();
 
                 TimeAttack(1.0f);
                 state = State.SwingingVkSkill_1_AttackMoving;
@@ -211,7 +212,7 @@ public class ValkyrieSkill1Action : BaseAction
 
                 break;
             case State.SwingingVkSkill_1_BeforeHit:
-                OnVkSkill_1_Slash?.Invoke(this, EventArgs.Empty);
+                
                 Invoke("Effect", 0.2f);
 
                 TimeAttack(1.0f);
@@ -245,6 +246,7 @@ public class ValkyrieSkill1Action : BaseAction
         Transform skill1EffectTransform = Instantiate(skill1_effect, skill1_effect_transform.position, Quaternion.identity);
         ScreenShake.Instance.Shake();
         targetUnit.GetMonsterDataManager().SkillDamage();
+        OnVkSkill_1_Slash?.Invoke(this, EventArgs.Empty);
         Destroy(skill1EffectTransform.gameObject, 0.2f);
     }
 
