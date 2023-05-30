@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class StageUI : MonoBehaviour
 {
@@ -17,12 +18,12 @@ public class StageUI : MonoBehaviour
     [SerializeField] private Image Panel;
 
     [SerializeField] private TextMeshProUGUI turnNumberText;
+    [SerializeField] private TextMeshProUGUI monsterNumberText;
 
     private float time = 0f;
 
     private float F_time = 0.2f;
     private float F_time2 = 1f;
-
 
     private List<Binding> Binds = new List<Binding>();
 
@@ -41,14 +42,15 @@ public class StageUI : MonoBehaviour
     {
         //SoundManager.instance.Sound_Battle();
 
-
         Binding Bind = BindingManager.Bind(TurnSystem.Property, "IsPlayerTurn", (object value) =>
         {
+            
             if (TurnSystem.Property.IsPlayerTurn)
             {
                 PlayerShow();
                 EnemyHide();
                 turnNumberText.text = "TURN " + TurnSystem.Property.TurnNumber;
+                
             }
             else
             {
@@ -62,6 +64,14 @@ public class StageUI : MonoBehaviour
 
         },false);
         Binds.Add(Bind);
+
+        Binding Bind2 = BindingManager.Bind(TurnSystem.Property, "ActionPoints", (object value) =>
+        {
+            monsterNumberText.text = "" + UnitManager.Instance.GetEnemyCount();
+        });
+        Binds.Add(Bind2);
+
+
 
         PlayerHide();
         EnemyHide();

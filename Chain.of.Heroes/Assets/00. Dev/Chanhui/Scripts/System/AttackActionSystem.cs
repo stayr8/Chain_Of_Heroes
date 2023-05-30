@@ -43,9 +43,9 @@ public class AttackActionSystem : MonoBehaviour
     [Tooltip("일반 공격")]
     private bool isAtk;
     [Tooltip("체인 공격_1")]
-    private bool isChainAtk_1;
+    [SerializeField] private bool isChainAtk_1;
     [Tooltip("체인 공격_2")]
-    private bool isChainAtk_2;
+    [SerializeField] private bool isChainAtk_2;
     [Tooltip("세명 체인 공격 체크")]
     private bool TripleChain;
 
