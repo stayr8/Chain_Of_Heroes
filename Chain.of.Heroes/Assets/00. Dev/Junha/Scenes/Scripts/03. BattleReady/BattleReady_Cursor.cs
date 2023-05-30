@@ -21,6 +21,8 @@ public class BattleReady_Cursor : CursorBase
     private bool isBattleStart = false;
     private bool isBack = false;
 
+    private bool isInitStart = false;
+
     private void Awake()
     {
         rt = GetComponent<RectTransform>();
@@ -32,6 +34,11 @@ public class BattleReady_Cursor : CursorBase
 
     private void OnEnable()
     {
+        if(!isInitStart)
+        {
+            BattleReady_UnitFormationCursor.count = 0;
+            isInitStart = true;
+        }
         Init(rt, INIT_X, INIT_Y, ref currentSelected, "_BattleStart");
     }
 

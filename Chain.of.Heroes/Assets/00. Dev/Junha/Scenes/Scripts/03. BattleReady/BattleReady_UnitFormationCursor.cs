@@ -10,6 +10,8 @@ public class BattleReady_UnitFormationCursor : CursorBase
     private RectTransform rt;
     public static GameObject currentSelected;
 
+    public static int count = 0;
+
     private bool isInitStart = false;
     private const float INIT_X = -790f; private const float INIT_Y = 375f;
 
@@ -31,11 +33,6 @@ public class BattleReady_UnitFormationCursor : CursorBase
         {
             return;
         }
-    }
-
-    private void Start()
-    {
-
     }
 
     public static bool isOnMenuSelect = false; private bool isOnSkill = false;
@@ -140,7 +137,6 @@ public class BattleReady_UnitFormationCursor : CursorBase
     #region 편성 관련 함수
     private BattleReady_FormationState formationState;
     private TextMeshProUGUI tmp;
-    public static int count = 0;
     private void NextButton_Menu(GameObject obj)
     {
         if (isOnMenuSelect)
