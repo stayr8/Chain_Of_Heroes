@@ -72,7 +72,7 @@ public class DragonSkill1Action : BaseAction
             case State.SwingingRSGSkill_1_Moving:
                 Vector3 targetDirection = targetUnit.transform.position;
                 Vector3 aimDir = (targetDirection - transform.position).normalized;
-                float rotateSpeed = 40f;
+                float rotateSpeed = 50f;
                 transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateSpeed);
 
                 break;
@@ -100,7 +100,7 @@ public class DragonSkill1Action : BaseAction
                 break;
             case State.SwingingRSGSkill_1_Moving:
 
-                TimeAttack(0.5f);
+                TimeAttack(1f);
                 state = State.SwingingRSGSkill_1_Attacking;
 
                 break;

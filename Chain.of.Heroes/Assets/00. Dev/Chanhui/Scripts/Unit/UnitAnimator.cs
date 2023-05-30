@@ -403,7 +403,7 @@ public class UnitAnimator : MonoBehaviour
         RangeBulletProjectile bulletProjectile2 = bulletProjectileTransform2.GetComponent<RangeBulletProjectile>();
         float random2 = UnityEngine.Random.Range(-45f, 45f);
         bulletProjectile2.transform.rotation = Quaternion.Euler(random2, 0f, 0);
-        SoundManager.instance.SwordWoman_2();
+
         Vector3 targetUnitShootAtPosition2 = e;
 
         targetUnitShootAtPosition2.y = shootPointTransform.position.y;
@@ -416,7 +416,7 @@ public class UnitAnimator : MonoBehaviour
         RangeBulletProjectile bulletProjectile3 = bulletProjectileTransform3.GetComponent<RangeBulletProjectile>();
         float random3 = UnityEngine.Random.Range(-45f, 45f);
         bulletProjectile3.transform.rotation = Quaternion.Euler(random3, 0f, 0);
-        SoundManager.instance.SwordWoman_2();
+
         Vector3 targetUnitShootAtPosition3 = e;
 
         targetUnitShootAtPosition3.y = shootPointTransform.position.y;
@@ -430,7 +430,7 @@ public class UnitAnimator : MonoBehaviour
         float random4 = UnityEngine.Random.Range(-45f, 45f);
         bulletProjectile4.transform.rotation = Quaternion.Euler(random4, 0f, 0);
         Vector3 targetUnitShootAtPosition4 = e;
-        SoundManager.instance.SwordWoman_2();
+
         targetUnitShootAtPosition4.y = shootPointTransform.position.y;
 
         bulletProjectile4.Setup(targetUnitShootAtPosition4);

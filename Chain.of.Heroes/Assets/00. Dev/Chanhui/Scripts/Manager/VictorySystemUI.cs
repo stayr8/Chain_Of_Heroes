@@ -103,9 +103,16 @@ public class VictorySystemUI : MonoBehaviour
         }
     }
 
+    private List<Unit> playerUnit;
+    private List<Unit> deadplayerUnit;
     private void MVPSelectPlayer()
     {
-        List<Unit> playerUnit = UnitManager.Instance.GetPlayerDeadList();
+        playerUnit = UnitManager.Instance.GetFriendlyUnitList();
+        if (UnitManager.Instance.GetPlayerDeadList() != null)
+        {
+            deadplayerUnit = UnitManager.Instance.GetPlayerDeadList();
+        }
+
         Debug.Log(playerUnit.Count);
         for (int i = playerUnit.Count; i > 0; i--)
         {
@@ -127,6 +134,36 @@ public class VictorySystemUI : MonoBehaviour
                 }
 
                 if(_mvpPlayer.GetKillCount() >= unit.GetKillCount())
+                {
+                    continue;
+                }
+                else
+                {
+                    _mvpPlayer = unit;
+                }
+            }
+        }
+
+        for (int i = deadplayerUnit.Count; i > 0; i--)
+        {
+            Unit unit = deadplayerUnit[i - 1];
+
+            if (deadplayerUnit.Contains(unit))
+            {
+                if (_gameClear)
+                {
+                    unit.GetCharacterDataManager().m_currentExp = MapManager.Instance.mapData[MapManager.Instance.stageNum].Clear_Exp;
+                    DataUpdate(unit.GetCharacterDataManager());
+                    Set_LevelUPImage(unit);
+
+                }
+
+                if (_mvpPlayer == null)
+                {
+                    _mvpPlayer = unit;
+                }
+
+                if (_mvpPlayer.GetKillCount() >= unit.GetKillCount())
                 {
                     continue;
                 }
