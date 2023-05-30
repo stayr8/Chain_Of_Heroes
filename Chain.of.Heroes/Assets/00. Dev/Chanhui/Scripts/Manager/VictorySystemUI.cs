@@ -59,8 +59,6 @@ public class VictorySystemUI : MonoBehaviour
                         mvpPlayerText.text = "" + _mvpPlayer.GetCharacterDataManager().m_name.ToString();
                         turnNumberText.text = "" + TurnSystem.Property.TurnNumber;
 
-
-
                         UnitManager.Instance.OnDestroys();
 
                     }

@@ -135,8 +135,7 @@ public class DragonSkill1Action : BaseAction
         skill1EffectTransform.transform.rotation = Quaternion.Euler(160f, 0f, 0f);
         Destroy(skill1EffectTransform.gameObject, 1f);
         yield return new WaitForSeconds(0.5f);
-        GetPlayerStunGridPositionList();
-        
+        GetPlayerStunGridPositionList(); 
     }
 
     int stunDistance = 1;

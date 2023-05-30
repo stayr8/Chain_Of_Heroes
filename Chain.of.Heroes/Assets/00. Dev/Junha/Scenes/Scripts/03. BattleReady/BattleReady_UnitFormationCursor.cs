@@ -20,6 +20,7 @@ public class BattleReady_UnitFormationCursor : CursorBase
     private const float INIT_X = -790f; private const float INIT_Y = 375f;
     private void OnEnable()
     {
+        count = 0;
         if (!isInitStart)
         {
             Init(rt, INIT_X, INIT_Y, ref currentSelected, "_1");
