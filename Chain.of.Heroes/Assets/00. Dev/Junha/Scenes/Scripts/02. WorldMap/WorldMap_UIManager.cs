@@ -75,6 +75,7 @@ public class WorldMap_UIManager : MonoBehaviour
         {
             case STATE.INGAME:
                 OnMenu();
+                _text.text = "저장";
                 break;
 
             case STATE.MENU:
@@ -86,6 +87,7 @@ public class WorldMap_UIManager : MonoBehaviour
 
             case STATE.PARTY:
                 OffParty();
+                _text.text = "저장";
                 break;
 
             case STATE.SAVE:
@@ -187,6 +189,12 @@ public class WorldMap_UIManager : MonoBehaviour
 
             state = STATE.MENU;
         }
+    }
+
+    [SerializeField] private TMP_Text _text;
+    public void LieSave()
+    {
+        _text.text = "저장 완료";
     }
     #endregion
 }

@@ -67,7 +67,7 @@ public class WorldMap_Cursor : CursorBase
                     break;
 
                 case "_Save":
-                    Debug.Log("ÀúÀå");
+                    WorldMap_UIManager.instance.LieSave();
                     break;
 
                 case "_Title":
