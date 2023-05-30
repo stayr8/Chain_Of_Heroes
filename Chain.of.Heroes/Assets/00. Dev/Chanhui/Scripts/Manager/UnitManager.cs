@@ -24,6 +24,7 @@ public class UnitManager : MonoBehaviour
     private List<Unit> unitList;
     private List<Unit> friendlyUnitList;
     private List<Unit> enemyUnitList;
+    private List<Unit> playerDeadList;
     private List<CharacterUI> characterUiList;
 
     public MapData mapData;
@@ -43,6 +44,7 @@ public class UnitManager : MonoBehaviour
         unitList = new List<Unit>();
         friendlyUnitList = new List<Unit>();
         enemyUnitList = new List<Unit>();
+        playerDeadList = new List<Unit>();
         characterUiList = new List<CharacterUI>();
         OnChangeFormation = false;
         Character = new List<GameObject>();
@@ -68,7 +70,9 @@ public class UnitManager : MonoBehaviour
             }
             else if (TurnSystem.Property.IsTurnEnd)
             {
+                Debug.Log("여기로 들어오지?");
                 Invoke("UnitInit", 2f);
+                Invoke("PlayerDeadUnitInit", 2f);
                 Debug.Log("Bind Entered");
             }
         },false);
@@ -137,6 +141,7 @@ public class UnitManager : MonoBehaviour
         else
         {
             friendlyUnitList.Remove(unit);
+            playerDeadList.Add(unit);
         }
     }
 
@@ -208,7 +213,27 @@ public class UnitManager : MonoBehaviour
         friendlyUnitList.Clear();
         enemyUnitList.Clear();
     }
-   
+    private void PlayerDeadUnitInit()
+    {
+        Debug.Log("Dead Player Init Entered");
+
+
+        for (int i = playerDeadList.Count; i > 0; i--)
+        {
+
+            Unit playerToRemove = playerDeadList[i - 1];
+
+            if (playerDeadList.Contains(playerToRemove))
+            {
+                playerDeadList.Remove(playerToRemove);
+            }
+
+            Destroy(playerToRemove.gameObject);
+        }
+
+        playerDeadList.Clear();
+    }
+
 
 
     public List<Unit> GetUnitList()
@@ -222,6 +247,10 @@ public class UnitManager : MonoBehaviour
     public List<Unit> GetEnemyUnitList()
     {
         return enemyUnitList;
+    }
+    public List<Unit> GetPlayerDeadList()
+    {
+        return playerDeadList;
     }
 
     public Unit GetFriendlyfristUnit()

@@ -105,8 +105,8 @@ public class VictorySystemUI : MonoBehaviour
 
     private void MVPSelectPlayer()
     {
-        List<Unit> playerUnit = UnitManager.Instance.GetFriendlyUnitList();
-
+        List<Unit> playerUnit = UnitManager.Instance.GetPlayerDeadList();
+        Debug.Log(playerUnit.Count);
         for (int i = playerUnit.Count; i > 0; i--)
         {
             Unit unit = playerUnit[i - 1];
@@ -140,6 +140,7 @@ public class VictorySystemUI : MonoBehaviour
 
     private void Set_NameAndImage()
     {
+        Debug.Log(_mvpPlayer);
         CharacterDataManager data = _mvpPlayer.GetCharacterDataManager();
 
         switch (data.m_name)
