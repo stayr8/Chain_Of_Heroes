@@ -507,8 +507,8 @@ GameObject:
   - component: {fileID: 3344890154929506122}
   - component: {fileID: 6228714327043162098}
   - component: {fileID: 2613050172599108831}
-  - component: {fileID: 3608487294155011375}
   - component: {fileID: -8058097746937334391}
+  - component: {fileID: -3893433257764295537}
   - component: {fileID: 9173352140826010005}
   - component: {fileID: 5665712486550008810}
   - component: {fileID: 3622615075190272887}
@@ -595,7 +595,7 @@ MonoBehaviour:
   newEnemyActionPoints: 2
   SoloEnemyActionPoints: 0
   enemyType: 0
-  UnitName: "\uD504\uB9AC\uC2A4\uD2B8"
+  UnitName: "\uC544\uC774\uB124"
   IsLongdistance: 1
   isChainPossiblestate: 0
   _killCount: 0
@@ -708,19 +708,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c962b75666de364e97688159993d064, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3608487294155011375
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9108872348708313369}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e750ad8e9739ac4694de8e6db42d739, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxBishopDistance: 2
 --- !u!114 &-8058097746937334391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -733,6 +720,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5813c565b1075c4aa036e25a72b01df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-3893433257764295537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9108872348708313369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e8d82257a40aa747bd5d4f3d41b91c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxWizardDistance: 2
 --- !u!114 &9173352140826010005
 MonoBehaviour:
   m_ObjectHideFlags: 0
