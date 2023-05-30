@@ -92,7 +92,12 @@ public class BattleReady_UIManager : MonoBehaviour
     {
         TextBox = Instantiate(Resources.Load<GameObject>("TextBox")).GetComponent<Talk>();
         TextBox.Initialize(MapManager.Instance.stageNum);
-        if (StageManager.instance.m_chapterNum == 0 || StageManager.instance.m_chapterNum == 10)
+        if (StageManager.instance.m_chapterNum == 0)
+        {
+            SoundManager.instance.Sound_TutorialBGM();
+            yield return new WaitUntil(() => TextBox.IsEnd);
+        }
+        else if (StageManager.instance.m_chapterNum == 10)
         {
             SoundManager.instance.Sound_BossStageBGM();
             yield return new WaitUntil(() => TextBox.IsEnd);
