@@ -80,11 +80,11 @@ public class StageManager : MonoBehaviour
     private void Update()
     {
         InitData();
-        if(ClearID == -1)
+        if (ClearID == -1)
         {
             TotalUnlock = 2;
         }
-        else if(ClearID > 6)
+        else if (ClearID > 6)
         {
             TotalUnlock = 8;
         }
@@ -181,7 +181,10 @@ public class StageManager : MonoBehaviour
                 if (info[i].isClear)
                 {
                     img.sprite = Resources.Load<Sprite>("Clear_Chapter");
-                    info[i + 1].isUnlock = true;
+                    if(i != 9)
+                    {
+                        info[i + 1].isUnlock = true;
+                    }
                 }
                 else // !info[i].isClear
                 {
@@ -209,7 +212,6 @@ public class StageManager : MonoBehaviour
         }
     }
 
-    #region 치트키 요소
     public void StageClear(int _stageNumber)
     {
         if (_stageNumber == 0 || info[_stageNumber - 1].isClear)
@@ -219,47 +221,44 @@ public class StageManager : MonoBehaviour
         }
     }
 
+    #region 치트키 요소
     private void StageCheat()
     {
-        if(Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             StageClear(0);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        else if (info[0].isClear && Input.GetKeyDown(KeyCode.Alpha2))
         {
             StageClear(1);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        else if (info[1].isUnlock && Input.GetKeyDown(KeyCode.Alpha3))
         {
             StageClear(2);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        else if (info[2].isClear && Input.GetKeyDown(KeyCode.Alpha4))
         {
             StageClear(3);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha5))
+        else if (info[3].isClear && Input.GetKeyDown(KeyCode.Alpha5))
         {
             StageClear(4);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha6))
+        else if (info[4].isClear && Input.GetKeyDown(KeyCode.Alpha6))
         {
             StageClear(5);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha7))
+        else if (info[5].isClear && Input.GetKeyDown(KeyCode.Alpha7))
         {
             StageClear(6);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha8))
+        else if (info[6].isClear && Input.GetKeyDown(KeyCode.Alpha8))
         {
             StageClear(7);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha9))
+        else if (info[7].isClear && Input.GetKeyDown(KeyCode.Alpha9))
         {
             StageClear(8);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            StageClear(9);
         }
     }
     #endregion

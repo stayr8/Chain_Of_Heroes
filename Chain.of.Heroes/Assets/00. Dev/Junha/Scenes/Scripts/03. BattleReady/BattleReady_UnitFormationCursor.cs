@@ -9,6 +9,10 @@ public class BattleReady_UnitFormationCursor : CursorBase
 {
     private RectTransform rt;
     public static GameObject currentSelected;
+
+    private bool isInitStart = false;
+    private const float INIT_X = -790f; private const float INIT_Y = 375f;
+
     private void Awake()
     {
         rt = GetComponent<RectTransform>();
@@ -16,11 +20,8 @@ public class BattleReady_UnitFormationCursor : CursorBase
         count = 0;
     }
 
-    private bool isInitStart = false;
-    private const float INIT_X = -790f; private const float INIT_Y = 375f;
     private void OnEnable()
     {
-        count = 0;
         if (!isInitStart)
         {
             Init(rt, INIT_X, INIT_Y, ref currentSelected, "_1");
@@ -30,6 +31,11 @@ public class BattleReady_UnitFormationCursor : CursorBase
         {
             return;
         }
+    }
+
+    private void Start()
+    {
+
     }
 
     public static bool isOnMenuSelect = false; private bool isOnSkill = false;
@@ -66,7 +72,7 @@ public class BattleReady_UnitFormationCursor : CursorBase
             for (int i = 0; i < characterNum; ++i)
             {
                 if (currentSelected.name == BattleReady_UIManager.instance.slot[i].name && 
-                    !BattleReady_UIManager.instance.slot[i].GetComponent<BattleReady_FormationState>().isUnlock)
+                                            !BattleReady_UIManager.instance.slot[i].GetComponent<BattleReady_FormationState>().isUnlock)
                 {
                     return;
                 }

@@ -62,7 +62,7 @@ public class Main_UIManager : MonoBehaviour
                 break;
 
             case STATE.CONTINUE:
-                OffContinue();
+                //OffContinue();
                 break;
 
             case STATE.CREDIT:
@@ -88,7 +88,7 @@ public class Main_UIManager : MonoBehaviour
         LoadingSceneController.LoadScene("WorldMapScene");
 
         Menu.SetActive(false);
-        Continue.SetActive(true);
+        //Continue.SetActive(true);
 
         state = STATE.CONTINUE;
     }

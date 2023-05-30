@@ -42,7 +42,10 @@ public class Main_Cursor : CursorBase
 
                     break;
                 case "Continue":
-                    Main_UIManager.instance.OnContiune();
+                    if(StageManager.instance.m_chapterNum != 0)
+                    {
+                        Main_UIManager.instance.OnContiune();
+                    }
 
                     break;
                 case "Credit":

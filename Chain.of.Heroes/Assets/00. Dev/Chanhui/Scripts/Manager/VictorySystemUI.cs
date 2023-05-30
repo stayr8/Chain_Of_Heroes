@@ -73,9 +73,6 @@ public class VictorySystemUI : MonoBehaviour
                     mvpPlayerText.text = "" + _mvpPlayer.GetCharacterDataManager().m_name.ToString();
                     turnNumberText.text = "" + TurnSystem.Property.TurnNumber;
 
-                    Debug.Log("Áü");
-
-
                     UnitManager.Instance.OnDestroys();
                     //_gameClear = true;
                 }
@@ -90,12 +87,10 @@ public class VictorySystemUI : MonoBehaviour
 
     private void Update()
     {
-        
         if(_gameClear || _gameFall)
         {
             if (InputManager.Instance.IsMouseButtonDown())
             {
-                
                 StartCoroutine(LoadScene());
             }
         }
@@ -289,7 +284,14 @@ public class VictorySystemUI : MonoBehaviour
         yield return new WaitForSeconds(1f);
         DestroyActionButton();
         yield return new WaitForSeconds(0.1f);
-        LoadingSceneController.LoadScene("WorldMapScene");
+        if (StageManager.instance.m_chapterNum == 10)
+        {
+            LoadingSceneController.LoadScene("Cinematic2");
+        }
+        else
+        {
+            LoadingSceneController.LoadScene("WorldMapScene");
+        }
     }
 
     private void OnDisable()
