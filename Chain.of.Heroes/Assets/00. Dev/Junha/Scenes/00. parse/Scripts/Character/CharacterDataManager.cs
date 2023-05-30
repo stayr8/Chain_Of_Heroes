@@ -191,7 +191,8 @@ public class CharacterDataManager : MonoBehaviour
 
             LevelGrid.Instance.RemoveUnitAtGridPosition(player.GetGridPosition(), player);
 
-            Destroy(gameObject, 4.0f);
+            //Destroy(gameObject, 4.0f);
+            Invoke("DeadSpon", 3f);
 
         }
         else
@@ -229,13 +230,19 @@ public class CharacterDataManager : MonoBehaviour
 
             LevelGrid.Instance.RemoveUnitAtGridPosition(player.GetGridPosition(), player);
 
-            Destroy(gameObject, 4.0f);
-
+            //Destroy(gameObject, 4.0f);
+            Invoke("DeadSpon", 3f);
         }
         else
         {
             OnPlayerDamage?.Invoke(this, EventArgs.Empty);
         }
+    }
+
+    private void DeadSpon()
+    {
+        Vector3 pos = new Vector3(0f, -20f, 0f);
+        player.SetPosition(pos);
     }
 
     private void OnTriggerEnter(Collider other)
