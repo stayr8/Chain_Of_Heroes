@@ -247,14 +247,17 @@ public class SamuraiSkill1Action : BaseAction
         yield return new WaitForSeconds(0.1f);
         Transform skill1EffectTransform = Instantiate(skill1_effect, skill1_effect_transform.position, Quaternion.identity);
         skill1EffectTransform.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+        targetUnit.GetMonsterDataManager().SkillDamage();
         Destroy(skill1EffectTransform.gameObject, 0.5f);
         yield return new WaitForSeconds(0.2f);
         Transform skill1EffectTransform2 = Instantiate(skill1_effect, skill1_effect_transform.position, Quaternion.identity);
         skill1EffectTransform2.transform.rotation = Quaternion.Euler(0f, 0f, 30f);
+        targetUnit.GetMonsterDataManager().SkillDamage();
         Destroy(skill1EffectTransform2.gameObject, 0.5f);
         yield return new WaitForSeconds(0.2f);
         Transform skill1EffectTransform3 = Instantiate(skill1_effect, skill1_effect_transform.position, Quaternion.identity);
         skill1EffectTransform3.transform.rotation = Quaternion.Euler(0f, 0f, -30f);
+        targetUnit.GetMonsterDataManager().SkillDamage();
         Destroy(skill1EffectTransform3.gameObject, 0.5f);
     }
 
