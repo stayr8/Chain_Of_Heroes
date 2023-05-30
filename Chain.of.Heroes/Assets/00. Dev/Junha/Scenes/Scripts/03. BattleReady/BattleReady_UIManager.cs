@@ -107,6 +107,11 @@ public class BattleReady_UIManager : MonoBehaviour
             UnitManager.Instance.SpawnAllPlayer();
 
             GridSystemVisual.Instance.HideAllGridPosition();
+
+            if(StageManager.instance.m_chapterNum == 0)
+            {
+                MapManager.Instance.stageNum = StageManager.instance.num = 1;
+            }
         }
         else if(StageManager.instance.m_chapterNum > 0 && StageManager.instance.m_chapterNum < 10)
         {
