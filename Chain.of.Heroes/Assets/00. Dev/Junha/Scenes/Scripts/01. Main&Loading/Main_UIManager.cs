@@ -85,6 +85,8 @@ public class Main_UIManager : MonoBehaviour
     {
         SoundManager.instance.Sound_SelectMenu();
 
+        LoadingSceneController.LoadScene("WorldMapScene");
+
         Menu.SetActive(false);
         Continue.SetActive(true);
 

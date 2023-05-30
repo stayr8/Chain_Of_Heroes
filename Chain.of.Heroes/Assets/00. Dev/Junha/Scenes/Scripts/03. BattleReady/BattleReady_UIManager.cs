@@ -92,14 +92,22 @@ public class BattleReady_UIManager : MonoBehaviour
     {
         TextBox = Instantiate(Resources.Load<GameObject>("TextBox")).GetComponent<Talk>();
         TextBox.Initialize(MapManager.Instance.stageNum);
-        SoundManager.instance.Sound_TalkBGM();
-        yield return new WaitUntil(() => TextBox.IsEnd);
-        SoundManager.instance.Sound_ForceStop();
-
-        if(StageManager.instance.m_chapterNum == 0 || StageManager.instance.m_chapterNum == 10)
+        if (StageManager.instance.m_chapterNum == 0 || StageManager.instance.m_chapterNum == 10)
         {
             SoundManager.instance.Sound_BossStageBGM();
+            yield return new WaitUntil(() => TextBox.IsEnd);
+        }
+        else
+        {
+            SoundManager.instance.Sound_TalkBGM();
+            yield return new WaitUntil(() => TextBox.IsEnd);
+            SoundManager.instance.Sound_ForceStop();
+        }
+        //yield return new WaitUntil(() => TextBox.IsEnd);
+        //SoundManager.instance.Sound_ForceStop();
 
+        if (StageManager.instance.m_chapterNum == 0) // Chapter. 00
+        {
             ScenesSystem.Instance.ScenesChange();
 
             CharacterTypeManager.Instance.GetIsCharacter()[0] = true;
@@ -108,14 +116,16 @@ public class BattleReady_UIManager : MonoBehaviour
 
             GridSystemVisual.Instance.HideAllGridPosition();
 
-            if(StageManager.instance.m_chapterNum == 0)
-            {
-                MapManager.Instance.stageNum = StageManager.instance.num = 1;
-            }
+            MapManager.Instance.stageNum = StageManager.instance.num = 1;
         }
-        else if(StageManager.instance.m_chapterNum > 0 && StageManager.instance.m_chapterNum < 10)
+        else if (StageManager.instance.m_chapterNum > 0 && StageManager.instance.m_chapterNum < 10) // Chapter. 01 ~ 09
         {
             SoundManager.instance.Sound_StageBGM();
+            _Menu.SetActive(true);
+            state = STATE.MENU;
+        }
+        else if (StageManager.instance.m_chapterNum == 10) // Chapter. 10
+        {
             _Menu.SetActive(true);
             state = STATE.MENU;
         }
