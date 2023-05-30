@@ -82,7 +82,7 @@ public class SoundManager : MonoBehaviour
     }
     public void Sound_BossStageBGM()
     {
-        BGMSound("BossStage_BGM", 0.25f, true);
+        BGMSound("BossStage_BGM", 0.375f, true);
     }
     #endregion
 
