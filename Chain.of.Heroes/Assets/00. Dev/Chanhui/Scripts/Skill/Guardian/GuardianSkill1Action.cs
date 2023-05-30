@@ -29,7 +29,6 @@ public class GuardianSkill1Action : BaseAction
         SwingingGdSkill_1_AfterHit,
     }
 
-    [SerializeField] private LayerMask obstaclesLayerMask;
     [SerializeField] private int maxGdSkill_1_Distance = 1;
 
     private State state;
@@ -245,10 +244,12 @@ public class GuardianSkill1Action : BaseAction
         Transform skill1EffectTransform = Instantiate(skill1_effect, skill1_effect_transform.position, Quaternion.identity);
         skill1EffectTransform.transform.rotation = Quaternion.Euler(30f, -75f, 0);
         Destroy(skill1EffectTransform.gameObject, 0.2f);
+        targetUnit.GetMonsterDataManager().SkillDamage();
         yield return new WaitForSeconds(0.5f);
         Transform skill1EffectTransform2 = Instantiate(skill1_effect, skill1_effect_transform.position, Quaternion.identity);
         skill1EffectTransform2.transform.rotation = Quaternion.Euler(-30f, -75f, 0);
         Destroy(skill1EffectTransform2.gameObject, 0.2f);
+        targetUnit.GetMonsterDataManager().SkillDamage();
     }
 
     public override List<GridPosition> GetValidActionGridPositionList()
