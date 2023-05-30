@@ -236,7 +236,7 @@ public class ArcherSkill2Action : BaseAction
     {
         isSkill = true;
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
-        unit.GetCharacterDataManager().m_skilldamagecoefficient = 10.0f;
+        unit.GetCharacterDataManager().m_skilldamagecoefficient = 5.0f;
 
         if (isSkillCount <= 0)
         {

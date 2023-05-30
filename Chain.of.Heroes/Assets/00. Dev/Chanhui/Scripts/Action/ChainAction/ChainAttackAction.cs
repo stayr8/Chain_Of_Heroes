@@ -257,6 +257,7 @@ public class ChainAttackAction : BaseAction
                     if (!AttackActionSystem.Instance.GetTripleChain())
                     {
                         AttackActionSystem.Instance.SetChainStart(false);
+                        AttackActionSystem.Instance.SetIsChainAtk_2(false);
                         ActionCameraComplete();
                     }
                 }
@@ -273,7 +274,7 @@ public class ChainAttackAction : BaseAction
 
                 break;
             case State.SwingingChainAttackComplete:
-
+                AttackActionSystem.Instance.SetIsChainAtk_2(false);
                 ActionComplete();
 
                 break;
