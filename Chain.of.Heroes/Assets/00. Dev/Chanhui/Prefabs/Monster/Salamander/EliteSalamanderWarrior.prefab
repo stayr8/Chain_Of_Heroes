@@ -488,6 +488,7 @@ GameObject:
   - component: {fileID: -208383701943126675}
   - component: {fileID: 5486104868808547830}
   - component: {fileID: 5523424390198946228}
+  - component: {fileID: -6694942463669320176}
   m_Layer: 15
   m_Name: EliteSalamanderWarrior
   m_TagString: Enemy
@@ -701,6 +702,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc4de175fa527ef45b40e964526a8a01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-6694942463669320176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7244344358574414659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2989963664f74d438f3b7c6bdbefded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7915196970376612850

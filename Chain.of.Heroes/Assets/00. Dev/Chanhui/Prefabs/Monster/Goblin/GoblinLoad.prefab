@@ -568,6 +568,7 @@ GameObject:
   - component: {fileID: 5486104868808547830}
   - component: {fileID: 967445955118839352}
   - component: {fileID: 5114236614242242997}
+  - component: {fileID: 245488243654268304}
   m_Layer: 15
   m_Name: GoblinLoad
   m_TagString: Enemy
@@ -799,6 +800,18 @@ MonoBehaviour:
   skill1_effect: {fileID: 3087993240000181700, guid: 1f2a04fceb1d8af43af97f7a0acc5bd4, type: 3}
   skill1_effect_transform: {fileID: 6854743808460563348}
   maxGLSkill_1_Distance: 2
+--- !u!114 &245488243654268304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7244344358574414659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2989963664f74d438f3b7c6bdbefded, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7951814857709160030
 GameObject:
   m_ObjectHideFlags: 0

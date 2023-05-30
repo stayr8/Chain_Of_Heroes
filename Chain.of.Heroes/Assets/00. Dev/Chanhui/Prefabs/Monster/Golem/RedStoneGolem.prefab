@@ -520,6 +520,7 @@ GameObject:
   - component: {fileID: -7673811709383631068}
   - component: {fileID: 7596203684027915839}
   - component: {fileID: 2812661777290222419}
+  - component: {fileID: 484844864830558283}
   m_Layer: 15
   m_Name: RedStoneGolem
   m_TagString: Enemy
@@ -599,6 +600,7 @@ MonoBehaviour:
   UnitName: "\uB808\uB4DC\uC2A4\uD1A4\uACE8\uB7A8"
   IsLongdistance: 0
   isChainPossiblestate: 0
+  _killCount: 0
 --- !u!114 &5477421119517210326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -623,6 +625,7 @@ MonoBehaviour:
   WzSkill_2_bulletProjectilePrefab: {fileID: 0}
   DragonbulletProjectilePrefab: {fileID: 0}
   DGSkill_2_bulletProjectilePrefab: {fileID: 0}
+  SPSkill_1_bulletProjectilePrefab: {fileID: 0}
 --- !u!114 &175367251280525737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -680,6 +683,7 @@ MonoBehaviour:
   m_maxhp: 0
   m_damagereductionRate: 0
   m_skilldamagecoefficient: 0
+  StageLevel: 0
 --- !u!114 &8214725358993387341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -745,6 +749,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skill1_effect: {fileID: 4109000646346854727, guid: a24b55500c3322d48a1520c5de4c1032, type: 3}
   maxRSGSkill_1_Distance: 2
+--- !u!114 &484844864830558283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6598657682457193299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2989963664f74d438f3b7c6bdbefded, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8005174501637493635
 GameObject:
   m_ObjectHideFlags: 0

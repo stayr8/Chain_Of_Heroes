@@ -431,6 +431,7 @@ GameObject:
   - component: {fileID: 5486104868808547830}
   - component: {fileID: 1639426515483627999}
   - component: {fileID: 5032829695092126905}
+  - component: {fileID: -8401643578668566266}
   m_Layer: 15
   m_Name: BossSalamanderWarrior
   m_TagString: Enemy
@@ -662,6 +663,18 @@ MonoBehaviour:
   skill1_effect: {fileID: 2641669145051645310, guid: e489776d1ec66084ca28bfb7c58dfb91, type: 3}
   skill1_effect_transform: {fileID: 8439366699139073491}
   maxSLSkill_1_Distance: 2
+--- !u!114 &-8401643578668566266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7244344358574414659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2989963664f74d438f3b7c6bdbefded, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7409803712398932150
 GameObject:
   m_ObjectHideFlags: 0

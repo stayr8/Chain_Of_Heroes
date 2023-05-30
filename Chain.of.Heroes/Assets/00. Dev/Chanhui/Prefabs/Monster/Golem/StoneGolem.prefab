@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 1026438709004340733}
   - component: {fileID: 7245594440102175604}
   - component: {fileID: 9123454587874446124}
+  - component: {fileID: 4210403070482129222}
   m_Layer: 15
   m_Name: StoneGolem
   m_TagString: Enemy
@@ -99,6 +100,7 @@ MonoBehaviour:
   UnitName: "\uC2A4\uD1A4\uACE8\uB7A8"
   IsLongdistance: 0
   isChainPossiblestate: 0
+  _killCount: 0
 --- !u!114 &6498472375760172567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,6 +125,7 @@ MonoBehaviour:
   WzSkill_2_bulletProjectilePrefab: {fileID: 0}
   DragonbulletProjectilePrefab: {fileID: 0}
   DGSkill_2_bulletProjectilePrefab: {fileID: 0}
+  SPSkill_1_bulletProjectilePrefab: {fileID: 0}
 --- !u!114 &5957920914601071742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,6 +183,7 @@ MonoBehaviour:
   m_maxhp: 0
   m_damagereductionRate: 0
   m_skilldamagecoefficient: 0
+  StageLevel: 0
 --- !u!114 &4929148159021651099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,6 +233,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1c1350886321b749806661a6ce70218, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4210403070482129222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2281334507915587549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2989963664f74d438f3b7c6bdbefded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2929439219502869938
