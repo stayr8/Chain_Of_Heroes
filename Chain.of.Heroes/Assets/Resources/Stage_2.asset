@@ -13,21 +13,18 @@ MonoBehaviour:
   m_Name: Stage_2
   m_EditorClassIdentifier: 
   Map_Name: Stage_2
-  map_stage_number: 2
-  Map_Clear_Confirm: 0
   player_actionpoint: 12
-  enemy_actionpoint: 18
+  enemy_actionpoint: 16
   clear_exp: 1060
   stage_monsterLV: 5
   enemy_pf:
   - {fileID: 7244344358574414659, guid: fe49e693c12cd514eb307112bed8ea9a, type: 3}
   - {fileID: 7244344358574414659, guid: fe49e693c12cd514eb307112bed8ea9a, type: 3}
-  - {fileID: 7244344358574414659, guid: fe49e693c12cd514eb307112bed8ea9a, type: 3}
-  - {fileID: 7244344358574414659, guid: fe49e693c12cd514eb307112bed8ea9a, type: 3}
-  - {fileID: 7244344358574414659, guid: fe49e693c12cd514eb307112bed8ea9a, type: 3}
+  - {fileID: 3695012023952319668, guid: 55797141069490440a424becdc2700ea, type: 3}
   - {fileID: 7244344358574414659, guid: fe49e693c12cd514eb307112bed8ea9a, type: 3}
   - {fileID: 3695012023952319668, guid: 55797141069490440a424becdc2700ea, type: 3}
-  - {fileID: 3695012023952319668, guid: 55797141069490440a424becdc2700ea, type: 3}
+  - {fileID: 7244344358574414659, guid: fe49e693c12cd514eb307112bed8ea9a, type: 3}
+  - {fileID: 7244344358574414659, guid: fe49e693c12cd514eb307112bed8ea9a, type: 3}
   - {fileID: 3695012023952319668, guid: 55797141069490440a424becdc2700ea, type: 3}
   enemyXY:
   - {x: 12, y: 0, z: 4}
@@ -38,4 +35,3 @@ MonoBehaviour:
   - {x: 14, y: 0, z: 14}
   - {x: 20, y: 0, z: 2}
   - {x: 8, y: 0, z: 16}
-  - {x: 14, y: 0, z: 18}
