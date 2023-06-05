@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+
+using TMPro;
+using UnityEngine.UI;
 
 public class WorldMap_UIManager : MonoBehaviour
 {
@@ -14,10 +16,19 @@ public class WorldMap_UIManager : MonoBehaviour
     [SerializeField] private GameObject _Party;
     [SerializeField] private GameObject _Save;
     [SerializeField] private GameObject _ChapterInfo;
+
+    [SerializeField] private GameObject _Tip;
+    [SerializeField] private Sprite[] _image;
+    [SerializeField] private Image _targetImage;
+    public int currentIndex = 0;
+    [SerializeField] private GameObject L_btn;
+    [SerializeField] private Image R_btn;
+
+
     private TMP_Text _ExpInfo;
     private RectTransform _Guide;
 
-    private enum STATE { INGAME, MENU, PARTY, SAVE }
+    private enum STATE { INGAME, MENU, PARTY, SAVE, TIP }
     private STATE state = STATE.INGAME;
 
     private bool isMenuState = false;
@@ -76,6 +87,11 @@ public class WorldMap_UIManager : MonoBehaviour
             case STATE.INGAME:
                 OnMenu();
                 _text.text = "저장";
+
+                if (Input.GetKeyDown(KeyCode.F1))
+                {
+                    OnTip();
+                }
                 break;
 
             case STATE.MENU:
@@ -92,6 +108,13 @@ public class WorldMap_UIManager : MonoBehaviour
 
             case STATE.SAVE:
                 //OffSave();
+                break;
+
+            case STATE.TIP:
+                _targetImage.sprite = _image[currentIndex];
+
+                BtnManager();
+
                 break;
         }
     }
@@ -195,6 +218,53 @@ public class WorldMap_UIManager : MonoBehaviour
     public void LieSave()
     {
         _text.text = "저장 완료";
+    }
+    #endregion
+
+    #region [도움말]
+    private void OnTip()
+    {
+        _Tip.SetActive(true);
+
+        state = STATE.TIP;
+    }
+
+    private void OffTip()
+    {
+        _Tip.SetActive(false);
+
+        state = STATE.MENU;
+    }
+    public void ChangeImage(bool isNext)
+    {
+        if (isNext)
+        {
+            currentIndex = (currentIndex >= _image.Length - 1) ? currentIndex = _image.Length - 1 : ++currentIndex;
+        }
+        else
+        {
+            currentIndex = (currentIndex < 1) ? currentIndex = 0 : --currentIndex;
+        }
+    }
+    private void BtnManager()
+    {
+        if (currentIndex == 0)
+        {
+            L_btn.SetActive(false);
+        }
+        else
+        {
+            L_btn.SetActive(true);
+        }
+
+        if (currentIndex == _image.Length - 1)
+        {
+            R_btn.sprite = Resources.Load<Sprite>("complete");
+        }
+        else
+        {
+            R_btn.sprite = Resources.Load<Sprite>("Select_Menu_Arrow");
+        }
     }
     #endregion
 }

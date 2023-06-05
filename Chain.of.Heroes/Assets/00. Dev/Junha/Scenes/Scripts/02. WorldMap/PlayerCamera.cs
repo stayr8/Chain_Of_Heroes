@@ -40,7 +40,7 @@ public class PlayerCamera : MonoBehaviour
     {
         chapterInfoRT = GameObject.Find("[Image] Info Background").GetComponent<RectTransform>();
 
-        Img_Tip = GameObject.Find("[Image] Tip").GetComponent<Image>();
+        Img_Tip = GameObject.Find("[Image] CameraTip").GetComponent<Image>();
         focusMode = Resources.Load<Sprite>("Camera_Focus");
         freeMode = Resources.Load<Sprite>("Camera_Free");
 

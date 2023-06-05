@@ -200,11 +200,13 @@ public class UnitActionSystemUI : MonoBehaviour
     {
         rt = character_Image.gameObject.GetComponent<RectTransform>();
         character_Image.sprite = Resources.Load<Sprite>(data.m_resourcePath);
+        rt.sizeDelta = new Vector2(770f, 1170f); // SetNativeSize() / 3;
+        rt.localScale = new Vector2(-1f, 1f);
 
         switch (data.m_name)
         {
             case "아카메": // _1
-                rt.anchoredPosition = new Vector2(-710f, -341f);
+                rt.anchoredPosition = new Vector2(-669f, -278f);
                 break;
 
             case "크리스": // _2
@@ -217,22 +219,25 @@ public class UnitActionSystemUI : MonoBehaviour
 
             case "멜리사": // _4
                 rt.anchoredPosition = new Vector2(-710f, -341f);
+                rt.localScale = new Vector2(1f, 1f);
                 break;
 
             case "플라틴": // _5
-                rt.anchoredPosition = new Vector2(-584f, -415f);
+                rt.anchoredPosition = new Vector2(-585f, -332f);
                 break;
 
             case "아이네": // _6
-                rt.anchoredPosition = new Vector2(-524f, -341f);
+                rt.anchoredPosition = new Vector2(-617f, -341f);
+                rt.localScale = new Vector2(1f, 1f);
                 break;
 
             case "제이브": // _7
-                rt.anchoredPosition = new Vector2(-584f, -415f);
+                rt.anchoredPosition = new Vector2(-585f, -341f);
+                rt.localScale = new Vector2(1f, 1f);
                 break;
 
             case "바네사": // _8
-                rt.anchoredPosition = new Vector2(-620f, -222f);
+                rt.anchoredPosition = new Vector2(-585f, -224f);
                 break;
         }
     }
