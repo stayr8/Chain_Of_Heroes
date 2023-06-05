@@ -310,17 +310,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5531383504904615254}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 2.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1258666504869787516}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0.59}
   m_SizeDelta: {x: 1.5, y: 0.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7767175661148349686
@@ -632,9 +632,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skill1_effect: {fileID: 2246365127883289709, guid: fcdc354b7d3e0cb4d8d0fc6c262834ee, type: 3}
   skill1_effect_transform: {fileID: 2234267995658904005}
-  obstaclesLayerMask:
-    serializedVersion: 2
-    m_Bits: 0
   maxGdSkill_1_Distance: 1
 --- !u!114 &980143029882267657
 MonoBehaviour:

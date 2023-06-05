@@ -14,6 +14,12 @@ public class MoveAction : BaseAction
     private List<Vector3> positionList;
     private int currentPositionIndex = 0;
 
+    private bool moving;
+
+    private void Start()
+    {
+        moving = false;
+    }
 
     private void Update()
     {
@@ -25,24 +31,28 @@ public class MoveAction : BaseAction
         Vector3 targetPosition = positionList[currentPositionIndex];
         Vector3 moveDirection = (targetPosition - transform.position).normalized;
 
-        float rotateSpeed = 80f;
-        transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed);
-
-        float stoppingDistance = 0.1f;
-        if (Vector3.Distance(transform.position, targetPosition) > stoppingDistance)
+        if (moving)
         {
-            float moveSpeed = 4f;
-            transform.position += moveDirection * moveSpeed * Time.deltaTime;
+            float rotateSpeed = 70f;
+            transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed);
 
-        }
-        else
-        {
-            currentPositionIndex++;
-            if(currentPositionIndex >= positionList.Count)
+            float stoppingDistance = 0.1f;
+            if (Vector3.Distance(transform.position, targetPosition) > stoppingDistance)
             {
-                OnStopMoving?.Invoke(this, EventArgs.Empty);
+                float moveSpeed = 4f;
+                transform.position += moveDirection * moveSpeed * Time.deltaTime;
 
-                ActionComplete();
+            }
+            else
+            {
+                currentPositionIndex++;
+                if (currentPositionIndex >= positionList.Count)
+                {
+                    OnStopMoving?.Invoke(this, EventArgs.Empty);
+
+                    ActionComplete();
+                    moving = false;
+                }
             }
         }
     }
@@ -60,6 +70,7 @@ public class MoveAction : BaseAction
         }
 
         OnStartMoving?.Invoke(this, EventArgs.Empty);
+        moving = true;
 
         ActionStart(onActionComplete);
     }

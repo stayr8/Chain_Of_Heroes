@@ -64,8 +64,9 @@ public class CameraController : MonoBehaviour
 
         if (UnitActionSystem.Instance.GetCameraSelUnit())
         {
+
             Vector3 moveDirection = (mousepos - transform.position).normalized;
-            if (Vector3.Distance(transform.position, mousepos) > 0.1f)
+            if (Vector3.Distance(transform.position, mousepos) > 0.5f)
             {
                 float moveSpeed = 10f;
                 transform.position += moveDirection * moveSpeed * Time.deltaTime;
