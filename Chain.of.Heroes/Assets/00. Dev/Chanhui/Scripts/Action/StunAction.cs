@@ -108,8 +108,9 @@ public class StunAction : BaseAction
                 break;
             case State.Unit_StunStop:
                 OnUnitStun_Start?.Invoke(this, EventArgs.Empty);
+                unit.SetIsStun(true);
                 skill1EffectTransform = Instantiate(skill1_effect, skill1_effect_transform.position, Quaternion.identity);
-                skill1EffectTransform.transform.parent = skill1_effect_transform.parent;
+                skill1EffectTransform.transform.parent = skill1_effect_transform;
                 state = State.Unit_Stun;
 
                 break;
