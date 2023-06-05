@@ -18,10 +18,11 @@ public class WorldMap_UIManager : MonoBehaviour
     [SerializeField] private GameObject _ChapterInfo;
 
     [SerializeField] private GameObject _Tip;
+    [SerializeField] private GameObject _f1;
     [SerializeField] private Sprite[] _image;
     [SerializeField] private Image _targetImage;
     public int currentIndex = 0;
-    [SerializeField] private GameObject L_btn;
+    [SerializeField] private Image L_btn;
     [SerializeField] private Image R_btn;
 
 
@@ -34,6 +35,7 @@ public class WorldMap_UIManager : MonoBehaviour
     private bool isMenuState = false;
     private bool isOnParty = false;
     private bool isOnSave = false;
+    private bool isOnTip = false;
     public bool GetBool(string _bool)
     {
         if (_bool == "isMenuState")
@@ -47,6 +49,10 @@ public class WorldMap_UIManager : MonoBehaviour
         else if (_bool == "isOnSave")
         {
             return isOnSave;
+        }
+        else if(_bool == "isOnTip")
+        {
+            return isOnTip;
         }
         else
         {
@@ -90,6 +96,7 @@ public class WorldMap_UIManager : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.F1))
                 {
+                    _f1.SetActive(false);
                     OnTip();
                 }
                 break;
@@ -112,9 +119,8 @@ public class WorldMap_UIManager : MonoBehaviour
 
             case STATE.TIP:
                 _targetImage.sprite = _image[currentIndex];
-
                 BtnManager();
-
+                
                 break;
         }
     }
@@ -225,15 +231,40 @@ public class WorldMap_UIManager : MonoBehaviour
     private void OnTip()
     {
         _Tip.SetActive(true);
+        isOnTip = true;
 
         state = STATE.TIP;
     }
+    private void BtnManager()
+    {
+        if (currentIndex == 0)
+        {
+            L_btn.gameObject.SetActive(false);
+        }
+        else
+        {
+            L_btn.gameObject.SetActive(true);
+        }
 
-    private void OffTip()
+        if (currentIndex == _image.Length - 1)
+        {
+            R_btn.gameObject.SetActive(false);
+        }
+        else
+        {
+            R_btn.gameObject.SetActive(true);
+        }
+    }
+
+    public void OffTip()
     {
         _Tip.SetActive(false);
+        _f1.SetActive(true);
 
-        state = STATE.MENU;
+        isOnTip = false;
+        currentIndex = 0;
+
+        state = STATE.INGAME;
     }
     public void ChangeImage(bool isNext)
     {
@@ -244,26 +275,6 @@ public class WorldMap_UIManager : MonoBehaviour
         else
         {
             currentIndex = (currentIndex < 1) ? currentIndex = 0 : --currentIndex;
-        }
-    }
-    private void BtnManager()
-    {
-        if (currentIndex == 0)
-        {
-            L_btn.SetActive(false);
-        }
-        else
-        {
-            L_btn.SetActive(true);
-        }
-
-        if (currentIndex == _image.Length - 1)
-        {
-            R_btn.sprite = Resources.Load<Sprite>("complete");
-        }
-        else
-        {
-            R_btn.sprite = Resources.Load<Sprite>("Select_Menu_Arrow");
         }
     }
     #endregion
