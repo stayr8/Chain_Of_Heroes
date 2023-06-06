@@ -238,11 +238,11 @@ public class ReadyAction : BaseAction
                         Unit Prunit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
                         if (Prunit.GetUnitName() == "플라틴")
                         {
-                            Debug.Log("가디언");
+
                         }
                         else
                         {
-                            Debug.Log(Prunit);
+
                             continue;
                         }
                     }

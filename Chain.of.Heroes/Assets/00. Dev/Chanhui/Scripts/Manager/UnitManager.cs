@@ -238,6 +238,10 @@ public class UnitManager : MonoBehaviour
         playerDeadList.Clear();
     }
 
+    public void GetPlayerUI()
+    {
+        characterUiList = ChangeFormationSystem.Instance.GetCharacterUIList();
+    }
 
 
     public List<Unit> GetUnitList()

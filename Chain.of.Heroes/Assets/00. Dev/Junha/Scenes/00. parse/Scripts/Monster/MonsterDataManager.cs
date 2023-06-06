@@ -165,8 +165,16 @@ public class MonsterDataManager : MonoBehaviour
             OnEnemyDie?.Invoke(this, EventArgs.Empty);
             monster.GetAnyUnitDead();
 
-            LevelGrid.Instance.RemoveUnitAtGridPosition(monster.GetGridPosition(), monster);
-            monster.MonsterGridPosition(monster.GetGridPosition(), false);
+            if(monster.GetEnemyVisualType() == Unit.EnemyType.RedStoneGolem ||
+               monster.GetEnemyVisualType() == Unit.EnemyType.Dragon)
+            {
+                monster.MonsterGridPosition(monster.GetGridPosition(), false);
+            }
+            else
+            {
+                LevelGrid.Instance.RemoveUnitAtGridPosition(monster.GetGridPosition(), monster);
+            }
+            
             Destroy(gameObject, 4.0f);
 
         }
@@ -207,8 +215,15 @@ public class MonsterDataManager : MonoBehaviour
             OnEnemyDie?.Invoke(this, EventArgs.Empty);
             monster.GetAnyUnitDead();
 
-            LevelGrid.Instance.RemoveUnitAtGridPosition(monster.GetGridPosition(), monster);
-            monster.MonsterGridPosition(monster.GetGridPosition(), false);
+            if (monster.GetEnemyVisualType() == Unit.EnemyType.RedStoneGolem ||
+              monster.GetEnemyVisualType() == Unit.EnemyType.Dragon)
+            {
+                monster.MonsterGridPosition(monster.GetGridPosition(), false);
+            }
+            else
+            {
+                LevelGrid.Instance.RemoveUnitAtGridPosition(monster.GetGridPosition(), monster);
+            }
             Destroy(gameObject, 4.0f);
 
         }
@@ -233,8 +248,15 @@ public class MonsterDataManager : MonoBehaviour
             OnEnemyDie?.Invoke(this, EventArgs.Empty);
             monster.GetAnyUnitDead();
 
-            LevelGrid.Instance.RemoveUnitAtGridPosition(monster.GetGridPosition(), monster);
-            monster.MonsterGridPosition(monster.GetGridPosition(), false);
+            if (monster.GetEnemyVisualType() == Unit.EnemyType.RedStoneGolem ||
+              monster.GetEnemyVisualType() == Unit.EnemyType.Dragon)
+            {
+                monster.MonsterGridPosition(monster.GetGridPosition(), false);
+            }
+            else
+            {
+                LevelGrid.Instance.RemoveUnitAtGridPosition(monster.GetGridPosition(), monster);
+            }
             Destroy(gameObject, 4.0f);
 
         }

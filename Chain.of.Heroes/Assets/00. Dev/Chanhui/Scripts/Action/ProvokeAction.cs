@@ -45,7 +45,7 @@ public class ProvokeAction : BaseAction
             skill1EffectTransform.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
             oneffect = true;
         }
-        else if(unit.GetIsStun())
+        else if(skill1EffectTransform != null && unit.GetIsStun())
         {
             Destroy(skill1EffectTransform.gameObject);
             oneffect = false;

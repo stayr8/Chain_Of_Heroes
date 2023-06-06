@@ -218,7 +218,7 @@ public class UnitActionSystemUI : MonoBehaviour
                 break;
 
             case "¸á¸®»ç": // _4
-                rt.anchoredPosition = new Vector2(-710f, -341f);
+                rt.anchoredPosition = new Vector2(-526f, -341f);
                 rt.localScale = new Vector2(1f, 1f);
                 break;
 

@@ -220,6 +220,7 @@ GameObject:
   - component: {fileID: -1416789301734179253}
   - component: {fileID: 4524703546893817493}
   - component: {fileID: -8645538456514664024}
+  - component: {fileID: 8777526269602454674}
   m_Layer: 15
   m_Name: EliteSkeletonArcher
   m_TagString: Enemy
@@ -450,6 +451,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2989963664f74d438f3b7c6bdbefded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8777526269602454674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3695012023952319668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1d13ac95632ae1448904a53ef182030, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skill1_effect: {fileID: 480980, guid: ed464b95c9a8f3e46909ff4744c48149, type: 3}
+  skill1_effect_transform: {fileID: 9019068242179223990}
 --- !u!1 &4312441999734705962
 GameObject:
   m_ObjectHideFlags: 0

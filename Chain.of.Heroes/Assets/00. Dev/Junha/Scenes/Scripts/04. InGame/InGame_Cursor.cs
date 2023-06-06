@@ -6,8 +6,10 @@ public class InGame_Cursor : CursorBase
 {
     private RectTransform rt;
     private GameObject currentSelected;
+    [SerializeField] private bool _istutorial;
 
     private const float INIT_X = -920f; private const float INIT_Y = 100f;
+
 
     private void Awake()
     {
@@ -46,9 +48,12 @@ public class InGame_Cursor : CursorBase
                     break;
 
                 case "_Surrender":
-                    InGame_UIManager.instance.Onfallfo();
-
-                    Reset();
+                    if (!_istutorial)
+                    {
+                        InGame_UIManager.instance.Onfallfo();
+                        Reset();
+                    }
+                    
                     break;
             }
         }

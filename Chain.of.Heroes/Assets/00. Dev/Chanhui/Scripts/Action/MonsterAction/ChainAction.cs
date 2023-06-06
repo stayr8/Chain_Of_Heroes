@@ -21,8 +21,6 @@ public class ChainAction : BaseAction
             targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(validGridPositionList[0]);
             targetUnit2 = LevelGrid.Instance.GetUnitAtGridPosition(validGridPositionList[1]);
 
-            Debug.Log(targetUnit.GetUnitName());
-            Debug.Log(targetUnit2.GetUnitName());
             BaseAction bestBaseAction = null;
             BaseAction bestBaseAction2 = null;
             if (targetUnit.GetIsAttackDistance())

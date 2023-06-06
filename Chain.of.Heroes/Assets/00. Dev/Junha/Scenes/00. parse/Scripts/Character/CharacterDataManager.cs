@@ -192,11 +192,10 @@ public class CharacterDataManager : MonoBehaviour
             OnPlayerDie?.Invoke(this, EventArgs.Empty);
             player.GetAnyUnitDead();
 
-            LevelGrid.Instance.RemoveUnitAtGridPosition(player.GetGridPosition(), player);
-
             //Destroy(gameObject, 4.0f);
             Invoke("DeadSpon", 3f);
 
+            LevelGrid.Instance.RemoveUnitAtGridPosition(player.GetGridPosition(), player);
         }
         else
         {
@@ -231,10 +230,10 @@ public class CharacterDataManager : MonoBehaviour
             OnPlayerDie?.Invoke(this, EventArgs.Empty);
             player.GetAnyUnitDead();
 
-            LevelGrid.Instance.RemoveUnitAtGridPosition(player.GetGridPosition(), player);
-
             //Destroy(gameObject, 4.0f);
             Invoke("DeadSpon", 3f);
+
+            LevelGrid.Instance.RemoveUnitAtGridPosition(player.GetGridPosition(), player);
         }
         else
         {

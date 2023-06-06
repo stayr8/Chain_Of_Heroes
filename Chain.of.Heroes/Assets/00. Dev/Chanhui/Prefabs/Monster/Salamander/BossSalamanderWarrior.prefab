@@ -427,7 +427,6 @@ GameObject:
   - component: {fileID: 8282298885073303675}
   - component: {fileID: -370482674512953063}
   - component: {fileID: 7648790785981008031}
-  - component: {fileID: -208383701943126675}
   - component: {fileID: 5486104868808547830}
   - component: {fileID: 1639426515483627999}
   - component: {fileID: 5032829695092126905}
@@ -610,20 +609,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxChainDistance: 1
---- !u!114 &-208383701943126675
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7244344358574414659}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6319f51d41d488499f3dbae45e9601e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skill1_effect: {fileID: 9197206113158755842, guid: 007a549e4b4ab614790069285901ffe7, type: 3}
-  skill1_effect_transform: {fileID: 6026789235154340485}
 --- !u!114 &5486104868808547830
 MonoBehaviour:
   m_ObjectHideFlags: 0

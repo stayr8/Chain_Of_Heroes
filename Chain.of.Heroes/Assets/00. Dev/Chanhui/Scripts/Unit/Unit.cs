@@ -147,11 +147,6 @@ public class Unit : MonoBehaviour
                 LevelGrid.Instance.UnitMovedGridPosition(this, oldGridPosition, newGridPosition);
             }
         }
-
-        if(isChainPossiblestate)
-        {
-
-        }
     }
 
     public T GetAction<T>() where T : BaseAction
@@ -267,6 +262,15 @@ public class Unit : MonoBehaviour
                 {
                     // Same Grid Position where the character is already at
                     continue;
+                }
+
+                if(LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition))
+                {
+                    Unit player = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
+                    if(!player.IsEnemy())
+                    {
+                        continue;
+                    }
                 }
 
                 if(testGridPosition == null)

@@ -242,7 +242,7 @@ public class DragonSkill1Action : BaseAction
         isSkill = true;
         actionCoolTime = 0;
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
-        unit.GetMonsterDataManager().m_skilldamagecoefficient = 1.0f;
+        unit.GetMonsterDataManager().m_skilldamagecoefficient = 0.7f;
 
         if (isSkillCount <= 0)
         {

@@ -87,6 +87,7 @@ public class ScenesSystem : MonoBehaviour
     private void ScenesManager_OnScenesChange(object sender, EventArgs e)
     {
         ChanScene.SetActive(true);
+        UnitManager.Instance.GetPlayerUI();
         isInGame = true;
         Invoke("Time", 0.5f);
     }

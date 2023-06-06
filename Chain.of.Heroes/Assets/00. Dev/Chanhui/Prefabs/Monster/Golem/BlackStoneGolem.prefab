@@ -237,6 +237,7 @@ GameObject:
   - component: {fileID: 7245594440102175604}
   - component: {fileID: 9123454587874446124}
   - component: {fileID: 4142829173714060385}
+  - component: {fileID: 5239872512599809450}
   m_Layer: 15
   m_Name: BlackStoneGolem
   m_TagString: Enemy
@@ -463,6 +464,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2989963664f74d438f3b7c6bdbefded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5239872512599809450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2281334507915587549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1d13ac95632ae1448904a53ef182030, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skill1_effect: {fileID: 480980, guid: ed464b95c9a8f3e46909ff4744c48149, type: 3}
+  skill1_effect_transform: {fileID: 853555720113265958}
 --- !u!1 &3382544122930555410
 GameObject:
   m_ObjectHideFlags: 0

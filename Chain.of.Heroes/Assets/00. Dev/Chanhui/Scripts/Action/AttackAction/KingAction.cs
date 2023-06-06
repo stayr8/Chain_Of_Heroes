@@ -242,17 +242,20 @@ public class KingAction : BaseAction
 
                 if (unit.IsEnemy() && isProvoke)
                 {
-                    if(LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition))
+                    if (unit.GetEnemyVisualType() != Unit.EnemyType.GoblinLoad ||
+                        unit.GetEnemyVisualType() != Unit.EnemyType.RedStoneGolem) 
                     {
-                        Unit Prunit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
-                        if (Prunit.GetUnitName() == "플라틴")
+                        if (LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition))
                         {
-                            Debug.Log("가디언");
-                        }
-                        else
-                        {
-                            Debug.Log(Prunit);
-                            continue;
+                            Unit Prunit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
+                            if (Prunit.GetUnitName() == "플라틴")
+                            {
+
+                            }
+                            else
+                            {
+                                continue;
+                            }
                         }
                     }
                 }
