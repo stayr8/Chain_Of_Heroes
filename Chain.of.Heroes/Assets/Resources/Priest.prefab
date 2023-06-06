@@ -505,7 +505,6 @@ GameObject:
   - component: {fileID: 2431518821814102591}
   - component: {fileID: 3115081128243359923}
   - component: {fileID: 3344890154929506122}
-  - component: {fileID: 6228714327043162098}
   - component: {fileID: 2613050172599108831}
   - component: {fileID: -8058097746937334391}
   - component: {fileID: -3893433257764295537}
@@ -514,6 +513,7 @@ GameObject:
   - component: {fileID: 3622615075190272887}
   - component: {fileID: 5798749009640988830}
   - component: {fileID: 6596508590731296865}
+  - component: {fileID: 1366695147191916998}
   m_Layer: 16
   m_Name: Priest
   m_TagString: Player
@@ -684,18 +684,6 @@ MonoBehaviour:
   m_skilldamagecoefficient: 0
   m_UnlockMapID: 0
   NumForLvUp: 0
---- !u!114 &6228714327043162098
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9108872348708313369}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c32281ad8c536534ab79952b0a84d685, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2613050172599108831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -798,6 +786,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f4f7392dc42adc44b83e5ac494a96fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1366695147191916998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9108872348708313369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e8ff624b1981d24f81a40fd40b67f48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &2003859914626563003

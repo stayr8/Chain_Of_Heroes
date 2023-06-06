@@ -169,6 +169,7 @@ public class MonsterDataManager : MonoBehaviour
                monster.GetEnemyVisualType() == Unit.EnemyType.Dragon)
             {
                 monster.MonsterGridPosition(monster.GetGridPosition(), false);
+                //monster.GetBossMonsterPosition().Clear();
             }
             else
             {
@@ -219,6 +220,7 @@ public class MonsterDataManager : MonoBehaviour
               monster.GetEnemyVisualType() == Unit.EnemyType.Dragon)
             {
                 monster.MonsterGridPosition(monster.GetGridPosition(), false);
+                //monster.GetBossMonsterPosition().Clear();
             }
             else
             {
@@ -252,6 +254,7 @@ public class MonsterDataManager : MonoBehaviour
               monster.GetEnemyVisualType() == Unit.EnemyType.Dragon)
             {
                 monster.MonsterGridPosition(monster.GetGridPosition(), false);
+                //monster.GetBossMonsterPosition().Clear();
             }
             else
             {

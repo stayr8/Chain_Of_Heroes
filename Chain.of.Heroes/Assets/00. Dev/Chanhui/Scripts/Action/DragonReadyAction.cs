@@ -128,12 +128,12 @@ public class DragonReadyAction : BaseAction
                 {
                     continue;
                 }
-                /*
-                int testDistance = Mathf.Abs(x) + Mathf.Abs(z);
-                if(testDistance > maxReadyDistance)
+
+                if (unitGridPosition == testGridPosition)
                 {
+                    // Same Grid Position where the character is already at
                     continue;
-                }*/
+                }
 
                 if (!LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition))
                 {
@@ -141,22 +141,6 @@ public class DragonReadyAction : BaseAction
                     continue;
                 }
 
-                if (isProvoke)
-                {
-                    if (LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition))
-                    {
-                        Unit Prunit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
-                        if (Prunit.GetUnitName() == "플라틴")
-                        {
-                            Debug.Log("가디언");
-                        }
-                        else
-                        {
-                            Debug.Log(Prunit);
-                            continue;
-                        }
-                    }
-                }
 
                 Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
                 if (targetUnit.IsEnemy() == unit.IsEnemy())

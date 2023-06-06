@@ -18,8 +18,17 @@ public class ChainAction : BaseAction
         // 발견 된 체인 플레이어가 Action을 시작하는 곳
         if (validGridPositionList.Count > 1)
         {
-            targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(validGridPositionList[0]);
-            targetUnit2 = LevelGrid.Instance.GetUnitAtGridPosition(validGridPositionList[1]);
+            if(validGridPositionList[0] != null)
+            {
+                targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(validGridPositionList[0]);
+                Debug.Log(targetUnit);
+            }
+            if (validGridPositionList[1] != null)
+            {
+                targetUnit2 = LevelGrid.Instance.GetUnitAtGridPosition(validGridPositionList[1]);
+                Debug.Log(targetUnit2);
+            }
+            
 
             BaseAction bestBaseAction = null;
             BaseAction bestBaseAction2 = null;
@@ -82,6 +91,7 @@ public class ChainAction : BaseAction
         validGridPositionList = new List<GridPosition>();
 
         GridPosition unitGridPosition = unit.GetGridPosition();
+        Unit targetUnit = UnitActionSystem.Instance.GetSelecterdUnit();
 
         for (int x = -maxChainDistance; x <= maxChainDistance; x++)
         {
@@ -107,7 +117,7 @@ public class ChainAction : BaseAction
                     continue;
                 }
 
-                Unit targetUnit = UnitActionSystem.Instance.GetSelecterdUnit();
+                
                 Unit targetUnit2 = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
                 if (targetUnit == targetUnit2)
                 {

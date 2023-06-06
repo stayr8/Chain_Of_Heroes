@@ -174,22 +174,7 @@ public class DragonSkill2Action : BaseAction
                     continue;
                 }
 
-                if (isProvoke)
-                {
-                    if (LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition))
-                    {
-                        Unit Prunit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
-                        if (Prunit.GetUnitName() == "플라틴")
-                        {
-                            Debug.Log("가디언");
-                        }
-                        else
-                        {
-                            Debug.Log(Prunit);
-                            continue;
-                        }
-                    }
-                }
+                
 
                 Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
                 if (targetUnit.IsEnemy() == unit.IsEnemy())

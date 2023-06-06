@@ -120,12 +120,6 @@ public class EnemyMoveAction : BaseAction
                     continue;
                 }
                 
-                int pathfindingDistanceMultiplier = 12;
-                if (Pathfinding.Instance.GetPathLength(unitGridPosition, testGridPosition) > maxMoveDistance * pathfindingDistanceMultiplier)
-                {
-                    // Path length is too long
-                    continue;
-                }
 
                 validGridPositionList.Add(testGridPosition);
             }
@@ -152,6 +146,10 @@ public class EnemyMoveAction : BaseAction
         else if (unit.GetEnemyVisualType() == Unit.EnemyType.Sword || unit.GetEnemyVisualType() == Unit.EnemyType.RedStoneGolem)
         {
             targetCountAtGridPosition = unit.GetAction<KingAction>().GetTargetCountAtPosition(gridPosition);
+        }
+        else if (unit.GetEnemyVisualType() == Unit.EnemyType.Dragon)
+        {
+            targetCountAtGridPosition = unit.GetAction<DragonReadyAction>().GetTargetCountAtPosition(gridPosition);
         }
 
 

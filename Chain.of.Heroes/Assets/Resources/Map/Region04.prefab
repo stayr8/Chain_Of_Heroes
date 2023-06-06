@@ -888,6 +888,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TFF_Tree_Log_02A
       objectReference: {fileID: 0}
+    - target: {fileID: 4174457903320867725, guid: ab7585e0039b8a74fb6cb6bb65e83be5, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4174457903321004299, guid: ab7585e0039b8a74fb6cb6bb65e83be5, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -944,7 +948,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4174457903320867725, guid: ab7585e0039b8a74fb6cb6bb65e83be5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ab7585e0039b8a74fb6cb6bb65e83be5, type: 3}
 --- !u!4 &5033279564165633152 stripped
 Transform:
@@ -2104,7 +2109,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6743673785412700881, guid: 59af77aaa3e09e54db956af00ca21496, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 59af77aaa3e09e54db956af00ca21496, type: 3}
 --- !u!4 &747871854778557337 stripped
 Transform:
