@@ -52,7 +52,7 @@ public class PlayerCamera : MonoBehaviour
     {
         CameraArea();
 
-        if (!WorldMap_UIManager.instance.GetBool("isMenuState"))
+        if (!WorldMap_UIManager.instance.GetBool("isMenuState") && !WorldMap_UIManager.instance.GetBool("isOnTip"))
         {
             CameraMode();
         }

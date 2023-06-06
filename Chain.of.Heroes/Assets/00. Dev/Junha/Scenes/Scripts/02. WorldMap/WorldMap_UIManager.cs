@@ -32,10 +32,10 @@ public class WorldMap_UIManager : MonoBehaviour
     private enum STATE { INGAME, MENU, PARTY, SAVE, TIP }
     private STATE state = STATE.INGAME;
 
-    private bool isMenuState = false;
+    public bool isMenuState = false;
     private bool isOnParty = false;
     private bool isOnSave = false;
-    private bool isOnTip = false;
+    public bool isOnTip = false;
     public bool GetBool(string _bool)
     {
         if (_bool == "isMenuState")
@@ -94,7 +94,7 @@ public class WorldMap_UIManager : MonoBehaviour
                 OnMenu();
                 _text.text = "¿˙¿Â";
 
-                if (Input.GetKeyDown(KeyCode.F1))
+                if (!WorldMap_PlayerController.isMoving && Input.GetKeyDown(KeyCode.F1))
                 {
                     _f1.SetActive(false);
                     OnTip();

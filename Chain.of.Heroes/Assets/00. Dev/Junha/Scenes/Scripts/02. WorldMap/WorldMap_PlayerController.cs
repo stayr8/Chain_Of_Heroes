@@ -37,7 +37,7 @@ public class WorldMap_PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (!PlayerCamera.isFree && !WorldMap_UIManager.instance.GetBool("isMenuState"))
+        if (!PlayerCamera.isFree && (!WorldMap_UIManager.instance.GetBool("isMenuState") && !WorldMap_UIManager.instance.GetBool("isOnTip")))
         {
             Move();
         }
