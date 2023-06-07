@@ -94,14 +94,14 @@ public class Unit : MonoBehaviour
             {
                 if (enemyType == EnemyType.RedStoneGolem || enemyType == EnemyType.Dragon)
                 {
-                    MonsterGridPosition(gridPosition, false);
+                    MonsterGridPosition(this.gridPosition, false);
                 }
             }
             else
             {
                 if (enemyType == EnemyType.RedStoneGolem || enemyType == EnemyType.Dragon)
                 {
-                    MonsterGridPosition(gridPosition, true);
+                    MonsterGridPosition(this.gridPosition, true);
                 }
             }
         }, false);

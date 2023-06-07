@@ -34,14 +34,12 @@ public class UnitManager : MonoBehaviour
 
     public int playerpos;
     public int enemypos;
-    private int enemyCount;
     private bool OnChangeFormation;
 
     private void Start()
     {
         playerpos = 0;
         enemypos = 0;
-        enemyCount = 0;
 
         unitList = new List<Unit>();
         friendlyUnitList = new List<Unit>();
@@ -90,7 +88,6 @@ public class UnitManager : MonoBehaviour
 
         playerpos = 0;
         enemypos = 0;
-        enemyCount = 0;
 
         characterUiList = ChangeFormationSystem.Instance.GetCharacterUIList();
 
@@ -111,7 +108,6 @@ public class UnitManager : MonoBehaviour
             unit.GetMonsterDataManager().StageLevel = mapData.Stage_MonsterLV;
             unit.SetPosition(mapData.EnemyXY[enemypos]);
             enemypos++;
-            enemyCount++;
         }
         else
         {
@@ -140,7 +136,6 @@ public class UnitManager : MonoBehaviour
         if (unit.IsEnemy())
         {
             enemyUnitList.Remove(unit);
-            enemyCount--;
         }
         else
         {
@@ -283,7 +278,7 @@ public class UnitManager : MonoBehaviour
 
     public int GetEnemyCount()
     {
-        return enemyCount;
+        return enemyUnitList.Count;
     }
 
 
@@ -292,7 +287,6 @@ public class UnitManager : MonoBehaviour
     {
         playerpos = 0;
         enemypos = 0;
-        enemyCount = 0;
     }
     
 

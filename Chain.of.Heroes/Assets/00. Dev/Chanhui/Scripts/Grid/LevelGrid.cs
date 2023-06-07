@@ -99,9 +99,17 @@ public class LevelGrid : MonoBehaviour
         return gridObject.GetUnit();
     }
 
-    int chainDistance = 1;
+    
     public void GetChainStateGridPosition(GridPosition enemyGridPosition)
     {
+        int chainDistance = 1;
+        Unit enemy = GetUnitAtGridPosition(enemyGridPosition);
+        if (enemy.GetEnemyVisualType() == Unit.EnemyType.Dragon ||
+            enemy.GetEnemyVisualType() == Unit.EnemyType.RedStoneGolem)
+        {
+            chainDistance = 2;
+        }
+
         for (int x = -chainDistance; x <= chainDistance; x++)
         {
             for (int z = -chainDistance; z <= chainDistance; z++)
